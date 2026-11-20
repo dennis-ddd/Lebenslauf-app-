@@ -880,7 +880,7 @@ haus:{n:'Hausmeister/in',pay:38000,ic:'<path d="M14 7l3-3 3 3-3 3M15 8l-9 9-2 3 
 putz:{n:'Putzkraft',pay:18000,ic:'<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>',d:'Ein Zuhause, in dem immer alles glänzt. Jedes Jahr +3 Glück.'},
 garten:{n:'Gärtner/in',pay:26000,ic:'<path d="M12 22v-8M12 14c-4 0-7-3-7-8 5 0 7 3 7 8zM12 14c4 0 7-3 7-8-5 0-7 3-7 8z"/>',d:'Rasen wie auf dem Golfplatz. +2 Glück und +1 Aussehen pro Jahr.',need:()=>['reihenhaus','villa'].includes(p.home),nn:'braucht ein Haus mit Garten'},
 koch:{n:'Koch/Köchin',pay:45000,ic:'<path d="M7 3v8M5 3v4a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 0-3 3-3 6s1 4 3 4v8"/>',d:'Jeden Tag frisch gekocht. Zählt wie mediterrane Ernährung, dazu +2 Glück.'},
-fahrer:{n:'Chauffeur',pay:55000,ic:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M3 12h7M14 12h7M12 14v7"/>',d:'Fährt vor, wartet, findet immer einen Parkplatz. Du hast 1 Aktion mehr pro Jahr.',need:()=>p.cars.length>0,nn:'braucht ein eigenes Auto'},
+fahrer:{n:'Chauffeur',pay:55000,ic:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M3 12h7M14 12h7M12 14v7"/>',d:'Fährt vor, wartet, findet immer einen Parkplatz. Du hast 2 Aktionen mehr pro Jahr.',need:()=>p.cars.length>0,nn:'braucht ein eigenes Auto'},
 butler:{n:'Butler',pay:80000,ic:'<path d="M12 4a6 6 0 0 1 6 6v5l2 3H4l2-3v-5a6 6 0 0 1 6-6zM10 21h4"/>',d:'Empfängt Gäste und kennt jeden Wunsch. +4 Glück und +2 Charme pro Jahr.'},
 guard:{n:'Bodyguard',pay:110000,ic:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',d:'Steht vor der Tür. Schützt vor Überfällen und halbiert das Razzia-Risiko deiner Geschäfte.'}};
 const SURN=['Novak','Okafor','Costa','Weber','Keller','Santos','Yilmaz','Rossi','Kowalski','Nguyen','Schulte','Haas'];
@@ -1234,7 +1234,7 @@ function act3(id,arg){const pr=propSel!=null&&p.props?p.props.find(x=>x.id===pro
 function newLife(first,last,g,age,sb){
   p={first,last,g,age,alive:true,sb:!!sb,seed:R(1,2e9),money:sb?1000000:(age>=18?2000:0),st:{gl:R(55,90),ge:R(65,95),in:R(35,90),au:R(35,90)},
     edu:'keine',school:null,study:null,azubi:null,aus:false,deg:null,job:null,pension:0,home:'eltern',owned:[],cars:[],items:[],pets:[],
-    partner:null,kids:[],prison:0,crimes:0,wins:0,act:3,sav:0,loan:0,sh:{},px:{},prev:{},ach:{},log:[],cause:''};
+    partner:null,kids:[],prison:0,crimes:0,wins:0,act:6,sav:0,loan:0,sh:{},px:{},prev:{},ach:{},log:[],cause:''};
   p.hist={};p.cost={};p.mnews=[];STOCKS.forEach(s=>{let v=s.p;const h=[v];for(let i=0;i<12;i++){v=stepPrice(s,v);h.push(v)}p.hist[s.id]=h;p.px[s.id]=v;p.prev[s.id]=h[h.length-2]});
   ensureNew();regMyStock();p.m0=p.money;if(age>=6)msg('freund','Hey! Treffen wir uns morgen nach der Schule?');if(age>=13)msg('mama','Denk dran, heute Abend gibt es Spaghetti!');
   log((age===0?'Du wurdest in ':'Dein neues Leben mit '+age+' beginnt in ')+cityName(p.seed)+(age===0?' geboren.':'.'));
@@ -1299,7 +1299,7 @@ function ageUp(){
   p.trend=pick(TRENDS.filter(k=>k!==p.trend));
   // Körper
   if(a>45)add('ge',-R(0,2));if(a>65)add('ge',-R(1,4));if(a>30)add('au',-R(0,1));
-  add('gl',R(-3,3));checkAch();p.act=(p.job&&p.job.id==='influ'?4:3)+(p.staff&&p.staff.fahrer?1:0);
+  add('gl',R(-3,3));checkAch();p.act=6+(p.job&&p.job.id==='influ'?2:0)+(p.staff&&p.staff.fahrer?2:0);
   const risk=LY.risk+(p.st.ge<=0?1:0)+(a>65?(a-65)*.008:0)+(p.st.ge<20?.08:0);
   if(!p.sb&&ch(risk)){die(p.st.ge<20?'an einer schweren Krankheit':'friedlich im Schlaf');return}
   p.m0=p.money;save();render();
@@ -1751,7 +1751,7 @@ function viewKlick(){
     '<div class="kl-prog"><i style="width:'+prog.toFixed(1)+'%"></i></div><small class="kl-next">'+(nx?'Noch '+kfmt(nx[0]-sm.fol)+' Follower bis '+nx[1]:'Höchstes Level erreicht')+'</small>'+
     '<div class="kl-trust"><span>Glaubwürdigkeit</span><span class="kbar"><i style="width:'+sm.trust+'%"></i></span><b>'+sm.trust+' %</b></div></section>';
   const T=POSTT[p.trend];h+='<div class="trend"><b>Trend dieses Jahr: '+T.tag+'</b><span>'+T.n+'-Posts bekommen doppelte Reichweite</span></div>';
-  if(p.job&&p.job.id==='influ')h+='<div class="trend pro"><b>Vollzeit-Influencer/in</b><span>1,5× Reichweite und 4 Aktionen pro Jahr</span></div>';
+  if(p.job&&p.job.id==='influ')h+='<div class="trend pro"><b>Vollzeit-Influencer/in</b><span>1,5× Reichweite und 2 Aktionen mehr pro Jahr</span></div>';
   else if(sm.fol>=10000)h+='<button class="trend pro" data-a="goto" data-g="jobs"><b>Mach es zum Beruf!</b><span>Mit 10.000 Followern kannst du Influencer/in werden. Zur Jobs-App</span></button>';
   h+='<div class="seg kl-tabs">'+[['feed','Feed'],['vid','Videos'],['live','Live'],['deals','Deals'+(sm.deals.length?' ('+sm.deals.length+')':'')]].map(([k,l])=>'<button data-a="smtab" data-g="'+k+'" aria-pressed="'+(smTab===k)+'">'+l+'</button>').join('')+'</div>';
   if(smTab==='feed'){
