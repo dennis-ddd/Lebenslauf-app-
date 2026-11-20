@@ -304,6 +304,46 @@ html,body{overscroll-behavior-y:none}
 @keyframes deal{from{transform:translateY(-14px) rotate(-6deg);opacity:0}}
 .bjt .btn:not(.o){background:rgba(255,255,255,.15);color:#fff}.bjt .btn.g{border-color:rgba(255,255,255,.4)}
 @media(prefers-reduced-motion:reduce){.pcard{animation:none}}
+
+/* Bank, Wohnen, Leben, Freizeit */
+svg.neu{color:#5B7CE6}
+.bignum{display:block;font-size:30px;font-weight:900;line-height:1.15;margin:4px 0;white-space:nowrap}
+.pill{border-radius:999px;padding:3px 10px;font-weight:900;font-size:13px}.pill.neg{background:light-dark(#FDE3E1,#4A2330);color:var(--bad)}
+.vbars{display:flex;align-items:flex-end;gap:5px;height:76px;margin:12px 0}.vbars i{flex:1;border-radius:6px 6px 3px 3px;background:var(--line)}.vbars i.hi{background:#3BB273}
+.kv2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0}.kv2>div{border:2px solid var(--line);border-radius:18px;padding:10px 12px}
+.kv2 small{display:block;font-size:12px;font-weight:800;color:var(--muted)}.kv2 b{display:block;font-size:22px;font-weight:900;white-space:nowrap}
+.seg.full{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);background:var(--soft);border-radius:16px;padding:4px}
+.seg.full button{color:var(--ink);border-radius:12px;min-height:42px;font-size:14px;padding:0 4px}.seg.full button[aria-pressed=true]{background:var(--card);box-shadow:0 2px 8px rgba(30,40,80,.12)}
+.wt,.lt,.ft{position:sticky;top:6px;z-index:2;background:light-dark(rgba(227,234,250,.95),rgba(36,48,90,.95));backdrop-filter:blur(6px)}
+.amts{display:flex;flex-wrap:wrap;gap:6px}.amt{min-height:40px;padding:0 14px;border-radius:999px;border:2px solid var(--line);background:var(--card);font-weight:800;font-size:14px;color:var(--ink)}
+.amt[aria-pressed=true]{background:#2B59C3;color:#fff;border-color:transparent}.amt:disabled{opacity:.4}
+.warn{margin:8px 0;background:light-dark(#FFF1E4,#3A2A1C);border-radius:14px;padding:8px 12px;font-weight:700;font-size:14px}
+.fkhead{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:0;text-align:left;color:var(--ink);min-height:44px}
+.fkhead span{flex:1}.fkhead span b{display:block;font-size:16px}.fkhead small{color:var(--muted);font-weight:700}
+.homecard{background:linear-gradient(160deg,light-dark(#FFF1E0,#3A2A1C),var(--card) 70%)}
+.homecard .lbl{margin-bottom:0}.room{display:block;width:100%;height:auto;border-radius:18px;margin-top:12px}
+.fic.off{background:var(--line);color:var(--muted)}
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px}
+.tier{display:flex;flex-direction:column;align-items:center;gap:1px;border:2px solid var(--line);background:var(--card);border-radius:16px;padding:8px 4px;color:var(--ink);min-height:70px}
+.tier b{font-size:14px}.tier small{font-size:12px;color:var(--muted);font-weight:700}.tier span{font-size:13px;font-weight:900}
+.tier.on{border-color:var(--good);background:light-dark(#E6F6EC,#1C3B2A)}.tier:disabled:not(.on){opacity:.45}
+.opt2{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}.opt2:first-of-type{border-top:0}
+.opt2>div{flex:1}.opt2 b{display:block;font-size:15px}.opt2 small{color:var(--muted);font-weight:600;font-size:13px}.opt2.on b{color:var(--good)}
+.event{background:linear-gradient(160deg,light-dark(#E3F1FF,#1F2850),var(--card) 70%)}
+.wgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.wcard{background:var(--card);border-radius:22px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 8px 24px rgba(30,40,80,.06);border:3px solid transparent}
+.wcard.on{border-color:#C2408C}.wav svg{border-radius:18px}.wcard b{font-size:15px}.wcard .btn{width:100%}
+.stars i{font-style:normal;color:var(--line);font-size:18px}.stars i.on{color:#F2B33D}.stars.small{color:#F2B33D;font-size:13px;letter-spacing:2px}
+.stat.sb{display:block;width:100%;background:none;border:0;padding:0;text-align:left;color:var(--ink);margin:0 0 10px}
+.me small{display:block}.me .btns{margin-top:8px}
+.goal{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.gk{width:28px;height:28px;border-radius:14px;border:3px solid var(--line);display:grid;place-items:center;flex:none}.goal.done .gk{background:var(--good);border-color:var(--good)}
+.gt b{display:block;font-size:15px}.gt small{color:var(--muted);font-weight:600}.goal.done .gt b{text-decoration:line-through;opacity:.7}
+.dem{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:end;background:var(--soft);border-radius:16px;padding:10px 12px;margin-bottom:10px}
+.dem small{display:block;font-size:11px;font-weight:900;color:var(--muted)}.dem b{font-size:16px}.dem .vbars{height:40px;margin:0}
+.lvl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}.lvl>span{font-weight:800;font-size:14px}
+.segs{display:flex;gap:4px;flex:1;min-width:80px}.segs i{flex:1;height:8px;border-radius:4px;background:var(--line)}.segs i.on{background:#3BB273}
+.segs.big4{margin:10px 0 0}.segs.big4 i{height:10px}.segs.big4 i.on{background:var(--blue)}
 .note{font-size:13px;color:var(--muted);font-weight:600;margin:0}
 </style>
 </head>
@@ -395,8 +435,7 @@ function toast(t){const e=document.getElementById('toast');e.textContent=t;e.sty
 function ach(k){if(p.ach[k])return;p.ach[k]=1;globalAch[k]=1;try{localStorage.setItem(AKEY,JSON.stringify(globalAch))}catch(e){}log('Erfolg freigeschaltet: '+ACH[k]+'!');toast('Erfolg: '+ACH[k])}
 function inSchool(){return !!(p.school||p.study||p.azubi)}
 function stockVal(){return STOCKS.reduce((s,x)=>s+(p.sh[x.id]||0)*p.px[x.id],0)}
-function netWorth(){return p.money+p.sav-p.loan+stockVal()+p.owned.reduce((s,k)=>s+HOMES[k].buy,0)}
-function checkAch(){if(p.money>=100000)ach('reich');if(netWorth()>=1e6)ach('mio');if(stockVal()>=10000)ach('aktien');if(p.age>=80)ach('achtzig');if(p.age>=100)ach('hundert')}
+function checkAch(){checkGoals();if(p.money>=100000)ach('reich');if(netWorth()>=1e6)ach('mio');if(stockVal()>=10000)ach('aktien');if(p.age>=80)ach('achtzig');if(p.age>=100)ach('hundert')}
 function cityName(seed){const r=rng(seed+7);const A=['Neu','Alt','Ober','Nieder','Nord','Süd','West','Ost','Groß','Klein'],B=['hafen','burg','stadt','felde','dorf','brück','heim','au','berg','wald'];return A[Math.floor(r()*10)]+B[Math.floor(r()*10)]}
 
 /* ---------- Avatar ---------- */
@@ -406,12 +445,12 @@ const SKIN=['#F6D3B8','#EBC09A','#C98E62','#9A643D','#6B4226'],HAIR=['#2B2118','
 const SHIRT=['#F7B2C4','#5B9BE6','#6C5CE7','#2FA88F','#F08A24','#2B59C3','#8E6E53','#9AA5B8'];
 const BGC=['#FDE8EF','#E3F1FF','#EDE9FF','#DDF5EE','#FFF0DD','#E3EAFA','#F3EAE0','#EEF0F4'];
 function mix(a,b,t){const pa=parseInt(a.slice(1),16),pb=parseInt(b.slice(1),16);return '#'+[16,8,0].map(s=>Math.round(((pa>>s)&255)*(1-t)+((pb>>s)&255)*t).toString(16).padStart(2,'0')).join('')}
-function avatarSvg(age,size,P){P=P||p;const s=stageOf(age),gl=P.st?P.st.gl:70,f=P.g!=='m';
+function avatarSvg(age,size,P,look){P=P||p;look=look||P.look;const s=stageOf(age),gl=P.st?P.st.gl:70,f=P.g!=='m';
   const skin=SKIN[P.skin||0],hair=s>=7?'#E9E9EC':(s===6?mix(HAIR[P.hair||0],'#BFC3CC',.55):HAIR[P.hair||0]);
   const cx=50,cy=s===0?50:(s===1?46:43),r=s===0?23:(s===1?20:18.5),sy=s===0?78:(s===1?70:66);
   let o='<svg viewBox="0 0 100 100" width="'+size+'" height="'+size+'" aria-hidden="true" style="display:block"><circle cx="50" cy="50" r="50" fill="'+BGC[s]+'"/>';
   if(f&&s>=1)o+='<path d="M'+(cx-r-3)+' '+cy+' Q'+(cx-r-6)+' '+(cy+r+16)+' '+(cx-r+4)+' '+(cy+r+18)+' L'+(cx+r-4)+' '+(cy+r+18)+' Q'+(cx+r+6)+' '+(cy+r+16)+' '+(cx+r+3)+' '+cy+' Z" fill="'+hair+'"/>';
-  o+='<path d="M'+(s===0?26:16)+' 100 Q'+(s===0?28:18)+' '+(sy+4)+' 50 '+sy+' Q'+(s===0?72:82)+' '+(sy+4)+' '+(s===0?74:84)+' 100 Z" fill="'+SHIRT[s]+'"/>';
+  o+='<path d="M'+(s===0?26:16)+' 100 Q'+(s===0?28:18)+' '+(sy+4)+' 50 '+sy+' Q'+(s===0?72:82)+' '+(sy+4)+' '+(s===0?74:84)+' 100 Z" fill="'+(look&&look.o&&s>=2&&typeof OF!=='undefined'&&OF[look.o]?OF[look.o][4]:SHIRT[s])+'"/>'+(look&&look.o==='anzug'&&s>=2?'<path d="M46 '+sy+' L50 '+(sy+6)+' L54 '+sy+' Z" fill="#fff"/><path d="M49 '+(sy+6)+' l1 12 1-12z" fill="#D7263D"/>':'');
   o+='<rect x="'+(cx-5)+'" y="'+(cy+r-4)+'" width="10" height="'+(sy-cy-r+6)+'" rx="4" fill="'+skin+'"/>';
   if(s===2)o+='<path d="M38 '+(sy+1)+' Q50 '+(sy+10)+' 62 '+(sy+1)+'" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="3" stroke-linecap="round"/>';
   if(s===4)o+='<path d="M44 '+sy+' L50 '+(sy+8)+' L56 '+sy+' Z" fill="#fff"/>';
@@ -428,7 +467,11 @@ function avatarSvg(age,size,P){P=P||p;const s=stageOf(age),gl=P.st?P.st.gl:70,f=
   const my=cy+r*.48,mw=r*.32,ms='fill="none" stroke="#7A3B2E" stroke-width="2" stroke-linecap="round"';
   o+=gl>=60?'<path d="M'+(cx-mw)+' '+my+' Q'+cx+' '+(my+6)+' '+(cx+mw)+' '+my+'" '+ms+'/>':gl>=30?'<path d="M'+(cx-mw*.8)+' '+(my+1.5)+' L'+(cx+mw*.8)+' '+(my+1.5)+'" '+ms+'/>':'<path d="M'+(cx-mw)+' '+(my+4)+' Q'+cx+' '+(my-2)+' '+(cx+mw)+' '+(my+4)+'" '+ms+'/>';
   if(s>=6)o+='<path d="M'+(cx-r*.75)+' '+(ey-5)+' q3 -1.5 6 0 M'+(cx+r*.75-6)+' '+(ey-5)+' q3 -1.5 6 0" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.2" stroke-linecap="round"/>';
-  if(s===7||(s===6&&P.glasses))o+='<g fill="none" stroke="#3A3F4B" stroke-width="1.6"><circle cx="'+(cx-ex)+'" cy="'+ey+'" r="5"/><circle cx="'+(cx+ex)+'" cy="'+ey+'" r="5"/><path d="M'+(cx-ex+5)+' '+ey+' L'+(cx+ex-5)+' '+ey+'"/></g>';
+  const acc=(look&&look.acc&&s>=2)?look.acc:[];
+  if(acc.includes('kette'))o+='<path d="M42 '+(sy+2)+' Q50 '+(sy+12)+' 58 '+(sy+2)+'" fill="none" stroke="#E8B820" stroke-width="2"/><circle cx="50" cy="'+(sy+10)+'" r="2.2" fill="#E8B820"/>';
+  if(acc.includes('hut'))o+='<ellipse cx="'+cx+'" cy="'+(cy-r*.62)+'" rx="'+(r+8)+'" ry="4" fill="#3A3F4B"/><path d="M'+(cx-r*.75)+' '+(cy-r*.62)+' Q'+(cx-r*.7)+' '+(cy-r*1.55)+' '+cx+' '+(cy-r*1.45)+' Q'+(cx+r*.7)+' '+(cy-r*1.55)+' '+(cx+r*.75)+' '+(cy-r*.62)+' Z" fill="#4A505E"/><rect x="'+(cx-r*.72)+'" y="'+(cy-r*.85)+'" width="'+(r*1.44)+'" height="3" fill="#C2408C"/>';
+  if(acc.includes('brille'))o+='<g fill="#1B1F2A"><rect x="'+(cx-ex-5.5)+'" y="'+(ey-3.5)+'" width="11" height="7" rx="2.5"/><rect x="'+(cx+ex-5.5)+'" y="'+(ey-3.5)+'" width="11" height="7" rx="2.5"/><rect x="'+(cx-ex+5)+'" y="'+(ey-1.5)+'" width="'+(2*ex-10)+'" height="2"/></g>';
+  else if(s===7||(s===6&&P.glasses))o+='<g fill="none" stroke="#3A3F4B" stroke-width="1.6"><circle cx="'+(cx-ex)+'" cy="'+ey+'" r="5"/><circle cx="'+(cx+ex)+'" cy="'+ey+'" r="5"/><path d="M'+(cx-ex+5)+' '+ey+' L'+(cx+ex-5)+' '+ey+'"/></g>';
   return o+'</svg>';
 }
 
@@ -535,7 +578,7 @@ function vidRow(v){const V=VIDT[v.g];return '<div class="vrow"><div class="thumb
 
 function ensureNew(){
   if(p.skin==null){p.skin=R(0,4);p.hair=R(0,5);p.beard=ch(.5);p.bald=ch(.4);p.glasses=ch(.5)}
-  if(!p.friend)p.friend=pick(FN.concat(MN));if(!p.pa)p.pa=R(24,36);if(!p.chats)p.chats={};if(!p.yr)p.yr={social:0,casino:0};ensureBiz();
+  if(!p.friend)p.friend=pick(FN.concat(MN));if(!p.pa)p.pa=R(24,36);if(!p.chats)p.chats={};if(!p.yr)p.yr={social:0,casino:0};ensureBiz();ensureEcon();
   if(p.m0==null)p.m0=p.money;if(!p.trend)p.trend=pick(TRENDS.slice(0,5));if(!p.seenJobs)p.seenJobs=[];if(p.sm===undefined)p.sm=null;
 }
 function newJobs(){return JOBS.filter(j=>!canJob(j)&&!p.seenJobs.includes(j.id)).length}
@@ -567,17 +610,18 @@ function ensureBiz(){if(!p.biz)p.biz={co:null,hold:false,fronts:[],firm:null,sho
 function regMyStock(){const f=p&&p.biz&&p.biz.firm;
   if(f&&f.ipo&&!STK.my){const F=FI[f.t];const s={id:'my',n:f.name,p:10,v:Math.min(.5,F.r),d:F.g*.6,div:.02,c:'#F28C28',b:'Deine eigene Firma an der Börse.'};STOCKS.push(s);STK.my=s}
   if(!(f&&f.ipo)&&STK.my){STOCKS.splice(STOCKS.findIndex(s=>s.id==='my'),1);delete STK.my}}
-function washCap(){const B=p.biz;return B?B.fronts.reduce((s,k)=>s+FR[k].wash,0):0}
+const flvl=k=>(p.biz&&p.biz.lvl&&p.biz.lvl[k])||1;
+function washCap(){const B=p.biz;return B?B.fronts.reduce((s,k)=>s+Math.round(FR[k].wash*(1+.4*(flvl(k)-1))),0):0}
 function svcQ(k){const s=p.biz.shop.svc[k],S=SVC[k];return s==='pro'?1:clamp(p.st[S.st]/S.min,.3,1.15)}
 function shopProfit(){const s=p.biz.shop;if(!s)return 0;const q=Object.keys(SVC).reduce((t,k)=>t+svcQ(k),0)/4,reach=1+(p.sm?Math.log10(p.sm.fol+10)/8:0);
   const rev=14000*s.lvl*q*reach;return Math.round(rev*SHOPCAT[s.cat][1]-Object.keys(SVC).reduce((t,k)=>t+(s.svc[k]==='pro'?SVC[k].pro:0),0))}
 function empCost(f){return Math.round(8000+f.val*.008)}
 function firmProfit(){const f=p.biz.firm;return f&&!f.ipo?Math.round(Math.max(0,f.val*.12-f.emp*empCost(f))*.5):0}
-function bizExpected(){const B=p.biz;if(!B)return 0;return B.fronts.reduce((s,k)=>s+FR[k].profit,0)+firmProfit()+shopProfit()+(B.bank?Math.round(B.bank.dep*.01):0)}
+function bizExpected(){const B=p.biz;if(!B)return 0;return B.fronts.reduce((s,k)=>s+Math.round(FR[k].profit*(1+.5*(flvl(k)-1))*((B.dem&&B.dem[k])?B.dem[k][B.dem[k].length-1]:1)),0)+firmProfit()+shopProfit()+(B.bank?Math.round(B.bank.dep*.01):0)}
 function bizYear(){ensureBiz();const B=p.biz,inc=[],out=[];let taxable=0;
   // Geschäfte
-  let fp=0,fines=0;B.fronts.forEach(k=>{const F=FR[k];fp+=Math.round(F.profit*(.8+Math.random()*.4));
-    if(ch(F.raid/100*(p.dirty>0?1.5:.5))){const fine=Math.round(F.cost*.1),lost=Math.round(p.dirty*.5);fines+=fine;p.dirty-=lost;
+  let fp=0,fines=0;B.fronts.forEach(k=>{const F=FR[k],dm=B.dem[k]||(B.dem[k]=[1]);const d=clamp(dm[dm.length-1]+(Math.random()-.5)*.3,.6,1.5);dm.push(+d.toFixed(2));if(dm.length>10)dm.shift();fp+=Math.round(F.profit*(1+.5*(flvl(k)-1))*d);
+    if(ch(F.raid/100*(p.dirty>0?1.5:.5)*(p.staff&&p.staff.guard?.5:1))){const fine=Math.round(F.cost*.1),lost=Math.round(p.dirty*.5);fines+=fine;p.dirty-=lost;
       log('Razzia im '+F.n+'! Strafe '+eur(fine)+(lost?', '+eur(lost)+' Schwarzgeld beschlagnahmt':'')+'.');add('gl',-6);
       if(lost>150000&&ch(.4)&&!p.prison){p.prison=2;p.job=null;log('Wegen Geldwäsche musst du für 2 Jahre ins Gefängnis.');ach('knast')}}});
   p.money+=fp-fines;taxable+=fp;inc.push(['Geschäfte',fp]);out.push(['Razzia-Strafen',fines]);
@@ -608,9 +652,10 @@ function viewBiz(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
   h+='<section class="card co"><div class="fic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></div><div class="ct"><b>'+esc(B.co.name)+'</b><small>'+(B.hold?'Holding · Tech-Startup und eigene Bank freigeschaltet':'GmbH · gegründet mit '+B.co.a+' Jahren')+'</small></div>'+
     (B.hold?'<span class="chip">Holding</span>':btn('holding',null,'Holding · '+eur(HOLD_COST),'',p.money<HOLD_COST||lock))+'</section>';
   // Geschäfte
-  h+='<h3 class="sec">Geschäfte</h3>'+FRONTS.map(F=>{const own=B.fronts.includes(F.id);
+  h+='<h3 class="sec">Geschäfte</h3>'+FRONTS.map(F=>{const own=B.fronts.includes(F.id),lv=flvl(F.id),dm=(B.dem&&B.dem[F.id])||[1],dl=dm[dm.length-1];
     return '<section class="card front'+(own?' own':'')+'"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg></span><div><b>'+F.n+'</b><small>'+F.d+'</small></div></div>'+
-      '<div class="tags"><span class="tag g">+'+eur(F.profit)+' im Jahr</span><span class="tag">wäscht '+eur(F.wash)+'</span><span class="tag w">Razzia '+F.raid+' %</span></div>'+
+      '<div class="tags"><span class="tag g">+'+eur(F.profit*(1+.5*(lv-1)))+' im Jahr</span><span class="tag">wäscht '+eur(F.wash*(1+.4*(lv-1)))+'</span><span class="tag w">Razzia '+(p.staff&&p.staff.guard?F.raid/2:F.raid)+' %</span></div>'+
+      (own?'<div class="dem"><div><small>NACHFRAGE</small><b class="'+(dl>=1?'up':'down')+'">'+(dl>=1.15?'hoch':dl>=.9?'normal':'schwach')+'</b></div>'+bars(dm)+'</div><div class="lvl"><span>Ausbau '+lv+'/3</span><div class="segs">'+[1,2,3].map(i=>'<i class="'+(i<=lv?'on':'')+'"></i>').join('')+'</div>'+(lv<3?btn('upfront',F.id,'Ausbauen · '+eur(F.cost*.5*lv),'o',p.money<F.cost*.5*lv||lock):'')+'</div>':'')+
       '<div class="fb"><b>'+(own?'Gehört dir':eur(F.cost))+'</b>'+(own?btn('sellfront',F.id,'Verkaufen · '+eur(F.cost*.7),'g',lock):btn('front',F.id,'Kaufen','o',p.money<F.cost||lock))+'</div></section>'}).join('');
   // Firma
   h+='<h3 class="sec">Eigene Firma</h3>';const f=B.firm;
@@ -717,6 +762,354 @@ function viewCasino(){
   return h+'<p class="note" style="text-align:center">Im echten Leben gewinnt auf Dauer immer das Casino.</p>';
 }
 
+/* ================= Wirtschaft & Bank ================= */
+let bankUI={fgT:3,fgA:10000,krT:3,krA:10000,yr:null,fk:false},wTab='home',roomView=false,lTab='ich',fTab='aktiv';
+function ensureEcon(){
+  if(!p.econ){p.econ={idx:1,infl:[],lz:[]};let r=2;for(let i=0;i<12;i++){r=clamp(r+(2.2-r)*.3+(Math.random()*2-1)*.8,.3,6);p.econ.infl.push(+r.toFixed(1));p.econ.lz.push(+clamp(r+.5+(Math.random()-.5),0,6).toFixed(1))}}
+  if(!p.fg)p.fg=[];if(!p.loans){p.loans=[];if(p.loan>0){p.loans.push(mkLoan(p.loan,8,5));p.loan=0}}if(p.bon==null)p.bon=70;if(!p.fin)p.fin=[];
+  if(!p.sk)p.sk={fahren:0,schloss:0,hack:0,charme:R(10,30),kampf:R(5,20),form:R(20,45)};if(p.wanted==null)p.wanted=0;if(p.skinS==null)p.skinS=R(65,85);
+  if(!p.ill)p.ill={};if(!p.ls)p.ls={vors:'beschw',krank:'spaeter',diet:'normal'};if(!p.staff)p.staff={};if(!p.furn)p.furn={};if(!p.rented)p.rented={};
+  if(!p.ward)p.ward=[];if(!p.look)p.look={o:null,acc:[]};if(!p.goals)p.goals={};if(!p.clubs)p.clubs=[];if(p.gym===undefined)p.gym=null;if(!p.focus)p.focus='ganz';
+  if(!p.once)p.once={};if(!p.biz.lvl)p.biz.lvl={};if(!p.biz.dem)p.biz.dem={};
+}
+const curInfl=()=>p.econ.infl[p.econ.infl.length-1],curLz=()=>p.econ.lz[p.econ.lz.length-1];
+const px$=x=>Math.round(x*p.econ.idx);
+const rates=()=>{const l=curLz();return {konto:Math.max(0,l-.7),1:Math.max(.1,l-.3),3:Math.max(.2,l),5:Math.max(.3,l+.2)}};
+const pc1=v=>v.toFixed(1).replace('.',',')+' %';
+const once=k=>p.once[k]===p.age,setOnce=k=>{p.once[k]=p.age};
+function econYear(){const e=p.econ;let r=clamp(curInfl()+(2.2-curInfl())*.3+(Math.random()*2-1)*.9,.2,7.5);if(ch(.06))r=clamp(r+R(2,4),.2,9.5);
+  e.infl.push(+r.toFixed(1));e.lz.push(+clamp(r+.4+(Math.random()-.5)*1.2,0,7).toFixed(1));if(e.infl.length>40){e.infl.shift();e.lz.shift()}e.idx*=1+r/100;return r}
+function mkLoan(a,rate,n){const i=rate/100,pay=Math.round(a*i/(1-Math.pow(1+i,-n)));return {amt:a,rate,n,left:n,pay}}
+const loanSum=()=>(p.loans||[]).reduce((t,l)=>t+l.amt,0),fgSum=()=>(p.fg||[]).reduce((t,f)=>t+f.amt,0);
+function bonitaet(){const inc=(p.job?p.job.pay:0)+p.pension;return clamp(Math.round(35+Math.min(30,inc/2500)+Math.min(25,Math.max(0,netWorth())/40000)-loanSum()/Math.max(10000,inc*2)*12+(p.bon-70)),0,100)}
+const bonTxt=b=>b>=80?'Sehr gut':b>=60?'Gut':b>=40?'Mittel':b>=20?'Schwach':'Schlecht';
+const maxLoan=()=>p.age<18?0:Math.round(((((p.job?p.job.pay:0)+p.pension)*3+Math.max(0,netWorth())*.5+5000)*bonitaet()/100)/1000)*1000;
+const loanRate=()=>+(curLz()+2+(100-bonitaet())/12).toFixed(1);
+function bankYear(){const r=econYear(),out={zins:0,raten:0,fgz:0,si:0};
+  out.si=Math.round(p.sav*rates().konto/100);p.sav+=out.si;
+  p.fg=p.fg.filter(f=>{const z=Math.round(f.amt*f.rate/100);f.amt+=z;out.fgz+=z;f.left--;if(f.left<=0){p.money+=f.amt;log('Festgeld ausgezahlt: '+eur(f.amt)+'.');return false}return true});
+  let missed=false;p.loans=p.loans.filter(l=>{const z=Math.round(l.amt*l.rate/100),pay=Math.min(l.pay,l.amt+z);l.amt=l.amt+z-pay;p.money-=pay;out.raten+=pay;out.zins+=z;l.left--;
+    if(l.left<=0&&l.amt>0){p.money-=l.amt;out.raten+=l.amt;l.amt=0}return l.amt>0});
+  if(p.money<0&&out.raten>0){missed=true;p.bon=Math.max(0,p.bon-12);log('Eine Kreditrate ist geplatzt. Deine Bonität sinkt.')}
+  if(!missed)p.bon=Math.min(95,p.bon+2);
+  if(p.job&&p.job.id!=='influ')p.job.pay=Math.round(p.job.pay*(1+r/100));if(p.pension)p.pension=Math.round(p.pension*(1+r/200));
+  return out;
+}
+function netWorth(){const B=p.biz||{};return p.money+p.sav-loanSum()+fgSum()+stockVal()+p.owned.reduce((s,k)=>s+HOMES[k].buy,0)+(B.fronts||[]).reduce((s,k)=>s+FR[k].cost,0)+(B.firm&&!B.firm.ipo?B.firm.val:0)}
+function fixedCosts(){const L=[];const a=p.age,H=HOMES[p.home];
+  if(a>=18)L.push(['Wohnen: '+H.n,px$(H.c+(p.home==='eltern'?1200:0))]);
+  p.owned.filter(k=>k!==p.home).forEach(k=>L.push(['Unterhalt '+HOMES[k].n,px$(HOMES[k].c)]));
+  const kd=p.kids.filter(k=>a-k.b<18).length;if(kd)L.push(['Kinder ('+kd+')',kd*3000]);
+  p.cars.forEach(c=>L.push([CARS[c].n,CARS[c].c]));p.pets.forEach(x=>L.push([PETS[x.t].n+' '+x.n,PETS[x.t].c]));
+  Object.keys(p.staff).forEach(k=>L.push([STAFF[k].n,px$(STAFF[k].pay)]));
+  const d=DIET[p.ls.diet];if(d.c)L.push(['Ernährung: '+d.n,px$(d.c)]);if(VORS[p.ls.vors].c)L.push(['Vorsorge',px$(VORS[p.ls.vors].c)]);
+  if(p.gym)L.push([GYM[p.gym].n,px$(GYM[p.gym].c)]);p.clubs.forEach(c=>L.push([CLUBS[c].n,px$(CLUBS[c].c)]));
+  p.loans.forEach((l,i)=>L.push(['Kreditrate '+(i+1),l.pay]));
+  return L;
+}
+function bars(arr,hi){const mx=Math.max(...arr,1);return '<div class="vbars">'+arr.map((v,i)=>'<i style="height:'+Math.max(6,v/mx*100)+'%"'+(i===arr.length-1?' class="hi"':'')+'></i>').join('')+'</div>'}
+function viewBank(){ensureEcon();const R2=rates(),b=bonitaet(),nw=netWorth(),minor=p.age<18;
+  const born=p.econ.idx;let h='';
+  // Vermögen
+  const parts=[['Konto',Math.max(0,p.money),'#1E9E6A'],['Sparkonto',p.sav,'#2B59C3'],['Festgeld',fgSum(),'#8E63D6'],['Depot',stockVal(),'#F28C28'],['Immobilien & Firmen',nw-p.money-p.sav-fgSum()-stockVal()+loanSum(),'#C2408C']].filter(x=>x[1]>0);
+  const tot=parts.reduce((s,x)=>s+x[1],0)||1;
+  h+='<section class="card"><div class="listseg"><div class="lbl">NETTOVERMÖGEN</div>'+(loanSum()?'<span class="pill neg">−'+kfmt(loanSum())+' € Kredit</span>':'')+'</div><b class="bignum">'+eur(nw)+'</b><p class="note">Alles zusammen: Konto, Sparkonto, Festgeld, Depot, Immobilien und Geschäfte, abzüglich Kredite.</p>'+
+    '<div class="alloc" style="height:12px;margin:12px 0 8px">'+parts.map(x=>'<i style="flex:'+(x[1]/tot).toFixed(4)+';background:'+x[2]+'"></i>').join('')+'</div><div class="leg">'+parts.map(x=>'<span><i style="background:'+x[2]+'"></i>'+x[0]+' '+kfmt(x[1])+' €</span>').join('')+(p.dirty>0?'<span><i style="background:#3A3F4B"></i>Schwarzgeld '+kfmt(p.dirty)+' €</span>':'')+'</div></section>';
+  // Inflation
+  h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Inflation</h2><b class="up" style="font-size:22px">'+pc1(curInfl())+'</b></div>'+bars(p.econ.infl.slice(-12))+
+    '<div class="kv2"><div><small>Seit deiner Geburt</small><b>+'+Math.round((born-1)*100)+' %</b><small>teurer</small></div><div><small>Ein Kaffee</small><b>'+(3*born).toFixed(2).replace('.',',')+' €</b><small>heute</small></div></div>'+
+    '<p class="note">Mieten, Lebensstil, Personal und Behandlungen werden jedes Jahr um die Inflation teurer. Gehälter steigen mit. Geld auf dem Konto bringt keine Zinsen und verliert so jedes Jahr an Wert.</p></section>';
+  if(minor)return h+card('','<p class="note">Sparkonto, Festgeld und Kredite gibt es ab 18 Jahren.</p>');
+  // Sparkonto
+  h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Sparkonto</h2><b class="up">'+pc1(R2.konto)+' Zinsen</b></div><div class="bigv"><b>'+eur(p.sav)+'</b><span class="note">täglich verfügbar</span></div><div class="btns">'+btn('dep',1,'1.000 € einzahlen')+btn('dep','all','Alles einzahlen','g')+btn('wd',1,'1.000 € abheben')+btn('wd','all','Alles abheben','g')+'</div></section>';
+  // Festgeld
+  const fa=bankUI.fgA==='all'?Math.max(0,Math.floor(p.money)):bankUI.fgA,fr=R2[bankUI.fgT],fe=Math.round(fa*Math.pow(1+fr/100,bankUI.fgT));
+  h+='<section class="card"><h2 class="h">Festgeld</h2><p class="note">Mehr Zinsen als auf dem Sparkonto. Dafür kommst du erst nach der Laufzeit ohne Verlust an dein Geld. Wer früher kündigt, zahlt 3 % Gebühr und verliert die Zinsen.</p>'+
+    '<div class="seg full" style="margin:10px 0">'+[1,3,5].map(t=>'<button data-a="fgterm" data-g="'+t+'" aria-pressed="'+(bankUI.fgT===t)+'">'+t+' J. · '+pc1(R2[t])+'</button>').join('')+'</div>'+
+    '<div class="amts">'+[1000,10000,50000,100000,'all'].map(v=>'<button class="amt" data-a="fgamt" data-g="'+v+'" aria-pressed="'+(bankUI.fgA===v||String(bankUI.fgA)===String(v))+'">'+(v==='all'?'Alles':kfmt(v)+' €')+'</button>').join('')+'</div>'+
+    '<p class="note" style="margin:8px 0">'+eur(fa)+' für '+bankUI.fgT+' Jahr(e): danach etwa <b>'+eur(fe)+'</b>, wenn die Zinsen bleiben.</p>'+btn('fgopen',null,'Festgeld anlegen','o',fa<100||p.money<fa)+
+    (p.fg.length?'<div style="margin-top:10px">'+p.fg.map((f,i)=>row(eur(f.amt),pc1(f.rate)+' · noch '+f.left+' Jahr(e)',btn('fgbreak',i,'Kündigen','g'))).join('')+'</div>':'')+'</section>';
+  // Kredit
+  const ml=maxLoan(),ka=Math.min(bankUI.krA==='max'?ml:bankUI.krA,ml),kr=loanRate(),kl=ka>0?mkLoan(ka,kr,bankUI.krT):null;
+  h+='<section class="card"><div class="listseg"><div class="lbl">BONITÄT</div><b class="'+(b>=60?'up':b>=40?'':'down')+'">'+bonTxt(b)+'</b></div><div class="bar" style="margin:6px 0 12px"><i style="width:'+b+'%"></i></div>'+
+    '<div class="seg full">'+[2,3,5].map(t=>'<button data-a="krterm" data-g="'+t+'" aria-pressed="'+(bankUI.krT===t)+'">'+t+' Jahre</button>').join('')+'</div>'+
+    '<div class="amts" style="margin-top:10px">'+[5000,10000,25000,100000,'max'].map(v=>'<button class="amt" data-a="kramt" data-g="'+v+'" aria-pressed="'+(String(bankUI.krA)===String(v))+'"'+(v!=='max'&&v>ml?' disabled':'')+'>'+(v==='max'?'Maximum':kfmt(v)+' €')+'</button>').join('')+'</div>'+
+    '<div class="bigv" style="margin-top:10px"><b>'+eur(ka)+'</b><span class="note">möglich bis '+eur(ml)+'</span></div>'+
+    '<div class="kv2"><div><small>Zins</small><b>'+pc1(kr)+'</b></div><div><small>Rate im Jahr</small><b>'+(kl?eur(kl.pay):'–')+'</b></div></div>'+
+    (kl?'<p class="warn">Der Kredit kostet dich insgesamt '+eur(kl.pay*bankUI.krT-ka)+' Zinsen. Leih dir nur Geld, das du wirklich brauchst. Platzt eine Rate, sinkt deine Bonität.</p>':'')+btn('kropen',null,'Kredit aufnehmen','o',!kl||ka<1000||p.prison)+
+    (p.loans.length?'<div style="margin-top:10px">'+p.loans.map((l,i)=>row('Kredit '+(i+1)+': noch '+eur(l.amt),pc1(l.rate)+' · '+eur(l.pay)+' im Jahr · '+l.left+' Jahr(e)','<span class="btns" style="margin:0">'+btn('krrepay',i+':5000','−5.000 €','g',p.money<1)+btn('krrepay',i+':all','Ablösen','g',p.money<l.amt)+'</span>')).join('')+'</div>':'')+'</section>';
+  // Leitzins
+  h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Leitzins</h2><b style="font-size:22px">'+pc1(curLz())+'</b></div>'+lineSvg(p.econ.lz.slice(-12),90,true,'neu')+
+    row('Sparkonto','täglich frei','<b class="num up">'+pc1(R2.konto)+'</b>')+row('Festgeld 1 Jahr','','<b class="num up">'+pc1(R2[1])+'</b>')+row('Festgeld 3 Jahre','','<b class="num up">'+pc1(R2[3])+'</b>')+row('Festgeld 5 Jahre','','<b class="num up">'+pc1(R2[5])+'</b>')+row('Kredit für dich','','<b class="num down">'+pc1(kr)+'</b>')+'</section>';
+  // Depot
+  const held=STOCKS.filter(s=>(p.sh[s.id]||0)*p.px[s.id]>=1);
+  if(held.length)h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Depot</h2>'+btn('goto','boerse','Zur Börse','g')+'</div><b class="bignum">'+eur(stockVal())+'</b>'+held.map(s=>row(s.n,'','<b class="num">'+eur(p.sh[s.id]*p.px[s.id])+'</b>')).join('')+'</section>';
+  // Feste Kosten
+  const fk=fixedCosts(),fks=fk.reduce((s,x)=>s+x[1],0);
+  h+='<section class="card"><button class="fkhead" data-a="fktoggle"><span><b>Feste Kosten pro Jahr</b><small>'+fk.length+' Posten</small></span><b class="down">'+eur(fks)+'</b><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="transform:rotate('+(bankUI.fk?180:0)+'deg)"><path d="M6 9l6 6 6-6"/></svg></button>'+(bankUI.fk?fk.map(x=>'<div class="mrow"><span>'+esc(x[0])+'</span><b>'+eur(x[1])+'</b></div>').join(''):'')+'</section>';
+  // Einnahmen & Ausgaben
+  if(p.fin.length){const yrs=p.fin.slice(-6).reverse(),sel=yrs.find(y=>y.a===bankUI.yr)||yrs[0];
+    h+='<section class="card"><h2 class="h">Einnahmen und Ausgaben</h2><div class="amts">'+yrs.map(y=>'<button class="amt" data-a="finyr" data-g="'+y.a+'" aria-pressed="'+(y===sel)+'">mit '+y.a+'</button>').join('')+'</div>'+
+      '<div class="mbox" style="margin-top:10px"><div class="mt">Eingenommen</div>'+(sel.inc.map(x=>'<div class="mrow"><span>'+x[0]+'</span><b class="up">+'+eur(x[1])+'</b></div>').join('')||'<div class="mrow"><span>nichts</span></div>')+
+      '<div class="mt">Ausgegeben</div>'+(sel.out.map(x=>'<div class="mrow"><span>'+x[0]+'</span><b class="down">−'+eur(x[1])+'</b></div>').join('')||'<div class="mrow"><span>nichts</span></div>')+'</div></section>'}
+  return h;
+}
+
+/* ================= Wohnen ================= */
+Object.assign(HOMES.eltern,{ar:'Dein altes Kinderzimmer',sl:2});Object.assign(HOMES.wohnheim,{ar:'Am Campus',sl:2});Object.assign(HOMES.wg,{ar:'In der Südstadt',sl:3});
+Object.assign(HOMES.einzimmer,{ar:'In der Altstadt',sl:4});Object.assign(HOMES.dreizimmer,{ar:'Am Stadtpark',sl:6});Object.assign(HOMES.loft,{ar:'Am Hafen',sl:7});
+Object.assign(HOMES.penthouse,{ar:'Über den Dächern',sl:9});Object.assign(HOMES.hausboot,{ar:'Im alten Hafenbecken',sl:5});Object.assign(HOMES.reihenhaus,{ar:'In der Vorstadt',sl:8});Object.assign(HOMES.villa,{ar:'Im Villenviertel',sl:12});
+const STAFF={
+haus:{n:'Hausmeister/in',pay:38000,ic:'<path d="M14 7l3-3 3 3-3 3M15 8l-9 9-2 3 3-2 9-9"/>',d:'Hält deine Immobilien in Schuss: Reparaturen und Mieterärger kosten nur noch die Hälfte.',need:()=>p.owned.length>0,nn:'braucht eine eigene Immobilie'},
+putz:{n:'Putzkraft',pay:18000,ic:'<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>',d:'Ein Zuhause, in dem immer alles glänzt. Jedes Jahr +3 Glück.'},
+garten:{n:'Gärtner/in',pay:26000,ic:'<path d="M12 22v-8M12 14c-4 0-7-3-7-8 5 0 7 3 7 8zM12 14c4 0 7-3 7-8-5 0-7 3-7 8z"/>',d:'Rasen wie auf dem Golfplatz. +2 Glück und +1 Aussehen pro Jahr.',need:()=>['reihenhaus','villa'].includes(p.home),nn:'braucht ein Haus mit Garten'},
+koch:{n:'Koch/Köchin',pay:45000,ic:'<path d="M7 3v8M5 3v4a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 0-3 3-3 6s1 4 3 4v8"/>',d:'Jeden Tag frisch gekocht. Zählt wie mediterrane Ernährung, dazu +2 Glück.'},
+fahrer:{n:'Chauffeur',pay:55000,ic:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M3 12h7M14 12h7M12 14v7"/>',d:'Fährt vor, wartet, findet immer einen Parkplatz. Du hast 1 Aktion mehr pro Jahr.',need:()=>p.cars.length>0,nn:'braucht ein eigenes Auto'},
+butler:{n:'Butler',pay:80000,ic:'<path d="M12 4a6 6 0 0 1 6 6v5l2 3H4l2-3v-5a6 6 0 0 1 6-6zM10 21h4"/>',d:'Empfängt Gäste und kennt jeden Wunsch. +4 Glück und +2 Charme pro Jahr.'},
+guard:{n:'Bodyguard',pay:110000,ic:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',d:'Steht vor der Tür. Schützt vor Überfällen und halbiert das Razzia-Risiko deiner Geschäfte.'}};
+const SURN=['Novak','Okafor','Costa','Weber','Keller','Santos','Yilmaz','Rossi','Kowalski','Nguyen','Schulte','Haas'];
+const applicant=k=>{const r=rng(p.age*31+[...k].reduce((t,c,i)=>t+c.charCodeAt(0)*(i+7)*13,0)+(p.seed%1000));return pick2(r,FN.concat(MN))+' '+pick2(r,SURN)};
+function pick2(r,a){return a[Math.floor(r()*a.length)]}
+const FURN={bett:['Bett',1,'<path d="M3 18v-6h18v6M3 12V7h7v5M3 18v2M21 18v2"/>'],sofa:['Sofa',1,'<path d="M4 11V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3M3 11h18v6H3zM5 17v2M19 17v2"/>'],
+kueche:['Küche',3,'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M8 6h.01M12 6h.01"/>'],tv:['Fernseher',.8,'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8"/>'],
+desk:['Schreibtisch',.6,'<path d="M3 8h18M5 8v12M19 8v12M14 8v6h5"/>'],bad:['Bad',2.5,'<path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM6 12V5a2 2 0 0 1 4 0"/>'],
+deko:['Pflanzen & Deko',.4,'<path d="M12 21v-7M12 14c-4 0-6-3-6-7 4 0 6 3 6 7zM12 14c4 0 6-3 6-7-4 0-6 3-6 7zM8 21h8"/>'],kunst:['Kunst',2,'<rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 16l5-5 4 4 3-3 4 4"/>'],
+kamin:['Kamin',3,'<path d="M4 21V9h16v12M2 9h20M9 21v-5a3 3 0 0 1 6 0v5"/>'],pool:['Pool',10,'<path d="M3 17c2 0 2-1.5 4.5-1.5S9.5 17 12 17s2.5-1.5 4.5-1.5S19 17 21 17M7 14V5a2 2 0 0 1 4 0M13 14V5a2 2 0 0 1 4 0M7 9h6"/>']};
+const TIERS=[['Einfach',1,500],['Gut',2,3000],['Luxus',4,18000]];
+const furnOk=k=>k==='pool'?['reihenhaus','villa'].includes(p.home):k==='kamin'?['reihenhaus','villa','loft','penthouse'].includes(p.home):true;
+function activeFurn(){return Object.keys(p.furn).filter(furnOk).slice(0,HOMES[p.home].sl)}
+function comfort(){return HOMES[p.home].gl+activeFurn().reduce((s,k)=>s+TIERS[p.furn[k]][1],0)}
+function roomSvg(){const af=activeFurn(),t=k=>p.furn[k],gold=k=>t(k)===2?'#C9A227':'#7A5A3A',H=HOMES[p.home];
+  const wall=['eltern','wohnheim','wg'].includes(p.home)?'#E8E1D5':['villa','penthouse'].includes(p.home)?'#EDE6F5':'#DDE6F2';
+  let s='<svg viewBox="0 0 360 220" class="room" role="img" aria-label="Dein Zuhause von innen"><rect width="360" height="150" fill="'+wall+'"/><rect y="150" width="360" height="70" fill="#C9A47A"/><path d="M0 150h360" stroke="#A9845A" stroke-width="3"/>'+
+    '<rect x="140" y="22" width="80" height="62" rx="6" fill="#BFE0F7" stroke="#fff" stroke-width="5"/><path d="M180 22v62M140 53h80" stroke="#fff" stroke-width="3"/>';
+  if(af.includes('kunst'))s+='<rect x="40" y="30" width="56" height="42" fill="#fff" stroke="'+gold('kunst')+'" stroke-width="5"/><path d="M44 66l14-16 12 12 8-8 14 12" fill="none" stroke="#E5527A" stroke-width="3"/>';
+  if(af.includes('tv'))s+='<rect x="250" y="70" width="80" height="48" rx="4" fill="#1B1F2A"/><rect x="254" y="74" width="72" height="40" fill="'+(t('tv')?'#3B6FD8':'#2A3458')+'"/><rect x="284" y="118" width="12" height="10" fill="#1B1F2A"/>';
+  if(af.includes('kamin'))s+='<rect x="236" y="96" width="96" height="56" fill="#9A8C7E"/><rect x="258" y="112" width="52" height="40" rx="20" fill="#2A1A10"/><path d="M276 150c-4-10 6-12 4-22 8 6 10 14 6 22" fill="#F28C28"/>';
+  if(af.includes('bett'))s+='<rect x="18" y="128" width="110" height="34" rx="6" fill="'+(t('bett')===2?'#8E63D6':'#5B7CE6')+'"/><rect x="18" y="110" width="26" height="52" rx="5" fill="'+gold('bett')+'"/><rect x="48" y="120" width="30" height="12" rx="5" fill="#fff"/>';
+  if(af.includes('sofa'))s+='<rect x="140" y="132" width="96" height="30" rx="10" fill="'+(t('sofa')===2?'#C2408C':'#2FA88F')+'"/><rect x="146" y="116" width="84" height="22" rx="10" fill="'+(t('sofa')===2?'#A8306F':'#24917A')+'"/>';
+  if(af.includes('desk'))s+='<rect x="250" y="138" width="80" height="8" fill="'+gold('desk')+'"/><rect x="256" y="146" width="6" height="26" fill="'+gold('desk')+'"/><rect x="318" y="146" width="6" height="26" fill="'+gold('desk')+'"/><rect x="276" y="118" width="30" height="20" rx="2" fill="#1B1F2A"/>';
+  if(af.includes('deko'))s+='<rect x="108" y="170" width="22" height="22" rx="4" fill="#B5651D"/><circle cx="119" cy="158" r="16" fill="#3BB273"/><circle cx="110" cy="150" r="9" fill="#2F8F4E"/>';
+  if(af.includes('kueche'))s+='<rect x="6" y="60" width="26" height="50" fill="'+gold('kueche')+'"/><rect x="10" y="66" width="18" height="16" fill="#fff" opacity=".5"/>';
+  if(af.includes('bad'))s+='<ellipse cx="200" cy="198" rx="44" ry="12" fill="#fff" stroke="#9FD0F5" stroke-width="3"/>';
+  if(af.includes('pool'))s+='<rect x="250" y="180" width="104" height="34" rx="10" fill="#5BC0EB" stroke="#fff" stroke-width="3"/><path d="M258 196q8-5 16 0t16 0 16 0 16 0 16 0" fill="none" stroke="#fff" stroke-width="2"/>';
+  s+='<text x="12" y="212" font-size="13" font-weight="800" fill="#5A4030" font-family="Nunito,sans-serif">'+esc(H.n)+'</text></svg>';return s}
+function homeYear(){const out={rent:0,repair:0,staff:0};
+  p.owned.forEach(k=>{if(k===p.home)return;const H=HOMES[k];if(p.rented[k]){const r=px$(H.buy*.045);out.rent+=r;if(ch(.1)){const rp=Math.round(px$(H.buy*.03)*(p.staff.haus?.5:1));out.repair+=rp;log('Ärger mit den Mietern in deinem '+H.n+': Reparatur '+eur(rp)+'.')}}});
+  Object.keys(p.staff).forEach(k=>{const S=STAFF[k];if(S.need&&!S.need()){log(S.n+' '+p.staff[k]+' hat gekündigt, weil die Voraussetzung fehlt.');delete p.staff[k];return}out.staff+=px$(S.pay)});
+  p.money+=out.rent-out.repair-out.staff;
+  if(p.staff.putz)add('gl',3);if(p.staff.garten){add('gl',2);add('au',1)}if(p.staff.koch)add('gl',2);if(p.staff.butler){add('gl',4);p.sk.charme=Math.min(100,p.sk.charme+2)}
+  add('gl',Math.min(8,Math.round(comfort()/4)));
+  return out;
+}
+function viewWohnen(){ensureEcon();const H=HOMES[p.home],sl=H.sl,af=activeFurn(),lock=!!p.prison;
+  let h='<section class="card homecard"><div class="fh"><span class="fic sm" style="background:linear-gradient(135deg,#FFB35C,#F08A24)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span><div><div class="lbl">DEIN ZUHAUSE</div><b>'+H.n+'</b><small>'+H.ar+'</small></div></div>'+
+    '<div class="tags"><span class="tag g">Komfort +'+comfort()+'</span><span class="tag">'+af.length+' von '+sl+' Plätzen eingerichtet</span>'+(p.age>=18&&H.c?'<span class="tag w">'+eur(px$(H.c))+(H.buy?' Unterhalt':' Miete')+' im Jahr</span>':'')+'</div>'+
+    '<button class="btn o big" data-a="enter">'+(roomView?'Raum schließen':'Eintreten')+'</button>'+(roomView?roomSvg():'')+'</section>';
+  h+='<div class="seg full wt">'+[['home','Einrichten'],['markt','Markt'],['mieten','Mieten'],['personal','Personal']].map(([k,l])=>'<button data-a="wtab" data-g="'+k+'" aria-pressed="'+(wTab===k)+'">'+l+'</button>').join('')+'</div>';
+  if(wTab==='home'){
+    h+='<p class="note">Jedes Möbelstück bringt Komfort, und Komfort bringt jedes Jahr Glück. Dein Zuhause hat '+sl+' Plätze. Pool und Kamin gehen nur in passenden Häusern.</p>'+
+      Object.keys(FURN).map(k=>{const F=FURN[k],cur=p.furn[k],ok=furnOk(k),act=af.includes(k);
+        return '<section class="card furn"><div class="fh"><span class="fic sm'+(act?'':' off')+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F[2]+'</svg></span><div><b>'+F[0]+'</b><small>'+(cur!=null?TIERS[cur][0]+(act?' · aufgestellt':' · kein Platz'):ok?'noch nicht vorhanden':'passt nicht in dieses Zuhause')+'</small></div></div><div class="tiers">'+
+          TIERS.map((T,i)=>{const c=px$(T[2]*F[1]);return '<button class="tier'+(cur===i?' on':'')+'" data-a="furn" data-g="'+k+':'+i+'"'+(cur!=null&&cur>=i||!ok||p.money<c||lock?' disabled':'')+'><b>'+T[0]+'</b><small>+'+T[1]+' Komfort</small><span>'+(cur!=null&&cur>=i?'vorhanden':eur(c))+'</span></button>'}).join('')+'</div></section>'}).join('');
+  }
+  if(wTab==='markt'||wTab==='mieten'){const keys=Object.keys(HOMES).filter(k=>wTab==='markt'?!!HOMES[k].buy:!HOMES[k].buy);
+    h+=keys.map(k=>{const o=HOMES[k],own=p.owned.includes(k),here=p.home===k;
+      const price=o.buy?eur(px$(o.buy)):(o.c?eur(px$(o.c))+' im Jahr':(p.age>=18?'1.200 € Kostgeld':'kostenlos'));
+      return '<section class="card"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span><div><b>'+o.n+'</b><small>'+o.ar+' · '+o.sl+' Plätze · Komfort '+o.gl+'</small></div></div>'+
+        (own&&!here?'<div class="tags"><span class="tag g">Gehört dir</span>'+(p.rented[k]?'<span class="tag g">vermietet: +'+eur(px$(o.buy*.045))+' im Jahr</span>':'')+'</div>':'')+
+        '<div class="fb"><b>'+(here?'Hier wohnst du':price)+'</b><span class="btns" style="margin:0">'+(here?'':
+          (own?btn('home',k,'Einziehen','',lock)+btn('rentout',k,p.rented[k]?'Nicht vermieten':'Vermieten','g',lock)+btn('sellhome',k,'Verkaufen','g'):
+            btn('home',k,o.buy?'Kaufen':'Mieten','o',p.age<o.min||lock||(o.buy&&p.money<px$(o.buy)))))+'</span></div></section>'}).join('');
+    if(wTab==='markt')h+='<p class="note">Gekaufte Immobilien, in denen du nicht wohnst, kannst du vermieten: 4,5 % des Kaufpreises im Jahr, manchmal mit Reparaturen.</p>';
+  }
+  if(wTab==='personal'){
+    h+='<p class="note">Leute, die dir den Rücken freihalten. Jede Person kostet einen Jahreslohn und bringt etwas, das du im Alltag merkst.</p>'+Object.keys(STAFF).map(k=>{const S=STAFF[k],hired=p.staff[k],ok=!S.need||S.need();
+      return '<section class="card"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+S.ic+'</svg></span><div style="flex:1"><b>'+S.n+'</b><small>'+(hired?'Arbeitet für dich: '+esc(hired):'Es bewirbt sich '+applicant(k))+'</small></div><b class="num">'+eur(px$(S.pay))+'</b></div>'+
+        '<p class="note" style="margin:8px 0">'+S.d+(ok?'':' <b>('+S.nn+')</b>')+'</p>'+(hired?btn('staff',k,'Entlassen','g'):btn('staff',k,'Einstellen','o',!ok||p.age<18||lock))+'</section>'}).join('');
+  }
+  return h;
+}
+
+/* ================= Leben: Fähigkeiten, Ziele ================= */
+const SKN={form:['Form','Sport, Studio, Verein'],kampf:['Kampf','Boxclub, Selbstverteidigung'],fahren:['Fahren','Fahrsicherheitstraining, Straßenrennen'],schloss:['Schlösser','Übungsschlösser'],hack:['Hacken','Programmierkurs, Informatik'],charme:['Charme','Rhetorikkurs, Butler, Partys']};
+const STATHELP={gl:'Glück steigt durch Freizeit, Freunde, Familie, ein schönes Zuhause, Komfort, Personal und Erfolge. Schulden, Krankheit, Streit und Gefängnis drücken es.',ge:'Gesundheit steigt durch Sport, gute Ernährung, Vorsorge und Behandlungen in der Klinik. Alter, Fast Food, Partys und unbehandelte Krankheiten senken sie.',in:'Intelligenz steigt durch Schule, Lernen, Lesen, Studium und Kurse.',au:'Aussehen steigt durch Training, Kleidung mit Stil, gute Haut und Behandlungen. Mit dem Alter sinkt es langsam.'};
+const GOALS=[['abschluss','Einen Schulabschluss machen',()=>RANK[p.edu]>=1,500],['job','Den ersten Job bekommen',()=>!!p.ach.job,500],['studium','Ein Studium abschließen',()=>!!p.deg,3000],
+['liebe','Heiraten',()=>!!(p.partner&&p.partner.mar),2000],['kind','Ein Kind bekommen',()=>p.kids.length>0,2000],['haus','Eine eigene Immobilie kaufen',()=>p.owned.length>0,5000],
+['firma','Eine Firma gründen',()=>!!(p.biz&&p.biz.firm),5000],['k100','100.000 € Vermögen',()=>netWorth()>=1e5,5000],['mio','Millionär/in werden',()=>netWorth()>=1e6,25000],
+['marathon','Einen Marathon laufen',()=>!!p.marathon,3000],['fol','10.000 Follower auf Klick',()=>!!(p.sm&&p.sm.fol>=1e4),3000],['welt','Eine Weltreise machen',()=>!!p.welt,0],['alt','80 Jahre alt werden',()=>p.age>=80,0]];
+function checkGoals(){if(!p.goals)return;GOALS.forEach(([k,n,f,rw])=>{if(!p.goals[k]&&f()){p.goals[k]=p.age;if(rw)p.money+=rw;add('gl',5);log('Lebensziel erreicht: '+n+(rw?' (+'+eur(rw)+')':'')+'.');toast('Ziel erreicht: '+n)}})}
+const skinTxt=s=>s>=85?'Makellos':s>=65?'Gut':s>=40?'Unrein':'Schlecht';
+function stars(n){return '<span class="stars">'+[0,1,2,3,4].map(i=>'<i class="'+(i<n?'on':'')+'">★</i>').join('')+'</span>'}
+function viewLeben(){ensureEcon();
+  let h='<div class="seg full lt">'+[['ich','Ich'],['ziele','Ziele'],['lauf','Lebenslauf']].map(([k,l])=>'<button data-a="ltab" data-g="'+k+'" aria-pressed="'+(lTab===k)+'">'+l+'</button>').join('')+'</div>';
+  if(lTab==='ich'){
+    h+='<section class="card me"><span class="meav">'+avatarSvg(p.age,112)+'</span><div><small>'+STAGE_N[stageOf(p.age)].toUpperCase()+'</small><b>'+esc(p.first+' '+p.last)+'</b><small>'+p.age+' Jahre · Stil '+stil()+' von 8</small>'+(stageOf(p.age)<7?'<small>Neuer Look mit '+STAGES[stageOf(p.age)+1]+' Jahren</small>':'')+'<div class="btns">'+btn('goshop',null,'Aussehen ändern','g')+'</div></div></section>';
+    h+='<section class="card">'+Object.keys(STAT).map(k=>'<button class="stat sb" data-a="stathelp" data-g="'+k+'"><div class="r"><span>'+STAT[k]+'</span><span>'+p.st[k]+' %</span></div><div class="bar"><i class="'+(p.st[k]<30?'low':'')+'" style="width:'+p.st[k]+'%"></i></div></button>').join('')+'<p class="note" style="margin-top:6px">Tippe auf einen Wert, dann siehst du, wie du ihn steigerst.</p>'+
+      '<div class="listseg" style="margin-top:10px"><span style="font-weight:800">Fahndung</span>'+stars(p.wanted)+'</div></section>';
+    h+='<section class="card"><div class="fh"><span class="fic sm" style="background:'+(p.skinS>=65?'linear-gradient(135deg,#3BB273,#1E9E6A)':'linear-gradient(135deg,#F2B33D,#F08A24)')+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></span><div><b>Haut: '+skinTxt(p.skinS)+'</b><small>Ernährung, Sport, Partynächte und Alter zeigen sich im Gesicht. Hilfe gibt es beim Hautarzt.</small></div></div></section>';
+    h+='<section class="card"><h2 class="h">Fähigkeiten</h2>'+Object.keys(SKN).map(k=>'<div class="stat"><div class="r"><span>'+SKN[k][0]+'</span><span>'+Math.round(p.sk[k])+'</span></div><div class="bar"><i style="width:'+p.sk[k]+'%;background:#8E63D6"></i></div><small class="note">'+SKN[k][1]+'</small></div>').join('')+'</section>';
+    const ill=Object.keys(p.ill);if(ill.length)h+=card('Gesundheit',ill.map(k=>row(ILLS[k].n,'seit '+p.ill[k].y+' Jahr(en)',btn('goto','freizeit','Behandeln','o'))).join(''));
+    h+='<section class="card"><h2 class="h">Kampf und Schutz</h2>'+row('Pfefferspray',p.items.includes('pfeffer')?'Schützt dich bei Überfällen':'Hilft bei Überfällen auf der Straße · '+eur(px$(25)),p.items.includes('pfeffer')?'<span class="chip">Besitz</span>':btn('buypf',null,'Kaufen','',p.money<px$(25)||p.age<14))+
+      row('Bodyguard',p.staff.guard?'Arbeitet für dich':'Gibt es in der App Wohnen unter Personal','')+'</section>';
+  }
+  if(lTab==='ziele'){const done=GOALS.filter(g=>p.goals[g[0]]).length;
+    h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Lebensziele</h2><span class="chip">'+done+' von '+GOALS.length+'</span></div><div class="bar" style="margin:8px 0 4px"><i style="width:'+(done/GOALS.length*100)+'%"></i></div>'+
+      GOALS.map(([k,n,f,rw])=>'<div class="goal'+(p.goals[k]?' done':'')+'"><span class="gk">'+(p.goals[k]?'<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12l5 5 9-10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>':'')+'</span><span class="gt"><b>'+n+'</b><small>'+(p.goals[k]?'geschafft mit '+p.goals[k]:rw?'Belohnung '+eur(rw)+' und Glück':'Belohnung: Glück')+'</small></span></div>').join('')+'</section>';
+  }
+  if(lTab==='lauf')h+=card('',statBars())+card('Dein Lebenslauf','<div class="log">'+p.log.slice(-80).reverse().map(e=>'<div><span>Alter '+e.a+'</span><span>'+esc(e.t)+'</span></div>').join('')+'</div>');
+  return h;
+}
+
+/* ================= Freizeit: Events, Sport, Gesundheit, Shoppen ================= */
+function season(){const m=new Date().getMonth();
+  if(m===9)return {n:'Halloween',d:'Kürbisse vor jeder Tür, Geister auf der Straße, Nebel in der Gasse.',a:[['kostuem','Kostümparty',40,'Das beste Kostüm gewinnt eine Flasche Sekt. Vielleicht triffst du jemanden.']]};
+  if(m>=10)return {n:'Weihnachtsmarkt',d:'Lichter, Buden und eine Eisbahn mitten in der Stadt.',a:[['gluehwein','Glühwein',4,'Heiß, süß und mit Zimt.'],['mandeln','Gebrannte Mandeln',4,'In der Tüte, noch warm.'],['eis','Eislaufen',8,'Runde um Runde mit Musik und Lichtern.'],['geschenke','Geschenke kaufen',150,'Für Familie und Freunde. Die Augen beim Auspacken sind es wert.']]};
+  if(m===1)return {n:'Karneval',d:'Konfetti, Kamelle und Kostüme in allen Straßen.',a:[['umzug','Zum Umzug',10,'Kamelle fangen und mitsingen.'],['kostuem','Kostümparty',40,'Wer erkennt dich unter der Maske?']]};
+  if(m>=2&&m<=4)return {n:'Frühlingsfest',d:'Riesenrad, Zuckerwatte und die ersten warmen Tage.',a:[['riesenrad','Riesenrad',8,'Die ganze Stadt von oben.'],['flohmarkt','Flohmarkt',0,'Alte Sachen verkaufen, ein bisschen Geld verdienen.']]};
+  return {n:'Sommer in der Stadt',d:'Freibad, Grillduft und lange Abende am Fluss.',a:[['freibad','Ins Freibad',6,'Sprungturm, Pommes, Sonnenbrand.'],['grill','Grillparty',30,'Mit Freunden bis in die Nacht.']]};
+}
+const KURSE={fahren:['Fahrsicherheitstraining',300,'fahren',16],schloss:['Übungsschlösser',90,'schloss',12],hack:['Online-Kurs Programmieren',240,'hack',12],charme:['Rhetorikkurs',200,'charme',14],kampf:['Selbstverteidigung',150,'kampf',10]};
+const GYM={basic:{n:'Studio Basic',c:600,u:3,d:'Geräte, Hanteln, Duschen. 3 Einheiten im Jahr.'},premium:{n:'Studio Premium',c:1800,u:6,d:'Sauna, Kurse, Trainer. 6 Einheiten im Jahr.'}};
+const FOCUS={ganz:['Ganzkörper','Von allem etwas, gleichmäßig fit.'],ausdauer:['Ausdauer','Laufband und Rad: mehr Form und Gesundheit.'],kraft:['Kraft','Muskeln und Ausstrahlung: mehr Aussehen.'],kampfs:['Kampfsport','Sandsack und Technik: mehr Kampf.']};
+const CLUBS={fc:['Fußballverein',400,'Training unter Flutlicht, danach ins Vereinsheim. Glück und Freundschaften.'],box:['Boxclub',700,'Sandsäcke und ein Trainer, der nichts durchgehen lässt. Kampf und Form.'],lauf:['Lauftreff',150,'Jeden Morgen ein paar Kilometer. Form und Gesundheit.']};
+const TURN={lauf:['Stadtlauf',40,800,'form',35],box:['Boxabend',150,6000,'kampf',55],marathon:['Marathon',120,15000,'form',65]};
+const VORS={nie:['Nie',0,'Kostet nichts, aber Krankheiten fallen spät auf.',1.3],beschw:['Nur bei Beschwerden',0,'Du gehst, wenn etwas weh tut.',1],jahr:['Jedes Jahr',900,'Check-up jedes Jahr. Früherkennung, weniger Krankheiten.',.6]};
+const KRANK={abwarten:['Abwarten','Spart Geld, aber Krankheiten werden schlimmer.'],spaeter:['Wenn es nicht besser wird','Nach einem Jahr gehst du doch zur Behandlung.'],sofort:['Sofort behandeln','Bei Krankheit gehst du gleich hin. Kostet, heilt aber schnell.']};
+const DIET={normal:{n:'Wie bisher',c:0,d:'Du isst, was gerade da ist.'},fast:{n:'Fast Food',c:1500,d:'Schnell, billig, lecker. Der Körper sieht das anders.',ge:-2,au:-1,gl:1,skin:-6},
+ausgewogen:{n:'Ausgewogen',c:3600,d:'Von allem etwas, viel Gemüse, wenig Zucker.',ge:1,skin:3},vegetarisch:{n:'Vegetarisch',c:3200,d:'Ohne Fleisch, mit viel Gemüse und Hülsenfrüchten.',ge:1,skin:3},
+vegan:{n:'Vegan',c:4200,d:'Rein pflanzlich. Gut geplant sehr gesund.',ge:2,skin:4},eiweiss:{n:'Eiweißreich',c:5400,d:'Viel Protein für den Sport. Mit Training baust du Muskeln auf.',ge:1,form:2,skin:-2},
+mediterran:{n:'Mediterran',c:6000,d:'Olivenöl, Fisch, Gemüse, Vollkorn. Gut fürs Herz.',ge:2,gl:1,skin:5}};
+const ILLS={grippe:{n:'Grippe',a:[0,120],p:.12,dmg:3,self:.8,cure:'hausarzt'},zahn:{n:'Zahnschmerzen',a:[6,120],p:.06,dmg:1,self:.2,cure:'zahnarzt'},haut:{n:'Unreine Haut',a:[12,30],p:.12,dmg:0,au:-3,self:.4,cure:'hautarzt'},
+ruecken:{n:'Rückenschmerzen',a:[28,120],p:.06,dmg:2,self:.2,cure:'physio'},depr:{n:'Niedergeschlagenheit',a:[12,120],p:.03,dmg:1,gl:-5,self:.25,cure:'psycho'},verletzt:{n:'Sportverletzung',a:[0,120],p:0,dmg:3,self:.6,cure:'ortho'},
+herz:{n:'Herzschwäche',a:[50,120],p:.025,dmg:6,self:0,death:.06,cure:'herzop'},huefte:{n:'Hüftarthrose',a:[55,120],p:.035,dmg:3,self:0,cure:'huefte'},star:{n:'Grauer Star',a:[60,120],p:.04,dmg:1,self:0,cure:'katarakt'}};
+const TREAT={hausarzt:['Vorsorge beim Hausarzt',80,'Blut, Blutdruck, ein paar Fragen. Hilft bei Grippe.',{ge:2}],zahnarzt:['Zahnarzt',90,'Kontrolle und Reinigung. Tut kaum weh, versprochen.',{au:1}],
+bleaching:['Bleaching',450,'Strahlend weiße Zähne. Dein Lächeln wirkt gleich doppelt.',{au:4}],hautarzt:['Hautarzt',150,'Pickel und Unreinheiten behandeln. Wirkt zwei Jahre.',{skin:20}],
+botox:['Botox und Filler',600,'Glättet Falten: du wirkst jünger.',{au:6},30],physio:['Physiotherapie',400,'Massage, Übungen, ein Rücken, der wieder mitmacht.',{ge:3}],
+psycho:['Psychotherapie',900,'Eine Stunde nur für dich. Reden hilft.',{gl:8}],ortho:['Orthopäde',300,'Rücken, Gelenke und Verletzungen.',{ge:2}],
+check:['Großer Gesundheitscheck',1200,'Ein ganzer Tag Untersuchungen. Was gefunden wird, lässt sich meist noch gut behandeln.',{ge:4},18],
+katarakt:['Katarakt-OP',3500,'Eine kleine OP am Auge. Alles wird wieder klar.',{ge:2},45],huefte:['Neue Hüfte',15000,'Wieder schmerzfrei gehen.',{ge:6},45],
+herzop:['Herz-OP',35000,'Bypass oder neue Klappe. Teuer und riskant, aber ein starkes Herz hält länger.',{ge:10},40,.06],premium:['Premium-Klinik',60000,'Ein Jahr rundum betreut: Spezialisten, Frühdiagnostik, Erholung. Wirkt zwei Jahre.',{ge:15,gl:5},18],
+schoenop:['Schönheits-OP',6000,'Ein kleiner Eingriff, ein großer Auftritt. Ganz ohne Risiko ist es nicht.',{au:15},18,.1],facelift:['Facelift',14000,'Die große Verjüngung, mit kleinem Risiko.',{au:20},40,.05]};
+const OUTFITS=[['hoodie','Hoodie',1,60,'#6C5CE7'],['bomber','Bomberjacke',2,180,'#4E5B3A'],['kleid','Sommerkleid',2,150,'#F7A8C2'],['tarn','Tarnpullover',2,130,'#6B7A4B'],['blumen','Blumen-Look',2,160,'#F2B33D'],['punkte','Punkte-Look',2,140,'#D7263D'],['anzug','Maßanzug',4,1800,'#2A3458'],['designer','Designer-Outfit',5,4500,'#111318']];
+const ACCS=[['brille','Sonnenbrille',1,90],['hut','Hut',1,70],['kette','Goldkette',2,900]];
+const OF=Object.fromEntries(OUTFITS.map(o=>[o[0],o]));
+function stil(){const o=p.ward.filter(k=>OF[k]).reduce((m,k)=>Math.max(m,OF[k][2]),0),a=ACCS.filter(x=>p.ward.includes(x[0])).reduce((s,x)=>s+x[2],0);return Math.min(8,o+a)}
+function lifeYear(){const out={ls:0,treat:0,risk:0},a=p.age;
+  // Lebensstil
+  const dk=p.staff.koch?'mediterran':p.ls.diet,D=DIET[dk];out.ls+=px$(DIET[p.ls.diet].c)+px$(VORS[p.ls.vors][1]);
+  if(p.gym)out.ls+=px$(GYM[p.gym].c);p.clubs.forEach(c=>out.ls+=px$(CLUBS[c][1]));
+  if(D.ge)add('ge',D.ge);if(D.au)add('au',D.au);if(D.gl)add('gl',D.gl);if(D.form)p.sk.form=clamp(p.sk.form+D.form,0,100);
+  if(p.clubs.includes('fc')){add('gl',4);p.sk.form=Math.min(100,p.sk.form+2)}if(p.clubs.includes('box')){p.sk.kampf=Math.min(100,p.sk.kampf+3);p.sk.form=Math.min(100,p.sk.form+2)}if(p.clubs.includes('lauf')){p.sk.form=Math.min(100,p.sk.form+3);add('ge',2)}
+  p.gymU=p.gym?GYM[p.gym].u:0;
+  // Form sinkt ohne Sport
+  if(!p.gym&&!p.clubs.length)p.sk.form=Math.max(0,p.sk.form-(a>40?3:2));if(p.sk.form>=60)add('ge',1);
+  // Haut
+  p.skinS=clamp(p.skinS+(D.skin||0)/3+(p.sk.form>=50?1:0)-(a>40?1:0)+(p.skinT>0?4:0)+R(-2,2)-(p.ill.haut?6:0),0,100);if(p.skinT>0)p.skinT--;
+  if(p.skinS>=85)add('au',1);else if(p.skinS<40)add('au',-2);if(stil()>=5)add('au',1);
+  if(p.prem>0){p.prem--;add('ge',3)}
+  // Krankheiten
+  const vf=VORS[p.ls.vors][3];
+  Object.keys(ILLS).forEach(k=>{const I=ILLS[k];if(p.ill[k]){const s=p.ill[k];s.y++;add('ge',-I.dmg);if(I.gl)add('gl',I.gl);if(I.au)add('au',I.au);out.risk+=I.death||0;
+      const pol=p.ls.krank,T=TREAT[I.cure],c=px$(T[1]);
+      if((pol==='sofort'||(pol==='spaeter'&&s.y>=2))&&p.money>=c&&!p.prison){p.money-=c;out.treat+=c;delete p.ill[k];log(I.n+' wurde behandelt ('+T[0]+', '+eur(c)+').');return}
+      if(ch(I.self)){delete p.ill[k];log(I.n+' ist von selbst abgeklungen.')}return}
+    if(a<I.a[0]||a>I.a[1]||!I.p)return;let pr=I.p*vf*(p.sk.form>=60?.75:1)*(p.prem>0?.3:1)*(D.ge>0?.85:D.ge<0?1.3:1);if(k==='depr'&&p.st.gl<35)pr*=6;
+    if(ch(pr)){p.ill[k]={y:0};log((p.ls.vors==='jahr'?'Früh erkannt: ':'Diagnose: ')+I.n+'.');if(p.ls.vors==='jahr')p.ill[k].y=-1}});
+  if(!Object.keys(p.ill).length)add('ge',a<40?2:a<65?1:0);
+  p.money-=out.ls;
+  return out;
+}
+function viewFreizeit(){ensureEcon();const lock=!!p.prison;
+  let h='<div class="seg full ft">'+[['aktiv','Aktiv'],['sport','Sport'],['gesund','Gesundheit'],['shop','Shoppen']].map(([k,l])=>'<button data-a="ftab" data-g="'+k+'" aria-pressed="'+(fTab===k)+'">'+l+'</button>').join('')+'</div>';
+  if(lock&&fTab!=='sport')return h+card('','<p class="note">Im Gefängnis kannst du nur trainieren und lesen.</p>')+card('',actRows(['sport','lesen']));
+  if(fTab==='aktiv'){const S=season();
+    h+='<section class="card event"><div class="lbl">HEUTE IN DER STADT</div><h2 class="h">'+S.n+'</h2><p class="note">'+S.d+'</p>'+S.a.map(([k,n,c,d])=>row(n,(c?eur(px$(c))+' · ':'')+d,btn('event',k,once('ev_'+k)?'Erledigt':'Los','o',once('ev_'+k)||p.money<px$(c)))).join('')+'</section>';
+    h+=card('Aktivitäten',actRows(['party','urlaub','medi','lesen','lotto'])+row('Weltreise','Ein halbes Jahr um die Welt · '+eur(px$(25000)),btn('welt',null,p.welt?'Gemacht':'Los','o',p.age<18||p.money<px$(25000)||p.act<=0)));
+    h+=card('Kurse','<p class="note" style="margin-bottom:4px">Jeder Kurs kostet 1 Aktion und verbessert eine Fähigkeit.</p>'+Object.keys(KURSE).map(k=>{const K=KURSE[k];return row(K[0],eur(px$(K[1]))+' · '+SKN[K[2]][0]+' '+Math.round(p.sk[K[2]]),btn('kurs',k,'Los','',p.age<K[3]||p.act<=0||p.money<px$(K[1])||p.sk[K[2]]>=100))}).join(''));
+  }
+  if(fTab==='sport'){
+    h+='<div class="bizsum"><div><b>'+Math.round(p.sk.form)+'</b><small>Form von 100</small></div><div><b>'+Math.round(p.sk.kampf)+'</b><small>Kampf von 100</small></div></div>';
+    h+=card('Fitnessstudio',Object.keys(GYM).map(k=>{const G=GYM[k];return row(G.n,eur(px$(G.c))+' im Jahr · '+G.d,p.gym===k?btn('gym','none','Kündigen','g'):btn('gym',k,'Abschließen','',p.age<14||lock))}).join('')+
+      (p.gym?row('Trainieren',(p.gymU||0)+' von '+GYM[p.gym].u+' Einheiten übrig · kostet keine Aktion',btn('train',null,'Los','o',!p.gymU)):'')+
+      '<div class="mt" style="margin-top:10px">Trainingsschwerpunkt</div><div class="amts">'+Object.keys(FOCUS).map(k=>'<button class="amt" data-a="focus" data-g="'+k+'" aria-pressed="'+(p.focus===k)+'">'+FOCUS[k][0]+'</button>').join('')+'</div><p class="note" style="margin-top:6px">'+FOCUS[p.focus][1]+'</p>');
+    h+=card('Verein',Object.keys(CLUBS).map(k=>{const C=CLUBS[k],in_=p.clubs.includes(k);return row(C[0],eur(px$(C[1]))+' im Jahr · '+C[2],btn('club',k,in_?'Austreten':'Eintreten',in_?'g':'',lock||p.age<8))}).join(''));
+    h+=card('Turniere','<p class="note" style="margin-bottom:4px">Einmal pro Jahr. Startgeld, kein Einsatz. Deine Chance hängt von Form oder Kampf ab.</p>'+Object.keys(TURN).map(k=>{const T=TURN[k],chc=Math.round(clamp((p.sk[T[3]]-T[4])/40+.3,.05,.9)*100);
+      return row(T[0],'Startgeld '+eur(px$(T[1]))+' · Sieg '+eur(px$(T[2]))+' · Chance '+chc+' %',btn('turnier',k,once('t_'+k)?'Erledigt':'Antreten','o',once('t_'+k)||p.age<14||lock||p.money<px$(T[1])))}).join(''));
+    h+=card('Training',actRows(['sport','jog']));
+  }
+  if(fTab==='gesund'){const ill=Object.keys(p.ill);
+    h+=card('Dein Befinden',ill.length?ill.map(k=>{const I=ILLS[k],T=TREAT[I.cure];return row(I.n,p.ill[k].y<0?'früh erkannt':'seit '+p.ill[k].y+' Jahr(en)',btn('treat',I.cure,T[0]+' · '+eur(px$(T[1])),'o',p.money<px$(T[1])||once('tr_'+I.cure)))}).join(''):'<p class="note">Dir fehlt gerade nichts. Gesundheit '+p.st.ge+' %.</p>');
+    const opt=(key,obj,cur,lab)=>Object.keys(obj).map(k=>{const o=obj[k],n=Array.isArray(o)?o[0]:o.n,d=Array.isArray(o)?(o.length>3?o[2]:o[1]):o.d,c=Array.isArray(o)?(typeof o[1]==='number'?o[1]:0):o.c;
+      return '<div class="opt2'+(cur===k?' on':'')+'"><div><b>'+n+'</b><small>'+(c?eur(px$(c))+' im Jahr · ':'')+d+'</small></div>'+(cur===k?'<span class="chip">Gewählt</span>':btn(key,k,'Wählen','g'))+'</div>'}).join('');
+    h+=card('Vorsorge',opt('vors',VORS,p.ls.vors))+card('Wenn du krank wirst',opt('krank',KRANK,p.ls.krank))+card('Ernährung'+(p.staff.koch?' (dein Koch kocht mediterran)':''),opt('diet',DIET,p.ls.diet));
+    h+=card('Praxis und Klinik','<p class="note" style="margin-bottom:4px">Jede Behandlung einmal pro Jahr, ohne Aktion.</p>'+Object.keys(TREAT).map(k=>{const T=TREAT[k];return row(T[0],eur(px$(T[1]))+' · '+T[2],btn('treat',k,once('tr_'+k)?'Erledigt':'Termin','o',once('tr_'+k)||p.money<px$(T[1])||(T[4]&&p.age<T[4])))}).join(''));
+  }
+  if(fTab==='shop'){const st=stil();
+    h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Dein Stil</h2><b>'+st+' von 8</b></div><div class="bar" style="margin:8px 0"><i style="width:'+st/8*100+'%;background:#C2408C"></i></div><p class="note">Ab Stil 5 steigt dein Aussehen jedes Jahr. Was du trägst, sieht man an deiner Figur.</p>'+
+      row('Shoppingtour','Bummeln und anprobieren · '+eur(px$(300))+' · +6 Glück, zweimal im Jahr',btn('tour',null,(p.tourN||0)>=2&&p.tourA===p.age?'Erledigt':'Los','o',((p.tourN||0)>=2&&p.tourA===p.age)||p.money<px$(300)))+'</section>';
+    h+='<div class="wgrid">'+OUTFITS.map(o=>{const own=p.ward.includes(o[0]),worn=p.look.o===o[0];return '<div class="wcard'+(worn?' on':'')+'"><div class="wav">'+avatarSvg(Math.max(p.age,14),96,null,{o:o[0],acc:p.look.acc})+'</div><b>'+o[1]+'</b><span class="stars small">'+'★'.repeat(o[2])+'</span>'+
+      (own?btn('wear',o[0],worn?'Ablegen':'Anziehen',worn?'g':'o'):btn('outfit',o[0],eur(px$(o[3])),'o',p.money<px$(o[3])||p.age<10))+'</div>'}).join('')+'</div>';
+    h+=card('Accessoires',ACCS.map(x=>{const own=p.ward.includes(x[0]),worn=p.look.acc.includes(x[0]);return row(x[1],'Stil +'+x[2]+(own?'':' · '+eur(px$(x[3]))),own?btn('wear',x[0],worn?'Ablegen':'Tragen',worn?'g':'o'):btn('outfit',x[0],'Kaufen','',p.money<px$(x[3])||p.age<10))}).join(''));
+  }
+  return h;
+}
+function act2(id,arg){
+  switch(id){
+  case 'fgterm':bankUI.fgT=+arg;render();return 1;
+  case 'fgamt':bankUI.fgA=arg==='all'?'all':+arg;render();return 1;
+  case 'fgopen':{const a=bankUI.fgA==='all'?Math.floor(Math.max(0,p.money)):bankUI.fgA;if(p.age<18||a<100||p.money<a)return 1;p.money-=a;p.fg.push({amt:a,rate:+rates()[bankUI.fgT].toFixed(1),left:bankUI.fgT});done(eur(a)+' als Festgeld für '+bankUI.fgT+' Jahr(e) angelegt.');return 1}
+  case 'fgbreak':{const f=p.fg[+arg];if(!f)return 1;p.fg.splice(+arg,1);const v=Math.round(f.amt*.97);p.money+=v;done('Festgeld vorzeitig gekündigt: '+eur(v)+' zurück.');return 1}
+  case 'krterm':bankUI.krT=+arg;render();return 1;
+  case 'kramt':bankUI.krA=arg==='max'?'max':+arg;render();return 1;
+  case 'kropen':{const ml=maxLoan(),a=Math.min(bankUI.krA==='max'?ml:bankUI.krA,ml);if(a<1000||p.prison)return 1;p.loans.push(mkLoan(a,loanRate(),bankUI.krT));p.money+=a;done('Kredit über '+eur(a)+' aufgenommen.');return 1}
+  case 'krrepay':{const [i,v]=arg.split(':'),l=p.loans[+i];if(!l)return 1;const a=v==='all'?l.amt:Math.min(5000,l.amt,Math.max(0,p.money));if(a<=0||p.money<a)return 1;p.money-=a;l.amt-=a;
+    if(l.amt<=0)p.loans.splice(+i,1);else l.pay=mkLoan(l.amt,l.rate,Math.max(1,l.left)).pay;done(eur(a)+' Kredit zurückgezahlt.');return 1}
+  case 'finyr':bankUI.yr=+arg;render();return 1;
+  case 'fktoggle':bankUI.fk=!bankUI.fk;render();return 1;
+  case 'wtab':wTab=arg;render();return 1;
+  case 'enter':roomView=!roomView;render();return 1;
+  case 'furn':{const [k,t]=arg.split(':'),ti=+t,c=px$(TIERS[ti][2]*FURN[k][1]);if(!furnOk(k)||(p.furn[k]!=null&&p.furn[k]>=ti)||p.money<c||p.prison)return 1;p.money-=c;p.furn[k]=ti;add('gl',2);done(FURN[k][0]+' ('+TIERS[ti][0]+') ist eingerichtet.');return 1}
+  case 'rentout':if(!p.owned.includes(arg)||p.home===arg)return 1;p.rented[arg]=!p.rented[arg];done(p.rented[arg]?HOMES[arg].n+' ist jetzt vermietet.':HOMES[arg].n+' wird nicht mehr vermietet.');return 1;
+  case 'staff':{const S=STAFF[arg];if(p.staff[arg]){const n=p.staff[arg];delete p.staff[arg];done(S.n+' '+n+' ist entlassen.');return 1}if(p.age<18||p.prison||(S.need&&!S.need()))return 1;p.staff[arg]=applicant(arg);done(p.staff[arg]+' arbeitet jetzt als '+S.n+' für dich.');return 1}
+  case 'ltab':lTab=arg;render();return 1;
+  case 'stathelp':dialog(STAT[arg],STATHELP[arg],[['Verstanden',null]]);return 1;
+  case 'buypf':if(p.items.includes('pfeffer')||p.money<px$(25))return 1;p.money-=px$(25);p.items.push('pfeffer');done('Pfefferspray gekauft.');return 1;
+  case 'goshop':tab='freizeit';fTab='shop';render();window.scrollTo(0,0);return 1;
+  case 'ftab':fTab=arg;render();return 1;
+  case 'event':{const S=season(),e=S.a.find(x=>x[0]===arg);if(!e||once('ev_'+arg))return 1;const c=px$(e[2]);if(p.money<c)return 1;p.money-=c;setOnce('ev_'+arg);let t='';
+    if(arg==='flohmarkt'){const g=R(40,300);p.money+=g;t='Flohmarkt: '+eur(g)+' eingenommen.'}
+    else if(arg==='geschenke'){add('gl',6);if(p.partner)p.partner.rel=Math.min(100,p.partner.rel+6);if(!p.parentsGone)msg('mama','Danke für das Geschenk, mein Schatz! Du bist der/die Beste.');t='Alle haben sich über deine Geschenke gefreut.'}
+    else if(arg==='kostuem'&&!p.partner&&p.age>=16&&ch(.2)){newPartner(55);add('gl',8);t='Auf der Kostümparty hast du '+p.partner.name+' kennengelernt!'}
+    else{add('gl',R(3,7));t=e[1]+': '+e[3]}done(t);return 1}
+  case 'welt':if(p.welt||p.age<18||!useAct())return 1;{const c=px$(25000);if(p.money<c){p.act++;toast('Die Weltreise kostet '+eur(c)+'.');return 1}p.money-=c;p.welt=true;add('gl',25);add('in',3);done('Ein halbes Jahr um die Welt. Unvergesslich!')}return 1;
+  case 'kurs':{const K=KURSE[arg],c=px$(K[1]);if(p.age<K[3]||p.money<c||!useAct())return 1;p.money-=c;const g=R(10,20);p.sk[K[2]]=Math.min(100,p.sk[K[2]]+g);if(arg==='hack')add('in',2);done(K[0]+' abgeschlossen: '+SKN[K[2]][0]+' +'+g+'.');return 1}
+  case 'gym':if(arg==='none'){p.gym=null;p.gymU=0;done('Studio-Abo gekündigt.');return 1}if(p.age<14||p.prison)return 1;{const c=px$(GYM[arg].c);if(p.money<c){toast('Das erste Jahr kostet '+eur(c)+'.');return 1}p.money-=c;p.gym=arg;p.gymU=GYM[arg].u;done(GYM[arg].n+' abgeschlossen. Das erste Jahr ist bezahlt.')}return 1;
+  case 'train':{if(!p.gym||!p.gymU)return 1;p.gymU--;const f=p.focus;p.sk.form=Math.min(100,p.sk.form+(f==='ausdauer'?5:3));add('ge',f==='ausdauer'?3:2);if(f==='kraft'||f==='ganz')add('au',f==='kraft'?3:1);if(f==='kampfs')p.sk.kampf=Math.min(100,p.sk.kampf+4);
+    if(p.ls.diet==='eiweiss')add('au',1);if(ch(.04)){p.ill.verletzt={y:0};done('Autsch, beim Training verletzt.')}else done('Training ('+FOCUS[f][0]+') erledigt.');return 1}
+  case 'focus':p.focus=arg;render();return 1;
+  case 'club':{const i=p.clubs.indexOf(arg);if(i>=0){p.clubs.splice(i,1);done('Aus dem '+CLUBS[arg][0]+' ausgetreten.');return 1}const c=px$(CLUBS[arg][1]);if(p.money<c||p.prison)return 1;p.money-=c;p.clubs.push(arg);add('gl',3);done('Willkommen im '+CLUBS[arg][0]+'!');return 1}
+  case 'turnier':{const T=TURN[arg],c=px$(T[1]);if(once('t_'+arg)||p.money<c||p.age<14||p.prison)return 1;p.money-=c;setOnce('t_'+arg);const chc=clamp((p.sk[T[3]]-T[4])/40+.3,.05,.9);let t;
+    if(ch(.08)){p.ill.verletzt={y:0};t=T[0]+': verletzt ausgeschieden.'}else if(ch(chc)){const w=px$(T[2]);p.money+=w;add('gl',10);t=T[0]+' gewonnen! Preisgeld '+eur(w)+'.';if(arg==='marathon')p.marathon=true;if(arg==='box')p.sk.kampf=Math.min(100,p.sk.kampf+3)}
+    else{add('gl',2);t=T[0]+': ins Ziel gekommen, aber nicht gewonnen.';if(arg==='marathon'&&p.sk.form>=55)p.marathon=true}
+    log(t);checkGoals();save();render();dialog(T[0],t,[['Weiter',null]]);return 1}
+  case 'vors':p.ls.vors=arg;save();render();return 1;
+  case 'krank':p.ls.krank=arg;save();render();return 1;
+  case 'diet':p.ls.diet=arg;save();render();return 1;
+  case 'treat':{const T=TREAT[arg],c=px$(T[1]);if(once('tr_'+arg)||p.money<c||(T[4]&&p.age<T[4])||p.prison)return 1;p.money-=c;setOnce('tr_'+arg);
+    if(T[5]&&ch(T[5])){add('ge',-15);done(T[0]+': Es gab Komplikationen. Gesundheit −15.');return 1}
+    Object.keys(T[3]).forEach(k=>{if(k==='skin'){p.skinS=Math.min(100,p.skinS+T[3][k]);p.skinT=2}else add(k,T[3][k])});
+    if(arg==='premium')p.prem=2;if(arg==='check'||arg==='premium'){}
+    const cured=Object.keys(p.ill).filter(k=>ILLS[k].cure===arg||(arg==='premium')||(arg==='check'&&ILLS[k].dmg<=2));cured.forEach(k=>delete p.ill[k]);
+    done(T[0]+' erledigt.'+(cured.length?' Geheilt: '+cured.map(k=>ILLS[k].n).join(', ')+'.':''));return 1}
+  case 'tour':{if(p.tourA!==p.age){p.tourA=p.age;p.tourN=0}if(p.tourN>=2)return 1;const c=px$(300);if(p.money<c)return 1;p.money-=c;p.tourN++;add('gl',6);done('Shoppingtour: viel anprobiert, viel gelacht.');return 1}
+  case 'outfit':{const o=OF[arg]||ACCS.find(x=>x[0]===arg);const c=px$(o[3]);if(p.ward.includes(arg)||p.money<c)return 1;p.money-=c;p.ward.push(arg);if(OF[arg])p.look.o=arg;else p.look.acc.push(arg);add('gl',2);done(o[1]+' gekauft und angezogen.');return 1}
+  case 'wear':{if(OF[arg])p.look.o=p.look.o===arg?null:arg;else{const i=p.look.acc.indexOf(arg);if(i>=0)p.look.acc.splice(i,1);else p.look.acc.push(arg)}save();render();return 1}
+  case 'upfront':{const F=FR[arg],l=p.biz.lvl[arg]||1,c=Math.round(F.cost*.5*l);if(!p.biz.fronts.includes(arg)||l>=3||p.money<c||p.prison)return 1;p.money-=c;p.biz.lvl[arg]=l+1;done(F.n+' ausgebaut auf Stufe '+(l+1)+'.');return 1}
+  }
+  return 0;
+}
+
 function newLife(first,last,g,age,sb){
   p={first,last,g,age,alive:true,sb:!!sb,seed:R(1,2e9),money:sb?1000000:(age>=18?2000:0),st:{gl:R(55,90),ge:R(65,95),in:R(35,90),au:R(35,90)},
     edu:'keine',school:null,study:null,azubi:null,aus:false,deg:null,job:null,pension:0,home:'eltern',owned:[],cars:[],items:[],pets:[],
@@ -751,16 +1144,16 @@ function ageUp(){
     const J=JOBS.find(j=>j.id===p.job.id);p.job.yrs++;
     if(p.job.id!=='influ'){sal=p.job.pay;
       if(J&&J.max&&a>J.max){log('Karriereende als '+p.job.t+'.');p.job=null}
-      else if(p.job.perf>70&&ch(.35)){p.job.pay=Math.round(p.job.pay*1.12);log('Beförderung! Neues Gehalt: '+eur(p.job.pay)+' pro Jahr.');add('gl',6);ach('befoerd');msg('chef','Glückwunsch zur Beförderung! Sie haben es sich verdient.')}
+      else if(p.job.perf>70&&ch(.35)){p.job.rank=Math.min(4,(p.job.rank||1)+1);p.job.pay=Math.round(p.job.pay*((p.job.rank||1)<4?1.2:1.08));log('Beförderung! Neues Gehalt: '+eur(p.job.pay)+' pro Jahr.');add('gl',6);ach('befoerd');msg('chef','Glückwunsch zur Beförderung! Sie haben es sich verdient.')}
       else if(p.job.perf<25&&ch(.4)){msg('chef','Wir müssen uns leider von Ihnen trennen.');log('Du wurdest als '+p.job.t+' entlassen.');p.job=null;add('gl',-10)}
       if(p.job)p.job.perf+=Math.sign(50-p.job.perf)*5}}
   const smi=smYear();if(p.job&&p.job.id==='influ')p.job.pay=smi;const BZ=bizYear();
   const azubi=p.azubi?12000:0,pocket=a>=6&&a<18?300:0;
   const gross=sal+azubi+p.pension+smi,tax=gross+BZ.taxable>12000?Math.round((gross+BZ.taxable-12000)*.25):0;
-  const wohnen=a>=18?HOMES[p.home].c+(p.home==='eltern'?1200:0):0,kids=p.kids.filter(k=>a-k.b<18).length*3000,
-    cars=p.cars.reduce((s,c)=>s+CARS[c].c,0),pets=p.pets.reduce((s,x)=>s+PETS[x.t].c,0),zins=Math.round(p.loan*.08);
+  const wohnen=a>=18?px$(HOMES[p.home].c+(p.home==='eltern'?1200:0))+p.owned.filter(k=>k!==p.home).reduce((t,k)=>t+px$(HOMES[k].c),0):0,kids=p.kids.filter(k=>a-k.b<18).length*3000,
+    cars=p.cars.reduce((s,c)=>s+CARS[c].c,0),pets=p.pets.reduce((s,x)=>s+PETS[x.t].c,0),zins=0;
   p.money+=gross-tax-wohnen-kids-cars-pets-zins+pocket;
-  const si=Math.round(p.sav*.02);p.sav+=si;
+  const BK=bankYear(),HY=homeYear(),LY=lifeYear(),si=BK.si;p.wanted=Math.max(0,(p.wanted||0)-1);
   // Börse
   ensureStocks();let dv=0;
   STOCKS.forEach(s=>{const o=p.px[s.id];p.prev[s.id]=o;const n=stepPrice(s,o);p.px[s.id]=n;p.hist[s.id].push(n);if(p.hist[s.id].length>80)p.hist[s.id].shift();dv+=(p.sh[s.id]||0)*n*s.div});
@@ -768,8 +1161,9 @@ function ageUp(){
   {const mv=STOCKS.map(s=>[s,(p.px[s.id]/p.prev[s.id]-1)*100]).sort((x,y)=>Math.abs(y[1])-Math.abs(x[1]))[0];const pc=Math.abs(mv[1]).toFixed(0);
    const why=mv[1]>=0?pick(['Rekordgewinn gemeldet','neuer Großauftrag','Analysten begeistert','Übernahmegerüchte']):pick(['Gewinnwarnung','Chef tritt zurück','Skandal um Produkte','schwaches Jahr']);
    p.mnews.unshift({a:p.age,t:mv[0].n+' '+(mv[1]>=0?'+':'−')+pc+' %: '+why});p.mnews=p.mnews.slice(0,5)}
-  R0.inc=[['Gehalt',sal],['Ausbildungsvergütung',azubi],['Rente',p.pension],['Taschengeld',pocket],['Klick: Werbung & Creator-Fonds',smi],['Klick: Deals & Spenden',p.yr.social],['Dividenden',dv],['Sparzinsen',si]].concat(BZ.inc,[['Casino-Gewinne',Math.max(0,p.yr.casino)]]);
-  R0.out=[['Steuern',tax],['Wohnen',wohnen],['Kinder',kids],['Autos',cars],['Haustiere',pets],['Kreditzinsen',zins]].concat(BZ.out,[['Casino-Verluste',Math.max(0,-p.yr.casino)]]);
+  R0.inc=[['Gehalt',sal],['Ausbildungsvergütung',azubi],['Rente',p.pension],['Taschengeld',pocket],['Klick: Werbung & Creator-Fonds',smi],['Klick: Deals & Spenden',p.yr.social],['Dividenden',dv],['Sparzinsen',si],['Mieteinnahmen',HY.rent]].concat(BZ.inc,[['Casino-Gewinne',Math.max(0,p.yr.casino)]]);
+  R0.out=[['Steuern',tax],['Wohnen',wohnen],['Kinder',kids],['Autos',cars],['Haustiere',pets],['Kreditraten',BK.raten],['Personal',HY.staff],['Reparaturen',HY.repair],['Lebensstil & Sport',LY.ls],['Behandlungen',LY.treat]].concat(BZ.out,[['Casino-Verluste',Math.max(0,-p.yr.casino)]]);
+  p.fin.push({a:p.age,inc:R0.inc.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])]),out:R0.out.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])])});if(p.fin.length>15)p.fin.shift();
   p.yr={social:0,casino:0};
   if(p.money<0){add('gl',-8);if(a>=18){log('Du bist im Minus: '+eur(p.money)+'.');if(!p.parentsGone)msg('mama','Brauchst du Hilfe mit Geld? Sag ruhig Bescheid.')}}
   add('gl',Math.round(HOMES[p.home].gl/2));if(p.home==='eltern'&&a>=26)add('gl',-3);
@@ -784,8 +1178,8 @@ function ageUp(){
   p.trend=pick(TRENDS.filter(k=>k!==p.trend));
   // Körper
   if(a>45)add('ge',-R(0,2));if(a>65)add('ge',-R(1,4));if(a>30)add('au',-R(0,1));
-  add('gl',R(-3,3));checkAch();p.act=p.job&&p.job.id==='influ'?4:3;
-  const risk=(p.st.ge<=0?1:0)+(a>65?(a-65)*.008:0)+(p.st.ge<20?.08:0);
+  add('gl',R(-3,3));checkAch();p.act=(p.job&&p.job.id==='influ'?4:3)+(p.staff&&p.staff.fahrer?1:0);
+  const risk=LY.risk+(p.st.ge<=0?1:0)+(a>65?(a-65)*.008:0)+(p.st.ge<20?.08:0);
   if(!p.sb&&ch(risk)){die(p.st.ge<20?'an einer schweren Krankheit':'friedlich im Schlaf');return}
   p.m0=p.money;save();render();
   const ev=EVENTS.filter(e=>e.c()),next=ev.length&&ch(.65)?pick(ev):null;
@@ -841,6 +1235,7 @@ E('Auto kaputt','Dein Auto springt nicht mehr an.',()=>p.cars.length>0,[['Repari
 E('Tierarzt','Dein Haustier frisst nicht mehr und wirkt schlapp.',()=>p.pets.length>0,[['Zum Tierarzt (400 €)',()=>(p.money-=400,'Nach ein paar Tagen ist es wieder fit.')],['Abwarten',()=>{if(ch(.4)){const x=p.pets.shift();add('gl',-10);return x.n+' hat es leider nicht geschafft.'}return 'Glück gehabt, es erholt sich.'}]]),
 E('Aktientipp','Ein Kollege schwört: „Pixelhaus Games geht durch die Decke!“',()=>p.age>=18&&p.money>=2000&&!p.prison,[['2.000 € investieren',()=>{p.money-=2000;ensureStocks();p.sh.px=(p.sh.px||0)+2000/p.px.px;p.cost.px=(p.cost.px||0)+2000;return 'Du besitzt jetzt mehr Pixelhaus-Aktien. Mal sehen …'}],['Lieber nicht',()=>'Du bleibst vorsichtig.']]),
 E('Steuerprüfung','Das Finanzamt prüft deine Steuererklärung.',()=>!!p.job&&p.job.pay>40000&&ch(.4),[['Alle Belege vorlegen',()=>ch(.7)?'Alles in Ordnung.':(p.money-=1500,'Nachzahlung: 1.500 €.')],['Steuerberater (800 €)',()=>(p.money-=800,'Der Berater regelt alles.')]]),
+E('Überfall','Auf dem Heimweg stellt sich dir jemand in den Weg: „Geld her!“',()=>p.age>=14&&!p.prison&&!(p.staff&&p.staff.guard)&&p.money>50,[['Wehren',()=>{if(p.items.includes('pfeffer')||ch(p.sk.kampf/120)){add('gl',3);p.sk.kampf=Math.min(100,p.sk.kampf+2);return p.items.includes('pfeffer')?'Ein Sprühstoß Pfefferspray, und er rennt weg.':'Du wehrst dich, er gibt auf und rennt weg.'}const l=Math.min(500,Math.round(p.money*.2));p.money-=l;add('ge',-8);return 'Er war stärker. Du bist verletzt und '+eur(l)+' los.'}],['Geld geben',()=>{const l=Math.min(300,Math.round(p.money*.1));p.money-=l;add('gl',-4);return 'Du gibst ihm '+eur(l)+'. Zum Glück ist dir nichts passiert.'}]]),
 E('Ärger im Knast','Ein Mitgefangener provoziert dich beim Essen.',()=>p.prison>0,[['Zurückschlagen',()=>ch(.4)?(add('ge',-8),p.prison++,'Prügelei. Ein Jahr mehr Haft.'):(add('gl',2),'Er lässt dich ab jetzt in Ruhe.')],['Ignorieren',()=>'Du isst einfach weiter.']])];
 function showEvent(e){const t=typeof e.x==='function'?e.x():e.x;dialog(e.t,t,e.o.map(([l,f])=>[l,()=>{const r=f();log(r);checkAch();save();render();dialog('Ergebnis',r,[['Weiter',null]])}]))}
 function dialog(h,t,opts){
@@ -855,7 +1250,7 @@ function dialog(h,t,opts){
 function newPartner(rel){p.partner={name:pick(ch(.5)?FN:MN),rel,mar:false};p.chats.partner={msgs:[],un:0};msg('partner','Hey du :) Ich hab die ganze Zeit an dich gedacht.')}
 function adoptPet(t,free){const P=PETS[t];if(!free)p.money-=P.pr;p.pets.push({t,n:pick(P.names),age:0});add('gl',8);ach('tier')}
 function crime(succ,gain,jail,txt){
-  p.crimes++;
+  p.crimes++;succ=clamp(succ-(p.wanted||0)*.05,.05,.95);p.wanted=Math.min(5,(p.wanted||0)+1);
   if(ch(succ)){add('gl',R(-2,4));if(gain>=1000){p.dirty=(p.dirty||0)+gain;return txt+': +'+eur(gain)+' Schwarzgeld. Waschen kannst du es über die App Geschäfte.'}p.money+=gain;return txt+': +'+eur(gain)+'.'}
   if(p.age<14){add('gl',-6);return 'Erwischt! Deine Eltern holen dich bei der Polizei ab.'}
   if(!jail){p.money-=500;add('gl',-6);return 'Erwischt! Geldstrafe: 500 €.'}
@@ -869,7 +1264,7 @@ kidstime:{n:'Zeit mit den Kindern',d:'Glück +',ok:()=>p.kids.length>0,f:()=>{ad
 lernen:{n:'Extra lernen',d:'Intelligenz ++',ok:()=>p.age>=6&&p.age<=30,f:()=>{add('in',R(3,6));return 'Du hast fleißig gelernt.'}},
 sport:{n:'Training',d:'Gesundheit und Aussehen +',ok:()=>p.age>=6,f:()=>{add('ge',R(2,6));add('au',R(1,3));return 'Du hast dich ausgepowert.'}},
 jog:{n:'Joggen',d:'Gesundheit und Glück +',ok:()=>p.age>=8,f:()=>{add('ge',R(2,5));add('gl',R(1,3));return 'Eine Runde durch den Park.'}},
-date:{n:'Jemanden kennenlernen',d:'ab 14 Jahren, als Single',ok:()=>p.age>=14&&!p.partner,f:()=>{if(ch(.35+p.st.au/200)){newPartner(50);add('gl',8);return 'Du bist jetzt mit '+p.partner.name+' zusammen!'}add('gl',-3);return 'Kein Glück diesmal.'}},
+date:{n:'Jemanden kennenlernen',d:'ab 14 Jahren, als Single',ok:()=>p.age>=14&&!p.partner,f:()=>{if(ch(.35+p.st.au/200+p.sk.charme/400)){newPartner(50);add('gl',8);return 'Du bist jetzt mit '+p.partner.name+' zusammen!'}add('gl',-3);return 'Kein Glück diesmal.'}},
 party:{n:'Feiern',d:'Glück +, Gesundheit −',ok:()=>p.age>=16,f:()=>{add('gl',R(5,10));add('ge',-R(0,4));return 'Die Nacht war lang.'}},
 arzt:{n:'Check-up beim Arzt',d:'Gesundheit +',ok:()=>true,f:()=>{add('ge',R(4,12));return 'Check-up erledigt.'}},
 op:{n:'Schönheits-OP (6.000 €)',d:'Aussehen ++, mit Risiko',ok:()=>p.age>=18,f:()=>{if(p.money<6000)return null;p.money-=6000;if(ch(.12)){add('ge',-20);return 'Komplikationen bei der OP!'}add('au',R(10,20));return 'Das Ergebnis kann sich sehen lassen.'}},
@@ -877,12 +1272,12 @@ urlaub:{n:'Urlaub buchen (1.500 €)',d:'Glück ++',ok:()=>p.age>=18,f:()=>{if(p
 lotto:{n:'Lotto spielen (20 €)',d:'winzige Chance auf 1 Mio.',ok:()=>p.age>=18,f:()=>{p.money-=20;if(ch(.0005)){p.money+=1000000;add('gl',30);ach('jackpot');return 'JACKPOT! 1.000.000 €!'}if(ch(.05)){p.money+=200;return '200 € gewonnen.'}return 'Kein Gewinn.'}},
 race:{n:'Straßenrennen (Einsatz 1.000 €)',d:'braucht ein Auto, illegal',crime:1,ok:()=>p.age>=18&&p.cars.length>0,f:()=>{if(p.money<1000)return null;p.crimes++;
   if(ch(.12)){p.money-=3000;add('gl',-8);return 'Polizeikontrolle! Einsatz weg und 2.000 € Strafe.'}
-  const sp=Math.max(...p.cars.map(c=>CARS[c].sp))+(p.biz&&p.biz.fronts.includes('werkstatt')?.1:0);if(ch(.45+sp)){p.money+=1000;p.wins++;add('gl',6);if(p.wins>=3)ach('renner');return 'Gewonnen! +1.000 €. Siege: '+p.wins+'.'}p.money-=1000;return 'Verloren. Der Einsatz ist weg.'}},
+  const sp=Math.max(...p.cars.map(c=>CARS[c].sp))+(p.biz&&p.biz.fronts.includes('werkstatt')?.1:0)+p.sk.fahren/250;p.sk.fahren=Math.min(100,p.sk.fahren+2);if(ch(.45+sp)){p.money+=1000;p.wins++;add('gl',6);if(p.wins>=3)ach('renner');return 'Gewonnen! +1.000 €. Siege: '+p.wins+'.'}p.money-=1000;return 'Verloren. Der Einsatz ist weg.'}},
 klau:{n:'Ladendiebstahl',d:'Kriminalität',crime:1,ok:()=>p.age>=10,f:()=>crime(.7,R(20,150),0,'Du hast etwas mitgehen lassen')},
 tasche:{n:'Taschendiebstahl',d:'Kriminalität',crime:1,ok:()=>p.age>=12,f:()=>crime(.6,R(50,400),1,'Du hast eine Geldbörse geklaut')},
-einbruch:{n:'Einbruch in eine Villa',d:'Kriminalität, hohes Risiko',crime:1,ok:()=>p.age>=16,f:()=>crime(.45,R(2000,12000),R(1,3),'Der Einbruch hat geklappt')},
+einbruch:{n:'Einbruch in eine Villa',d:'Kriminalität, hohes Risiko',crime:1,ok:()=>p.age>=16,f:()=>crime(.45+p.sk.schloss/250,R(2000,12000),R(1,3),'Der Einbruch hat geklappt')},
 bankraub:{n:'Banküberfall',d:'Kriminalität, extremes Risiko',crime:1,ok:()=>p.age>=18,f:()=>crime(.2,R(50000,250000),R(5,10),'Der Banküberfall ist geglückt')},
-hack:{n:'Hacken',d:'braucht Intelligenz 75 % oder Informatik',crime:1,ok:()=>p.age>=16&&(p.st.in>=75||p.deg==='Informatik'),f:()=>crime(.5,R(20000,80000),R(2,5),'Du hast ein Firmenkonto gehackt')}};
+hack:{n:'Hacken',d:'braucht Intelligenz 75 %, Informatik oder Hacken 50',crime:1,ok:()=>p.age>=16&&(p.st.in>=75||p.deg==='Informatik'||p.sk.hack>=50),f:()=>crime(.5+p.sk.hack/200,R(20000,80000),R(2,5),'Du hast ein Firmenkonto gehackt')}};
 const PRISON_OK=['sport','lesen'];
 function can(id){const A=ACTS[id];return A.ok()&&(!p.prison||PRISON_OK.includes(id))&&p.act>0}
 function useAct(){if(p.act<=0){toast('Keine Aktionen mehr in diesem Jahr. Werde 1 Jahr älter.');return false}p.act--;return true}
@@ -913,24 +1308,25 @@ function act(id,arg){
   if(!p||!p.alive)return;
   if(ACTS[id]){const A=ACTS[id];if(!can(id))return;p.act--;const r=A.f();if(r===null){p.act++;toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
+  if(act2(id,arg))return;
   switch(id){
   case 'goto':tab=arg;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
-    if(ch(.45+p.st.in/250+p.st.au/500)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.');break}
+    if(ch(.45+p.st.in/250+p.st.au/500+p.sk.charme/500)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.');break}
   case 'work':shift();break;
   case 'quit':if(!p.job)return;{const t=p.job.t;p.job=null;done('Du hast als '+t+' gekündigt.')}break;
   case 'study':if(p.edu!=='Abitur'||inSchool()||p.age<17||p.prison||p.deg)return;if(p.job&&!p.job.part)p.job=null;p.study={f:arg,left:STUDY[arg]};done('Du studierst jetzt '+arg+'.');break;
   case 'azubi':if(RANK[p.edu]<1||inSchool()||p.aus||p.prison)return;if(p.job&&!p.job.part)p.job=null;p.azubi={left:3};done('Du hast eine Ausbildung begonnen.');break;
   case 'time':if(!p.partner||!useAct())return;p.partner.rel=Math.min(100,p.partner.rel+R(6,12));add('gl',3);done('Schöne Zeit mit '+p.partner.name+'.');break;
   case 'propose':if(!p.partner||p.partner.mar||p.age<18||p.prison||!useAct())return;
-    if(ch(p.partner.rel/110)){p.partner.mar=true;p.money-=8000;add('gl',15);ach('heirat');msg('partner','Bester Tag meines Lebens!');done(p.partner.name+' hat Ja gesagt! Die Hochzeit kostet 8.000 €.')}else{p.partner.rel-=10;add('gl',-8);done(p.partner.name+' hat Nein gesagt …')}break;
+    if(ch(p.partner.rel/110+p.sk.charme/300)){p.partner.mar=true;p.money-=8000;add('gl',15);ach('heirat');msg('partner','Bester Tag meines Lebens!');done(p.partner.name+' hat Ja gesagt! Die Hochzeit kostet 8.000 €.')}else{p.partner.rel-=10;add('gl',-8);done(p.partner.name+' hat Nein gesagt …')}break;
   case 'baby':if(!p.partner||p.age<18||p.age>48||p.prison||!useAct())return;
     if(ch(.55)){const n=pick(ch(.5)?FN:MN);p.kids.push({n,b:p.age});add('gl',12);ach('kind');if(!p.parentsGone)msg('mama','Ich bin Oma geworden?! Ich freu mich so!');done(n+' ist geboren!')}else done('Diesmal hat es nicht geklappt.');break;
   case 'split':if(!p.partner)return;{const nm=p.partner.name,m=p.partner.mar;if(m&&p.money>0)p.money=Math.round(p.money*.7);p.partner=null;add('gl',-10);done(m?'Scheidung von '+nm+'. Das kostet 30 % deines Geldes.':'Du hast mit '+nm+' Schluss gemacht.')}break;
   case 'home':{const h=HOMES[arg];if(p.age<h.min||p.home===arg||p.prison)return;if(h.study&&!p.study){toast('Nur für Studierende.');return}
-    if(h.buy&&!p.owned.includes(arg)){if(p.money<h.buy){toast(h.n+' kostet '+eur(h.buy)+'.');return}p.money-=h.buy;p.owned.push(arg);ach('haus')}
+    if(h.buy&&!p.owned.includes(arg)){const pr=px$(h.buy);if(p.money<pr){toast(h.n+' kostet '+eur(pr)+'.');return}p.money-=pr;p.owned.push(arg);ach('haus')}if(p.rented)delete p.rented[arg];
     p.home=arg;add('gl',2);done('Du wohnst jetzt: '+h.n+'.');break}
-  case 'sellhome':{if(!p.owned.includes(arg)||p.home===arg)return;const v=Math.round(HOMES[arg].buy*.85);p.owned=p.owned.filter(k=>k!==arg);p.money+=v;done(HOMES[arg].n+' für '+eur(v)+' verkauft.');break}
+  case 'sellhome':{if(!p.owned.includes(arg)||p.home===arg)return;const v=Math.round(px$(HOMES[arg].buy)*.92);p.owned=p.owned.filter(k=>k!==arg);if(p.rented)delete p.rented[arg];p.money+=v;done(HOMES[arg].n+' für '+eur(v)+' verkauft.');break}
   case 'buycar':{const c=CARS[arg];if(p.age<18||p.prison)return;if(p.money<c.pr){toast(c.n+' kostet '+eur(c.pr)+'.');return}p.money-=c.pr;p.cars.push(arg);add('gl',arg==='sport'?10:5);done('Du hast jetzt einen '+c.n+'.');break}
   case 'sellcar':{const i=p.cars.indexOf(arg);if(i<0)return;p.cars.splice(i,1);const v=Math.round(CARS[arg].pr*.5);p.money+=v;done(CARS[arg].n+' für '+eur(v)+' verkauft.');break}
   case 'buy':{const s=SHOP.find(x=>x.id===arg);if(p.items.includes(arg)||p.age<s.min||p.prison)return;if(p.money<s.pr){toast(s.n+' kostet '+eur(s.pr)+'.');return}
@@ -1183,7 +1579,7 @@ function special(a){
   case 'azubi':return row('Ausbildung',p.aus?'abgeschlossen':(p.azubi?'noch '+p.azubi.left+' Jahr(e)':'3 Jahre · 12.000 € pro Jahr · braucht Schulabschluss'),p.aus||p.azubi?'':btn('azubi',null,'Starten','o',RANK[p.edu]<1||inSchool()||!!p.prison));
   case 'jobs':return row('Stellenangebote','23 Berufe, passend zu deinem Abschluss',btn('goto','jobs','Ansehen'));
   case 'work':return row('Schicht arbeiten',p.job?'Minispiel: Kopfrechnen für Leistung und Bonus':'Du brauchst zuerst einen Job',btn('work',null,'Los','o',!p.job||p.act<=0||!!p.prison));
-  case 'bankui':return row('Konto, Sparbuch und Kredit','Sparkonto '+eur(p.sav)+' · Kredit '+eur(p.loan),btn('goto','bank','Öffnen'));
+  case 'bankui':return row('Konto, Sparbuch und Kredit','Sparkonto '+eur(p.sav)+' · Kredit '+eur(loanSum()),btn('goto','bank','Öffnen'));
   case 'stocksui':return row('Aktien handeln','Depotwert '+eur(stockVal()),btn('goto','boerse','Zur Börse'));
   case 'homesui':return row('Wohnungen und Häuser','Du wohnst: '+HOMES[p.home].n,btn('goto','wohnen','Ansehen'));
   case 'shop':SHOP.forEach(s=>{const own=p.items.includes(s.id);h+=row(s.n,own?'im Besitz':eur(s.pr)+' · ab '+s.min+' Jahren',own?'<span class="chip">Besitz</span>':btn('buy',s.id,'Kaufen','',p.age<s.min||!!p.prison))});return h;
@@ -1259,6 +1655,7 @@ function viewKlick(){
   return h;
 }
 
+const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>n===1?'1 Aktion':n+' Aktionen';
 function badgeOf(id){if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();return 0}
 function viewHome(){
@@ -1274,12 +1671,13 @@ function viewHome(){
 function viewApp(id){
   const V={
   chats:viewChats,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
-  leben:()=>'<section class="card me"><span class="meav">'+avatarSvg(p.age,104)+'</span><div><b>'+esc(p.first+' '+p.last)+'</b><small>'+STAGE_N[stageOf(p.age)]+' · '+p.age+' Jahre</small>'+(stageOf(p.age)<7?'<small>Neuer Look mit '+STAGES[stageOf(p.age)+1]+' Jahren</small>':'')+'</div></section>'+card('',statBars())+card('Dein Leben','<div class="log">'+p.log.slice(-60).reverse().map(e=>'<div><span>Alter '+e.a+'</span><span>'+esc(e.t)+'</span></div>').join('')+'</div>'),
+  leben:viewLeben,
   stadt:viewStadt,
   jobs:()=>{let h='';
     if(!(p.job&&p.job.id==='influ'))h+='<button class="trend pro" data-a="goto" data-g="klick"><b>Influencer-Karriere</b><span>'+(p.sm?kfmt(p.sm.fol)+' von 10.000 Followern für den Job Influencer/in. Weiter in Klick':'Starte auf Klick und werde ab 10.000 Followern Influencer/in')+'</span></button>';
     if(p.job&&p.job.id==='influ')h+='<section class="card"><div class="lbl">AKTUELLER JOB</div>'+row('Influencer/in','seit '+p.job.yrs+' Jahr(en) · letztes Jahr '+eur(p.job.pay)+' aus Klick')+'<div class="btns">'+btn('goto','klick','Zu Klick','o')+btn('quit',null,'Aufhören','g')+'</div></section>';
-    else if(p.job)h+='<section class="card"><div class="lbl">AKTUELLER JOB</div>'+row(esc(p.job.t),'seit '+p.job.yrs+' Jahr(en) · Leistung '+p.job.perf+' %','<span class="num" style="color:var(--blueText)">'+eur(p.job.pay)+'</span>')+'<div class="btns">'+btn('work',null,'Schicht (Minispiel)','o',p.act<=0||!!p.prison)+btn('quit',null,'Kündigen','g')+'</div></section>';
+    else if(p.job){const rk=p.job.rank||1;h+='<section class="card"><div class="lbl">DEIN JOB</div>'+row(esc(p.job.t),RANKN[rk-1]+' · seit '+p.job.yrs+' Jahr(en) · Leistung '+p.job.perf+' %','<span class="num" style="color:var(--blueText)">'+eur(p.job.pay)+'</span>')+
+      '<div class="segs big4">'+[1,2,3,4].map(i=>'<i class="'+(i<=rk?'on':'')+'"></i>').join('')+'</div><p class="note" style="margin:6px 0">Rang '+rk+' von 4 · '+(rk<4?'Gute Leistung bringt Beförderungen mit 20 % mehr Gehalt.':'Ganz oben.')+'</p>'+'<div class="btns">'+btn('work',null,'Schicht (Minispiel)','o',p.act<=0||!!p.prison)+btn('quit',null,'Kündigen','g')+'</div></section>'}
     return h+card('Stellenangebote',JOBS.map(j=>{const r=canJob(j);return row(j.t+(j.part?' (Teilzeit)':''),r||(j.id==='influ'?'Einkommen aus Klick, 1,5× Reichweite':eur(j.pay)+' pro Jahr'),btn('apply',j.id,'Bewerben','o',!!r||p.act<=0||!!(p.job&&p.job.id===j.id)))}).join(''))},
   bildung:()=>card('Abschluss',row(p.edu==='keine'?'noch keiner':p.edu,(p.aus?'Ausbildung · ':'')+(p.deg?'Studium '+p.deg:(p.school?p.school+', läuft automatisch weiter':'')))+actRows(['lernen']))+card('Studium und Ausbildung',special('study')+special('azubi')),
   liebe:()=>{let h='';
@@ -1289,17 +1687,11 @@ function viewApp(id){
     return card('Beziehung',h)},
   familie:()=>card('Kinder',(p.kids.length?p.kids.map(k=>row(esc(k.n),(p.age-k.b)+' Jahre')).join(''):'<p class="note">Noch keine Kinder. Die bekommst du in der App Liebe.</p>')+actRows(['kidstime']))+
     card('Haustiere',(p.pets.length?p.pets.map(x=>row(esc(x.n),PETS[x.t].n+' · '+x.age+' Jahre')).join(''):'<p class="note">Noch kein Haustier.</p>')+actRows(['pet']))+card('Tierheim',special('adopt')),
-  freizeit:()=>card('Aktivitäten',actRows(['sport','jog','lesen','medi','party','arzt','urlaub','op','lotto'])),
+  freizeit:viewFreizeit,
   strasse:()=>card('Kriminalität','<p class="note" style="margin-bottom:6px">Wer erwischt wird, landet vor Gericht.</p>'+actRows(['klau','tasche','einbruch','hack','bankraub','race']))+card('Polizei & Gericht',special('record')),
-  bank:()=>{let h=card('Übersicht',row('Girokonto','','<span class="num">'+eur(p.money)+'</span>')+row('Sparkonto','2 % Zinsen pro Jahr','<span class="num">'+eur(p.sav)+'</span>')+row('Aktien','','<span class="num">'+eur(stockVal())+'</span>')+
-      row('Immobilien','','<span class="num">'+eur(p.owned.reduce((s,k)=>s+HOMES[k].buy,0))+'</span>')+row('Kredit','8 % Zinsen pro Jahr','<span class="num down">'+eur(-p.loan)+'</span>')+row('Vermögen','','<span class="num">'+eur(netWorth())+'</span>')+
-      '<p class="note" style="margin-top:6px">Steuern: 25 % auf Einkommen über 12.000 € pro Jahr.</p>');
-    if(p.age>=18)h+=card('Hansebank','<div class="btns">'+btn('dep',1,'1.000 € sparen')+btn('dep','all','Alles sparen','g')+btn('wd',1,'1.000 € abheben')+btn('wd','all','Alles abheben','g')+'</div><div class="btns">'+btn('loan',null,'Kredit 10.000 €','g',p.loan>=50000)+btn('repay',null,'1.000 € tilgen','g',!p.loan)+'</div>');
-    return h},
+  bank:viewBank,
   boerse:viewBoerse,
-  wohnen:()=>card('Wohnungen und Häuser',Object.keys(HOMES).map(k=>{const o=HOMES[k],own=p.owned.includes(k);
-    const s=o.buy?(own?'Eigentum · ':'Kauf '+eur(o.buy)+' · ')+'Unterhalt '+eur(o.c)+'/Jahr':(o.c?eur(o.c)+' Miete pro Jahr':(p.age>=18?'1.200 € Kostgeld pro Jahr':'kostenlos'))+(o.study?' · nur Studierende':'');
-    return row(o.n,s,p.home===k?'<span class="chip">Hier wohnst du</span>':'<span class="btns" style="margin:0">'+btn('home',k,own?'Einziehen':(o.buy?'Kaufen':'Mieten'),'',p.age<o.min||!!p.prison)+(own?btn('sellhome',k,'Verkaufen','g'):'')+'</span>')}).join('')),
+  wohnen:viewWohnen,
   garage:()=>card('Deine Fahrzeuge',p.cars.length?p.cars.map(c=>row(CARS[c].n,'Unterhalt '+eur(CARS[c].c)+' pro Jahr',btn('sellcar',c,'Verkaufen','g'))).join(''):'<p class="note">Noch kein Auto.</p>')+card('Autohaus',special('cars'))+card('Hafen',actRows(['race'])),
   shop:()=>card('Einkaufszentrum',special('shop'))+card('',actRows(['klau'])),
   erfolge:()=>card('Erfolge','<div class="ach">'+Object.keys(ACH).map(k=>'<span class="'+(p.ach[k]?'on':'')+'">'+ACH[k]+'</span>').join('')+'</div><p class="note" style="margin-top:8px">In diesem Leben: '+Object.keys(p.ach).length+' · In allen Leben: '+Object.keys(globalAch).length+' von '+Object.keys(ACH).length+'.</p>')};
