@@ -344,6 +344,11 @@ svg.neu{color:#5B7CE6}
 .lvl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}.lvl>span{font-weight:800;font-size:14px}
 .segs{display:flex;gap:4px;flex:1;min-width:80px}.segs i{flex:1;height:8px;border-radius:4px;background:var(--line)}.segs i.on{background:#3BB273}
 .segs.big4{margin:10px 0 0}.segs.big4 i{height:10px}.segs.big4 i.on{background:var(--blue)}
+.hold{position:relative;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
+.hold .fill{position:absolute;left:0;top:0;bottom:0;width:0%;background:rgba(255,255,255,.45);pointer-events:none}
+.hold .lbl2{position:relative;display:flex;flex-direction:column;align-items:center;line-height:1.1}
+.hold .lbl2 small{font-size:12px;font-weight:800;opacity:.75}
+.hold.holding{transform:scale(.98)}
 .note{font-size:13px;color:var(--muted);font-weight:600;margin:0}
 </style>
 </head>
@@ -1699,11 +1704,22 @@ function viewApp(id){
   return '<div class="appbar"><button class="back" data-a="goto" data-g="home" aria-label="Zurück zum Handy"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="ic" style="background:'+(A[4]||hex(A[2]))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+A[3]+'</svg></span><h2>'+A[1]+'</h2><span class="chip" style="margin-left:auto">'+akt(p.act)+'</span></div>'+
     (p.prison&&!PRISON_APPS.includes(id)?card('','<p class="note">Im Gefängnis nicht verfügbar.</p>'):V[id]());
 }
+function holdButton(b,fn){const MS=650;let t=null,st=0;
+  const fill=b.querySelector('.fill');
+  const reset=()=>{clearTimeout(t);t=null;fill.style.transition='width .15s';fill.style.width='0%';b.classList.remove('holding')};
+  b.addEventListener('pointerdown',e=>{if(e.button>0||document.getElementById('modal').classList.contains('on'))return;st=Date.now();b.classList.add('holding');
+    fill.style.transition='width '+MS+'ms linear';fill.style.width='100%';
+    t=setTimeout(()=>{t=null;reset();try{navigator.vibrate&&navigator.vibrate(30)}catch(x){}fn()},MS)});
+  ['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,()=>{if(t){const short=Date.now()-st<MS;reset();if(short&&ev==='pointerup')toast('Halte den Knopf kurz gedrückt, um ein Jahr älter zu werden.')}}));
+  b.addEventListener('contextmenu',e=>e.preventDefault());
+  b.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&!e.repeat){e.preventDefault();fn()}});
+  b.addEventListener('click',e=>e.preventDefault());
+}
 function buildShell(){
   document.getElementById('app').innerHTML='<header class="top" id="hd"></header><main id="view"></main><div id="city"><div id="cv"></div><div class="ctl"><div class="cname" id="cname"></div><div class="seg" id="cseg"></div></div>'+
     '<div class="rot"><button aria-label="Drehen" id="rotL"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7"/><path d="M4 4v4h4"/></svg></button><button aria-label="Zum Zuhause" id="ctr"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button></div></div>'+
-    '<main id="view2"></main><div class="age"><button class="btn o big" id="up">+ 1 Jahr älter werden</button></div>';
-  document.getElementById('up').onclick=ageUp;
+    '<main id="view2"></main><div class="age"><button class="btn o big hold" id="up" aria-label="1 Jahr älter werden, gedrückt halten"><span class="fill" aria-hidden="true"></span><span class="lbl2">+ 1 Jahr älter werden<small>gedrückt halten</small></span></button></div>';
+  holdButton(document.getElementById('up'),ageUp);
   document.getElementById('rotL').onclick=()=>{if(G)G.yaw+=Math.PI/4};
   document.getElementById('ctr').onclick=()=>{if(G&&G.L){const c=G.L.cells.find(x=>x.place==='home');G.goal=new THREE.Vector3(c.x,0,c.z);G.dist=80}};
   shell=true;
