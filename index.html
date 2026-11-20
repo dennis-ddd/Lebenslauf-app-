@@ -360,6 +360,34 @@ svg.neu{color:#5B7CE6}
 .hold .lbl2 small{font-size:12px;font-weight:800;opacity:.75}
 .hold.holding{transform:scale(.98)}
 .note{font-size:13px;color:var(--muted);font-weight:600;margin:0}
+
+.kl-stats.four{grid-template-columns:repeat(4,minmax(0,1fr))}.kl-stats.four b{font-size:17px}.kl-stats.four small{font-size:12px}
+.kl-stats.dark{background:light-dark(#F1ECFB,#2A2340);color:var(--ink);margin:10px 0 8px}
+.kl-prog.purple{background:var(--line)}.kl-prog.purple i{background:linear-gradient(90deg,#9B5CFF,#E5407A)}
+.moods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.mood{display:flex;flex-direction:column;align-items:center;gap:3px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;min-height:62px;font-weight:800;font-size:13px}
+.mood .i{width:22px;height:22px}.mood[aria-pressed=true]{border-color:#E5407A;background:light-dark(#FFE9F1,#3A1F2C);color:#C2306A}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pcard2{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:10px;border-radius:20px;border:2px solid var(--line);background:var(--card);color:var(--ink);text-align:left;min-height:108px}
+.pcard2 b{font-size:15px;font-weight:900}.pcard2 small{font-size:12px;color:var(--muted);font-weight:700}
+.pcard2.hot{border-color:#F28C28}.pcard2:disabled{opacity:.45}
+.pic{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;color:#fff}.pic .i{width:21px;height:21px}
+.hotf,.warnf{position:absolute;top:8px;right:8px;border-radius:9px;padding:1px 8px;font-size:11px;font-weight:900;color:#fff;background:#F28C28}.warnf{background:#D64545}
+.qb{display:flex;gap:3px;margin-top:auto}.qb i{width:16px;height:6px;border-radius:3px}
+.chcreate{display:flex;flex-direction:column;gap:8px}.chcreate input{min-height:46px;border-radius:14px;border:2px solid var(--line);padding:0 12px;font:inherit;font-weight:700;background:var(--card);color:var(--ink)}
+.fmts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.fmt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 12px;border-radius:16px;border:2px solid var(--line);background:var(--card);color:var(--ink);text-align:left;min-height:62px}
+.fmt b{font-size:14px;font-weight:900}.fmt small{font-size:12px;color:var(--muted);font-weight:700}
+.fmt[aria-pressed=true]{border-color:#9B5CFF;background:light-dark(#F1ECFB,#2A2340)}.fmt:disabled{opacity:.45}
+.live-btn{background:linear-gradient(135deg,#E5303A,#C2306A)!important;color:#fff!important;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px}
+.dotlive{width:12px;height:12px;border-radius:50%;background:#fff;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.8)}}
+.slot2{display:flex;gap:12px;align-items:center}.slot2.on{border:2px solid #9B5CFF}
+.slot2 .st{min-width:74px;text-align:center}.slot2 .st b{display:block;font-size:22px;font-weight:900}.slot2 .st small{font-weight:800;color:var(--muted);font-size:12px}
+.slot2 .sd{flex:1;min-width:0}.slot2 .sd small{font-weight:700;color:var(--muted)}
+.sprow{display:flex;gap:10px;align-items:center}.sprow .ct{flex:1;min-width:0}.sprow .ct b{white-space:normal;display:block;font-weight:900}.sprow .ct small{white-space:normal;overflow:visible;text-overflow:clip;display:block;color:var(--muted);font-weight:700;font-size:13px}
+.sprow.dim{opacity:.6}.vb{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#2FA88F;color:#fff;font-weight:900;flex:none}.vb.risky{background:#D64545}
+.lock{font-weight:800;color:var(--muted);font-size:13px;padding:6px 10px;border-radius:10px;background:var(--line)}
 </style>
 </head>
 <body>
@@ -527,53 +555,12 @@ fit:{n:'Fitness',st:'ge',c:'#2FA88F',t:['20 Minuten Workout für zuhause','Was i
 const FANS=['@sonnenkind','@pixelpaul','@lisa.liebt','@max_macht','@kaffeekatze','@nordlicht','@die.jule','@tom.on.tour','@mila.mag','@ben_bastelt'];
 const COMS=['Wie schön!','Mega!!','Will ich auch','Bester Account','Wo ist das?','Haha, zu gut','So inspirierend','Folge dir seit Tag 1','Krass','Mehr davon!','Du machst mir echt gute Laune','Wann kommt das nächste Video?'];
 const BRANDS=[['FitFuel','Proteinriegel'],['Glanz Kosmetik','Gesichtscreme'],['Brausebude','Limonade'],['Pixelhaus Games','ihr neues Spiel'],['NordWind Energie','Ökostrom'],['Ökofarm','Müsli'],['Hansebank','ein Girokonto'],['TurboNet','einen Handytarif'],['Schuhwerk','Sneaker']];
-let smTab='feed',chatSel=null;
+let smTab='profil',chatSel=null;
 const kfmt=n=>{n=Math.round(n);return n>=1e6?(n/1e6).toFixed(n>=1e7?0:1).replace('.',',')+' Mio.':n>=10000?Math.round(n/1000)+' Tsd.':n.toLocaleString('de-DE')};
-function smMult(){return (p.job&&p.job.id==='influ'?1.5:1)*(p.sm.trust/80)}
-function smJoin(){if(p.sm||p.age<13)return;p.sm={h:'@'+(p.first+'.'+p.last).toLowerCase().replace(/[^a-z0-9äöüß.]/g,''),fol:R(5,30),likes:0,subs:0,views:0,yv:0,posts:[],vids:[],streams:[],trust:80,deals:[],dyr:0,active:false,nf:0}}
 function smGain(f){const o=lvIdx(p.sm.fol);p.sm.fol=Math.max(0,Math.round(p.sm.fol+f));const n=lvIdx(p.sm.fol);
   if(n>o){log('Klick: Du bist jetzt '+LV[n][1]+'!');toast('Neues Level: '+LV[n][1]);msg('freund','Du bist jetzt '+LV[n][1]+'?! Ich kenn dich noch von früher, haha.')}
   if(p.sm.fol>=10000)ach('micro');if(p.sm.fol>=1e6)ach('star')}
 const fillT=t=>t.replace('{pet}',p.pets[0]?p.pets[0].n:'').replace('{partner}',p.partner?p.partner.name:'');
-function doPost(type){const T=POSTT[type],sm=p.sm;if(!sm||p.prison||(T.need&&!T.need()))return;
-  if(T.cost&&p.money<T.cost){toast('Die Reise kostet '+eur(T.cost)+'.');return}
-  if(!useAct())return;if(T.cost)p.money-=T.cost;
-  const trend=p.trend===type,viral=ch(.04),q=(p.st[T.st]/100)*(.6+Math.random()*.8)*(trend?2:1)*smMult()*(viral?8:1);
-  const nf=Math.round((70+sm.fol*.12/(1+sm.fol/60000))*q*(1+Math.random())),likes=Math.round((sm.fol+nf)*.12*q+R(3,20));
-  smGain(nf);sm.likes+=likes;sm.active=true;add('gl',R(1,4));
-  const post={ty:type,cap:fillT(pick(T.cap))+' '+T.tag,likes,nf,a:p.age,viral,com:(()=>{const c=shuffle(COMS.slice());return shuffle(FANS.slice()).slice(0,2).map((f,i)=>[f,c[i]])})(),id:R(1,1e9)};
-  sm.posts.unshift(post);sm.posts=sm.posts.slice(0,12);
-  if(viral){ach('viral');msg('freund','Alter, dein Post ist überall!! '+kfmt(likes)+' Likes!')}
-  log('Neuer Post ('+T.n+'): '+kfmt(likes)+' Likes, +'+kfmt(nf)+' Follower.'+(viral?' Viral!':''));checkAch();save();render();
-  htmlDialog('<h2>'+(viral?'Viral gegangen!':'Gepostet!')+'</h2>'+postCard(post,true)+'<div class="gain"><span><b>+'+kfmt(nf)+'</b>Follower</span><span><b>'+kfmt(likes)+'</b>Likes</span>'+(trend?'<span><b>2×</b>Trend</span>':'')+'</div>','Weiter');
-}
-function doVideo(g){const V=VIDT[g],sm=p.sm;if(!sm||p.prison)return;
-  if(!(p.items.includes('handy')||p.items.includes('kamera'))){toast('Du brauchst ein Smartphone oder eine Kamera aus dem Shop.');return}
-  if(V.need&&!V.need()){toast('Dafür brauchst du: '+V.needN+'.');return}
-  if(!useAct())return;
-  const eq=p.items.includes('kamera')?1.6:1,viral=ch(.03),q=(p.st[V.st]/100)*(.5+Math.random())*eq*smMult()*(viral?10:1);
-  const views=Math.round((sm.subs*1.5/(1+sm.subs/80000)+sm.fol*.15/(1+sm.fol/60000)+120)*q*(1+Math.random())),ns=Math.round(views*.05);
-  sm.subs+=ns;sm.views+=views;sm.yv+=views;sm.active=true;smGain(views*.02);
-  const v={g,t:pick(V.t),views,ns,a:p.age,viral};sm.vids.unshift(v);sm.vids=sm.vids.slice(0,10);if(viral)ach('viral');
-  log('Neues Video „'+v.t+'“: '+kfmt(views)+' Aufrufe.');checkAch();save();render();
-  htmlDialog('<h2>'+(viral?'Dein Video geht viral!':'Video hochgeladen')+'</h2><div class="card" style="padding:10px 12px">'+vidRow(v)+'</div><div class="gain"><span><b>'+kfmt(views)+'</b>Aufrufe</span><span><b>+'+kfmt(ns)+'</b>Abos</span><span><b>'+eur(views*.01)+'</b>Werbung</span></div><p class="note">Die Werbeeinnahmen werden am Jahresende ausgezahlt.</p>','Weiter');
-}
-function doLive(){const sm=p.sm;if(!sm||p.prison||p.age<16)return;if(!p.items.includes('laptop')){toast('Zum Streamen brauchst du einen Laptop aus dem Shop.');return}if(!useAct())return;
-  const eq=p.items.includes('setup')?1.8:1,viewers=Math.round((sm.subs*.06+sm.fol*.015+5)*eq*smMult()*(.6+Math.random()*.8));
-  let don=Math.round(viewers*R(3,25)/10),txt;
-  if(ch(.06)){smGain(-sm.fol*.1);sm.trust=Math.max(10,sm.trust-12);don=Math.round(don/3);txt='Shitstorm! Ein Satz kam falsch an, du verlierst Follower.';add('gl',-6)}
-  else{smGain(viewers*.3);txt=pick(['Der Chat war super drauf.','Jemand hat dir einen Heiratsantrag im Chat gemacht, haha.','Deine Zuschauer wollen nächste Woche mehr.']);add('gl',R(2,5))}
-  p.money+=don;p.yr.social+=don;sm.active=true;sm.streams.unshift({viewers,don,a:p.age});sm.streams=sm.streams.slice(0,6);
-  log('Livestream: '+kfmt(viewers)+' Zuschauer, '+eur(don)+' Spenden.');save();render();
-  htmlDialog('<h2>Livestream beendet</h2><p>'+txt+'</p><div class="gain"><span><b>'+kfmt(viewers)+'</b>Zuschauer</span><span><b>'+eur(don)+'</b>Spenden</span></div>','Weiter');
-}
-function smYear(){const sm=p.sm;if(!sm)return 0;
-  const ad=Math.round(sm.yv*.01),fund=sm.fol>=1000?Math.round(sm.fol*.02):0;
-  if(!sm.active&&sm.fol>50){smGain(-sm.fol*.08);log('Klick: Ohne neue Posts sind dir Follower verloren gegangen.')}
-  sm.trust=Math.min(100,sm.trust+5);sm.yv=0;sm.active=false;sm.dyr=0;sm.deals=[];
-  if(sm.fol>=1000){const n=R(1,sm.fol>=100000?3:2);shuffle(BRANDS.slice()).slice(0,n).forEach(b=>sm.deals.push({b:b[0],pr:b[1],pay:Math.round(sm.fol*R(4,12)/1000)*10+50}));sm.nf+=n}
-  return ad+fund;
-}
 function postArt(po){const u='a'+po.id,ty=po.ty;
   if(ty==='meme')return '<div class="art meme"><span>'+esc(po.cap.split(' #')[0])+'</span></div>';
   const g=(c1,c2)=>'<defs><linearGradient id="'+u+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+c1+'"/><stop offset="1" stop-color="'+c2+'"/></linearGradient></defs><rect width="100" height="100" fill="url(#'+u+')"/>';
@@ -583,12 +570,15 @@ function postArt(po){const u='a'+po.id,ty=po.ty;
   reise:()=>g('#FFB86B','#E5527A')+'<circle cx="68" cy="40" r="13" fill="#FFE39A"/><rect y="62" width="100" height="38" fill="#2B7BC3"/><path d="M0 68 Q12 64 25 68 T50 68 T75 68 T100 68" fill="none" stroke="#9FD0F5" stroke-width="2"/><path d="M24 100 Q26 74 30 58" stroke="#6B4A2B" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M30 58 q-12 -4 -18 4 M30 58 q-4 -12 -14 -12 M30 58 q8 -10 18 -6 M30 58 q12 0 16 10" stroke="#2F8F4E" stroke-width="4" fill="none" stroke-linecap="round"/>',
   workout:()=>g('#5B9BE6','#2FA88F')+'<g transform="rotate(-20 50 50)"><rect x="22" y="47" width="56" height="6" rx="3" fill="#2A2F3A"/><rect x="14" y="34" width="10" height="32" rx="4" fill="#1B1F2A"/><rect x="76" y="34" width="10" height="32" rx="4" fill="#1B1F2A"/><rect x="8" y="39" width="7" height="22" rx="3" fill="#3A3F4B"/><rect x="85" y="39" width="7" height="22" rx="3" fill="#3A3F4B"/></g>',
   haustier:()=>g('#C6E39A','#7FD1C9')+'<path d="M30 40 L28 18 L44 32 Z M70 40 L72 18 L56 32 Z" fill="#B07A4A"/><circle cx="50" cy="55" r="27" fill="#C98E5A"/><ellipse cx="50" cy="66" rx="13" ry="9" fill="#EBD3B5"/><circle cx="40" cy="50" r="3.5" fill="#1B1F2A"/><circle cx="60" cy="50" r="3.5" fill="#1B1F2A"/><ellipse cx="50" cy="61" rx="4" ry="3" fill="#1B1F2A"/>',
-  paar:()=>g('#FFB3C7','#C79BEA')+'<path d="'+heart+'" fill="#E5527A" transform="translate(-14 4)"/><path d="'+heart+'" fill="#fff" opacity=".92" transform="translate(30 10) scale(.7)"/>'};
+  paar:()=>g('#FFB3C7','#C79BEA')+'<path d="'+heart+'" fill="#E5527A" transform="translate(-14 4)"/><path d="'+heart+'" fill="#fff" opacity=".92" transform="translate(30 10) scale(.7)"/>',
+  outfit:()=>g('#D9C6F5','#8E63D6')+'<path d="M36 22 L50 28 L64 22 L80 34 L72 46 L66 42 L66 84 L34 84 L34 42 L28 46 L20 34 Z" fill="#fff"/><path d="M44 25 Q50 34 56 25" fill="none" stroke="#8E63D6" stroke-width="3"/><circle cx="50" cy="52" r="5" fill="#E5407A"/>',
+  luxus:()=>g('#2A2F3A','#5A4A1E')+'<path d="M50 18 L58 40 L82 44 L64 58 L70 82 L50 70 L30 82 L36 58 L18 44 L42 40 Z" fill="#E7C14B"/><circle cx="76" cy="22" r="3" fill="#fff"/><circle cx="22" cy="74" r="2" fill="#fff"/>',
+  party:()=>g('#3A1458','#C2337A')+'<circle cx="22" cy="24" r="4" fill="#FFD23F"/><circle cx="78" cy="30" r="3" fill="#4DD8E6"/><circle cx="64" cy="14" r="2.5" fill="#fff"/><path d="M40 86 L46 52 L34 40 L66 40 L54 52 L60 86 Z" fill="#fff" opacity=".9"/><path d="M38 44 L62 44 L54 52 L46 52 Z" fill="#E5407A"/>'};
   return '<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="art" aria-hidden="true">'+S[ty]()+'</svg>';
 }
 const HEART='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="#E5527A"/></svg>';
 function postCard(po,inDlg){return '<article class="post'+(inDlg?' dlgpost':'')+'"><header><span class="pav">'+avatarSvg(po.a,36)+'</span><span><b>'+esc(p.sm.h)+'</b><small>Alter '+po.a+(po.viral?' · viral':'')+'</small></span></header>'+postArt(po)+
-  '<div class="pbody"><div class="likes">'+HEART+'<b>'+kfmt(po.likes)+'</b> Likes · +'+kfmt(po.nf)+' Follower</div><p><b>'+esc(p.sm.h)+'</b> '+esc(po.cap)+'</p>'+po.com.map(c=>'<p class="com"><b>'+esc(c[0])+'</b> '+esc(c[1])+'</p>').join('')+'</div></article>'}
+  '<div class="pbody"><div class="likes">'+HEART+'<b>'+kfmt(po.likes)+'</b> Likes · '+(po.nf>=0?'+':'')+kfmt(po.nf)+' Follower</div><p><b>'+esc(p.sm.h)+'</b> '+esc(po.cap)+'</p>'+po.com.map(c=>'<p class="com"><b>'+esc(c[0])+'</b> '+esc(c[1])+'</p>').join('')+'</div></article>'}
 function vidRow(v){const V=VIDT[v.g];return '<div class="vrow"><div class="thumb" style="background:'+V.c+'"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M9 7l8 5-8 5z" fill="#fff"/></svg><span>'+V.n+'</span></div><div><b>'+esc(v.t)+'</b><small>'+kfmt(v.views)+' Aufrufe · +'+kfmt(v.ns)+' Abos · Alter '+v.a+(v.viral?' · viral':'')+'</small></div></div>'}
 
 function ensureNew(){
@@ -1231,6 +1221,185 @@ function act3(id,arg){const pr=propSel!=null&&p.props?p.props.find(x=>x.id===pro
   }return 0;
 }
 
+/* ================= Klick 2.0: Profil, Feed, Kanal, Business ================= */
+Object.assign(POSTT,{
+outfit:{n:'Outfit des Tages',st:'au',tag:'#ootd',ic:'<path d="M8 3l4 2 4-2 5 4-3 3-2-1v12H8V9l-2 1-3-3z"/>',cap:['Heute so unterwegs','Neues Teil, neues Glück','Was sagt ihr zum Look?']},
+luxus:{n:'Luxus zeigen',st:'au',tag:'#luxury',ic:'<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>',cap:['Kleine Belohnung für mich','Hart gearbeitet, gut gelebt','Man gönnt sich ja sonst nichts'],warn:1},
+party:{n:'Partyfoto',st:'gl',tag:'#nightlife',ic:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',need:()=>p.partyY===p.age,nn:'Erst feiern gehen',cap:['Was für eine Nacht','Die Crew ist komplett','Bis der DJ nach Hause geht']}});
+['selfie','outfit','luxus','party','workout','food','reise','meme','haustier','paar'].forEach(k=>{if(POSTT[k]&&!POSTT[k].ord)POSTT[k].ord=1});
+const PORDER=['selfie','outfit','luxus','party','workout','food','reise','meme','haustier','paar'];
+const PCOL={selfie:'#E5407A',outfit:'#8E63D6',luxus:'#C9A227',party:'#7A2E5A',workout:'#2FA88F',food:'#F08A24',reise:'#2B9ED8',meme:'#3A3F4B',haustier:'#6FBF73',paar:'#E5527A'};
+function postQ(k){const s=p.st;switch(k){case 'outfit':return stil()/8;case 'luxus':return clamp(Math.log10(Math.max(10,netWorth()))/7,0,1);case 'workout':return p.sk.form/100;case 'meme':return s.in/100;case 'selfie':case 'paar':return s.au/100;default:return s.gl/100}}
+const MOODS={echt:['Echt','<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>','Ehrlich und nahbar. Glaubwürdigkeit steigt.'],lustig:['Lustig','<circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>','Stark bei Memes, Partys und Haustieren.'],
+edel:['Edel','<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>','Stark bei Luxus, Outfits und Reisen. Kostet etwas Glaubwürdigkeit.'],wild:['Wild','<path d="M12 3c2 3 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-8z"/>','Viel höhere Chance, viral zu gehen. Aber Shitstorm-Gefahr.']};
+const moodF=(m,k)=>m==='lustig'?(['meme','party','haustier'].includes(k)?1.3:.9):m==='edel'?(['luxus','outfit','reise'].includes(k)?1.3:.9):1;
+const CATS={gaming:['Gaming','in'],chat:['Just Chatting','gl'],musik:['Musik','gl'],sport:['Sport','form'],kochen:['Kochen','gl'],kunst:['Kunst','in']};
+const FMT={immer:['Wie immer','Dein Thema, deine Art. Solide.',1,0,.02],chat:['Just Chatting','Reden mit der Community. Etwas weniger Zuschauer, dafür mehr Bindung.',.85,5,.01],
+crazy:['Verrückte Challenge','Viele neue Zuschauer, aber echte Shitstorm-Gefahr.',1.55,-2,.12],irl:['IRL durch die Stadt','Unterwegs live, ab 16. Neue Leute schalten zufällig ein.',1.3,1,.04,16],
+marathon:['24-Stunden-Marathon','Einmal im Jahr. Riesiger Schub, aber anstrengend (Gesundheit −6).',2.6,6,.03,0,1],kollab:['Kollab mit einem Star','Einmal im Jahr, ab 5.000 Abos. Ein Star bringt seine Fans mit.',3.6,2,.03,0,1,5000],
+charity:['Charity-Stream','Einmal im Jahr. Alle Spenden gehen an einen guten Zweck: Community und Glaubwürdigkeit steigen stark.',1.4,12,0,0,1]};
+const SLOTS=[[16,'Nachmittag',1],[18,'Vorabend',1.1],[20,'Prime-Time',1.25],[22,'Prime-Time',1.3]];
+const PLQ=[[1000,'Bronzene Plakette'],[100000,'Silberne Plakette'],[1e6,'Goldene Plakette'],[1e7,'Diamant-Plakette']];
+const SPONS=[['Blitz Energy','Energydrink',1000,.22],['ThronSeat','Gaming-Stühle',5000,.3],['TunnelVPN','VPN-Dienst',10000,.38],['Nordend Fashion','Mode',25000,.32],['Hansebank','Girokonto',60000,.45],['Velocità Motors','Sportwagen',250000,.6],['SlimWunder','Abnehmpillen',3000,.7,1],['GoldRausch','Online-Casino',20000,.9,1]];
+const STUDIO={merch:['Merch-Kollektion','Shirts, Hoodies, Tassen mit deinem Namen. Bringt jedes Jahr Geld, je größer die Community.',5000,0],mods:['Moderatoren','Halten deinen Chat sauber: Shitstorm-Risiko nur noch ein Drittel, Community +5 pro Jahr.',0,8000],
+cutter:['Cutter/in','Schneidet deine Videos: 1,5× Aufrufe.',0,12000],manager:['Manager/in','Verhandelt für dich: +1 Sponsor-Platz und +20 % Sponsorengeld, nimmt dafür 15 %.',0,0]};
+let chSub='live',chFmt='immer';
+function ensureSm(){const sm=p.sm;if(!sm)return;if(sm.pl==null){sm.pl=6;sm.vl=3;sm.mood='echt';sm.spon=[];sm.studio={};sm.nposts=sm.posts.length;sm.follows=R(80,300);sm.earn=0}
+  if(!sm.ch)sm.ch=null;}
+const postBudget=()=>6+(p.job&&p.job.id==='influ'?2:0),streamBudget=()=>4+(p.job&&p.job.id==='influ'?2:0);
+function smJoin(){if(p.sm||p.age<13)return;p.sm={h:'@'+(p.first+'.'+p.last).toLowerCase().replace(/[^a-z0-9äöüß.]/g,''),fol:R(20,60),likes:0,subs:0,views:0,yv:0,posts:[],vids:[],streams:[],trust:80,deals:[],dyr:0,active:false,nf:0,pl:postBudget(),vl:3,mood:'echt',spon:[],studio:{},nposts:0,follows:R(80,300),earn:0,ch:null}}
+function smMult(){return (p.job&&p.job.id==='influ'?1.5:1)*(p.sm.trust/80)}
+function doPost(type){const T=POSTT[type],sm=p.sm;if(!sm||p.prison||(T.need&&!T.need()))return;ensureSm();
+  if(sm.pl<=0){toast('Keine Posts mehr übrig in diesem Jahr.');return}
+  if(T.cost&&p.money<T.cost&&p.travelY!==p.age){toast('Die Reise kostet '+eur(T.cost)+'.');return}
+  if(T.cost&&p.travelY!==p.age)p.money-=T.cost;sm.pl--;sm.nposts++;
+  const m=sm.mood,trend=p.trend===type,viral=ch(.04*(m==='wild'?2.5:1));
+  let q=(.35+postQ(type)*.9)*(.75+Math.random()*.5)*(trend?2:1)*smMult()*moodF(m,type)*(viral?6:1);
+  const base=140+sm.fol*.07/(1+sm.fol/60000);let nf=Math.round(base*q*(.8+Math.random()*.6));
+  let likes=Math.round((sm.fol+nf)*.12*q+R(5,25)),note='';
+  if(m==='echt')sm.trust=Math.min(100,sm.trust+2);if(m==='edel')sm.trust=Math.max(10,sm.trust-1);
+  if((m==='wild'&&ch(.08))||(T.warn&&ch(.05))){nf=-Math.round(sm.fol*.06);sm.trust=Math.max(10,sm.trust-8);note='Shitstorm in den Kommentaren!';add('gl',-4)}
+  smGain(nf);sm.likes+=Math.max(0,likes);sm.active=true;add('gl',R(1,3));
+  const post={ty:type,cap:fillT(pick(T.cap))+' '+T.tag,likes:Math.max(0,likes),nf,a:p.age,viral,com:(()=>{const c=shuffle(COMS.slice());return shuffle(FANS.slice()).slice(0,2).map((f,i)=>[f,c[i]])})(),id:R(1,1e9)};
+  sm.posts.unshift(post);sm.posts=sm.posts.slice(0,15);
+  if(viral){ach('viral');msg('freund','Alter, dein Post ist überall!! '+kfmt(likes)+' Likes!')}
+  log('Neuer Post ('+T.n+'): '+kfmt(likes)+' Likes, '+(nf>=0?'+':'')+kfmt(nf)+' Follower.'+(viral?' Viral!':''));checkAch();save();render();
+  htmlDialog('<h2>'+(note?'Autsch!':viral?'Viral gegangen!':'Gepostet!')+'</h2>'+(note?'<p>'+note+'</p>':'')+postCard(post,true)+'<div class="gain"><span><b>'+(nf>=0?'+':'')+kfmt(nf)+'</b>Follower</span><span><b>'+kfmt(likes)+'</b>Likes</span>'+(trend?'<span><b>2×</b>Trend</span>':'')+'</div>','Weiter');
+}
+function doVideo(g){const V=VIDT[g],sm=p.sm;if(!sm||p.prison||!sm.ch)return;ensureSm();
+  if(!(p.items.includes('handy')||p.items.includes('kamera')||p.items.includes('laptop'))){toast('Du brauchst ein Smartphone, eine Kamera oder einen Laptop aus dem Shop.');return}
+  if(V.need&&!V.need()){toast('Dafür brauchst du: '+V.needN+'.');return}if(sm.vl<=0){toast('Keine Videos mehr übrig in diesem Jahr.');return}sm.vl--;
+  const eq=p.items.includes('kamera')?1.6:1,cut=sm.studio.cutter?1.5:1,viral=ch(.04),q=(.4+p.st[V.st]/100*.8)*(.6+Math.random()*.8)*eq*cut*smMult()*(viral?8:1);
+  const views=Math.round((sm.ch.subs*.8/(1+sm.ch.subs/100000)+sm.fol*.12/(1+sm.fol/100000)+250)*q),ns=Math.round(views*.05);
+  sm.ch.subs+=ns;sm.subs=sm.ch.subs;sm.views+=views;sm.yv+=views;sm.active=true;smGain(views*.02);
+  const v={g,t:pick(V.t),views,ns,a:p.age,viral};sm.vids.unshift(v);sm.vids=sm.vids.slice(0,10);if(viral)ach('viral');checkPlq();
+  log('Neues Video „'+v.t+'“: '+kfmt(views)+' Aufrufe.');checkAch();save();render();
+  htmlDialog('<h2>'+(viral?'Dein Video geht viral!':'Video hochgeladen')+'</h2><div class="card" style="padding:10px 12px">'+vidRow(v)+'</div><div class="gain"><span><b>'+kfmt(views)+'</b>Aufrufe</span><span><b>+'+kfmt(ns)+'</b>Abos</span><span><b>'+eur(views*.01)+'</b>Werbung</span></div><p class="note">Werbeeinnahmen werden am Jahresende ausgezahlt.</p>','Weiter');
+}
+function checkPlq(){const c=p.sm.ch;if(!c)return;c.plq=c.plq||0;while(c.plq<PLQ.length&&c.subs>=PLQ[c.plq][0]){log('Klick: '+PLQ[c.plq][1]+' für '+kfmt(PLQ[c.plq][0])+' Abonnenten!');toast(PLQ[c.plq][1]+'!');add('gl',6);c.plq++}}
+const comTxt=c=>c>=75?'Begeistert':c>=50?'Zufrieden':c>=25?'Unruhig':'Genervt';
+function nextSlot(){const c=p.sm.ch;return c.plan.slice().sort((a,b)=>a-b).find(i=>!c.done.includes(i))}
+function doLive(){const sm=p.sm;if(!sm||p.prison||!sm.ch)return;ensureSm();const c=sm.ch,F=FMT[chFmt];
+  if(!(p.items.includes('handy')||p.items.includes('laptop'))){toast('Zum Streamen brauchst du mindestens ein Smartphone aus dem Shop.');return}
+  if(c.sl<=0){toast('Alle Streams für dieses Jahr sind gemacht.');return}
+  if(F[5]&&p.age<F[5]){toast('Dieses Format geht erst ab '+F[5]+'.');return}if(F[7]&&c.subs<F[7]){toast('Dafür brauchst du '+kfmt(F[7])+' Abos.');return}if(F[6]&&c.once[chFmt]===p.age){toast('Dieses Format gibt es nur einmal im Jahr.');return}
+  c.sl--;if(F[6])c.once[chFmt]=p.age;
+  const si=nextSlot(),planned=si!=null;let sM=1,txt=[];
+  if(planned){c.done.push(si);c.streak++;sM=SLOTS[si][2]*(c.ann.includes(si)?1.15:1)*(1+Math.min(.3,c.streak*.02))}else c.streak=0;
+  const eq=p.items.includes('setup')&&p.items.includes('laptop')?1.6:p.items.includes('laptop')?1.2:1,CS=CATS[c.cat],sv=CS[1]==='form'?p.sk.form:p.st[CS[1]];
+  const viewers=Math.round((c.subs*.1/(1+c.subs/120000)+sm.fol*.012/(1+sm.fol/120000)+30)*eq*(.6+sv/100*.6)*F[2]*sM*(.7+c.com/100*.6)*smMult()*(.75+Math.random()*.5));
+  let ns=Math.round(viewers*(.25+Math.random()*.2)*(F[6]&&chFmt==='charity'?1.2:1)),don=Math.round(viewers*(.3+Math.random()*.9));
+  c.com=clamp(c.com+F[3]+(c.streak>=5?1:0),0,100);if(chFmt==='marathon')add('ge',-6);
+  const risk=F[4]*(sm.studio.mods?.33:1)*(sm.mood==='wild'?1.5:1);
+  if(ch(risk)){ns=-Math.round(c.subs*.05);smGain(-sm.fol*.08);c.com=Math.max(0,c.com-15);sm.trust=Math.max(10,sm.trust-10);don=Math.round(don/3);txt.push('Shitstorm! Ein Satz kam falsch an.');add('gl',-6)}
+  else{smGain(viewers*.08);add('gl',R(2,5))}
+  c.subs=Math.max(0,c.subs+ns);sm.subs=c.subs;c.streams++;c.rec=Math.max(c.rec,viewers);c.vh.push(viewers);if(c.vh.length>12)c.vh.shift();
+  if(chFmt==='charity'){sm.trust=Math.min(100,sm.trust+10);add('gl',8);txt.push('Du hast '+eur(don)+' für einen guten Zweck gesammelt.');log('Charity-Stream: '+eur(don)+' gespendet.');don=0}
+  else{p.money+=don;p.yr.social+=don;c.earn+=don;sm.earn+=don;
+    if(c.goal){c.goal.got+=don;if(c.goal.got>=c.goal.amt){txt.push('Spendenziel von '+eur(c.goal.amt)+' erreicht! Die Community feiert.');c.com=Math.min(100,c.com+10);sm.trust=Math.min(100,sm.trust+4);add('gl',5);c.goal=null}}}
+  if(planned)txt.push('Plan-Stream um '+SLOTS[si][0]+':00 · Serie: '+c.streak+' am Stück.');
+  sm.active=true;sm.streams.unshift({viewers,don,a:p.age,f:chFmt});sm.streams=sm.streams.slice(0,8);checkPlq();checkAch();
+  log('Stream ('+F[0]+'): '+kfmt(viewers)+' Zuschauer, '+(ns>=0?'+':'')+kfmt(ns)+' Abos.');save();render();
+  htmlDialog('<h2>'+(viewers>=c.rec&&c.streams>1?'Neuer Rekord!':'Stream beendet')+'</h2><p>'+txt.join(' ')+'</p><div class="gain"><span><b>'+kfmt(viewers)+'</b>Zuschauer</span><span><b>'+(ns>=0?'+':'')+kfmt(ns)+'</b>Abos</span><span><b>'+eur(don)+'</b>Spenden</span></div>','Weiter');
+}
+function sponPay(S){const sm=p.sm,c=sm.ch;return Math.round(((sm.fol+(c?c.subs:0)*3)*S[3]/10)*(sm.studio.manager?1.2:1)/10)*10+200}
+function smYear(){const sm=p.sm;if(!sm)return 0;ensureSm();let inc=0;
+  inc+=Math.round(sm.yv*.01);if(sm.fol>=1000)inc+=Math.round(sm.fol*.02);
+  const c=sm.ch;if(c){inc+=Math.round(c.subs*1.5);const miss=c.plan.filter(i=>!c.done.includes(i)).length;if(miss){c.streak=0;c.com=Math.max(0,c.com-8*miss);log('Klick: '+miss+' geplante(r) Stream(s) ausgefallen. Die Community ist enttäuscht.')}
+    if(sm.studio.mods)c.com=Math.min(100,c.com+5);c.hist.push(c.subs);if(c.hist.length>30)c.hist.shift();c.sl=streamBudget();c.done=[];c.ann=[]}
+  let sp=0;sm.spon.forEach(k=>{const S=SPONS.find(x=>x[0]===k);if(!S)return;sp+=sponPay(S);if(S[4]){sm.trust=Math.max(10,sm.trust-8);if(c)c.com=Math.max(0,c.com-5)}});
+  if(sm.studio.manager)sp=Math.round(sp*.85);inc+=sp;
+  if(sm.studio.merch)inc+=Math.round((sm.fol*.01+(c?c.subs*.08:0))*(c?(.5+c.com/100):1));
+  let cost=(sm.studio.mods?px$(STUDIO.mods[3]):0)+(sm.studio.cutter?px$(STUDIO.cutter[3]):0);inc-=cost;
+  if(!sm.active&&sm.fol>50){smGain(-sm.fol*.08);log('Klick: Ohne neue Inhalte sind dir Follower verloren gegangen.')}
+  sm.trust=Math.min(100,sm.trust+5);sm.yv=0;sm.active=false;sm.dyr=0;sm.pl=postBudget();sm.vl=3;sm.earn+=Math.max(0,inc);
+  sm.deals=[];if(sm.fol>=1000){const n=R(1,2);shuffle(BRANDS.slice()).slice(0,n).forEach(b=>sm.deals.push({b:b[0],pr:b[1],pay:Math.round(sm.fol*R(4,12)/1000)*10+50}));sm.nf+=n}
+  return inc;
+}
+function qbars(q,col){const n=Math.round(clamp(q,0,1)*5);return '<span class="qb">'+[0,1,2,3,4].map(i=>'<i style="background:'+(i<n?col:'var(--line)')+'"></i>').join('')+'</span>'}
+function viewKlick(){
+  if(!p.sm)return '<section class="kl-hero"><div class="kl-logo">Klick</div><p>Teile dein Leben, streame live, sammle Follower und mach daraus deinen Beruf.</p><div class="kl-steps"><span>Posts</span><span>Livestreams</span><span>Videos</span><span>Sponsoren</span><span>Merch</span></div>'+
+    (p.age<13?'<p class="kl-note">Ein Konto gibt es ab 13 Jahren.</p>':'<button class="btn big kl-btn" data-a="smjoin">Konto erstellen</button>')+'</section>';
+  ensureSm();const sm=p.sm,c=sm.ch,lock=!!p.prison;if(!['profil','feed','kanal','biz'].includes(smTab))smTab='profil';
+  let h='<div class="seg kl-tabs">'+[['profil','Profil'],['feed','Feed'],['kanal','Kanal'],['biz','Business'+(sm.deals.length?' ('+sm.deals.length+')':'')]].map(([k,l])=>'<button data-a="smtab" data-g="'+k+'" aria-pressed="'+(smTab===k)+'">'+l+'</button>').join('')+'</div>';
+  if(smTab==='profil'){const li=lvIdx(sm.fol),nx=LV[li+1],prog=nx?clamp((sm.fol-LV[li][0])/(nx[0]-LV[li][0])*100,0,100):100;
+    const sp=sm.spon.reduce((s,k)=>{const S=SPONS.find(x=>x[0]===k);return s+(S?sponPay(S):0)},0);
+    h+='<section class="kl-prof"><div class="kl-top"><span class="kl-av">'+avatarSvg(p.age,72)+'</span><div><b>'+esc(p.first+' '+p.last)+'</b><small>'+esc(sm.h)+'</small><span class="kl-lv">'+LV[li][1]+'</span></div></div>'+
+      '<div class="kl-stats four"><div><b>'+kfmt(sm.fol)+'</b><small>Follower</small></div><div><b>'+sm.nposts+'</b><small>Posts</small></div><div><b>'+sm.follows+'</b><small>Folgt</small></div><div><b>'+kfmt(sm.earn)+'</b><small>verdient €</small></div></div>'+
+      '<div class="kl-prog"><i style="width:'+prog.toFixed(1)+'%"></i></div><small class="kl-next">'+(nx?'Noch '+kfmt(nx[0]-sm.fol)+' Follower bis '+nx[1]:'Höchstes Level erreicht')+'</small>'+
+      '<div class="kl-trust"><span>Glaubwürdigkeit</span><span class="kbar"><i style="width:'+sm.trust+'%"></i></span><b>'+sm.trust+' %</b></div>'+(sp?'<small class="kl-next">Sponsoren bringen etwa '+eur(sp)+' im Jahr.</small>':'')+'</section>';
+    const T=POSTT[p.trend];h+='<div class="trend"><b>Trend des Jahres: '+T.n+' '+T.tag+'</b><span>Doppelte Reichweite für diese Posts</span></div>';
+    if(p.job&&p.job.id==='influ')h+='<div class="trend pro"><b>Vollzeit-Influencer/in</b><span>1,5× Reichweite, 2 Posts und 2 Streams mehr pro Jahr, 2 Aktionen mehr</span></div>';
+    else if(sm.fol>=10000||(c&&c.subs>=5000))h+='<button class="trend pro" data-a="goto" data-g="jobs"><b>Mach es zum Beruf!</b><span>Du kannst jetzt Influencer/in werden. Zur Jobs-App</span></button>';
+    else h+='<div class="trend pro"><b>Ziel: Influencer/in</b><span>Ab 10.000 Followern oder 5.000 Abos wird es dein Beruf. Noch '+kfmt(10000-sm.fol)+' Follower.</span></div>';
+    h+='<section class="card"><h2 class="h">Stimmung des Posts</h2><div class="moods">'+Object.keys(MOODS).map(k=>'<button class="mood" data-a="mood" data-g="'+k+'" aria-pressed="'+(sm.mood===k)+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+MOODS[k][1]+'</svg>'+MOODS[k][0]+'</button>').join('')+'</div><p class="note" style="margin-top:6px">'+MOODS[sm.mood][2]+'</p></section>';
+    h+='<div class="listseg" style="padding:0 4px"><h3 class="sec" style="margin:0">Neuer Post</h3><b class="note">'+sm.pl+' von '+postBudget()+' übrig</b></div><div class="pgrid">'+PORDER.filter(k=>POSTT[k]).map(k=>{const P=POSTT[k],no=P.need&&!P.need(),q=postQ(k);
+      return '<button class="pcard2'+(p.trend===k?' hot':'')+'" data-a="post" data-g="'+k+'"'+(no||sm.pl<=0||lock?' disabled':'')+'><span class="pic" style="background:'+PCOL[k]+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+P.ic+'</svg></span>'+(p.trend===k?'<span class="hotf">Trend</span>':P.warn?'<span class="warnf">!</span>':'')+'<b>'+P.n+'</b>'+(no?'<small>'+(P.nn||(k==='paar'?'Braucht Partner':'Braucht Haustier'))+'</small>':P.cost&&p.travelY!==p.age?'<small>'+eur(P.cost)+'</small>':'')+qbars(q,PCOL[k])+'</button>'}).join('')+'</div>'+
+      '<p class="note">Posts kosten keine Aktion. Die Balken zeigen, wie gut dir der Post gelingt: Selfies leben vom Aussehen, Outfits vom Stil, Luxus vom Vermögen, Workouts von der Form.</p>';
+  }
+  if(smTab==='feed')h+=sm.posts.length?sm.posts.map(x=>postCard(x)).join(''):card('','<p class="note">Noch keine Posts. Leg im Profil los!</p>');
+  if(smTab==='kanal'){
+    if(!c){h+='<section class="card chcreate"><span class="fic" style="background:linear-gradient(135deg,#9B5CFF,#6C3BE0)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></svg></span><h2 class="h">Eigenen Kanal starten</h2><p class="note">Streame live, lade Videos hoch, sammle Abos und Spenden. Ab 13 Jahren mit Smartphone. Laptop und Streaming-Setup aus dem Shop machen es besser.</p>'+
+      '<input type="text" id="chName" maxlength="28" placeholder="Name deines Kanals" value="'+esc(drafts.chName||(p.first+' '+p.last+' Live'))+'"><div class="mt">Thema</div><div class="amts">'+Object.keys(CATS).map(k=>'<button class="amt" data-a="chcat" data-g="'+k+'" aria-pressed="'+((drafts.chCat||'gaming')===k)+'">'+CATS[k][0]+'</button>').join('')+'</div>'+
+      '<button class="btn o big" data-a="chcreate" style="margin-top:12px"'+(lock||p.age<13?' disabled':'')+'>Kanal starten</button></section>';return h}
+    const pl=c.plq||0,nx=PLQ[pl],prev=pl?PLQ[pl-1][0]:0;
+    h+='<section class="card chhead"><div class="fh"><span class="fic" style="background:linear-gradient(135deg,#9B5CFF,#6C3BE0)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></svg></span><div><b>'+esc(c.name)+'</b><small>'+CATS[c.cat][0]+(pl?' · '+PLQ[pl-1][1]:'')+'</small></div></div>'+
+      '<div class="kl-stats four dark"><div><b>'+kfmt(c.subs)+'</b><small>Abonnenten</small></div><div><b>'+c.streams+'</b><small>Streams</small></div><div><b>'+kfmt(c.rec)+'</b><small>Rekord live</small></div><div><b>'+kfmt(c.earn)+'</b><small>Spenden €</small></div></div>'+
+      (nx?'<div class="kl-prog purple"><i style="width:'+clamp((c.subs-prev)/(nx[0]-prev)*100,0,100).toFixed(1)+'%"></i></div><small class="note">Nächstes Ziel: '+kfmt(nx[0])+' Abonnenten, '+nx[1]+'.</small>':'<small class="note">Alle Plaketten gesammelt!</small>')+'</section>';
+    h+='<div class="seg full">'+[['live','Live'],['plan','Plan'],['videos','Videos'],['stats','Statistik']].map(([k,l])=>'<button data-a="chsub" data-g="'+k+'" aria-pressed="'+(chSub===k)+'">'+l+'</button>').join('')+'</div>';
+    if(chSub==='live'){const ns=nextSlot();
+      h+='<h3 class="sec">Format</h3><div class="fmts">'+Object.keys(FMT).map(k=>{const F=FMT[k],used=F[6]&&c.once[k]===p.age,lk=(F[5]&&p.age<F[5])||(F[7]&&c.subs<F[7]);
+        return '<button class="fmt" data-a="chfmt" data-g="'+k+'" aria-pressed="'+(chFmt===k)+'"'+(used||lk?' disabled':'')+'><b>'+F[0]+'</b><small>'+(used?'dieses Jahr erledigt':lk?(F[7]?'ab '+kfmt(F[7])+' Abos':'ab '+F[5]+' Jahren'):F[6]?'Einmal im Jahr':'×'+F[2].toFixed(1).replace('.',',')+' Zuschauer')+'</small></button>'}).join('')+'</div><p class="note">'+FMT[chFmt][1]+'</p>'+
+        '<button class="btn big live-btn" data-a="golive"'+(c.sl<=0||lock?' disabled':'')+'><span class="dotlive"></span>Live gehen</button><p class="note">'+c.sl+' von '+streamBudget()+' Streams in diesem Jahr übrig'+(ns!=null?' · der nächste füllt deinen '+SLOTS[ns][0]+':00-Termin':' · ohne Plan-Termin keine Serie')+'. Streams kosten keine Aktion.</p>';
+      h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Community</h2><b class="'+(c.com>=50?'up':'down')+'">'+comTxt(c.com)+'</b></div><div class="kl-prog purple"><i style="width:'+c.com+'%"></i></div><p class="note" style="margin-top:6px">Eine begeisterte Community lässt den Kanal schneller wachsen. Ausgefallene Plan-Streams und Shitstorms schaden ihr.</p></section>';
+      if(c.vh.length)h+=card('Letzte Streams',bars(c.vh.slice(-10))+sm.streams.slice(0,4).map(s=>row(kfmt(s.viewers)+' Zuschauer',(FMT[s.f]?FMT[s.f][0]:'Stream')+' · Alter '+s.a,'<span class="num up">+'+eur(s.don)+'</span>')).join(''));
+    }
+    if(chSub==='plan'){
+      h+='<section class="card"><h2 class="h">Sendeplan</h2><p class="note">Bis zu vier feste Sendezeiten, die jedes Jahr wiederkommen. Abends schauen mehr zu, eine Ankündigung bringt Hype, und wer verlässlich sendet, baut eine Serie auf. Ausgefallene Plan-Streams kosten Community.</p></section>'+
+        SLOTS.map((S,i)=>{const on=c.plan.includes(i),dn=c.done.includes(i),an=c.ann.includes(i);
+          return '<section class="card slot2'+(on?' on':'')+'"><div class="st"><b>'+S[0]+':00</b><small class="'+(S[2]>1.2?'up':'')+'">'+S[1]+'</small></div><div class="sd"><small>'+(on?(dn?'heute schon gestreamt':'offen'):'kein fester Termin')+' · ×'+S[2].toFixed(2).replace('.',',')+(an?' · angekündigt +15 %':'')+'</small><div class="btns" style="margin:4px 0 0">'+
+            (on?btn('ann',i,an?'Angekündigt':'Ankündigen','',an||dn)+btn('slot',i,'Entfernen','g'):btn('slot',i,'Termin hinzufügen','o',c.plan.length>=4))+'</div></div></section>'}).join('');
+      h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Serie</h2><b class="up">'+c.streak+' am Stück</b></div><p class="note">Dein nächster Plan-Stream bringt +'+Math.min(30,(c.streak+1)*2)+' % Zuschauer und Abos.</p></section>';
+      const base=Math.max(100,c.subs*.05);
+      h+='<section class="card"><h2 class="h">Spendenziel</h2>'+(c.goal?'<div class="bigv"><b>'+eur(c.goal.got)+'</b><span class="note">von '+eur(c.goal.amt)+'</span></div><div class="kl-prog purple"><i style="width:'+clamp(c.goal.got/c.goal.amt*100,0,100)+'%"></i></div>'+btn('goal','0','Ziel aufgeben','g'):
+        '<p class="note">Setze ein Ziel. Die Zuschauer spenden in deinen Streams. Bei Erfolg gibt es Community, Glaubwürdigkeit und ein Dankeschön.</p><div class="amts" style="margin-top:8px">'+[1,5,25,100].map(m=>{const a=Math.round(base*m/100)*100;return '<button class="amt" data-a="goal" data-g="'+a+'">'+eur(a)+'</button>'}).join('')+'</div>')+'</section>';
+    }
+    if(chSub==='videos'){const eq=p.items.includes('kamera')?'Kamera (1,6×)':(p.items.includes('handy')||p.items.includes('laptop')?'Smartphone/Laptop':'keine Kamera');
+      h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Video hochladen</h2><b class="note">'+sm.vl+' von 3 übrig</b></div><p class="note" style="margin:6px 0 10px">Ausrüstung: '+eq+(sm.studio.cutter?' · mit Cutter 1,5×':'')+'. Werbung bringt 1 € pro 100 Aufrufe, ausgezahlt am Jahresende. Videos kosten keine Aktion.</p><div class="ptypes">'+
+        Object.keys(VIDT).map(k=>{const V=VIDT[k];return '<button class="ptype" data-a="video" data-g="'+k+'"'+(sm.vl<=0||lock?' disabled':'')+'><span class="dot" style="background:'+V.c+'"></span>'+V.n+'</button>'}).join('')+'</div></section>'+card('Deine Videos',sm.vids.length?sm.vids.map(vidRow).join(''):'<p class="note">Noch keine Videos.</p>');
+    }
+    if(chSub==='stats'){const sp=sm.spon.reduce((s,k)=>{const S=SPONS.find(x=>x[0]===k);return s+(S?sponPay(S):0)},0);
+      h+=card('Abonnenten pro Jahr',c.hist.length>1?lineSvg(c.hist.slice(-15),110,true,'neu'):'<p class="note">Nach dem ersten Jahr siehst du hier deine Kurve.</p>')+
+        card('Zuschauer pro Stream',c.vh.length?bars(c.vh)+'<p class="note">Rekord: '+kfmt(c.rec)+' Zuschauer gleichzeitig.</p>':'<p class="note">Noch keine Streams.</p>')+
+        card('Einnahmen pro Jahr (geschätzt)','<div class="mrow"><span>Abos (1,50 € pro Abo)</span><b>'+eur(c.subs*1.5)+'</b></div><div class="mrow"><span>Creator-Fonds</span><b>'+eur(sm.fol>=1000?sm.fol*.02:0)+'</b></div><div class="mrow"><span>Sponsoren</span><b>'+eur(sm.studio.manager?sp*.85:sp)+'</b></div><div class="mrow"><span>Merch</span><b>'+eur(sm.studio.merch?(sm.fol*.01+c.subs*.08)*(.5+c.com/100):0)+'</b></div><div class="mrow"><span>Spenden bisher gesamt</span><b>'+eur(c.earn)+'</b></div>');
+    }
+  }
+  if(smTab==='biz'){const max=3+(sm.studio.manager?1:0),reach=sm.fol+(c?c.subs*3:0);
+    h+='<div class="listseg" style="padding:0 4px"><h3 class="sec" style="margin:0">Sponsoren</h3><b class="note">'+sm.spon.length+'/'+max+'</b></div>'+SPONS.map(S=>{const on=sm.spon.includes(S[0]),need=reach<S[2],full=!on&&sm.spon.length>=max;
+      return '<section class="card sprow'+(need?' dim':'')+'"><span class="vb'+(S[4]?' risky':'')+'">'+(S[4]?'!':'✓')+'</span><div class="ct"><b>'+S[0]+'</b><small>'+S[1]+' · '+(need?'ab '+kfmt(S[2])+' Reichweite':eur(sponPay(S))+'/Jahr')+(S[4]?' · schadet Glaubwürdigkeit':'')+'</small></div>'+
+        (on?btn('spon',S[0],'Beenden','g'):need||full?'<span class="lock">'+(need?'Gesperrt':'Voll')+'</span>':btn('spon',S[0],'Unterschreiben','o',lock))+'</section>'}).join('')+'<p class="note">Reichweite = Follower + 3 × Abos. Sponsoren zahlen jedes Jahr, solange der Vertrag läuft.</p>';
+    if(sm.deals.length||sm.fol>=1000)h+=card('Einmalige Anfragen',(sm.deals.length?sm.deals.map((d,i)=>'<div class="deal"><span class="cav" style="background:#8E63D6">'+esc(d.b[0])+'</span><div class="dt"><b>'+esc(d.b)+'</b><small>ein Post über '+esc(d.pr)+'</small></div><b class="num up">'+eur(d.pay)+'</b><div class="btns" style="grid-column:1/-1">'+btn('deal',i+':1','Annehmen','o',lock)+btn('deal',i+':0','Ablehnen','g')+'</div></div>').join(''):'<p class="note">Gerade keine Anfragen.</p>'));
+    h+='<h3 class="sec">Studio</h3>'+Object.keys(STUDIO).map(k=>{const S=STUDIO[k],on=!!sm.studio[k];return '<section class="card sprow"><div class="ct"><b>'+S[0]+'</b><small>'+S[1]+(S[2]?' Start: '+eur(px$(S[2]))+'.':'')+(S[3]?' '+eur(px$(S[3]))+' im Jahr.':'')+'</small></div>'+(on?(k==='merch'?'<span class="chip">Läuft</span>':btn('studio',k,'Entlassen','g')):btn('studio',k,k==='merch'?'Starten':'Einstellen','o',lock||p.money<px$(S[2])||(k!=='merch'&&p.age<16)))+'</section>'}).join('');
+  }
+  return h;
+}
+function act4(id,arg){const sm=p.sm;
+  switch(id){
+  case 'mood':if(sm){sm.mood=arg;render()}return 1;
+  case 'chcat':drafts.chCat=arg;render();return 1;
+  case 'chcreate':{if(!sm||sm.ch||p.age<13||p.prison)return 1;const nm=(drafts.chName||'').trim()||p.first+' '+p.last+' Live';sm.ch={name:nm,cat:drafts.chCat||'gaming',subs:sm.subs||0,streams:0,rec:0,earn:0,com:60,streak:0,plan:[2],ann:[],done:[],goal:null,once:{},hist:[sm.subs||0],vh:[],sl:streamBudget(),plq:0};chSub='live';done('Dein Kanal „'+nm+'“ ist online.');return 1}
+  case 'chsub':chSub=arg;render();return 1;
+  case 'chfmt':chFmt=arg;render();return 1;
+  case 'golive':doLive();return 1;
+  case 'slot':{const c=sm&&sm.ch;if(!c)return 1;const i=+arg,k=c.plan.indexOf(i);if(k>=0)c.plan.splice(k,1);else if(c.plan.length<4)c.plan.push(i);save();render();return 1}
+  case 'ann':{const c=sm&&sm.ch;if(!c||c.ann.includes(+arg))return 1;c.ann.push(+arg);toast('Angekündigt! Der '+SLOTS[+arg][0]+':00-Stream bekommt +15 % Zuschauer.');save();render();return 1}
+  case 'goal':{const c=sm&&sm.ch;if(!c)return 1;c.goal=+arg?{amt:+arg,got:0}:null;save();render();return 1}
+  case 'spon':{if(!sm)return 1;const i=sm.spon.indexOf(arg);if(i>=0){sm.spon.splice(i,1);done('Vertrag mit '+arg+' beendet.');return 1}
+    if(sm.spon.length>=3+(sm.studio.manager?1:0))return 1;sm.spon.push(arg);sm.trust=Math.max(10,sm.trust-3);done('Sponsorvertrag mit '+arg+' unterschrieben.');return 1}
+  case 'studio':{if(!sm)return 1;const S=STUDIO[arg];if(sm.studio[arg]){if(arg==='merch')return 1;delete sm.studio[arg];done(S[0]+' entlassen.');return 1}const c=px$(S[2]);if(p.money<c)return 1;p.money-=c;sm.studio[arg]=1;done(arg==='merch'?'Deine Merch-Kollektion ist im Shop!':S[0]+' arbeitet jetzt für dich.');return 1}
+  }return 0;
+}
+
 function newLife(first,last,g,age,sb){
   p={first,last,g,age,alive:true,sb:!!sb,seed:R(1,2e9),money:sb?1000000:(age>=18?2000:0),st:{gl:R(55,90),ge:R(65,95),in:R(35,90),au:R(35,90)},
     edu:'keine',school:null,study:null,azubi:null,aus:false,deg:null,job:null,pension:0,home:'eltern',owned:[],cars:[],items:[],pets:[],
@@ -1282,7 +1451,7 @@ function ageUp(){
   {const mv=STOCKS.map(s=>[s,(p.px[s.id]/p.prev[s.id]-1)*100]).sort((x,y)=>Math.abs(y[1])-Math.abs(x[1]))[0];const pc=Math.abs(mv[1]).toFixed(0);
    const why=mv[1]>=0?pick(['Rekordgewinn gemeldet','neuer Großauftrag','Analysten begeistert','Übernahmegerüchte']):pick(['Gewinnwarnung','Chef tritt zurück','Skandal um Produkte','schwaches Jahr']);
    p.mnews.unshift({a:p.age,t:mv[0].n+' '+(mv[1]>=0?'+':'−')+pc+' %: '+why});p.mnews=p.mnews.slice(0,5)}
-  R0.inc=[['Gehalt',sal],['Ausbildungsvergütung',azubi],['Rente',p.pension],['Taschengeld',pocket],['Klick: Werbung & Creator-Fonds',smi],['Klick: Deals & Spenden',p.yr.social],['Dividenden',dv],['Sparzinsen',si],['Mieteinnahmen',HY.rent],['Immobilien: Mieten',PY.rent]].concat(BZ.inc,[['Casino-Gewinne',Math.max(0,p.yr.casino)]]);
+  R0.inc=[['Gehalt',sal],['Ausbildungsvergütung',azubi],['Rente',p.pension],['Taschengeld',pocket],['Klick: Abos, Sponsoren, Merch & Werbung',smi],['Klick: Deals & Spenden',p.yr.social],['Dividenden',dv],['Sparzinsen',si],['Mieteinnahmen',HY.rent],['Immobilien: Mieten',PY.rent]].concat(BZ.inc,[['Casino-Gewinne',Math.max(0,p.yr.casino)]]);
   R0.out=[['Steuern',tax],['Wohnen',wohnen],['Kinder',kids],['Autos',cars],['Haustiere',pets],['Kreditraten',BK.raten],['Personal',HY.staff],['Reparaturen',HY.repair],['Immobilien: Unterhalt & Schäden',PY.cost],['Lebensstil & Sport',LY.ls],['Behandlungen',LY.treat]].concat(BZ.out,[['Casino-Verluste',Math.max(0,-p.yr.casino)]]);
   p.fin.push({a:p.age,inc:R0.inc.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])]),out:R0.out.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])])});if(p.fin.length>15)p.fin.shift();
   p.yr={social:0,casino:0};
@@ -1386,10 +1555,10 @@ lernen:{n:'Extra lernen',d:'Intelligenz ++',ok:()=>p.age>=6&&p.age<=30,f:()=>{ad
 sport:{n:'Training',d:'Gesundheit und Aussehen +',ok:()=>p.age>=6,f:()=>{add('ge',R(2,6));add('au',R(1,3));return 'Du hast dich ausgepowert.'}},
 jog:{n:'Joggen',d:'Gesundheit und Glück +',ok:()=>p.age>=8,f:()=>{add('ge',R(2,5));add('gl',R(1,3));return 'Eine Runde durch den Park.'}},
 date:{n:'Jemanden kennenlernen',d:'ab 14 Jahren, als Single',ok:()=>p.age>=14&&!p.partner,f:()=>{if(ch(.35+p.st.au/200+p.sk.charme/400)){newPartner(50);add('gl',8);return 'Du bist jetzt mit '+p.partner.name+' zusammen!'}add('gl',-3);return 'Kein Glück diesmal.'}},
-party:{n:'Feiern',d:'Glück +, Gesundheit −',ok:()=>p.age>=16,f:()=>{add('gl',R(5,10));add('ge',-R(0,4));return 'Die Nacht war lang.'}},
+party:{n:'Feiern',d:'Glück +, Gesundheit −',ok:()=>p.age>=16,f:()=>{p.partyY=p.age;add('gl',R(5,10));add('ge',-R(0,4));return 'Die Nacht war lang.'}},
 arzt:{n:'Check-up beim Arzt',d:'Gesundheit +',ok:()=>true,f:()=>{add('ge',R(4,12));return 'Check-up erledigt.'}},
 op:{n:'Schönheits-OP (6.000 €)',d:'Aussehen ++, mit Risiko',ok:()=>p.age>=18,f:()=>{if(p.money<6000)return null;p.money-=6000;if(ch(.12)){add('ge',-20);return 'Komplikationen bei der OP!'}add('au',R(10,20));return 'Das Ergebnis kann sich sehen lassen.'}},
-urlaub:{n:'Urlaub buchen (1.500 €)',d:'Glück ++',ok:()=>p.age>=18,f:()=>{if(p.money<1500)return null;p.money-=1500;add('gl',R(10,18));return 'Erholt aus dem Urlaub zurück.'}},
+urlaub:{n:'Urlaub buchen (1.500 €)',d:'Glück ++',ok:()=>p.age>=18,f:()=>{if(p.money<1500)return null;p.money-=1500;p.travelY=p.age;add('gl',R(10,18));return 'Erholt aus dem Urlaub zurück.'}},
 lotto:{n:'Lotto spielen (20 €)',d:'winzige Chance auf 1 Mio.',ok:()=>p.age>=18,f:()=>{p.money-=20;if(ch(.0005)){p.money+=1000000;add('gl',30);ach('jackpot');return 'JACKPOT! 1.000.000 €!'}if(ch(.05)){p.money+=200;return '200 € gewonnen.'}return 'Kein Gewinn.'}},
 race:{n:'Straßenrennen (Einsatz 1.000 €)',d:'braucht ein Auto, illegal',crime:1,ok:()=>p.age>=18&&p.cars.length>0,f:()=>{if(p.money<1000)return null;p.crimes++;
   if(ch(.12)){p.money-=3000;add('gl',-8);return 'Polizeikontrolle! Einsatz weg und 2.000 € Strafe.'}
@@ -1412,7 +1581,7 @@ function canJob(j){
   if(j.edu&&RANK[p.edu]<j.edu)return j.edu===2?'braucht Abitur':'braucht Schulabschluss';
   if(j.aus&&!p.aus)return 'braucht Ausbildung';
   if(j.deg&&p.deg!==j.deg)return 'braucht Studium '+j.deg;
-  if(j.fol&&(!p.sm||p.sm.fol<j.fol))return 'braucht '+kfmt(j.fol)+' Follower auf Klick';
+  if(j.fol&&!(p.sm&&(p.sm.fol>=j.fol||(p.sm.ch&&p.sm.ch.subs>=5000))))return 'braucht '+kfmt(j.fol)+' Follower oder 5.000 Abos auf Klick';
   for(const k of ['ge','in','au'])if(j[k]&&p.st[k]<j[k])return 'braucht '+STAT[k]+' '+j[k]+' %';
   return '';
 }
@@ -1429,7 +1598,7 @@ function act(id,arg){
   if(!p||!p.alive)return;
   if(ACTS[id]){const A=ACTS[id];if(!can(id))return;p.act--;const r=A.f();if(r===null){p.act++;toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg)||act3(id,arg))return;
+  if(act2(id,arg)||act3(id,arg)||act4(id,arg))return;
   switch(id){
   case 'goto':tab=arg;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
@@ -1742,40 +1911,6 @@ function viewChats(){
   }
   return '<section class="card clist">'+cs.map(c=>{const l=c.msgs[c.msgs.length-1];return '<button class="crow" data-a="chat" data-g="'+c.id+'"><span class="cav" style="background:'+c.col+'">'+esc(c.n[0])+'</span><span class="ct"><b>'+esc(c.n)+'</b><small>'+(l?(l.me?'Du: ':'')+esc(l.t):esc(c.sub||''))+'</small></span>'+(c.un?'<span class="badge">'+c.un+'</span>':'')+'</button>'}).join('')+'</section>';
 }
-function viewKlick(){
-  if(!p.sm)return '<section class="kl-hero"><div class="kl-logo">Klick</div><p>Teile dein Leben, sammle Follower und mach daraus vielleicht sogar deinen Beruf.</p><div class="kl-steps"><span>Posts</span><span>Videos</span><span>Livestreams</span><span>Werbedeals</span></div>'+
-    (p.age<13?'<p class="kl-note">Ein Konto gibt es ab 13 Jahren.</p>':'<button class="btn big kl-btn" data-a="smjoin">Konto erstellen</button>')+'</section>';
-  const sm=p.sm,li=lvIdx(sm.fol),nx=LV[li+1],prog=nx?clamp((sm.fol-LV[li][0])/(nx[0]-LV[li][0])*100,0,100):100,dis=p.act<=0||!!p.prison;
-  let h='<section class="kl-prof"><div class="kl-top"><span class="kl-av">'+avatarSvg(p.age,72)+'</span><div><b>'+esc(p.first+' '+p.last)+'</b><small>'+esc(sm.h)+'</small><span class="kl-lv">'+LV[li][1]+'</span></div></div>'+
-    '<div class="kl-stats"><div><b>'+kfmt(sm.fol)+'</b><small>Follower</small></div><div><b>'+kfmt(sm.likes)+'</b><small>Likes</small></div><div><b>'+kfmt(sm.subs)+'</b><small>Abos</small></div></div>'+
-    '<div class="kl-prog"><i style="width:'+prog.toFixed(1)+'%"></i></div><small class="kl-next">'+(nx?'Noch '+kfmt(nx[0]-sm.fol)+' Follower bis '+nx[1]:'Höchstes Level erreicht')+'</small>'+
-    '<div class="kl-trust"><span>Glaubwürdigkeit</span><span class="kbar"><i style="width:'+sm.trust+'%"></i></span><b>'+sm.trust+' %</b></div></section>';
-  const T=POSTT[p.trend];h+='<div class="trend"><b>Trend dieses Jahr: '+T.tag+'</b><span>'+T.n+'-Posts bekommen doppelte Reichweite</span></div>';
-  if(p.job&&p.job.id==='influ')h+='<div class="trend pro"><b>Vollzeit-Influencer/in</b><span>1,5× Reichweite und 2 Aktionen mehr pro Jahr</span></div>';
-  else if(sm.fol>=10000)h+='<button class="trend pro" data-a="goto" data-g="jobs"><b>Mach es zum Beruf!</b><span>Mit 10.000 Followern kannst du Influencer/in werden. Zur Jobs-App</span></button>';
-  h+='<div class="seg kl-tabs">'+[['feed','Feed'],['vid','Videos'],['live','Live'],['deals','Deals'+(sm.deals.length?' ('+sm.deals.length+')':'')]].map(([k,l])=>'<button data-a="smtab" data-g="'+k+'" aria-pressed="'+(smTab===k)+'">'+l+'</button>').join('')+'</div>';
-  if(smTab==='feed'){
-    h+='<section class="card"><h2 class="h">Neuer Post</h2><div class="ptypes">'+Object.keys(POSTT).map(k=>{const P=POSTT[k],no=P.need&&!P.need();
-      return '<button class="ptype'+(p.trend===k?' hot':'')+'" data-a="post" data-g="'+k+'"'+(dis||no?' disabled':'')+'><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+P.ic+'</svg>'+P.n+(P.cost?'<small>'+eur(P.cost)+'</small>':(no?'<small>'+(k==='paar'?'braucht Partner':'braucht Haustier')+'</small>':''))+'</button>'}).join('')+
-      '</div><p class="note" style="margin-top:10px">1 Aktion pro Post. Selfies leben vom Aussehen, Memes von Intelligenz, Workouts von Gesundheit, der Rest von guter Laune.</p></section>';
-    h+=sm.posts.length?sm.posts.map(x=>postCard(x)).join(''):card('','<p class="note">Noch keine Posts. Dein erster Post wartet!</p>');
-  }
-  if(smTab==='vid'){const eq=p.items.includes('kamera')?'Kamera (1,6× Qualität)':(p.items.includes('handy')?'Smartphone':'keine Kamera, kauf ein Smartphone im Shop');
-    h+='<section class="card"><h2 class="h" style="margin:0">'+esc(p.first)+' TV</h2><p class="note">'+kfmt(sm.subs)+' Abonnenten · '+kfmt(sm.views)+' Aufrufe insgesamt</p><p class="note" style="margin:8px 0">Ausrüstung: '+eq+'. Werbung bringt 1 € pro 100 Aufrufe, ausgezahlt am Jahresende.</p><div class="ptypes">'+
-      Object.keys(VIDT).map(k=>{const V=VIDT[k];return '<button class="ptype" data-a="video" data-g="'+k+'"'+(dis?' disabled':'')+'><span class="dot" style="background:'+V.c+'"></span>'+V.n+'</button>'}).join('')+'</div></section>';
-    h+=card('Deine Videos',sm.vids.length?sm.vids.map(vidRow).join(''):'<p class="note">Noch keine Videos.</p>');
-  }
-  if(smTab==='live'){
-    h+='<section class="card live"><span class="onair">LIVE</span><h2 class="h">Livestream starten</h2><p class="note">Ab 16 Jahren mit Laptop. Ein Streaming-Setup aus dem Shop bringt 1,8× Zuschauer. Spenden kommen sofort, aber ein falscher Satz kann einen Shitstorm auslösen.</p><button class="btn o big" data-a="live"'+(p.age<16||dis?' disabled':'')+' style="margin-top:12px">Live gehen</button></section>';
-    h+=card('Letzte Streams',sm.streams.length?sm.streams.map(s=>row(kfmt(s.viewers)+' Zuschauer','Alter '+s.a,'<span class="num up">+'+eur(s.don)+'</span>')).join(''):'<p class="note">Noch keine Streams.</p>');
-  }
-  if(smTab==='deals'){
-    h+=card('Werbeanfragen',(sm.fol<1000?'<p class="note">Ab 1.000 Followern melden sich Marken bei dir.</p>':'')+(sm.deals.length?sm.deals.map((d,i)=>'<div class="deal"><span class="cav" style="background:#8E63D6">'+esc(d.b[0])+'</span><div class="dt"><b>'+esc(d.b)+'</b><small>möchte, dass du '+esc(d.pr)+' bewirbst</small></div><b class="num up">'+eur(d.pay)+'</b><div class="btns" style="grid-column:1/-1">'+btn('deal',i+':1','Annehmen','o',!!p.prison)+btn('deal',i+':0','Ablehnen','g')+'</div></div>').join(''):(sm.fol>=1000?'<p class="note">Gerade keine Anfragen. Nächstes Jahr kommen neue.</p>':''))+
-      '<p class="note" style="margin-top:10px">Jeder Deal kostet Glaubwürdigkeit. Mehr als 2 Deals pro Jahr nerven deine Fans und kosten Follower.</p>');
-  }
-  return h;
-}
-
 const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>n===1?'1 Aktion':n+' Aktionen';
 function badgeOf(id){if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();return 0}
@@ -1840,7 +1975,7 @@ function buildShell(){
   document.getElementById('ctr').onclick=()=>{if(G&&G.L){const c=G.L.cells.find(x=>x.place==='home');G.goal=new THREE.Vector3(c.x,0,c.z);G.dist=80}};
   shell=true;
 }
-function render(){
+function render(){if(p&&p.sm)ensureSm();
   const app=document.getElementById('app');
   if(!p){shell=false;if(G)G.run=false;renderStart();return}
   if(!p.alive){shell=false;if(G)G.run=false;
@@ -1883,7 +2018,7 @@ document.addEventListener('click',e=>{
   const t=e.target.closest('[data-t]');if(t&&t.closest('#nav')){tab=t.dataset.t;render();window.scrollTo(0,0);return}
   const a=e.target.closest('[data-a]');if(a&&!a.disabled&&a.closest('#app'))act(a.dataset.a,a.dataset.g);
 });
-document.addEventListener('input',e=>{const t=e.target;if(t&&['coName','firmName','shopName'].includes(t.id))drafts[t.id]=t.value});
+document.addEventListener('input',e=>{const t=e.target;if(t&&['coName','firmName','shopName','chName'].includes(t.id))drafts[t.id]=t.value});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const m=document.getElementById('modal');if(m.classList.contains('on')&&m.querySelectorAll('[data-o]').length===1)m.querySelector('[data-o]').click()}});
 render();
 }
