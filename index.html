@@ -238,6 +238,16 @@ button.trend{cursor:pointer}
 .age{padding-bottom:max(14px,env(safe-area-inset-bottom))}
 .start{padding-top:max(34px,env(safe-area-inset-top))}
 html,body{overscroll-behavior-y:none}
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+input,textarea{-webkit-user-select:text;user-select:text}
+button:disabled{pointer-events:none}
+.prow{display:flex;align-items:center;gap:12px;width:100%;border:0;text-align:left;color:var(--ink)}
+.prow .pt{flex:1;min-width:0}.prow .pt b{display:block;font-size:15px}.prow .pt small{display:block;color:var(--muted);font-weight:600;font-size:13px}
+.occ{display:block;height:6px;border-radius:3px;background:var(--line);margin-top:6px;overflow:hidden;max-width:160px}.occ i{display:block;height:100%;background:#3BB273}
+.prow .pv{text-align:right;flex:none}.prow .pv b{display:block;font-size:16px;white-space:nowrap}.prow .pv small{font-weight:800;white-space:nowrap}
+.trow{display:flex;align-items:center;gap:10px;padding:10px 14px}.trow .ct{flex:1}
+.colb{display:flex;align-items:center;gap:6px}.colb i{width:16px;height:16px;border-radius:8px;border:1px solid rgba(0,0,0,.2)}
+.sell{color:var(--bad)!important;width:100%;margin-top:4px}
 
 /* Geschäfte */
 .bizsum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -625,8 +635,8 @@ function firmProfit(){const f=p.biz.firm;return f&&!f.ipo?Math.round(Math.max(0,
 function bizExpected(){const B=p.biz;if(!B)return 0;return B.fronts.reduce((s,k)=>s+Math.round(FR[k].profit*(1+.5*(flvl(k)-1))*((B.dem&&B.dem[k])?B.dem[k][B.dem[k].length-1]:1)),0)+firmProfit()+shopProfit()+(B.bank?Math.round(B.bank.dep*.01):0)}
 function bizYear(){ensureBiz();const B=p.biz,inc=[],out=[];let taxable=0;
   // Geschäfte
-  let fp=0,fines=0;B.fronts.forEach(k=>{const F=FR[k],dm=B.dem[k]||(B.dem[k]=[1]);const d=clamp(dm[dm.length-1]+(Math.random()-.5)*.3,.6,1.5);dm.push(+d.toFixed(2));if(dm.length>10)dm.shift();fp+=Math.round(F.profit*(1+.5*(flvl(k)-1))*d);
-    if(ch(F.raid/100*(p.dirty>0?1.5:.5)*(p.staff&&p.staff.guard?.5:1))){const fine=Math.round(F.cost*.1),lost=Math.round(p.dirty*.5);fines+=fine;p.dirty-=lost;
+  let fp=0,fines=0;B.fronts.forEach(k=>{const F=FR[k],dm=B.dem[k]||(B.dem[k]=[1]);const d=clamp(dm[dm.length-1]+(Math.random()-.5)*.3,.6,1.5);dm.push(+d.toFixed(2));if(dm.length>10)dm.shift();fp+=Math.round(F.profit*(1+.5*(flvl(k)-1))*d*((p.props||[]).some(x=>x.use==='lager')?1.1:1));
+    if(ch(F.raid/100*(p.dirty>0?1.5:.5)*(p.staff&&p.staff.guard?.5:1))){const fine=Math.round(F.cost*.1),lost=Math.round(p.dirty*.5*((p.props||[]).some(x=>x.use==='versteck')?.5:1));fines+=fine;p.dirty-=lost;
       log('Razzia im '+F.n+'! Strafe '+eur(fine)+(lost?', '+eur(lost)+' Schwarzgeld beschlagnahmt':'')+'.');add('gl',-6);
       if(lost>150000&&ch(.4)&&!p.prison){p.prison=2;p.job=null;log('Wegen Geldwäsche musst du für 2 Jahre ins Gefängnis.');ach('knast')}}});
   p.money+=fp-fines;taxable+=fp;inc.push(['Geschäfte',fp]);out.push(['Razzia-Strafen',fines]);
@@ -775,7 +785,7 @@ function ensureEcon(){
   if(!p.sk)p.sk={fahren:0,schloss:0,hack:0,charme:R(10,30),kampf:R(5,20),form:R(20,45)};if(p.wanted==null)p.wanted=0;if(p.skinS==null)p.skinS=R(65,85);
   if(!p.ill)p.ill={};if(!p.ls)p.ls={vors:'beschw',krank:'spaeter',diet:'normal'};if(!p.staff)p.staff={};if(!p.furn)p.furn={};if(!p.rented)p.rented={};
   if(!p.ward)p.ward=[];if(!p.look)p.look={o:null,acc:[]};if(!p.goals)p.goals={};if(!p.clubs)p.clubs=[];if(p.gym===undefined)p.gym=null;if(!p.focus)p.focus='ganz';
-  if(!p.once)p.once={};if(!p.biz.lvl)p.biz.lvl={};if(!p.biz.dem)p.biz.dem={};
+  if(!p.once)p.once={};if(!p.props)p.props=[];if(p.home==='eigen'){const sp=p.props.find(x=>x.use==='self');if(sp)setEigenHome(sp);else p.home=p.age>=18?'wg':'eltern'}if(!p.biz.lvl)p.biz.lvl={};if(!p.biz.dem)p.biz.dem={};
 }
 const curInfl=()=>p.econ.infl[p.econ.infl.length-1],curLz=()=>p.econ.lz[p.econ.lz.length-1];
 const px$=x=>Math.round(x*p.econ.idx);
@@ -800,7 +810,7 @@ function bankYear(){const r=econYear(),out={zins:0,raten:0,fgz:0,si:0};
   if(p.job&&p.job.id!=='influ')p.job.pay=Math.round(p.job.pay*(1+r/100));if(p.pension)p.pension=Math.round(p.pension*(1+r/200));
   return out;
 }
-function netWorth(){const B=p.biz||{};return p.money+p.sav-loanSum()+fgSum()+stockVal()+p.owned.reduce((s,k)=>s+HOMES[k].buy,0)+(B.fronts||[]).reduce((s,k)=>s+FR[k].cost,0)+(B.firm&&!B.firm.ipo?B.firm.val:0)}
+function netWorth(){const B=p.biz||{};return p.money+p.sav-loanSum()+fgSum()+stockVal()+propsValue()+p.owned.reduce((s,k)=>s+HOMES[k].buy,0)+(B.fronts||[]).reduce((s,k)=>s+FR[k].cost,0)+(B.firm&&!B.firm.ipo?B.firm.val:0)}
 function fixedCosts(){const L=[];const a=p.age,H=HOMES[p.home];
   if(a>=18)L.push(['Wohnen: '+H.n,px$(H.c+(p.home==='eltern'?1200:0))]);
   p.owned.filter(k=>k!==p.home).forEach(k=>L.push(['Unterhalt '+HOMES[k].n,px$(HOMES[k].c)]));
@@ -809,6 +819,7 @@ function fixedCosts(){const L=[];const a=p.age,H=HOMES[p.home];
   Object.keys(p.staff).forEach(k=>L.push([STAFF[k].n,px$(STAFF[k].pay)]));
   const d=DIET[p.ls.diet];if(d.c)L.push(['Ernährung: '+d.n,px$(d.c)]);if(VORS[p.ls.vors].c)L.push(['Vorsorge',px$(VORS[p.ls.vors].c)]);
   if(p.gym)L.push([GYM[p.gym].n,px$(GYM[p.gym].c)]);p.clubs.forEach(c=>L.push([CLUBS[c].n,px$(CLUBS[c].c)]));
+  (p.props||[]).forEach(pr=>L.push(['Unterhalt '+propName(pr),Math.round(pr.val*.008)]));
   p.loans.forEach((l,i)=>L.push(['Kreditrate '+(i+1),l.pay]));
   return L;
 }
@@ -865,7 +876,7 @@ Object.assign(HOMES.eltern,{ar:'Dein altes Kinderzimmer',sl:2});Object.assign(HO
 Object.assign(HOMES.einzimmer,{ar:'In der Altstadt',sl:4});Object.assign(HOMES.dreizimmer,{ar:'Am Stadtpark',sl:6});Object.assign(HOMES.loft,{ar:'Am Hafen',sl:7});
 Object.assign(HOMES.penthouse,{ar:'Über den Dächern',sl:9});Object.assign(HOMES.hausboot,{ar:'Im alten Hafenbecken',sl:5});Object.assign(HOMES.reihenhaus,{ar:'In der Vorstadt',sl:8});Object.assign(HOMES.villa,{ar:'Im Villenviertel',sl:12});
 const STAFF={
-haus:{n:'Hausmeister/in',pay:38000,ic:'<path d="M14 7l3-3 3 3-3 3M15 8l-9 9-2 3 3-2 9-9"/>',d:'Hält deine Immobilien in Schuss: Reparaturen und Mieterärger kosten nur noch die Hälfte.',need:()=>p.owned.length>0,nn:'braucht eine eigene Immobilie'},
+haus:{n:'Hausmeister/in',pay:38000,ic:'<path d="M14 7l3-3 3 3-3 3M15 8l-9 9-2 3 3-2 9-9"/>',d:'Hält deine Immobilien in Schuss: Reparaturen und Mieterärger kosten nur noch die Hälfte.',need:()=>p.owned.length>0||(p.props&&p.props.length>0),nn:'braucht eine eigene Immobilie'},
 putz:{n:'Putzkraft',pay:18000,ic:'<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>',d:'Ein Zuhause, in dem immer alles glänzt. Jedes Jahr +3 Glück.'},
 garten:{n:'Gärtner/in',pay:26000,ic:'<path d="M12 22v-8M12 14c-4 0-7-3-7-8 5 0 7 3 7 8zM12 14c4 0 7-3 7-8-5 0-7 3-7 8z"/>',d:'Rasen wie auf dem Golfplatz. +2 Glück und +1 Aussehen pro Jahr.',need:()=>['reihenhaus','villa'].includes(p.home),nn:'braucht ein Haus mit Garten'},
 koch:{n:'Koch/Köchin',pay:45000,ic:'<path d="M7 3v8M5 3v4a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 0-3 3-3 6s1 4 3 4v8"/>',d:'Jeden Tag frisch gekocht. Zählt wie mediterrane Ernährung, dazu +2 Glück.'},
@@ -908,17 +919,18 @@ function homeYear(){const out={rent:0,repair:0,staff:0};
   return out;
 }
 function viewWohnen(){ensureEcon();const H=HOMES[p.home],sl=H.sl,af=activeFurn(),lock=!!p.prison;
-  let h='<section class="card homecard"><div class="fh"><span class="fic sm" style="background:linear-gradient(135deg,#FFB35C,#F08A24)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span><div><div class="lbl">DEIN ZUHAUSE</div><b>'+H.n+'</b><small>'+H.ar+'</small></div></div>'+
+  let h=wTab==='immo'?'':'<section class="card homecard"><div class="fh"><span class="fic sm" style="background:linear-gradient(135deg,#FFB35C,#F08A24)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span><div><div class="lbl">DEIN ZUHAUSE</div><b>'+H.n+'</b><small>'+H.ar+'</small></div></div>'+
     '<div class="tags"><span class="tag g">Komfort +'+comfort()+'</span><span class="tag">'+af.length+' von '+sl+' Plätzen eingerichtet</span>'+(p.age>=18&&H.c?'<span class="tag w">'+eur(px$(H.c))+(H.buy?' Unterhalt':' Miete')+' im Jahr</span>':'')+'</div>'+
     '<button class="btn o big" data-a="enter">'+(roomView?'Raum schließen':'Eintreten')+'</button>'+(roomView?roomSvg():'')+'</section>';
-  h+='<div class="seg full wt">'+[['home','Einrichten'],['markt','Markt'],['mieten','Mieten'],['personal','Personal']].map(([k,l])=>'<button data-a="wtab" data-g="'+k+'" aria-pressed="'+(wTab===k)+'">'+l+'</button>').join('')+'</div>';
+  h+='<div class="seg full wt">'+[['home','Einrichten'],['umzug','Umziehen'],['immo','Immobilien'],['personal','Personal']].map(([k,l])=>'<button data-a="wtab" data-g="'+k+'" aria-pressed="'+(wTab===k)+'">'+l+'</button>').join('')+'</div>';
   if(wTab==='home'){
     h+='<p class="note">Jedes Möbelstück bringt Komfort, und Komfort bringt jedes Jahr Glück. Dein Zuhause hat '+sl+' Plätze. Pool und Kamin gehen nur in passenden Häusern.</p>'+
       Object.keys(FURN).map(k=>{const F=FURN[k],cur=p.furn[k],ok=furnOk(k),act=af.includes(k);
         return '<section class="card furn"><div class="fh"><span class="fic sm'+(act?'':' off')+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F[2]+'</svg></span><div><b>'+F[0]+'</b><small>'+(cur!=null?TIERS[cur][0]+(act?' · aufgestellt':' · kein Platz'):ok?'noch nicht vorhanden':'passt nicht in dieses Zuhause')+'</small></div></div><div class="tiers">'+
           TIERS.map((T,i)=>{const c=px$(T[2]*F[1]);return '<button class="tier'+(cur===i?' on':'')+'" data-a="furn" data-g="'+k+':'+i+'"'+(cur!=null&&cur>=i||!ok||p.money<c||lock?' disabled':'')+'><b>'+T[0]+'</b><small>+'+T[1]+' Komfort</small><span>'+(cur!=null&&cur>=i?'vorhanden':eur(c))+'</span></button>'}).join('')+'</div></section>'}).join('');
   }
-  if(wTab==='markt'||wTab==='mieten'){const keys=Object.keys(HOMES).filter(k=>wTab==='markt'?!!HOMES[k].buy:!HOMES[k].buy);
+  if(wTab==='immo')h+=viewImmo();
+  if(wTab==='umzug'){const keys=Object.keys(HOMES).filter(k=>k!=='eigen');
     h+=keys.map(k=>{const o=HOMES[k],own=p.owned.includes(k),here=p.home===k;
       const price=o.buy?eur(px$(o.buy)):(o.c?eur(px$(o.c))+' im Jahr':(p.age>=18?'1.200 € Kostgeld':'kostenlos'));
       return '<section class="card"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span><div><b>'+o.n+'</b><small>'+o.ar+' · '+o.sl+' Plätze · Komfort '+o.gl+'</small></div></div>'+
@@ -926,7 +938,7 @@ function viewWohnen(){ensureEcon();const H=HOMES[p.home],sl=H.sl,af=activeFurn()
         '<div class="fb"><b>'+(here?'Hier wohnst du':price)+'</b><span class="btns" style="margin:0">'+(here?'':
           (own?btn('home',k,'Einziehen','',lock)+btn('rentout',k,p.rented[k]?'Nicht vermieten':'Vermieten','g',lock)+btn('sellhome',k,'Verkaufen','g'):
             btn('home',k,o.buy?'Kaufen':'Mieten','o',p.age<o.min||lock||(o.buy&&p.money<px$(o.buy)))))+'</span></div></section>'}).join('');
-    if(wTab==='markt')h+='<p class="note">Gekaufte Immobilien, in denen du nicht wohnst, kannst du vermieten: 4,5 % des Kaufpreises im Jahr, manchmal mit Reparaturen.</p>';
+    if(wTab==='umzug')h+='<p class="note">Gekaufte Immobilien, in denen du nicht wohnst, kannst du vermieten: 4,5 % des Kaufpreises im Jahr, manchmal mit Reparaturen.</p>';
   }
   if(wTab==='personal'){
     h+='<p class="note">Leute, die dir den Rücken freihalten. Jede Person kostet einen Jahreslohn und bringt etwas, das du im Alltag merkst.</p>'+Object.keys(STAFF).map(k=>{const S=STAFF[k],hired=p.staff[k],ok=!S.need||S.need();
@@ -1115,6 +1127,110 @@ function act2(id,arg){
   return 0;
 }
 
+/* ================= Immobilien-Investments ================= */
+const PT={wohnung:{n:'Eigentumswohnung',u:1,b:180000,gl:3,sl:5,bld:['solar','fassade'],ic:'<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-4h4v4"/>'},
+haus:{n:'Einfamilienhaus',u:1,b:420000,gl:5,sl:8,bld:['dach','anbau','solar','fassade'],ic:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'},
+laden:{n:'Ladenlokal',u:1,b:350000,gl:0,sl:0,com:1,bld:['fassade','solar'],ic:'<path d="M4 10h16l-1-5H5zM5 10v9h14v-9M9 19v-5h6v5"/>'},
+buero:{n:'Büroetage',u:4,b:900000,gl:0,sl:0,com:1,bld:['aufstock','solar','fassade'],ic:'<rect x="4" y="3" width="10" height="18" rx="1"/><path d="M14 9h5a1 1 0 0 1 1 1v11H14M7 7h4M7 11h4M7 15h4"/>'},
+mfh:{n:'Mehrfamilienhaus',u:8,b:1600000,gl:4,sl:9,bld:['dach','aufstock','anbau','solar','fassade'],ic:'<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7 7h2M11 7h2M15 7h2M7 11h2M11 11h2M15 11h2M7 15h2M15 15h2M11 21v-5h2v5"/>'},
+flaeche:{n:'Baugrundstück',u:0,b:150000,gl:0,sl:0,land:1,bld:[],ic:'<path d="M3 20h18M5 20l3-8h8l3 8M12 4v8M9 7l3-3 3 3"/>'}};
+const DIST=[['Altstadt',1.3,.035],['Seeviertel',1.6,.045],['Neubaugebiet',1,.03],['Südstadt',.8,.02],['Hafen',1.1,.05],['Vorstadt',.9,.025]];
+const TEN={zuv:['Zuverlässig',.9,.02,0],norm:['Normal',1,.06,1],schw:['Schwierig',1.15,.18,3]};
+const TN_RES=['Familie Novak','Eine Studenten-WG','Ein junges Paar','Rentnerin Hilde','Familie Yilmaz','Ein Lehrer','Eine Pflegerin','Familie Costa','Ein Musiker'];
+const TN_COM=['Ein Start-up','Eine Arztpraxis','Ein Steuerbüro','Ein Café','Eine Werbeagentur','Ein Friseursalon','Eine Anwaltskanzlei'];
+const BLD={dach:['Dachgeschoss ausbauen','Aus dem Speicher werden Zimmer mit Dachfenstern.',.06,1,8,10,2,1],aufstock:['Aufstockung','Ein ganzes Stockwerk mehr.',.12,2,15,0,0,2],
+anbau:['Anbau','Mehr Fläche zur Seite raus.',.09,1,10,6,1,1],solar:['Solaranlage','Strom vom eigenen Dach. Mieter zahlen gern etwas mehr.',.02,1,3,3,1,0],fassade:['Neue Fassade','Neuer Putz in deiner Farbe. Sieht aus wie neu.',.015,1,2,0,1,0]};
+const COLORS=[['Weiß','#F4F2EE'],['Hellgrau','#C9CDD4'],['Ocker','#D9A441'],['Ziegelrot','#B4533B'],['Anthrazit','#3A3F4B']];
+const USES=[['self','Selbst wohnen'],['rent','Vermieten'],['versteck','Versteck'],['lager','Lager'],['leer','Leer']];
+const LANDB={haus:[300000,2],mfh:[1400000,3],buero:[800000,2]};
+let propSel=null,fassCol=0;
+const propVal=pr=>Math.round(pr.val*(.7+.3*pr.cond/100));
+function unitRent(pr){const T=PT[pr.t];return pr.val*.045/Math.max(1,pr.units)*(.75+.25*pr.cond/100)*(1+.15*(pr.lvl-1))*pr.rb*(T.com?1.1:1)}
+function mkTenant(pr,r){const T=PT[pr.t],k=r()<.35?'zuv':r()<.75?'norm':'schw';return {n:pick2(r,T.com?TN_COM:TN_RES),k,rent:Math.round(unitRent(pr)*TEN[k][1]),y:0}}
+function listings(){const r=rng(p.seed%100000+p.age*977),L=[];const keys=['wohnung','wohnung','haus','haus','laden','buero','mfh','flaeche','flaeche'];
+  for(let i=0;i<6;i++){const t=pick2(r,keys),d=Math.floor(r()*DIST.length),D=DIST[d];const val=Math.round(PT[t].b*D[1]*p.econ.idx*(.85+r()*.3)/1000)*1000;
+    const cond=PT[t].land?100:R0i(r,55,100);L.push({id:p.age+'-'+i,t,d,val,cond,price:Math.round(val*(.7+.3*cond/100)/1000)*1000,occ:PT[t].land?0:r()})}
+  return L.filter(x=>!(p.boughtL||[]).includes(x.id))}
+function R0i(r,a,b){return a+Math.floor(r()*(b-a+1))}
+const propName=pr=>{const d=DIST[pr.d][0];return PT[pr.t].n+' '+(d==='Hafen'?'am ':['Altstadt','Südstadt','Vorstadt'].includes(d)?'in der ':'im ')+d};
+function rentIncome(){return (p.props||[]).reduce((s,pr)=>s+(pr.use==='rent'?pr.ten.reduce((t,x)=>t+x.rent,0):0),0)}
+function propsValue(){return (p.props||[]).reduce((s,pr)=>s+propVal(pr),0)}
+function setEigenHome(pr){const T=PT[pr.t];HOMES.eigen={n:propName(pr),ar:'Dein eigenes '+T.n.replace('Eigentumswohnung','Zuhause'),c:Math.round(pr.val*.006/p.econ.idx),gl:T.gl+pr.lvl+(pr.bd.fassade?1:0),sl:T.sl+(pr.bd.anbau?2:0)+(pr.bd.dach?1:0),min:18}}
+function propYear(){const out={rent:0,cost:0};if(!p.props)return out;const infl=curInfl();
+  p.props.forEach(pr=>{const D=DIST[pr.d];
+    // Bauaufträge
+    pr.jobs=pr.jobs.filter(j=>{if(p.age<j.done)return true;
+      if(j.k==='san'){pr.lvl++;pr.val=Math.round(pr.val*1.2);pr.cond=100;pr.rb*=1;log('Sanierung fertig: '+propName(pr)+' ist jetzt Stufe '+pr.lvl+'.')}
+      else if(j.k.startsWith('land_')){const t=j.k.slice(5);pr.t=t;pr.units=PT[t].u;pr.val=Math.round(pr.val+j.cost*1.15);pr.cond=100;log('Bau fertig: '+propName(pr)+'.')}
+      else{const B=BLD[j.k];pr.bd[j.k]=1;pr.val=Math.round(pr.val*(1+B[4]/100));pr.rb*=1+B[5]/100;if(B[7]&&pr.t==='mfh'||B[7]&&pr.t==='buero')pr.units+=B[7];if(j.k==='fassade')pr.col=j.col;log(B[0]+' fertig: '+propName(pr)+'.')}
+      pr.ten.forEach(x=>x.rent=Math.round(unitRent(pr)*TEN[x.k][1]));return false});
+    // Wert und Zustand
+    pr.val=Math.round(pr.val*(1+D[2]+(Math.random()*.08-.03)+infl/100*.6));
+    pr.cond=clamp(pr.cond-R(2,5)*(p.staff&&p.staff.haus?.5:1)-(pr.use==='rent'?pr.ten.filter(x=>x.k==='schw').length:0),20,100);
+    const up=Math.round(pr.val*.008);out.cost+=up;
+    if(pr.use==='rent'){pr.ten=pr.ten.filter(x=>{x.y++;if(ch(TEN[x.k][2])){if(x.k==='schw'&&ch(.5)){const dmg=Math.round(x.rent*.5*(p.staff&&p.staff.haus?.5:1));out.cost+=dmg;log(x.n+' hat in deinem '+PT[pr.t].n+' Schaden angerichtet: '+eur(dmg)+'.')}else log(x.n+' hat die Miete nicht gezahlt.');return true}
+        out.rent+=x.rent;if(x.y>2&&ch(.1)){log(x.n+' ist ausgezogen.');return false}return true})}
+    if(pr.use==='self')setEigenHome(pr);});
+  p.money+=out.rent-out.cost;return out;
+}
+function viewImmo(){const lock=!!p.prison;
+  if(propSel!=null){const pr=p.props.find(x=>x.id===propSel);if(pr)return viewProp(pr,lock);propSel=null}
+  let h='';const tv=propsValue(),ri=rentIncome(),bought=(p.props||[]).reduce((s,x)=>s+x.paid,0);
+  h+='<div class="bizsum"><div><b>'+kfmt(tv)+' €</b><small>'+(p.props.length)+' Objekt(e) · '+(tv>=bought?'+':'−')+kfmt(Math.abs(tv-bought))+' € seit Kauf</small></div><div><b class="up">'+kfmt(ri)+' €</b><small>Mieteinnahmen im Jahr</small></div></div>';
+  if(p.props.length)h+=p.props.map(pr=>{const T=PT[pr.t],occ=pr.units?pr.ten.length/pr.units:0,v=propVal(pr);
+    return '<button class="card prow" data-a="prop" data-g="'+pr.id+'"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+T.ic+'</svg></span><span class="pt"><b>'+propName(pr)+'</b><small>'+(pr.jobs.length?'Baustelle · ':'')+(T.land?'unbebaut':pr.use==='rent'?pr.ten.length+' von '+pr.units+' vermietet':USES.find(u=>u[0]===pr.use)[1])+'</small>'+(T.land?'':'<span class="occ"><i style="width:'+occ*100+'%"></i></span>')+'</span><span class="pv"><b>'+kfmt(v)+' €</b><small class="'+(v>=pr.paid?'up':'down')+'">'+(v>=pr.paid?'+':'−')+kfmt(Math.abs(v-pr.paid))+' €</small></span></button>'}).join('');
+  else h+=card('','<p class="note">Du besitzt noch keine Immobilien. Kauf eine Wohnung, ein Haus oder ein Grundstück, vermiete sie und lass den Wert wachsen.</p>');
+  h+='<h3 class="sec">Auf dem Markt</h3>'+(p.age<18?card('','<p class="note">Immobilien kaufen kannst du ab 18 Jahren.</p>'):listings().map(L=>{const T=PT[L.t],D=DIST[L.d];
+    return '<section class="card"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+T.ic+'</svg></span><div><div class="lbl">'+D[0].toUpperCase()+'</div><b>'+T.n+'</b><small>'+(T.land?'Baugrund, bereit für ein Haus, Mehrfamilienhaus oder Büros':T.u+' Einheit(en) · Zustand '+L.cond+' % · '+Math.round(L.occ*T.u)+' vermietet')+'</small></div></div>'+
+      '<div class="tags"><span class="tag g">Wertzuwachs ~'+Math.round(D[2]*100)+' %/Jahr</span>'+(T.land?'':'<span class="tag">Miete ~'+kfmt(L.val*.045)+' €/Jahr</span>')+'</div><div class="fb"><b>'+eur(L.price)+'</b>'+btn('buyprop',L.id,'Kaufen','o',p.money<L.price||lock)+'</div></section>'}).join('')+'<p class="note" style="text-align:center">Jedes Jahr kommen neue Angebote.</p>');
+  return h;
+}
+function viewProp(pr,lock){const T=PT[pr.t],v=propVal(pr),busy=pr.jobs.length>0;
+  let h='<button class="btn g sm" data-a="prop" data-g="">← Alle Immobilien</button><section class="card"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+T.ic+'</svg></span><div><div class="lbl">'+DIST[pr.d][0].toUpperCase()+'</div><b>'+propName(pr)+'</b>'+(pr.col!=null?'<small>Fassade: '+COLORS[pr.col][0]+'</small>':'')+'</div></div>'+
+    '<div class="kv2"><div><small>Wert</small><b>'+kfmt(v)+' €</b><small class="up">gekauft für '+kfmt(pr.paid)+' €</small></div><div><small>Ausbau</small><b>'+(T.land?'–':pr.lvl+' von 3')+'</b><small class="'+(pr.cond>=70?'up':'down')+'">Zustand '+Math.round(pr.cond)+' %</small></div></div></section>';
+  if(T.land){h+=card('Bebauen','<p class="note" style="margin-bottom:6px">Auf deinem Grundstück kannst du bauen lassen. Danach kannst du es vermieten oder selbst einziehen.</p>'+(busy?row('Baustelle','fertig, wenn du '+pr.jobs[0].done+' bist'):Object.keys(LANDB).map(k=>{const c=px$(LANDB[k][0]);return row(PT[k].n,LANDB[k][1]+' Jahre Bauzeit · '+PT[k].u+' Einheit(en)',btn('landbuild',k,eur(c),'o',p.money<c||lock))}).join('')));
+    return h+'<button class="btn g big sell" data-a="sellprop">Verkaufen für '+eur(v*.97)+'</button>'}
+  h+='<h3 class="sec">Nutzung</h3><div class="amts">'+USES.map(([k,l])=>'<button class="amt" data-a="propuse" data-g="'+k+'" aria-pressed="'+(pr.use===k)+'"'+(k==='self'&&(T.com||p.age<18)?' disabled':'')+'>'+l+'</button>').join('')+'</div><p class="note" style="margin-top:6px">'+
+    ({self:'Du wohnst selbst hier, ohne Miete. Komfort hängt von Haus und Ausbau ab.',rent:'Mieter zahlen jedes Jahr. Zuverlässige zahlen etwas weniger, schwierige mehr, dafür fällt die Miete öfter aus und es gibt Schäden.',versteck:'Hier lagert dein Schwarzgeld. Bei einer Razzia wird nur halb so viel beschlagnahmt.',lager:'Lagerraum für deine Geschäfte: +10 % Gewinn in allen Läden.',leer:'Steht leer. Kostet nur Unterhalt.'})[pr.use]+'</p>';
+  if(pr.use==='rent'){const free=pr.units-pr.ten.length;
+    h+='<h3 class="sec">Mieter · '+pr.ten.length+' von '+pr.units+'</h3>'+pr.ten.map((x,i)=>'<section class="card trow"><span class="cav" style="background:'+(x.k==='zuv'?'#1E9E6A':x.k==='schw'?'#D9483B':'#5B7CE6')+'">'+esc(x.n.split(' ').pop()[0])+'</span><div class="ct"><b>'+esc(x.n)+'</b><small>'+TEN[x.k][0]+' · '+eur(x.rent)+'/Jahr · seit '+x.y+' Jahr(en)</small></div>'+btn('evict',i,'Kündigen','g')+'</section>').join('');
+    if(free>0){const r=rng(pr.id*13+p.age);const apps=[0,1,2].map(()=>mkTenant(pr,r));
+      h+=card('Freie Einheit · Bewerbungen',apps.map((x,i)=>row(esc(x.n),TEN[x.k][0]+' · '+eur(x.rent)+' im Jahr · Ausfallrisiko '+Math.round(TEN[x.k][2]*100)+' %',btn('tenant',i,'Einziehen lassen','o',lock))).join(''))}}
+  // Pflege
+  const rc=Math.round(pr.val*(100-pr.cond)/100*.15);
+  h+='<h3 class="sec">Pflege</h3>'+card('',row('Reparieren','Zustand '+Math.round(pr.cond)+' % auf 100 %. Verfall drückt Wert und Miete.',btn('repair',null,eur(rc),'o',pr.cond>=99||p.money<rc||lock))+
+    (pr.lvl<3?row('Sanieren auf Stufe '+(pr.lvl+1),'Neue Bäder, Böden, Fenster: +20 % Wert, +15 % Miete. Dauert 1 Jahr.',btn('sanieren',null,eur(pr.val*.25*pr.lvl),'o',busy&&pr.jobs.some(j=>j.k==='san')||p.money<pr.val*.25*pr.lvl||lock)):row('Voll saniert','Stufe 3 erreicht','')));
+  // Bauaufträge
+  const running=pr.jobs.map(j=>row(j.k==='san'?'Sanierung':BLD[j.k][0],'fertig, wenn du '+j.done+' bist (noch '+(j.done-p.age)+' Jahr(e))','<span class="chip">Baustelle</span>')).join('');
+  const doneB=Object.keys(pr.bd).map(k=>'<span class="tag g">✓ '+BLD[k][0]+'</span>').join('');
+  h+='<h3 class="sec">Bauaufträge</h3>'+(running?card('',running):'')+(doneB?'<div class="tags">'+doneB+'</div>':'');
+  h+=T.bld.filter(k=>!pr.bd[k]&&!pr.jobs.some(j=>j.k===k)).map(k=>{const B=BLD[k],c=Math.round(pr.val*B[2]);
+    return '<section class="card"><b style="font-size:16px">'+B[0]+'</b><p class="note" style="margin:2px 0 8px">'+B[1]+'</p><div class="tags" style="margin:0 0 10px"><span class="tag">'+B[3]+' Jahr(e)</span><span class="tag g">+'+B[4]+' % Wert</span>'+(B[5]?'<span class="tag g">+'+B[5]+' % Miete</span>':'')+(B[6]?'<span class="tag">+'+B[6]+' Glück</span>':'')+(B[7]&&(pr.t==='mfh'||pr.t==='buero')?'<span class="tag">+'+B[7]+' Einheit(en)</span>':'')+'</div>'+
+      (k==='fassade'?'<div class="amts" style="margin-bottom:10px">'+COLORS.map((c,i)=>'<button class="amt colb" data-a="fasscol" data-g="'+i+'" aria-pressed="'+(fassCol===i)+'"><i style="background:'+c[1]+'"></i>'+c[0]+'</button>').join('')+'</div>':'')+
+      btn('build',k,'Beauftragen für '+eur(c)+', fertig mit '+(p.age+B[3]),'o',p.money<c||lock)+'</section>'}).join('');
+  return h+'<button class="btn g big sell" data-a="sellprop">Verkaufen für '+eur(v*.97)+'</button>';
+}
+function act3(id,arg){const pr=propSel!=null&&p.props?p.props.find(x=>x.id===propSel):null;
+  switch(id){
+  case 'prop':propSel=arg?+arg:null;render();window.scrollTo(0,0);return 1;
+  case 'buyprop':{const L=listings().find(x=>x.id===arg);if(!L||p.money<L.price||p.age<18||p.prison)return 1;p.money-=L.price;(p.boughtL=p.boughtL||[]).push(L.id);
+    const nid=R(1,1e9),T=PT[L.t],np={id:nid,t:L.t,d:L.d,val:L.val,paid:L.price,cond:L.cond,lvl:1,units:T.u,rb:1,ten:[],use:T.land?'leer':'rent',bd:{},jobs:[],col:null};
+    const r=rng(nid);const n=Math.round(L.occ*T.u);for(let i=0;i<n;i++)np.ten.push(mkTenant(np,r));p.props.push(np);propSel=nid;ach('haus');done(propName(np)+' gekauft.');return 1}
+  case 'propuse':{if(!pr)return 1;if(arg==='self'){if(PT[pr.t].com||p.age<18)return 1;p.props.forEach(x=>{if(x.use==='self')x.use='leer'});setEigenHome(pr);p.home='eigen';if(pr.ten.length){log('Deine Mieter in '+propName(pr)+' mussten ausziehen.');pr.ten=[]}}
+    else if(pr.use==='self'){p.home=p.age>=18?'wg':'eltern'}
+    if(arg!=='rent'&&pr.ten.length&&arg!=='self'){pr.ten=[];log('Alle Mieter in '+propName(pr)+' sind ausgezogen.')}
+    pr.use=arg;done(propName(pr)+': '+USES.find(u=>u[0]===arg)[1]+'.');return 1}
+  case 'tenant':{if(!pr||pr.ten.length>=pr.units)return 1;const r=rng(pr.id*13+p.age);const apps=[0,1,2].map(()=>mkTenant(pr,r));pr.ten.push(apps[+arg]);done(apps[+arg].n+' zieht ein.');return 1}
+  case 'evict':{if(!pr)return 1;const x=pr.ten.splice(+arg,1)[0];if(x)done('Vertrag mit '+x.n+' gekündigt.');return 1}
+  case 'repair':{if(!pr)return 1;const c=Math.round(pr.val*(100-pr.cond)/100*.15);if(p.money<c)return 1;p.money-=c;pr.cond=100;done('Repariert: Zustand 100 %.');return 1}
+  case 'sanieren':{if(!pr||pr.lvl>=3||pr.jobs.some(j=>j.k==='san'))return 1;const c=Math.round(pr.val*.25*pr.lvl);if(p.money<c)return 1;p.money-=c;pr.jobs.push({k:'san',done:p.age+1});done('Sanierung beauftragt. Fertig, wenn du '+(p.age+1)+' bist.');return 1}
+  case 'fasscol':fassCol=+arg;render();return 1;
+  case 'build':{if(!pr)return 1;const B=BLD[arg],c=Math.round(pr.val*B[2]);if(pr.bd[arg]||p.money<c)return 1;p.money-=c;pr.jobs.push({k:arg,done:p.age+B[3],col:arg==='fassade'?fassCol:null});if(B[6])add('gl',B[6]);done(B[0]+' beauftragt. Fertig, wenn du '+(p.age+B[3])+' bist.');return 1}
+  case 'landbuild':{if(!pr||!PT[pr.t].land||pr.jobs.length)return 1;const c=px$(LANDB[arg][0]);if(p.money<c)return 1;p.money-=c;pr.jobs.push({k:'land_'+arg,done:p.age+LANDB[arg][1],cost:c});done('Bau eines '+PT[arg].n+' beauftragt.');return 1}
+  case 'sellprop':{if(!pr)return 1;const v=Math.round(propVal(pr)*.97);if(pr.use==='self')p.home=p.age>=18?'wg':'eltern';p.money+=v;p.props=p.props.filter(x=>x!==pr);propSel=null;done(propName(pr)+' für '+eur(v)+' verkauft.');return 1}
+  }return 0;
+}
+
 function newLife(first,last,g,age,sb){
   p={first,last,g,age,alive:true,sb:!!sb,seed:R(1,2e9),money:sb?1000000:(age>=18?2000:0),st:{gl:R(55,90),ge:R(65,95),in:R(35,90),au:R(35,90)},
     edu:'keine',school:null,study:null,azubi:null,aus:false,deg:null,job:null,pension:0,home:'eltern',owned:[],cars:[],items:[],pets:[],
@@ -1158,7 +1274,7 @@ function ageUp(){
   const wohnen=a>=18?px$(HOMES[p.home].c+(p.home==='eltern'?1200:0))+p.owned.filter(k=>k!==p.home).reduce((t,k)=>t+px$(HOMES[k].c),0):0,kids=p.kids.filter(k=>a-k.b<18).length*3000,
     cars=p.cars.reduce((s,c)=>s+CARS[c].c,0),pets=p.pets.reduce((s,x)=>s+PETS[x.t].c,0),zins=0;
   p.money+=gross-tax-wohnen-kids-cars-pets-zins+pocket;
-  const BK=bankYear(),HY=homeYear(),LY=lifeYear(),si=BK.si;p.wanted=Math.max(0,(p.wanted||0)-1);
+  const BK=bankYear(),HY=homeYear(),LY=lifeYear(),PY=propYear(),si=BK.si;p.wanted=Math.max(0,(p.wanted||0)-1);
   // Börse
   ensureStocks();let dv=0;
   STOCKS.forEach(s=>{const o=p.px[s.id];p.prev[s.id]=o;const n=stepPrice(s,o);p.px[s.id]=n;p.hist[s.id].push(n);if(p.hist[s.id].length>80)p.hist[s.id].shift();dv+=(p.sh[s.id]||0)*n*s.div});
@@ -1166,8 +1282,8 @@ function ageUp(){
   {const mv=STOCKS.map(s=>[s,(p.px[s.id]/p.prev[s.id]-1)*100]).sort((x,y)=>Math.abs(y[1])-Math.abs(x[1]))[0];const pc=Math.abs(mv[1]).toFixed(0);
    const why=mv[1]>=0?pick(['Rekordgewinn gemeldet','neuer Großauftrag','Analysten begeistert','Übernahmegerüchte']):pick(['Gewinnwarnung','Chef tritt zurück','Skandal um Produkte','schwaches Jahr']);
    p.mnews.unshift({a:p.age,t:mv[0].n+' '+(mv[1]>=0?'+':'−')+pc+' %: '+why});p.mnews=p.mnews.slice(0,5)}
-  R0.inc=[['Gehalt',sal],['Ausbildungsvergütung',azubi],['Rente',p.pension],['Taschengeld',pocket],['Klick: Werbung & Creator-Fonds',smi],['Klick: Deals & Spenden',p.yr.social],['Dividenden',dv],['Sparzinsen',si],['Mieteinnahmen',HY.rent]].concat(BZ.inc,[['Casino-Gewinne',Math.max(0,p.yr.casino)]]);
-  R0.out=[['Steuern',tax],['Wohnen',wohnen],['Kinder',kids],['Autos',cars],['Haustiere',pets],['Kreditraten',BK.raten],['Personal',HY.staff],['Reparaturen',HY.repair],['Lebensstil & Sport',LY.ls],['Behandlungen',LY.treat]].concat(BZ.out,[['Casino-Verluste',Math.max(0,-p.yr.casino)]]);
+  R0.inc=[['Gehalt',sal],['Ausbildungsvergütung',azubi],['Rente',p.pension],['Taschengeld',pocket],['Klick: Werbung & Creator-Fonds',smi],['Klick: Deals & Spenden',p.yr.social],['Dividenden',dv],['Sparzinsen',si],['Mieteinnahmen',HY.rent],['Immobilien: Mieten',PY.rent]].concat(BZ.inc,[['Casino-Gewinne',Math.max(0,p.yr.casino)]]);
+  R0.out=[['Steuern',tax],['Wohnen',wohnen],['Kinder',kids],['Autos',cars],['Haustiere',pets],['Kreditraten',BK.raten],['Personal',HY.staff],['Reparaturen',HY.repair],['Immobilien: Unterhalt & Schäden',PY.cost],['Lebensstil & Sport',LY.ls],['Behandlungen',LY.treat]].concat(BZ.out,[['Casino-Verluste',Math.max(0,-p.yr.casino)]]);
   p.fin.push({a:p.age,inc:R0.inc.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])]),out:R0.out.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])])});if(p.fin.length>15)p.fin.shift();
   p.yr={social:0,casino:0};
   if(p.money<0){add('gl',-8);if(a>=18){log('Du bist im Minus: '+eur(p.money)+'.');if(!p.parentsGone)msg('mama','Brauchst du Hilfe mit Geld? Sag ruhig Bescheid.')}}
@@ -1313,7 +1429,7 @@ function act(id,arg){
   if(!p||!p.alive)return;
   if(ACTS[id]){const A=ACTS[id];if(!can(id))return;p.act--;const r=A.f();if(r===null){p.act++;toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg))return;
+  if(act2(id,arg)||act3(id,arg))return;
   switch(id){
   case 'goto':tab=arg;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
@@ -1328,7 +1444,7 @@ function act(id,arg){
   case 'baby':if(!p.partner||p.age<18||p.age>48||p.prison||!useAct())return;
     if(ch(.55)){const n=pick(ch(.5)?FN:MN);p.kids.push({n,b:p.age});add('gl',12);ach('kind');if(!p.parentsGone)msg('mama','Ich bin Oma geworden?! Ich freu mich so!');done(n+' ist geboren!')}else done('Diesmal hat es nicht geklappt.');break;
   case 'split':if(!p.partner)return;{const nm=p.partner.name,m=p.partner.mar;if(m&&p.money>0)p.money=Math.round(p.money*.7);p.partner=null;add('gl',-10);done(m?'Scheidung von '+nm+'. Das kostet 30 % deines Geldes.':'Du hast mit '+nm+' Schluss gemacht.')}break;
-  case 'home':{const h=HOMES[arg];if(p.age<h.min||p.home===arg||p.prison)return;if(h.study&&!p.study){toast('Nur für Studierende.');return}
+  case 'home':{if(p.home==='eigen')(p.props||[]).forEach(x=>{if(x.use==='self')x.use='leer'});const h=HOMES[arg];if(p.age<h.min||p.home===arg||p.prison)return;if(h.study&&!p.study){toast('Nur für Studierende.');return}
     if(h.buy&&!p.owned.includes(arg)){const pr=px$(h.buy);if(p.money<pr){toast(h.n+' kostet '+eur(pr)+'.');return}p.money-=pr;p.owned.push(arg);ach('haus')}if(p.rented)delete p.rented[arg];
     p.home=arg;add('gl',2);done('Du wohnst jetzt: '+h.n+'.');break}
   case 'sellhome':{if(!p.owned.includes(arg)||p.home===arg)return;const v=Math.round(px$(HOMES[arg].buy)*.92);p.owned=p.owned.filter(k=>k!==arg);if(p.rented)delete p.rented[arg];p.money+=v;done(HOMES[arg].n+' für '+eur(v)+' verkauft.');break}
@@ -1773,6 +1889,9 @@ render();
 }
 </script>
 <script>
+(function(){const inFrame=window.top!==window;const fs=()=>{if(inFrame||document.fullscreenElement||!document.documentElement.requestFullscreen)return;
+  if(matchMedia('(display-mode: fullscreen)').matches)return;document.documentElement.requestFullscreen({navigationUI:'hide'}).catch(()=>{})};
+  document.addEventListener('pointerdown',fs,{once:true});})();
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
     navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(reg=>{
