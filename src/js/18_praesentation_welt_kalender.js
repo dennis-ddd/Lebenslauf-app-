@@ -79,7 +79,7 @@ function ensureLife(){
   if(!p.city)p.city='mittel';if(!p.cfg)p.cfg={act:6,clock:true,ev:'normal',big:true,wealth:'normal'};if(p.clock==null)p.clock=DAYSTART;if(p.phoneY==null&&phoneTier()>0)p.phoneY=p.age;
   p.kids.forEach(k=>{if(k.rel==null){k.rel=70;k.g=k.g||(FN.includes(k.n)?'w':'m');k.tal=pick(Object.keys(TAL));k.ts=R(10,40);k.st={in:R(35,90),ge:R(65,95),gl:70};k.fd={};k.edu='keine';k.alive=true;k.kids=0}});
   if(p.rival===undefined)p.rival=null;if(!p.rival&&O.rival&&p.age>=6)mkRival();
-  if(!p.gr)p.gr=null;if(p.rep==null)p.rep=0;
+  if(!p.gr)p.gr=null;ensureApps();if(p.rep==null)p.rep=0;
 }
 
 /* ---------- Views: Einstellungen, Nachrichten, Kalender ---------- */

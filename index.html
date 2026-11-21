@@ -568,6 +568,27 @@ small{font-size:max(12.5px,1em*.8)}
 .cpdark .btn.g{color:#F3F0F7;border-color:#4A3A48}
 .prod .listseg>div b{display:block;font-weight:900;font-size:16px}.prod .listseg>div small{color:var(--muted);font-weight:600}
 .newprod{display:flex;flex-direction:column;gap:8px}.newprod input{min-height:46px;border-radius:14px;border:2px solid var(--line);padding:0 12px;font:inherit;font-weight:700;background:var(--card);color:var(--ink)}
+
+/* App Store */
+.app.newapp .ic{animation:appin .7s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes appin{0%{transform:scale(.2) translateY(-20px);opacity:0}100%{transform:none;opacity:1}}
+.badge.nb{background:#0E9F7E;font-size:10px;padding:0 6px;letter-spacing:.04em}
+.stcap .listseg>div b{display:block;font-weight:900}.stcap .listseg>div small{color:var(--muted);font-weight:600}.stcap .bar{margin:10px 0 6px}
+.recs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.rec{background:var(--card);border-radius:20px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;box-shadow:0 6px 18px rgba(30,24,40,.07)}
+.rec b{font-weight:900;font-size:14px}.rec small{color:var(--muted);font-weight:600;font-size:12px;line-height:1.3;flex:1}.rec .btn{min-height:38px;padding:0 14px;font-size:14px}
+.rec .ic,.sthead .ic{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;color:#fff;flex:none}.rec .ic .i,.sthead .ic .i{width:26px;height:26px}
+.stapp{display:flex;flex-direction:column;gap:10px}
+.sthead{display:flex;gap:12px;align-items:center;border:0;background:none;text-align:left;color:var(--ink);padding:0}
+.stt{display:flex;flex-direction:column;gap:2px;min-width:0}.stt b{font-weight:900;font-size:17px}.stt small{color:var(--muted);font-weight:600;font-size:13.5px;line-height:1.35}
+.stmeta{display:flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;color:var(--muted)}.stmeta .stars{margin-left:0}
+.stb{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.chip.lockc{background:light-dark(#F3E9E9,#3A2222);color:var(--bad)}
+.btn.dl{position:relative;overflow:hidden;min-width:150px}.btn.dl::after{content:'';position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.35);animation:dlbar 1.3s linear forwards}
+.btn.dl span{position:relative;z-index:1}@keyframes dlbar{from{width:0}to{width:100%}}
+.gate{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:22px 18px}
+.ic.big{width:84px;height:84px;border-radius:24px;display:grid;place-items:center;color:#fff}.ic.big .i{width:42px;height:42px}
+.gate .ul2{text-align:left;align-self:stretch}.gate .stars{margin:0}
 </style>
 </head>
 <body>
@@ -1774,9 +1795,9 @@ function act(id,arg){
   if(!p||!p.alive)return;CUR=id;
   if(ACTS[id]){const A=ACTS[id];if(!can(id)||!useAct())return;const r=A.f();if(r===null){refundAct();toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg))return;
+  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg))return;
   switch(id){
-  case 'goto':tab=arg;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
+  case 'goto':tab=arg;if(p.appSeen)p.appSeen[arg]=1;if(arg==='store')p.storeY=p.age;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
     if(ch(.45+p.st.in/250+p.st.au/500+p.sk.charme/500)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');if(p.stats)p.stats.jobs++;p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.');break}
   case 'work':shift();break;
@@ -2087,7 +2108,7 @@ function ensureLife(){
   if(!p.city)p.city='mittel';if(!p.cfg)p.cfg={act:6,clock:true,ev:'normal',big:true,wealth:'normal'};if(p.clock==null)p.clock=DAYSTART;if(p.phoneY==null&&phoneTier()>0)p.phoneY=p.age;
   p.kids.forEach(k=>{if(k.rel==null){k.rel=70;k.g=k.g||(FN.includes(k.n)?'w':'m');k.tal=pick(Object.keys(TAL));k.ts=R(10,40);k.st={in:R(35,90),ge:R(65,95),gl:70};k.fd={};k.edu='keine';k.alive=true;k.kids=0}});
   if(p.rival===undefined)p.rival=null;if(!p.rival&&O.rival&&p.age>=6)mkRival();
-  if(!p.gr)p.gr=null;if(p.rep==null)p.rep=0;
+  if(!p.gr)p.gr=null;ensureApps();if(p.rep==null)p.rep=0;
 }
 
 /* ---------- Views: Einstellungen, Nachrichten, Kalender ---------- */
@@ -2324,7 +2345,7 @@ function shareOf(i){const e=estate(),alive=p.kids.filter(k=>k.alive!==false).len
 function continueAs(i){const prev=p,k=prev.kids[i];if(!k)return;const ka=prev.age-k.b,share=shareOf(i),deg=k.edu;
   const tree=(prev.tree||[]).concat([{n:prev.first+' '+prev.last,gen:prev.gen||1,age:prev.age,job:prev.pension?'Rentner/in':status(),nw:Math.round(netWorth())}]);
   const lastN=prev.last,sb=prev.sb;newLife(k.n,lastN,k.g,Math.max(0,ka),sb);p.cfg=prev.cfg;p.act=actBase();p.clock=DAYSTART;ensureLife();
-  p.gen=(prev.gen||1)+1;p.tree=tree;p.money+=share;
+  p.gen=(prev.gen||1)+1;p.tree=tree;if(prev.apps){p.apps=Object.assign({},prev.apps);p.appSeen={};APPS.forEach(a=>{if(appVisible(a[0]))p.appSeen[a[0]]=1})}p.money+=share;
   if(prev.biz&&prev.biz.co&&prev.will!=='stiftung'&&(prev.will==='gleich'||prev.will==='kid'+i)){const bv=(prev.biz.fronts||[]).reduce((s,k)=>s+FR[k].cost,0)+(prev.biz.firm&&!prev.biz.firm.ipo?prev.biz.firm.val:0);p.biz=prev.biz;p.dirty=prev.dirty||0;p.money=Math.max(0,p.money-Math.min(share,bv));log('Du übernimmst das Familienunternehmen '+prev.biz.co.name+'.');mile('Familienunternehmen übernommen','star')}p.st.in=k.st.in;p.st.ge=Math.min(100,k.st.ge);p.st.gl=clamp(50+Math.round(k.rel/3),0,100);
   if(ka>=18){p.edu=deg==='keine'?(k.st.in>=55?'Abitur':'Realschule'):deg;p.school=null}
   p.parentsGone=!prev.partner;p.pa=ka+R(25,35);if(prev.rival&&ka>=6){p.rival=null}
@@ -2461,7 +2482,7 @@ function movePick(){dialog('Wohin soll es gehen?','Umzug kostet '+eur(px$(2500))
 
 /* ================= Jahreswechsel ================= */
 function lifeX(R0){ensureLife();
-  worldYear(R0);bizPlusYear(R0);calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
+  worldYear(R0);bizPlusYear(R0);appYear(R0);calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
   ['mama','papa'].forEach(k=>p.rel[k]=Math.max(0,p.rel[k]-2));p.rel.freund=Math.max(0,p.rel.freund-3);
   if(p.age>=8&&p.rel.freund<12){log('Du und '+p.friend+' habt euch aus den Augen verloren.');p.friend=pick(FN.concat(MN).filter(x=>x!==p.friend));p.rel.freund=45;p.chats.freund={msgs:[],un:0};msg('freund','Hi! Wir kennen uns vom Sport. Lust, mal was zu machen?')}
   p.lernN=0;p.skipN=0;if(p.trust&&p.age>=18){p.money+=p.trust;R0.inc.push(['Treuhandfonds der Familie',p.trust]);log('Du bekommst deinen Treuhandfonds: '+eur(p.trust)+'.');p.trust=0}
@@ -2616,6 +2637,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+ {v:'2.8',big:true,t:'Der App Store',neu:['App Store: Klick, Nachrichten, Börse, Geschäfte, Casino, Karriere, Wohnen, Garage und Straße lädst du dir, wenn du sie willst','Apps wachsen mit deinem Alter: Als Kind siehst du nur wenige, neue Apps landen mit „Neu“-Markierung auf dem Handy','Speicherplatz je nach Handy: 2, 4, 7 oder 9 Store-Apps','Empfehlungen im Store passend zu deinem Leben','Börse Pro mit Kursalarmen','Fahrschule im App Store bei der Garage'],mod:['Apps, die du schon benutzt hast, sind automatisch installiert','Gelöschte Apps behalten ihre Daten']},
  {v:'2.7',big:true,t:'Unternehmer-Update',neu:['Filialen für alle Geschäfte, ab 5 Standorten Franchise mit Lizenzgebühren','Eigene Produkte im Onlineshop (bis zu 4) mit Preisstufe, Qualität und Bewertungen','Bankfilialen: mehr Kundengelder, mehr Gewinn','Marketing-Kampagnen von Flyern bis TV-Spot','Konkurrenz mit Preiskampf, Aufkauf, Qualität oder, mit krimineller Vergangenheit, Sabotage und Einschüchterung','Kundenbewertungen mit Sternen und Mitarbeiter-Ereignisse','Geschäfte verkaufen oder an dein Kind vererben','Eigene Produktion als Lieferkette'],mod:['Immobilien-Ausbau braucht echte Bauzeit: während der Bauarbeiten weniger Miete, die neue Miete gilt erst ab dem Jahr danach','Der Code ist jetzt in 35 Module aufgeteilt']},
  {v:'2.6',big:true,t:'Mehr Leben, mehr Hilfe',neu:['Tutorial für Einsteiger, abwählbar beim Start und in den Einstellungen','Tipps beim ersten Öffnen jeder App, einzeln wegklickbar oder ganz abschaltbar','33 neue Ereignisse für alle Lebensphasen, viele mit drei Wahlmöglichkeiten','Spielablauf jetzt auch im laufenden Spiel änderbar (Einstellungen)'],mod:['Ereignisse wiederholen sich deutlich seltener','Mehr Textvarianten bei Lesen, Sport, Joggen, Feiern, Meditieren und Lernen','Größere, kontrastreichere Schrift für bessere Lesbarkeit']},
  {v:'2.5',big:false,t:'Aufgeräumter Start',neu:[],mod:['Startseite zeigt nur deinen Spielstand mit „Weiterspielen“','Name, Startalter und Spielablauf erscheinen erst bei „Neues Leben beginnen“']},
@@ -2832,6 +2854,68 @@ function act8(id,arg){const B=p.biz;if(!B)return 0;ensurePlus();const lock=!!p.p
   case 'supply':{const s=B.shop,c=px$(SUPPLY_COST);if(!s||s.sup||p.money<c||lock)return 1;p.money-=c;s.sup=true;done('Deine eigene Produktion läuft. +15 % Marge.');return 1}
   case 'bankfil':{const bk=B.bank;if(!bk||bk.fil>=12||lock)return 1;const c=Math.round(px$(250000)*(1+.3*bk.fil));if(p.money<c)return 1;p.money-=c;bk.fil++;bk.dep+=px$(600000);done('Neue Filiale der '+bk.name+' in '+cityName(p.seed+bk.fil*104729)+'.');return 1}
   }return 0}
+/* ================= App Store, Altersfreigaben und Speicherplatz ================= */
+// Grund-Apps: immer installiert, erscheinen ab einem Alter
+const APPMIN={leben:0,familie:0,bildung:0,freizeit:0,kalender:0,erfolge:0,einst:0,chats:4,stadt:6,store:8,shop:8,liebe:13,jobs:13,bank:16};
+// Store-Apps: [Kurzbeschreibung, ab Alter, Größe, Bewertung, Funktionen]
+const OPT={
+ klick:['Social Media: Posts, Livestreams, Follower und Sponsoren.',13,'48 MB',4.6,['Eigenes Profil mit Posts','Kanal mit Livestreams und Videos','Sponsoren, Merch und Influencer-Karriere']],
+ news:['Weltlage, Lokales, Börse und Klatsch, auch über dich.',8,'12 MB',4.2,['Boom, Rezession und Krisen live','Lokale Nachrichten aus deiner Stadt','Promi-Meldungen']],
+ boerse:['Aktien kaufen, Kurse verfolgen, Dividenden kassieren.',16,'31 MB',4.4,['Aktien und Kursverläufe','Depot und Dividenden','Mit Pro: Kursalarme']],
+ geschaefte:['Gründe Firmen, kauf Läden, eröffne Filialen und einen Onlineshop.',18,'64 MB',4.5,['Unternehmen und Holding','Filialen, Franchise, eigene Produkte','Eigene Bank']],
+ casino:['Spielautomaten, Roulette und Blackjack.',18,'90 MB',3.9,['Drei Spiele','Gewinne und Verluste im Jahresrückblick','Nur ab 18']],
+ wege:['Sport, Musik, Politik oder Untergrund: besondere Karrieren.',6,'38 MB',4.7,['Vom Jugendverein zum Nationalteam','Band, Album und Tour','Wahlkampf bis zum Ministeramt']],
+ wohnen:['Wohnung suchen, Haus kaufen, einrichten und Immobilien vermieten.',16,'55 MB',4.6,['Mieten und kaufen','Einrichtung und Personal','Immobilien als Investment']],
+ garage:['Autos kaufen, pflegen und Rennen fahren.',16,'27 MB',4.3,['Autos und Werkstatt','Straßenrennen','Fahrer für mehr Aktionen']],
+ strasse:['Kleine Gaunereien bis zu großen Coups. Auf eigenes Risiko.',14,'19 MB',3.6,['Schnelles Geld','Fahndung und Gefängnis','Schwarzgeld']]};
+const APPREQ={garage:()=>p.fs||p.cars.length?null:'Führerschein nötig'};
+const STORE_CAP=[2,4,7,9],PRO_PRICE=4.99;
+let dlId=null,storeSel=null;
+const appInst=id=>!OPT[id]||!!(p.apps&&p.apps[id]);
+const appCount=()=>Object.keys(OPT).filter(k=>p.apps&&p.apps[k]).length;
+const appCap=()=>STORE_CAP[phoneTier()];
+function appVisible(id){if(OPT[id])return appInst(id)&&p.age>=OPT[id][1]-0;return p.age>=(APPMIN[id]||0)}
+function ensureApps(){if(p.apps)return;p.apps={};p.appSeen={};
+  const B=p.biz||{},used={klick:!!p.sm,news:(p.news||[]).length>0,boerse:p.sh&&Object.keys(p.sh).some(k=>p.sh[k]>0),geschaefte:!!B.co,casino:!!(p.casino&&(p.casino.won||p.casino.lost)),
+   wege:!!(p.spo||p.mus||p.pol||p.gang),wohnen:(p.props||[]).length>0||(p.owned||[]).length>0||(p.home&&p.home!=='eltern'),garage:(p.cars||[]).length>0,strasse:(p.crimes||0)>0};
+  Object.keys(used).forEach(k=>{if(used[k])p.apps[k]=1});
+  APPS.forEach(a=>{if(appVisible(a[0]))p.appSeen[a[0]]=1})}
+function appLock(id){const O2=OPT[id];if(!O2)return null;if(p.age<O2[1])return 'Ab '+O2[1]+' Jahren';const r=APPREQ[id]&&APPREQ[id]();return r||null}
+function recs(){const R=[];const add=(k,why)=>{if(OPT[k]&&!appInst(k)&&!appLock(k)&&!R.some(x=>x[0]===k))R.push([k,why])};
+  if(p.age>=13&&p.age<=30)add('klick','Deine Freunde sind alle auf Klick.');if(p.age>=18&&p.home==='eltern')add('wohnen','Zeit für die erste eigene Wohnung?');
+  if(p.money>=20000)add('boerse','Lass dein Geld für dich arbeiten.');if(p.age>=18&&p.money>=40000)add('geschaefte','Genug Kapital für ein eigenes Geschäft.');
+  if(p.sk.form>=50||p.age<16)add('wege','Du hast Talent. Mach eine Karriere draus.');if((p.crimes||0)>0||p.wanted)add('strasse','Du kennst dich ja schon aus …');
+  if(p.fs||p.cars.length)add('garage','Du hast den Führerschein. Jetzt fehlt ein Auto.');add('news','Bleib informiert, was in der Welt passiert.');return R.slice(0,3)}
+function appYear(R0){ensureApps();
+  APPS.forEach(a=>{const id=a[0];if(!OPT[id]&&appVisible(id)&&p.appSeen[id]==null){p.appSeen[id]=0;log('Neue App auf deinem Handy: '+a[1]+'.')}});
+  if(p.pro&&p.pro.boerse&&p.hist&&p.sh)STOCKS.forEach(s=>{if(!(p.sh[s.id]>0))return;const h=p.hist[s.id];if(!h||h.length<2)return;const c=h[h.length-1]/h[h.length-2]-1;
+    if(Math.abs(c)>=.1){const t='Kursalarm: '+s.n+' '+(c>0?'+':'')+Math.round(c*100)+' %';news(t,'boerse');log(t+'.')}})}
+const appIc=(id,sz)=>{const A=APP[id];return '<span class="ic'+(sz?' '+sz:'')+'" style="background:'+(A[4]||hex(A[2]))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+A[3]+'</svg></span>'};
+function appBtn(id){if(dlId===id)return '<button class="btn sm o dl" disabled><span>Wird geladen …</span></button>';
+  if(appInst(id))return btn('goto',id,'Öffnen','o');const l=appLock(id);if(l)return '<span class="chip lockc">'+esc(l)+'</span>';
+  return btn('appget',id,'Laden','o',appCount()>=appCap())}
+function viewStore(){ensureApps();const cap=appCap(),n=appCount();
+  let h='<section class="card stcap"><div class="listseg"><div><b>Speicher</b><small>'+PHONES[phoneTier()][0]+'</small></div><span class="chip">'+n+' von '+cap+' Apps</span></div><div class="bar"><i style="width:'+Math.min(100,n/cap*100)+'%;background:'+(n>=cap?'#D64545':'#0E9F7E')+'"></i></div>'+
+    (n>=cap?'<p class="note">Der Speicher ist voll. Lösch eine App oder hol dir ein besseres Handy.</p>'+(phoneTier()<3?btn('goto','shop','Zum Shop','o'):''):'<p class="note">Grund-Apps belegen keinen Speicher. Bessere Handys haben mehr Platz.</p>')+'</section>';
+  const R=recs();if(R.length)h+='<h3 class="sec">Für dich empfohlen</h3><div class="recs">'+R.map(([k,why])=>'<div class="rec">'+appIc(k)+'<b>'+APP[k][1]+'</b><small>'+esc(why)+'</small>'+appBtn(k)+'</div>').join('')+'</div>';
+  h+='<h3 class="sec">Alle Apps</h3>'+Object.keys(OPT).map(k=>{const O2=OPT[k];return '<section class="card stapp'+(storeSel===k?' open':'')+'"><button class="sthead" data-a="appsel" data-g="'+k+'">'+appIc(k)+'<span class="stt"><b>'+APP[k][1]+'</b><small>'+esc(O2[0])+'</small><span class="stmeta">'+starHtml(O2[3])+' · '+O2[2]+(O2[1]?' · ab '+O2[1]:'')+'</span></span></button>'+
+    (storeSel===k?'<ul class="ul2">'+O2[4].map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+(k==='boerse'&&appInst(k)?row('Börse Pro','Kursalarme bei großen Bewegungen deiner Aktien',p.pro&&p.pro.boerse?'<span class="chip">Gekauft</span>':btn('apppro','boerse',eur2(PRO_PRICE),'',p.money<PRO_PRICE)):'')+(k==='garage'&&!p.fs?row('Fahrschule','ab 17 · '+eur(px$(2500))+' · 1 Aktion',btn('fahrschule',null,'Prüfung machen','o',p.age<17||p.act<=0||p.money<px$(2500)||!!p.prison)):''):'')+
+    '<div class="stb">'+appBtn(k)+(appInst(k)?btn('apprm',k,'Löschen','g'):'')+'</div></section>'}).join('');
+  h+='<p class="note" style="text-align:center">Gelöschte Apps behalten ihre Daten. Du kannst sie jederzeit neu laden.</p>';
+  return h}
+function appGate(id){const O2=OPT[id];const l=appLock(id);
+  return '<section class="card gate">'+appIc(id,'big')+'<h2 class="h">'+APP[id][1]+'</h2>'+(O2?starHtml(O2[3])+'<p class="note">'+esc(O2[0])+'</p><ul class="ul2">'+O2[4].map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><div class="stb">'+appBtn(id)+'</div>'+
+    (!l&&appCount()>=appCap()?'<p class="note">Kein Platz mehr. Lösch eine App im App Store.</p>':''):'<p class="note">Diese App gibt es ab '+(APPMIN[id]||0)+' Jahren.</p>')+'</section>'}
+function act9(id,arg){switch(id){
+  case 'appsel':storeSel=storeSel===arg?null:arg;render();return 1;
+  case 'appget':{ensureApps();if(!OPT[arg]||appInst(arg)||appLock(arg)||dlId)return 1;if(appCount()>=appCap()){toast('Speicher voll. Lösch eine App oder hol dir ein besseres Handy.');return 1}
+    dlId=arg;render();setTimeout(()=>{if(!p)return;p.apps[arg]=1;p.appSeen[arg]=0;dlId=null;sfx('coin');toast(APP[arg][1]+' ist installiert und auf deinem Handy.');save();render()},1300);return 1}
+  case 'apprm':{if(!OPT[arg]||!appInst(arg))return 1;delete p.apps[arg];if(tab===arg)tab='home';done(APP[arg][1]+' gelöscht. Die Daten bleiben erhalten.');return 1}
+  case 'apppro':{if(p.money<PRO_PRICE)return 1;p.money-=PRO_PRICE;p.pro=p.pro||{};p.pro[arg]=1;done('Börse Pro freigeschaltet: Ab jetzt meldet sich die App bei großen Kursbewegungen.');return 1}
+  case 'fahrschule':{const c=px$(2500);if(p.fs||p.age<17||p.money<c||p.prison||!useAct())return 1;p.money-=c;if(ch(.6+(p.sk.fahren||0)/200)){p.fs=true;add('gl',8);mile('Führerschein','star');done('Bestanden! Du hast den Führerschein.')}else{add('gl',-4);done('Durchgefallen. Beim nächsten Mal klappt es.')}return 1}
+  }return 0}
+TUT.splice(TUT.length-1,0,['Der App Store','Viele Apps lädst du dir erst, wenn du sie brauchst: Klick, Börse, Geschäfte, Casino und mehr. Manche gibt es erst ab einem bestimmten Alter. Bessere Handys haben mehr Speicher.','<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 15l3-7 3 7M10 13h4"/>']);
+APPTIP.store='Hier lädst du zusätzliche Apps. Grund-Apps belegen keinen Speicher, Store-Apps schon. Gelöschte Apps behalten ihre Daten.';
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],
@@ -2854,6 +2938,7 @@ const APPS=[
 ['garage','Garage',0x6B7385,'<path d="M5 16l1.5-5a2 2 0 0 1 2-1.5h7a2 2 0 0 1 2 1.5L19 16"/><rect x="3" y="16" width="18" height="4" rx="1.5"/><circle cx="7.5" cy="20" r="1"/><circle cx="16.5" cy="20" r="1"/>'],
 ['shop','Shop',0xC2408C,'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'],
 ['erfolge','Erfolge',0x8E63D6,'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/>'],
+['store','App Store',0x2B9ED8,'<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 15l3-7 3 7M10 13h4"/>','linear-gradient(135deg,#3FD0A4,#0E9F7E)'],
 ['einst','Einstellungen',0x6B7385,'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>']];
 const APP=Object.fromEntries(APPS.map(a=>[a[0],a]));
 const PRISON_APPS=['news','kalender','einst','chats','klick','leben','freizeit','bank','boerse','erfolge','stadt'];
@@ -2920,7 +3005,7 @@ function viewChats(){
 }
 const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>(clockOn()?clockTxt()+' · ':'')+(unl()&&n>0?'∞ Aktionen':n===1?'1 Aktion':n+' Aktionen');
-function badgeOf(id){if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();if(id==='news')return p.newsUn||0;if(id==='erfolge')return p.newUL||0;if(id==='kalender')return openBd();return 0}
+function badgeOf(id){if(id==='store')return p.storeY===p.age?0:recs().length;if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();if(id==='news')return p.newsUn||0;if(id==='erfolge')return p.newUL||0;if(id==='kalender')return openBd();return 0}
 function viewHome(){
   const last=p.log.filter(e=>!e.t.startsWith('Jahresbilanz')).slice(-1)[0];
   const ring=k=>'<div class="rw"><div class="ring" style="--v:'+p.st[k]+'"><b>'+p.st[k]+'</b></div><small>'+STAT[k]+'</small></div>';
@@ -2928,12 +3013,12 @@ function viewHome(){
     dayBar()+'<div class="rings">'+Object.keys(STAT).map(ring).join('')+'</div>'+
     (last?'<button class="news" data-a="goto" data-g="leben"><small>Neuigkeit · Alter '+last.a+'</small>'+esc(last.t)+'</button>':'')+
     (p.prison?'<p class="pnote">Du sitzt noch '+p.prison+' Jahr(e) im Gefängnis. Einige Apps sind gesperrt.</p>':'')+
-    '<div class="apps">'+APPS.map(([id,n,c,ic,bg])=>{const lock=p.prison&&!PRISON_APPS.includes(id),b=badgeOf(id);
-      return '<button class="app" data-a="goto" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':'')+'</span>'+n+'</button>'}).join('')+'</div></section>';
+    '<div class="apps">'+APPS.filter(a=>appVisible(a[0])).map(([id,n,c,ic,bg])=>{const lock=p.prison&&!PRISON_APPS.includes(id),b=badgeOf(id),nw=p.appSeen&&p.appSeen[id]===0;
+      return '<button class="app'+(nw?' newapp':'')+'" data-a="goto" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div></section>';
 }
 function viewApp(id){
   const V={
-  chats:viewChats,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
+  chats:viewChats,store:viewStore,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
   leben:viewLeben,
   stadt:viewStadt,
   jobs:()=>{let h='';
@@ -2959,7 +3044,7 @@ function viewApp(id){
   erfolge:()=>'<div class="seg full">'+[['erfolge','Erfolge'],['samml','Sammlung'+(p.newUL?' ('+p.newUL+')':'')]].map(([k,l])=>'<button data-a="etab" data-g="'+k+'" aria-pressed="'+(eTab===k)+'">'+l+'</button>').join('')+'</div>'+(eTab==='samml'?viewSamml():card('Erfolge','<div class="ach">'+Object.keys(ACH).map(k=>'<span class="'+(p.ach[k]?'on':'')+'">'+ACH[k]+'</span>').join('')+'</div><p class="note" style="margin-top:8px">In diesem Leben: '+Object.keys(p.ach).length+' · In allen Leben: '+Object.keys(globalAch).length+' von '+Object.keys(ACH).length+'.</p>'))};
   const A=APP[id];
   return '<div class="appbar"><button class="back" data-a="goto" data-g="home" aria-label="Zurück zum Handy"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="ic" style="background:'+(A[4]||hex(A[2]))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+A[3]+'</svg></span><h2>'+A[1]+'</h2><span class="chip" style="margin-left:auto">'+akt(p.act)+'</span></div>'+
-    (p.prison&&!PRISON_APPS.includes(id)?card('','<p class="note">Im Gefängnis nicht verfügbar.</p>'):tipCard(id)+V[id]());
+    (p.prison&&!PRISON_APPS.includes(id)?card('','<p class="note">Im Gefängnis nicht verfügbar.</p>'):((OPT[id]&&(!appInst(id)||appLock(id)))||(!OPT[id]&&!appVisible(id))?appGate(id):tipCard(id)+V[id]()));
 }
 function holdButton(b,fn){const MS=650;let t=null,st=0;
   const fill=b.querySelector('.fill');
