@@ -8,6 +8,7 @@ node tests/simulation.js   # 300 Leben mit allen Apps, Aktionen und Einstellunge
 node tests/geschaefte.js   # Filialen, Produkte, Konkurrenz, Bankfilialen
 node tests/immobilien.js   # Kaufen, Vermieten, Ausbauen
 node tests/leben.js        # Chats, Hobbys, Geschwister, Prüfungen, Stadt-Ereignisse
+node tests/spielweisen.js 50   # 5 Spielweisen × 50 Leben, Auswertung in tests/spielweisen.json
 ```
 
 Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
