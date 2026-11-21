@@ -1,0 +1,31 @@
+/* ================= Rivale ================= */
+function mkRival(){const g=ch(.5)?'w':'m';p.rival={n:pick(g==='m'?MN:FN)+' '+pick(LN.filter(x=>x!==p.last)),g,in:R(40,92),edu:'keine',deg:null,job:null,pay:0,money:0,fol:0,partner:false,kids:0,friend:false,wins:0,loss:0}}
+const RTAUNT=['Na, immer noch nichts aus dir geworden? ;)','Hab gerade ein neues Auto gekauft. Und du so?','Hab gehört, du bist auch noch da. Witzig.','Ich bin schon wieder befördert worden. Läuft bei mir.','Mein Leben ist einfach besser. Sorry, not sorry.'];
+const RRESP=['Okay, Respekt. Das hast du gut gemacht.','Pff. Das hätte ich auch geschafft.','Glückwunsch … glaub ich.'];
+function rivalYear(){const r=p.rival;if(!r||!O.rival||p.age<6)return;const a=p.age;
+  if(a===16&&r.in<55){r.edu='Realschule'}if(a===18&&r.in>=55){r.edu='Abitur';if(!r.friend)news(r.n+' macht Abitur mit 1,'+R(0,9),'rival')}
+  if(a===23&&r.edu==='Abitur'&&ch(.6)){r.deg=pick(Object.keys(STUDY));news(r.n+' schließt Studium '+r.deg+' ab','rival')}
+  if(a>=18&&!r.job&&ch(.5)){const js=JOBS.filter(j=>!j.part&&j.pay>0&&j.min<=a&&!j.fol&&j.id!=='profi'&&(!j.edu||RANK[r.edu]>=j.edu)&&(!j.deg||j.deg===r.deg)&&(!j.aus||ch(.5)));if(js.length){const j=js.sort((x,y)=>y.pay-x.pay)[Math.min(js.length-1,R(0,2))];r.job=j.t;r.pay=j.pay;news(r.n+' arbeitet jetzt als '+j.t,'rival')}}
+  if(r.job){r.pay=Math.round(r.pay*1.03);r.money+=Math.round(r.pay*.18)}if(a>=67&&r.job){r.job='Rentner/in';r.pay=Math.round(r.pay*.45)}
+  if(a>=20&&ch(.03)){r.money+=R(5,50)*10000;news(r.n+' landet einen großen Coup','rival')}else if(a>=20&&ch(.03)&&r.money>20000){r.money=Math.round(r.money*.4);news(r.n+' verliert viel Geld mit Aktien','rival')}
+  if(a>=13&&ch(.4))r.fol=Math.round(r.fol*1.35+R(30,400));
+  if(!r.partner&&a>=22&&a<=40&&ch(.15)){r.partner=true;if(!r.friend)msg('rival','Ich heirate übrigens. Du bist nicht eingeladen.')}if(r.partner&&a>=25&&a<=42&&r.kids<3&&ch(.15))r.kids++;
+  if(r.friend){if(ch(.3))msg('rival',pick(['Lust auf ein Bier wie früher?','Danke nochmal für damals.','Wer hätte gedacht, dass wir mal Freunde werden.']));return}
+  const myMs=(p.ms||[]).filter(m=>m.a===a);if(myMs.length&&ch(.6))msg('rival',pick(RRESP));else if(ch(.35))msg('rival',pick(RTAUNT));
+}
+const rivE=c=>()=>!!(O.rival&&p.rival&&!p.rival.friend&&p.age>=6)&&c();
+EVENTS.push(
+ E('Ärger mit dem Rivalen',()=>p.rival.n+' macht sich vor der ganzen Klasse über dich lustig.',rivE(()=>p.age>=6&&p.age<=16),[['Schlagfertig kontern',()=>{if(ch(.4+p.sk.charme/200)){add('gl',6);p.rival.loss++;return 'Die ganze Klasse lacht. Aber über '+p.rival.n+'.'}add('gl',-5);p.rival.wins++;return 'Dir fällt nichts ein. Mist.'}],['Lehrerin holen',()=>(addRuf(1),'Es gibt einen Eintrag ins Klassenbuch. Für '+p.rival.n+'.')],['Ignorieren',()=>(add('gl',-2),'Du lässt es an dir abprallen. Fast.')]]),
+ E('Duell um die Beförderung',()=>p.rival.n+' arbeitet plötzlich in deiner Firma und will dieselbe Beförderung.',rivE(()=>!!p.job&&!p.job.part&&p.job.id!=='influ'&&p.age>=22),[['Härter arbeiten',()=>{add('ge',-3);if(ch(.45+p.job.perf/250)){p.job.perf=Math.min(100,p.job.perf+20);p.rival.loss++;return 'Du überzeugst die Chefin. '+p.rival.n+' geht leer aus.'}p.rival.wins++;return p.rival.n+' bekommt die Stelle. Ärgerlich.'}],
+   ['Intrige spinnen',()=>{addRuf(-12);if(ch(.6)){p.job.perf=Math.min(100,p.job.perf+15);p.rival.loss++;return 'Ein paar Gerüchte später ist '+p.rival.n+' aus dem Rennen.'}p.job.perf-=20;return 'Die Intrige fliegt auf. Peinlich.'}],['Fair bleiben',()=>(addRuf(4),ch(.5)?(p.job.perf+=8,'Fair gewonnen!'):'Fair verloren. Wenigstens kannst du in den Spiegel schauen.')]]),
+ E('Video über dich',()=>p.rival.n+' hat ein Video über dich gepostet. Nicht nett.',rivE(()=>!!p.sm&&p.age>=13),[['Antwortvideo',()=>{if(ch(.5)){const f=Math.round(p.sm.fol*.15+R(100,800));smGain(f);return 'Dein Konter geht viral: +'+kfmt(f)+' Follower.'}smGain(-p.sm.fol*.05);return 'Das Internet steht auf '+p.rival.n+'s Seite.'}],['Ignorieren',()=>(addRuf(2),'Nach einer Woche redet keiner mehr darüber.')]]),
+ E('Der Rivale braucht Hilfe',()=>p.rival.n+' hat alles verloren und fragt kleinlaut, ob du helfen kannst.',rivE(()=>p.age>=35&&p.money>=5000),[['Helfen (5.000 €)',()=>{p.money-=5000;p.rival.friend=true;addRuf(12);add('gl',8);mile('Frieden mit '+p.rival.n,'star');p.rival.money+=5000;return 'Ihr redet die ganze Nacht. Aus Rivalen werden Freunde.'}],['Schadenfreude',()=>(addRuf(-5),add('gl',3),'Du gönnst dir ein kleines Grinsen.')]]),
+ E('Wer hat mehr?',()=>p.rival.n+' fährt mit einem neuen Sportwagen an deinem Haus vorbei und hupt.',rivE(()=>p.age>=20),[['Lässig winken',()=>(add('gl',1),'Du bist über so etwas erhaben.')],['Zeigefinger',()=>(addRuf(-2),add('gl',2),'Befriedigend. Aber nicht erwachsen.')]]));
+function viewRival(){const r=p.rival;if(!r)return '';const me=netWorth(),rv=r.money;const cmp=(l,a,b,f)=>'<div class="cmp"><span>'+l+'</span><b class="'+(f(a,b)?'up':'')+'">'+a+'</b><b class="'+(f(b,a)?'up':'')+'">'+b+'</b></div>';
+  const P={g:r.g,st:{gl:r.friend?85:50},skin:(p.skin+2)%5,hair:(p.hair+3)%6,beard:false,bald:false,glasses:true,look:{o:null,acc:[]}};
+  return '<section class="card rival"><div class="fh"><span class="meav sm">'+avatarSvg(p.age,64,P)+'</span><div><b>'+esc(r.n)+'</b><small>'+(r.friend?'Früher Rivale, heute Freund/in':'Dein/e Rival/in seit der Schulzeit')+'</small><small>'+esc(r.job||(p.age<18?'Schüler/in':'ohne Job'))+'</small></div></div>'+
+    '<div class="cmp head"><span></span><b>Du</b><b>'+esc(r.n.split(' ')[0])+'</b></div>'+cmp('Vermögen',eur(me),eur(rv),(a,b)=>parseFloat(a.replace(/\D/g,''))>parseFloat(b.replace(/\D/g,'')))+
+    cmp('Abschluss',p.deg?'Studium':p.edu,r.deg?'Studium':r.edu,()=>false)+cmp('Follower',kfmt(p.sm?p.sm.fol:0),kfmt(r.fol),(a,b)=>(p.sm?p.sm.fol:0)>r.fol&&a!==b)+
+    cmp('Familie',(p.partner?'Partner, ':'')+p.kids.length+' Kind(er)',(r.partner?'Partner, ':'')+r.kids+' Kind(er)',()=>false)+cmp('Duelle',String(r.loss),String(r.wins),(a,b)=>+a>+b)+
+    '<p class="note" style="margin-top:8px">'+(r.friend?'Ihr seid jetzt befreundet.':me>=rv?'Du liegst vorne. '+esc(r.n.split(' ')[0])+' wird das nicht gefallen.':esc(r.n.split(' ')[0])+' liegt vorne. Zeit für eine Aufholjagd!')+' Den Rivalen kannst du in den Einstellungen ausschalten.</p></section>'}
+

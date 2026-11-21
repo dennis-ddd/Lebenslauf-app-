@@ -1,0 +1,21 @@
+/* ================= Update-Hinweise ================= */
+const VKEY='lebenslauf-version';
+const CHANGES=[
+ {v:'2.7',big:true,t:'Unternehmer-Update',neu:['Filialen für alle Geschäfte, ab 5 Standorten Franchise mit Lizenzgebühren','Eigene Produkte im Onlineshop (bis zu 4) mit Preisstufe, Qualität und Bewertungen','Bankfilialen: mehr Kundengelder, mehr Gewinn','Marketing-Kampagnen von Flyern bis TV-Spot','Konkurrenz mit Preiskampf, Aufkauf, Qualität oder, mit krimineller Vergangenheit, Sabotage und Einschüchterung','Kundenbewertungen mit Sternen und Mitarbeiter-Ereignisse','Geschäfte verkaufen oder an dein Kind vererben','Eigene Produktion als Lieferkette'],mod:['Immobilien-Ausbau braucht echte Bauzeit: während der Bauarbeiten weniger Miete, die neue Miete gilt erst ab dem Jahr danach','Der Code ist jetzt in 35 Module aufgeteilt']},
+ {v:'2.6',big:true,t:'Mehr Leben, mehr Hilfe',neu:['Tutorial für Einsteiger, abwählbar beim Start und in den Einstellungen','Tipps beim ersten Öffnen jeder App, einzeln wegklickbar oder ganz abschaltbar','33 neue Ereignisse für alle Lebensphasen, viele mit drei Wahlmöglichkeiten','Spielablauf jetzt auch im laufenden Spiel änderbar (Einstellungen)'],mod:['Ereignisse wiederholen sich deutlich seltener','Mehr Textvarianten bei Lesen, Sport, Joggen, Feiern, Meditieren und Lernen','Größere, kontrastreichere Schrift für bessere Lesbarkeit']},
+ {v:'2.5',big:false,t:'Aufgeräumter Start',neu:[],mod:['Startseite zeigt nur deinen Spielstand mit „Weiterspielen“','Name, Startalter und Spielablauf erscheinen erst bei „Neues Leben beginnen“']},
+ {v:'2.4',big:true,t:'Dein Spiel, deine Regeln',neu:['Neue Startseite mit eigenem Spielablauf: Aktionen pro Jahr (3, 4, 6, 9, 12, 18 oder unbegrenzt)','Tagesuhr: Jede Aktion kostet Zeit, um 3 Uhr nachts ist der Tag vorbei','Zufallsereignisse oft, normal, selten oder aus','Großereignisse, Rivale und Minispiele direkt beim Start einstellbar','Herkunft wählen: arm, normal oder reich mit Treuhandfonds','Diese Update-Hinweise beim Start'],mod:['Komplett neues, moderneres Design ohne Blau: dunkle Akzente, Mint und Koralle','Die Navigationsleiste von Android wird im Vollbild jetzt bei jedem Antippen wieder ausgeblendet','Aktionen zeigen, wie lange sie dauern']},
+ {v:'2.3',big:false,t:'Sammlung',neu:['27 Belohnungen, die in allen Leben freigeschaltet bleiben: Hintergründe, Outfits, Handy-Rahmen, Melodien, Titel'],mod:[]},
+ {v:'2.2',big:true,t:'Lebenswege und Generationen',neu:['Apps Nachrichten, Kalender, Karriere und Einstellungen','Minispiele für jeden Job','Seltene Großereignisse und ein Rivale fürs Leben','Kinder mit Talenten, Testament, Stammbaum und Weiterspielen als Kind','Sport-, Musik-, Politik- und Untergrund-Karriere','Grabstein mit Lebensrückblick'],mod:['Schulnoten, Sitzenbleiben und Hauptschule','Umzug in Großstadt, Kleinstadt, Dorf oder Ausland']},
+ {v:'2.1',big:true,t:'Klick 2.0',neu:['Eigener Kanal mit Sendeplan, Formaten, Spendenziel und Plaketten','Sponsoren, Merch und Studio'],mod:['Posts und Streams kosten keine Aktionen mehr','Influencer/in schon mit 16 bis 19 möglich']}];
+const APPVER=CHANGES[0].v;
+function showUpdates(){let seen=null;try{seen=localStorage.getItem(VKEY)}catch(e){}
+  try{localStorage.setItem(VKEY,APPVER)}catch(e){}
+  if(seen===APPVER)return;let list;
+  if(seen==null){if(!load())return;list=CHANGES.slice(0,1)}else{const i=CHANGES.findIndex(c=>c.v===seen);list=i<0?CHANGES.slice(0,2):CHANGES.slice(0,i)}
+  if(!list.length)return;const big=list.some(c=>c.big);
+  const li=(a,c)=>a.length?'<ul class="ul2 '+c+'">'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'';
+  const h=(big?'<div class="upbig"><small>GROSSES UPDATE</small><b>'+esc(list[0].t)+'</b><span>Version '+list[0].v+'</span></div>':'<h2>Update auf Version '+list[0].v+'</h2>')+
+    list.map((c,i)=>(i||big?'':'')+'<div class="upv">'+(i||!big?'<div class="uph"><b>'+esc(c.t)+'</b><span class="chip">'+(c.big?'Großes Update · ':'')+'v'+c.v+'</span></div>':'')+(c.neu.length?'<div class="upl">Neu</div>'+li(c.neu,'neu'):'')+(c.mod.length?'<div class="upl">Geändert</div>'+li(c.mod,'mod'):'')+'</div>').join('');
+  htmlDialog(h,'Los geht’s',null,'upd'+(big?' bigup':''));setTimeout(()=>{const d=document.getElementById('dlg');if(d)d.scrollTop=0},30);if(big)sfx('big')}
+

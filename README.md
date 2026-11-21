@@ -22,3 +22,17 @@ Der Spielstand wird nur auf dem jeweiligen Gerät gespeichert.
 - `manifest.webmanifest` – App-Name, Symbol und Farben für die Installation
 - `sw.js` – sorgt für Offline-Start und Updates
 - `icons/` – App-Symbole
+
+## Aufbau des Codes
+
+Das Spiel wird aus Modulen in `src/` gebaut. `index.html` ist das fertige Ergebnis und wird nicht direkt bearbeitet.
+
+```
+src/shell.html    HTML-Grundgerüst
+src/css/          Design
+src/js/00–33      Spielmodule, z. B. 05_geschaefte.js, 11_immobilien.js, 23_kinder_generationen.js
+build.py          setzt alles zu index.html zusammen
+tests/            automatische Tests (siehe tests/README.md)
+```
+
+Nach jeder Änderung: `python3 build.py`, dann die Tests laufen lassen.
