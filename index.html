@@ -520,6 +520,14 @@ body{background:light-dark(radial-gradient(120% 60% at 100% 0%,#FFE9DE 0%,transp
 .ul2 li{position:relative;padding-left:22px;font-weight:600;font-size:15px}
 .ul2 li::before{content:'';position:absolute;left:2px;top:7px;width:10px;height:10px;border-radius:50%;background:#0E9F7E}
 .ul2.mod li::before{background:#FF7A3D;border-radius:3px}
+
+.contc{display:flex;flex-direction:column;gap:14px;padding:18px}
+.cc1{display:flex;align-items:center;gap:14px}.cc1 .cav2 svg{border-radius:50%;box-shadow:0 0 0 3px var(--soft)}
+.cc2{display:flex;flex-direction:column;gap:1px}.cc2 small{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--blueText)}
+.cc2 b{font-size:21px;font-weight:900}.cc2 span{font-weight:700;color:var(--muted)}
+.newl{display:flex;align-items:center;justify-content:center;gap:8px}
+.backs{align-self:flex-start;display:flex;align-items:center;gap:6px;border:0;background:var(--card);color:var(--ink);font-weight:800;border-radius:999px;padding:10px 16px;box-shadow:0 4px 14px rgba(30,24,40,.07)}
+.warnn{text-align:center;color:var(--bad)}
 </style>
 </head>
 <body>
@@ -2563,6 +2571,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+ {v:'2.5',big:false,t:'Aufgeräumter Start',neu:[],mod:['Startseite zeigt nur deinen Spielstand mit „Weiterspielen“','Name, Startalter und Spielablauf erscheinen erst bei „Neues Leben beginnen“']},
  {v:'2.4',big:true,t:'Dein Spiel, deine Regeln',neu:['Neue Startseite mit eigenem Spielablauf: Aktionen pro Jahr (3, 4, 6, 9, 12, 18 oder unbegrenzt)','Tagesuhr: Jede Aktion kostet Zeit, um 3 Uhr nachts ist der Tag vorbei','Zufallsereignisse oft, normal, selten oder aus','Großereignisse, Rivale und Minispiele direkt beim Start einstellbar','Herkunft wählen: arm, normal oder reich mit Treuhandfonds','Diese Update-Hinweise beim Start'],mod:['Komplett neues, moderneres Design ohne Blau: dunkle Akzente, Mint und Koralle','Die Navigationsleiste von Android wird im Vollbild jetzt bei jedem Antippen wieder ausgeblendet','Aktionen zeigen, wie lange sie dauern']},
  {v:'2.3',big:false,t:'Sammlung',neu:['27 Belohnungen, die in allen Leben freigeschaltet bleiben: Hintergründe, Outfits, Handy-Rahmen, Melodien, Titel'],mod:[]},
  {v:'2.2',big:true,t:'Lebenswege und Generationen',neu:['Apps Nachrichten, Kalender, Karriere und Einstellungen','Minispiele für jeden Job','Seltene Großereignisse und ein Rivale fürs Leben','Kinder mit Talenten, Testament, Stammbaum und Weiterspielen als Kind','Sport-, Musik-, Politik- und Untergrund-Karriere','Grabstein mit Lebensrückblick'],mod:['Schulnoten, Sitzenbleiben und Hauptschule','Umzug in Großstadt, Kleinstadt, Dorf oder Ausland']},
@@ -2757,10 +2766,12 @@ function renderStart(){
   const ag=(ages.find(x=>x[0]===form.a)||ages[2])[3];
   const actHint=+form.act===0?'Unbegrenzt: Nur die Tagesuhr begrenzt dich.':+form.act<=4?'Herausfordernd: Jede Entscheidung zählt.':+form.act>=12?'Entspannt: Du kannst viel ausprobieren.':'Ausgewogen, wie im Original.';
   const dice='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r="1.2"/><circle cx="15" cy="15" r="1.2"/><circle cx="15" cy="9" r="1.2"/><circle cx="9" cy="15" r="1.2"/></svg>';
-  app.innerHTML='<div class="start s2">'+
-    '<section class="hero"><div class="hav">'+avatarSvg(ag,112,P)+'</div><div class="ht"><small>LEBENSSIMULATOR</small><h1>Lebenslauf</h1><p>Ein ganzes Leben in einer neuen Stadt. Jede Entscheidung zählt.</p></div><div class="hchips"><span>Karriere</span><span>Liebe</span><span>Familie</span><span>Börse</span><span>Klick</span><span>Generationen</span></div></section>'+
-    (old&&old.alive&&old.st?'<button class="cont" id="cont"><span class="cav2">'+avatarSvg(old.age,48,old)+'</span><span class="ct2"><small>Weiterspielen</small><b>'+esc(old.first+' '+old.last)+', '+old.age+' Jahre</b></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>':'')+
-    '<section class="card sc"><div class="sh"><span class="sn">1</span><h2>Wer bist du?</h2><button class="dice" id="dice" aria-label="Zufälliger Name">'+dice+'</button></div><div class="nm"><label>Vorname<input type="text" id="fn" maxlength="20" value="'+esc(form.fn)+'"></label><label>Nachname<input type="text" id="ln" maxlength="20" value="'+esc(form.ln)+'"></label></div>'+
+  const has=!!(old&&old.alive&&old.st),home=has&&!form.neu;
+  const contC=has?'<section class="card contc"><div class="cc1"><span class="cav2">'+avatarSvg(old.age,76,old)+'</span><div class="cc2"><small>Dein Spielstand</small><b>'+esc(old.first+' '+old.last)+'</b><span>'+old.age+' Jahre'+(old.job?' · '+esc(old.job.t):'')+'</span><span>'+eur(old.money)+(old.gen>1?' · Generation '+old.gen:'')+'</span></div></div><button class="btn o big" id="cont">Weiterspielen</button></section>':'';
+  app.innerHTML='<div class="start s2">'+'<section class="hero"><div class="hav">'+avatarSvg(ag,112,P)+'</div><div class="ht"><small>LEBENSSIMULATOR</small><h1>Lebenslauf</h1><p>Ein ganzes Leben in einer neuen Stadt. Jede Entscheidung zählt.</p></div><div class="hchips"><span>Karriere</span><span>Liebe</span><span>Familie</span><span>Börse</span><span>Klick</span><span>Generationen</span></div></section>'+
+    
+    (home?contC+'<button class="btn g newl" id="neu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Neues Leben beginnen</button>':
+    (has?'<button class="backs" id="back"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Zurück zum Spielstand</button>':'')+'<section class="card sc"><div class="sh"><span class="sn">1</span><h2>Wer bist du?</h2><button class="dice" id="dice" aria-label="Zufälliger Name">'+dice+'</button></div><div class="nm"><label>Vorname<input type="text" id="fn" maxlength="20" value="'+esc(form.fn)+'"></label><label>Nachname<input type="text" id="ln" maxlength="20" value="'+esc(form.ln)+'"></label></div>'+
       '<div class="grid3">'+[['w','Weiblich'],['m','Männlich'],['d','Divers']].map(([k,n])=>'<button class="sch" data-gs="'+k+'" aria-pressed="'+(form.g===k)+'"><b>'+n+'</b></button>').join('')+'</div></section>'+
     '<section class="card sc"><div class="sh"><span class="sn">2</span><h2>Wann startest du?</h2></div><div class="ages">'+ages.map(([a,n,s])=>'<button class="sch big2" data-as="'+a+'" aria-pressed="'+(form.a===a)+'"><b>'+n+'</b><small>'+s+'</small></button>').join('')+'</div></section>'+
     '<section class="card sc"><div class="sh"><span class="sn">3</span><h2>Spielablauf</h2></div>'+
@@ -2772,7 +2783,10 @@ function renderStart(){
       '<div class="sl">Minispiele</div>'+chips('mini',[['ask','Fragen'],['play','Immer spielen'],['skip','Überspringen']])+
       '<div class="tgs">'+tg2('sb','Sandbox','1 Million € Startgeld und du stirbst nicht')+'</div>'+
       '<p class="note">Rivale und Minispiele kannst du später in den Einstellungen ändern.</p></section>'+
-    '<div class="sgo"><button class="btn o big" id="go">Leben starten</button><button class="btn g" id="rnd">Zufälliges Leben</button></div><p class="note" style="text-align:center">Version '+APPVER+' · Spielstand bleibt auf diesem Gerät</p></div>';
+    '<div class="sgo"><button class="btn o big" id="go">Leben starten</button><button class="btn g" id="rnd">Zufälliges Leben</button></div>'+(has?'<p class="note warnn">Ein neues Leben ersetzt deinen aktuellen Spielstand.</p>':''))+
+    '<p class="note" style="text-align:center">Version '+APPVER+' · Spielstand bleibt auf diesem Gerät</p></div>';
+  if(home){document.getElementById('neu').onclick=()=>{form.neu=true;renderStart();window.scrollTo(0,0)};const c=document.getElementById('cont');c.onclick=()=>{p=old;tab='home';sel='home';render()};if(!renderStart.shown){renderStart.shown=true;setTimeout(showUpdates,400)}return}
+  {const bk=document.getElementById('back');if(bk)bk.onclick=()=>{form.neu=false;renderStart();window.scrollTo(0,0)}}
   const keep=()=>{form.fn=document.getElementById('fn').value;form.ln=document.getElementById('ln').value};
   const re=()=>{keep();renderStart()};
   app.querySelectorAll('[data-gs]').forEach(b=>b.onclick=()=>{form.g=b.dataset.gs;re()});
@@ -2780,7 +2794,7 @@ function renderStart(){
   app.querySelectorAll('[data-sk]').forEach(b=>b.onclick=()=>{const v=b.dataset.sv;form[b.dataset.sk]=isNaN(+v)?v:+v;re()});
   app.querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{form[b.dataset.st]=!form[b.dataset.st];re()});
   document.getElementById('dice').onclick=()=>{form.fn=pick(form.g==='m'?MN:form.g==='w'?FN:FN.concat(MN));form.ln=pick(LN);form.skin=R(0,4);form.hair=R(0,5);renderStart()};
-  const start=(fn,ln,g,a)=>{O.rival=!!form.riv;O.mini=form.mini;saveO();newLife(fn,ln,g,a,!!form.sb);applyCfg(form);if(p.skin!=null&&form.skin!=null){p.skin=form.skin;p.hair=form.hair;save();render()}};
+  const start=(fn,ln,g,a)=>{form.neu=false;O.rival=!!form.riv;O.mini=form.mini;saveO();newLife(fn,ln,g,a,!!form.sb);applyCfg(form);if(p.skin!=null&&form.skin!=null){p.skin=form.skin;p.hair=form.hair;save();render()}};
   document.getElementById('go').onclick=()=>{keep();start((form.fn||'').trim()||'Lena',(form.ln||'').trim()||'Krüger',form.g,form.a)};
   document.getElementById('rnd').onclick=()=>{const g=pick(['w','m']);form.skin=null;start(pick(g==='m'?MN:FN),pick(LN),g,pick([0,6,13,18]))};
   const c=document.getElementById('cont');if(c)c.onclick=()=>{p=old;tab='home';sel='home';render()};
