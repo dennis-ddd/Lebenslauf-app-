@@ -388,6 +388,67 @@ svg.neu{color:#5B7CE6}
 .sprow{display:flex;gap:10px;align-items:center}.sprow .ct{flex:1;min-width:0}.sprow .ct b{white-space:normal;display:block;font-weight:900}.sprow .ct small{white-space:normal;overflow:visible;text-overflow:clip;display:block;color:var(--muted);font-weight:700;font-size:13px}
 .sprow.dim{opacity:.6}.vb{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#2FA88F;color:#fff;font-weight:900;flex:none}.vb.risky{background:#D64545}
 .lock{font-weight:800;color:var(--muted);font-size:13px;padding:6px 10px;border-radius:10px;background:var(--line)}
+.phone{background:var(--wall,linear-gradient(160deg,#1B2340,#0B1022))}
+.phone.ph0{border-radius:18px;border-width:10px;border-color:#3A3F4B}.phone.ph0 .ic{border-radius:10px}
+.phone.ph2{border-color:#B9C2D6}.phone.ph3{border-color:#C9A227;box-shadow:0 18px 40px rgba(201,162,39,.35)}
+.phone.old .pstat span:nth-child(2){color:#FF8A80}
+.pstat span:nth-child(2){opacity:.85}
+.tgs{display:flex;flex-direction:column;gap:6px}
+.tg{display:flex;align-items:center;gap:12px;border:0;background:none;text-align:left;padding:8px 2px;color:var(--ink);min-height:52px}
+.tg span{flex:1}.tg b{display:block;font-weight:900}.tg small{display:block;color:var(--muted);font-weight:600;font-size:13px}
+.tg i{width:50px;height:30px;border-radius:15px;background:var(--line);position:relative;flex:none;transition:background .2s}
+.tg i::after{content:'';position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s}
+.tg[aria-pressed=true] i{background:#2FA88F}.tg[aria-pressed=true] i::after{left:23px}
+.walls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.wall{aspect-ratio:9/14;border-radius:14px;border:3px solid transparent;display:grid;place-items:center;color:#fff}
+.wall[aria-pressed=true]{border-color:var(--blue);box-shadow:0 0 0 2px var(--card) inset}.wall:disabled{opacity:.5}
+.nwhead{display:flex;flex-direction:column;gap:2px;color:#fff;background:linear-gradient(135deg,#2B59C3,#1B2F6E)}
+.nwhead small{font-weight:900;letter-spacing:.08em;opacity:.8}.nwhead b{font-size:22px;font-weight:900}.nwhead span{font-weight:700;opacity:.92}
+.nwhead.ph-boom{background:linear-gradient(135deg,#2FA88F,#14503A)}.nwhead.ph-rezession{background:linear-gradient(135deg,#B42318,#5A1A12)}.nwhead.ph-pandemie{background:linear-gradient(135deg,#8E63D6,#3A2470)}.nwhead.ph-krise{background:linear-gradient(135deg,#F08A24,#8A3A0A)}
+.nw{background:var(--card);border-radius:18px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;box-shadow:0 4px 14px rgba(30,40,80,.06)}
+.nw b{font-size:16px;font-weight:900;line-height:1.25}.nw small{color:var(--muted);font-weight:600}
+.nw.brk{border:2px solid #D64545}
+.nc{align-self:flex-start;color:#fff;border-radius:8px;padding:1px 8px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.kal{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.kal.done{opacity:.6}.kd{width:50px;height:54px;border-radius:14px;background:light-dark(#FDE8EF,#3A1F2C);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
+.kal.term .kd{background:var(--soft)}.kd b{font-size:20px;font-weight:900;line-height:1}.kd small{font-size:12px;font-weight:800;color:var(--muted)}
+.kt{flex:1;min-width:0}.kt b{display:block;font-weight:900}.kt small{display:block;color:var(--muted);font-weight:600;font-size:13px}
+.rbar{position:relative;height:44px;border-radius:22px;background:var(--line);overflow:hidden;margin:6px 0}
+.rz{position:absolute;top:0;bottom:0;background:#3BB273;opacity:.85}.rm{position:absolute;top:4px;width:10px;height:36px;margin-left:-5px;border-radius:5px;background:var(--ink)}
+.dlg.bigev{background:linear-gradient(160deg,#FFF6DA,#FFE7A3);color:#3A2A00;border:3px solid #C9A227}
+.dlg.bigev h2::before{content:'EILMELDUNG';display:block;font-size:12px;letter-spacing:.12em;color:#B42318;margin-bottom:4px}
+.dlg.bigev p{color:#4A3A10}
+.cmp{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:6px;padding:7px 0;border-top:1px solid var(--line);font-size:14px;align-items:center}
+.cmp span{font-weight:700;color:var(--muted)}.cmp b{font-weight:800}.cmp.head{border-top:0}.cmp.head b{font-weight:900}
+.meav.sm{width:auto;height:auto}.kid .fh,.rival .fh{align-items:center;margin-bottom:8px}
+.tree{display:flex;flex-direction:column;align-items:center;gap:0}
+.tn{display:flex;flex-direction:column;align-items:center;background:var(--soft);border-radius:14px;padding:8px 12px;text-align:center;min-width:120px}.tn b{display:block;font-weight:900}.tn small{display:block;color:var(--muted);font-weight:600;font-size:12px}
+.tn.me{background:var(--blue);color:#fff}.tn.me small{color:#DCE6FF}.tn.anc{opacity:.85}
+.tl{display:block;width:3px;height:16px;background:var(--line)}
+.trow{display:flex;gap:8px;justify-content:center}.trow.wrap{flex-wrap:wrap}
+.opt.wl{width:100%;margin-top:6px}.opt b{display:block}.opt small{display:block;color:var(--muted);font-weight:600}
+.opt[aria-pressed=true]{border-color:var(--blue);background:var(--soft)}
+.zgn{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;text-align:center}
+.zgn span{background:var(--soft);border-radius:12px;padding:6px 2px}.zgn small{display:block;font-size:11px;font-weight:800;color:var(--muted)}.zgn b{font-size:18px;font-weight:900}
+.zgn .avg{background:var(--blue);color:#fff}.zgn .avg small{color:#DCE6FF}
+.pdot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.rufbar{position:relative;height:12px;border-radius:6px;background:linear-gradient(90deg,#B42318,#F2B33D 50%,#2FA88F);margin:10px 0 4px}
+.rufbar i{position:absolute;top:-5px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:var(--card);border:4px solid var(--ink)}
+.rufl{font-size:12px;font-weight:800;color:var(--muted)}
+.tline{display:flex;flex-direction:column;gap:0;position:relative;padding-left:4px}
+.tm{display:flex;gap:12px;align-items:flex-start;padding:6px 0;position:relative}
+.tm span{flex:none;width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:900;font-size:14px;z-index:1}
+.tm.big span{background:#C9A227}.tm.kid span{background:#F08A24}.tm.ach span{background:#8E63D6}
+.tm b{font-weight:800;padding-top:7px}
+.tm:not(:last-child)::before{content:'';position:absolute;left:17px;top:36px;bottom:-6px;width:3px;background:var(--line)}
+.death{gap:14px}.grave{display:flex;justify-content:center;padding-top:8px}
+.stone{width:240px;padding:30px 18px 26px;border-radius:120px 120px 16px 16px;background:linear-gradient(180deg,#9AA3B5,#6B7385);color:#fff;text-align:center;display:flex;flex-direction:column;gap:4px;box-shadow:0 14px 30px rgba(16,21,42,.3)}
+.stone small{font-weight:700;opacity:.85}.stone b{font-size:22px;font-weight:900}.stone span{font-weight:800}.stone em{font-style:italic;margin-top:6px;font-weight:600}
+.obit{text-align:center;font-weight:600;color:var(--muted);margin:0}
+.sgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center}
+.sgrid div{background:var(--soft);border-radius:14px;padding:8px 4px}.sgrid b{display:block;font-size:15px;font-weight:900;word-break:break-word}.sgrid small{font-size:11px;font-weight:700;color:var(--muted)}
+.epis{display:flex;flex-direction:column;gap:6px}
+.amt[aria-pressed=true]{border-color:var(--blue);background:var(--soft);color:var(--blueText)}
 </style>
 </head>
 <body>
@@ -442,7 +503,7 @@ const STOCKS=[
 {id:'ok',n:'Ökofarm',p:24,v:.2,d:.05,div:.01,c:'#3BB273',b:'Bio-Landwirtschaft im großen Stil.'}];
 const STK=Object.fromEntries(STOCKS.map(x=>[x.id,x]));
 let stockSel=null,stockRange=10;
-function stepPrice(s,o){let n=o*(1+s.d+s.v*(Math.random()*2-1)*1.2);if(Math.random()<.05)n*=.5;return Math.max(1,Math.round(n*100)/100)}
+function stepPrice(s,o){let n=o*(1+s.d+s.v*(Math.random()*2-1)*1.2)*worldF();if(Math.random()<.05)n*=.5;return Math.max(1,Math.round(n*100)/100)}
 function ensureStocks(){if(!p.hist){p.hist={};STOCKS.forEach(s=>p.hist[s.id]=[p.px[s.id]])}if(!p.cost)p.cost={};if(!p.mnews)p.mnews=[]}
 const SHOP=[{id:'handy',n:'Smartphone',pr:600,e:{gl:4},min:10},{id:'konsole',n:'Spielkonsole',pr:500,e:{gl:6},min:8},{id:'laptop',n:'Laptop',pr:1200,e:{in:3,gl:2},min:12},
 {id:'kleid',n:'Designerkleidung',pr:900,e:{au:5},min:14},{id:'sofa',n:'Designersofa',pr:2500,e:{gl:5},min:18},{id:'uhr',n:'Luxusuhr',pr:15000,e:{gl:6,au:3},min:18},{id:'kamera',n:'Kamera',pr:1500,e:{gl:2},min:13},{id:'setup',n:'Streaming-Setup',pr:2500,e:{gl:2},min:16}];
@@ -475,7 +536,7 @@ function log(t){p.log.push({a:p.age,t});if(p.log.length>300)p.log.shift()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(p))}catch(e){}}
 function load(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null}}
 function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>e.style.display='none',2600)}
-function ach(k){if(p.ach[k])return;p.ach[k]=1;globalAch[k]=1;try{localStorage.setItem(AKEY,JSON.stringify(globalAch))}catch(e){}log('Erfolg freigeschaltet: '+ACH[k]+'!');toast('Erfolg: '+ACH[k])}
+function ach(k){if(p.ach[k])return;p.ach[k]=1;if(MILE_ACH.includes(k))mile(ACH[k],'ach');sfx('win');vib(50);globalAch[k]=1;try{localStorage.setItem(AKEY,JSON.stringify(globalAch))}catch(e){}log('Erfolg freigeschaltet: '+ACH[k]+'!');toast('Erfolg: '+ACH[k])}
 function inSchool(){return !!(p.school||p.study||p.azubi)}
 function stockVal(){return STOCKS.reduce((s,x)=>s+(p.sh[x.id]||0)*p.px[x.id],0)}
 function checkAch(){checkGoals();if(p.money>=100000)ach('reich');if(netWorth()>=1e6)ach('mio');if(stockVal()>=10000)ach('aktien');if(p.age>=80)ach('achtzig');if(p.age>=100)ach('hundert')}
@@ -527,6 +588,7 @@ function contacts(){const c=[];
   if(p.age>=6)c.push({id:'freund',n:p.friend,col:'#2FA88F',sub:'beste/r Freund/in'});
   if(p.partner)c.push({id:'partner',n:p.partner.name,col:'#C2408C',sub:p.partner.mar?'verheiratet':'Beziehung'});
   if(p.job)c.push({id:'chef',n:'Chef/in',col:'#6B7385',sub:p.job.t});
+  if(p.rival&&O.rival&&p.age>=6)c.push({id:'rival',n:p.rival.n,col:'#D64545',sub:p.rival.friend?'Freund/in (früher Rivale)':'Rival/in'});
   p.kids.forEach((k,i)=>{if(p.age-k.b>=10)c.push({id:'kid'+i,n:k.n,col:'#F08A24',sub:'dein Kind'})});
   return c.map(x=>Object.assign(x,{msgs:(p.chats[x.id]||{}).msgs||[],un:(p.chats[x.id]||{}).un||0}));
 }
@@ -584,7 +646,7 @@ function vidRow(v){const V=VIDT[v.g];return '<div class="vrow"><div class="thumb
 function ensureNew(){
   if(p.skin==null){p.skin=R(0,4);p.hair=R(0,5);p.beard=ch(.5);p.bald=ch(.4);p.glasses=ch(.5)}
   if(!p.friend)p.friend=pick(FN.concat(MN));if(!p.pa)p.pa=R(24,36);if(!p.chats)p.chats={};if(!p.yr)p.yr={social:0,casino:0};ensureBiz();ensureEcon();
-  if(p.m0==null)p.m0=p.money;if(!p.trend)p.trend=pick(TRENDS.slice(0,5));if(!p.seenJobs)p.seenJobs=[];if(p.sm===undefined)p.sm=null;
+  if(p.m0==null)p.m0=p.money;if(!p.trend)p.trend=pick(TRENDS.slice(0,5));if(!p.seenJobs)p.seenJobs=[];if(p.sm===undefined)p.sm=null;ensureLife();
 }
 function newJobs(){return JOBS.filter(j=>!canJob(j)&&!p.seenJobs.includes(j.id)).length}
 
@@ -949,7 +1011,7 @@ function checkGoals(){if(!p.goals)return;GOALS.forEach(([k,n,f,rw])=>{if(!p.goal
 const skinTxt=s=>s>=85?'Makellos':s>=65?'Gut':s>=40?'Unrein':'Schlecht';
 function stars(n){return '<span class="stars">'+[0,1,2,3,4].map(i=>'<i class="'+(i<n?'on':'')+'">★</i>').join('')+'</span>'}
 function viewLeben(){ensureEcon();
-  let h='<div class="seg full lt">'+[['ich','Ich'],['ziele','Ziele'],['lauf','Lebenslauf']].map(([k,l])=>'<button data-a="ltab" data-g="'+k+'" aria-pressed="'+(lTab===k)+'">'+l+'</button>').join('')+'</div>';
+  let h='<div class="seg full lt">'+[['ich','Ich'],['ziele','Ziele'],['lauf','Lebenslauf']].concat(O.rival&&p.rival?[['rival','Rivale']]:[]).map(([k,l])=>'<button data-a="ltab" data-g="'+k+'" aria-pressed="'+(lTab===k)+'">'+l+'</button>').join('')+'</div>';
   if(lTab==='ich'){
     h+='<section class="card me"><span class="meav">'+avatarSvg(p.age,112)+'</span><div><small>'+STAGE_N[stageOf(p.age)].toUpperCase()+'</small><b>'+esc(p.first+' '+p.last)+'</b><small>'+p.age+' Jahre · Stil '+stil()+' von 8</small>'+(stageOf(p.age)<7?'<small>Neuer Look mit '+STAGES[stageOf(p.age)+1]+' Jahren</small>':'')+'<div class="btns">'+btn('goshop',null,'Aussehen ändern','g')+'</div></div></section>';
     h+='<section class="card">'+Object.keys(STAT).map(k=>'<button class="stat sb" data-a="stathelp" data-g="'+k+'"><div class="r"><span>'+STAT[k]+'</span><span>'+p.st[k]+' %</span></div><div class="bar"><i class="'+(p.st[k]<30?'low':'')+'" style="width:'+p.st[k]+'%"></i></div></button>').join('')+'<p class="note" style="margin-top:6px">Tippe auf einen Wert, dann siehst du, wie du ihn steigerst.</p>'+
@@ -964,7 +1026,7 @@ function viewLeben(){ensureEcon();
     h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Lebensziele</h2><span class="chip">'+done+' von '+GOALS.length+'</span></div><div class="bar" style="margin:8px 0 4px"><i style="width:'+(done/GOALS.length*100)+'%"></i></div>'+
       GOALS.map(([k,n,f,rw])=>'<div class="goal'+(p.goals[k]?' done':'')+'"><span class="gk">'+(p.goals[k]?'<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12l5 5 9-10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>':'')+'</span><span class="gt"><b>'+n+'</b><small>'+(p.goals[k]?'geschafft mit '+p.goals[k]:rw?'Belohnung '+eur(rw)+' und Glück':'Belohnung: Glück')+'</small></span></div>').join('')+'</section>';
   }
-  if(lTab==='lauf')h+=card('',statBars())+card('Dein Lebenslauf','<div class="log">'+p.log.slice(-80).reverse().map(e=>'<div><span>Alter '+e.a+'</span><span>'+esc(e.t)+'</span></div>').join('')+'</div>');
+  if(lTab==='rival')h+=viewRival();if(lTab==='ich')h+=rufCard();if(lTab==='lauf')h+=milesCard()+card('',statBars())+card('Dein Lebenslauf','<div class="log">'+p.log.slice(-80).reverse().map(e=>'<div><span>Alter '+e.a+'</span><span>'+esc(e.t)+'</span></div>').join('')+'</div>');
   return h;
 }
 
@@ -1408,7 +1470,7 @@ function newLife(first,last,g,age,sb){
   ensureNew();regMyStock();p.m0=p.money;if(age>=6)msg('freund','Hey! Treffen wir uns morgen nach der Schule?');if(age>=13)msg('mama','Denk dran, heute Abend gibt es Spaghetti!');
   log((age===0?'Du wurdest in ':'Dein neues Leben mit '+age+' beginnt in ')+cityName(p.seed)+(age===0?' geboren.':'.'));
   if(age>=6)p.school='Grundschule';
-  if(age>=10)p.school=p.st.in>=55?'Gymnasium':'Realschule';
+  if(age>=10)p.school=p.st.in>=55?'Gymnasium':p.st.in>=38?'Realschule':'Hauptschule';
   if(age>=18){p.edu=p.school==='Gymnasium'?'Abitur':'Realschule';p.school=null;log('Du hast '+(p.edu==='Abitur'?'das Abitur':'den Realschulabschluss')+' in der Tasche.')}
   tab='home';sel='home';save();render();
 }
@@ -1421,10 +1483,10 @@ function ageUp(){
   const R0={st:Object.assign({},p.st),m0:p.m0,inc:[],out:[]};
   p.age++;const a=p.age;
   if(a===6){p.school='Grundschule';log('Du bist in die Grundschule gekommen.')}
-  else if(a===10){p.school=p.st.in>=55?'Gymnasium':'Realschule';log(p.school==='Gymnasium'?'Du wechselst aufs Gymnasium.':'Du wechselst auf die Realschule.')}
-  else if(a===16&&p.school==='Realschule'){p.school=null;p.edu='Realschule';log('Realschulabschluss mit Note '+grade()+'.');msg('papa','Realschulabschluss! Ich bin so stolz auf dich.')}
-  else if(a===18&&p.school==='Gymnasium'){p.school=null;p.edu='Abitur';log('Abitur bestanden mit Note '+grade()+'!');add('gl',8);ach('abi');msg('papa','Abitur in der Tasche! Ich bin so stolz auf dich.')}
-  if(p.school)add('in',R(0,3));
+  else if(a===10){p.school=p.st.in>=55?'Gymnasium':p.st.in>=38?'Realschule':'Hauptschule';log(p.school==='Gymnasium'?'Du wechselst aufs Gymnasium.':'Du wechselst auf die '+p.school+'.')}
+  else if(p.school==='Realschule'&&a>=16+(p.rep||0)){p.school=null;p.edu='Realschule';log('Realschulabschluss mit Note '+grade()+'.');msg('papa','Realschulabschluss! Ich bin so stolz auf dich.')}
+  else if(p.school==='Gymnasium'&&a>=18+(p.rep||0)&&!(p.gr&&p.gr.avg>4)){p.school=null;p.edu='Abitur';log('Abitur bestanden mit Note '+grade()+'!');add('gl',8);ach('abi');msg('papa','Abitur in der Tasche! Ich bin so stolz auf dich.')}
+  schoolAge(a);if(p.school)add('in',R(0,3));
   if(p.study){p.study.left--;add('in',R(1,3));if(p.study.left<=0){p.deg=p.study.f;p.study=null;log('Studium '+p.deg+' abgeschlossen!');add('gl',10);ach('studium');msg('mama','Mein Kind hat einen Abschluss in '+p.deg+'! Ich hab es allen erzählt.')}}
   if(p.azubi){p.azubi.left--;if(p.azubi.left<=0){p.azubi=null;p.aus=true;log('Ausbildung abgeschlossen!');add('gl',6)}}
   if(p.prison>0){p.prison--;add('gl',-6);log(p.prison>0?'Noch '+p.prison+' Jahr(e) im Gefängnis.':'Du bist wieder frei!');if(p.prison>0&&!p.parentsGone)msg('mama','Ich besuch dich am Sonntag. Halt durch.')}
@@ -1432,7 +1494,7 @@ function ageUp(){
   let sal=0;
   if(p.job&&!p.prison){
     const J=JOBS.find(j=>j.id===p.job.id);p.job.yrs++;
-    if(p.job.id!=='influ'){sal=p.job.pay;
+    if(p.job.id!=='influ'){sal=Math.round(p.job.pay*cityF(0));
       if(J&&J.max&&a>J.max){log('Karriereende als '+p.job.t+'.');p.job=null}
       else if(p.job.perf>70&&ch(.35)){p.job.rank=Math.min(4,(p.job.rank||1)+1);p.job.pay=Math.round(p.job.pay*((p.job.rank||1)<4?1.2:1.08));log('Beförderung! Neues Gehalt: '+eur(p.job.pay)+' pro Jahr.');add('gl',6);ach('befoerd');msg('chef','Glückwunsch zur Beförderung! Sie haben es sich verdient.')}
       else if(p.job.perf<25&&ch(.4)){msg('chef','Wir müssen uns leider von Ihnen trennen.');log('Du wurdest als '+p.job.t+' entlassen.');p.job=null;add('gl',-10)}
@@ -1440,7 +1502,7 @@ function ageUp(){
   const smi=smYear();if(p.job&&p.job.id==='influ')p.job.pay=smi;const BZ=bizYear();
   const azubi=p.azubi?12000:0,pocket=a>=6&&a<18?300:0;
   const gross=sal+azubi+p.pension+smi,tax=gross+BZ.taxable>12000?Math.round((gross+BZ.taxable-12000)*.25):0;
-  const wohnen=a>=18?px$(HOMES[p.home].c+(p.home==='eltern'?1200:0))+p.owned.filter(k=>k!==p.home).reduce((t,k)=>t+px$(HOMES[k].c),0):0,kids=p.kids.filter(k=>a-k.b<18).length*3000,
+  const wohnen=Math.round(cityF(1)*(a>=18?px$(HOMES[p.home].c+(p.home==='eltern'?1200:0))+p.owned.filter(k=>k!==p.home).reduce((t,k)=>t+px$(HOMES[k].c),0):0)),kids=p.kids.filter(k=>a-k.b<18).length*3000,
     cars=p.cars.reduce((s,c)=>s+CARS[c].c,0),pets=p.pets.reduce((s,x)=>s+PETS[x.t].c,0),zins=0;
   p.money+=gross-tax-wohnen-kids-cars-pets-zins+pocket;
   const BK=bankYear(),HY=homeYear(),LY=lifeYear(),PY=propYear(),si=BK.si;p.wanted=Math.max(0,(p.wanted||0)-1);
@@ -1453,7 +1515,7 @@ function ageUp(){
    p.mnews.unshift({a:p.age,t:mv[0].n+' '+(mv[1]>=0?'+':'−')+pc+' %: '+why});p.mnews=p.mnews.slice(0,5)}
   R0.inc=[['Gehalt',sal],['Ausbildungsvergütung',azubi],['Rente',p.pension],['Taschengeld',pocket],['Klick: Abos, Sponsoren, Merch & Werbung',smi],['Klick: Deals & Spenden',p.yr.social],['Dividenden',dv],['Sparzinsen',si],['Mieteinnahmen',HY.rent],['Immobilien: Mieten',PY.rent]].concat(BZ.inc,[['Casino-Gewinne',Math.max(0,p.yr.casino)]]);
   R0.out=[['Steuern',tax],['Wohnen',wohnen],['Kinder',kids],['Autos',cars],['Haustiere',pets],['Kreditraten',BK.raten],['Personal',HY.staff],['Reparaturen',HY.repair],['Immobilien: Unterhalt & Schäden',PY.cost],['Lebensstil & Sport',LY.ls],['Behandlungen',LY.treat]].concat(BZ.out,[['Casino-Verluste',Math.max(0,-p.yr.casino)]]);
-  p.fin.push({a:p.age,inc:R0.inc.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])]),out:R0.out.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])])});if(p.fin.length>15)p.fin.shift();
+  lifeX(R0);p.fin.push({a:p.age,inc:R0.inc.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])]),out:R0.out.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])])});if(p.fin.length>15)p.fin.shift();
   p.yr={social:0,casino:0};
   if(p.money<0){add('gl',-8);if(a>=18){log('Du bist im Minus: '+eur(p.money)+'.');if(!p.parentsGone)msg('mama','Brauchst du Hilfe mit Geld? Sag ruhig Bescheid.')}}
   add('gl',Math.round(HOMES[p.home].gl/2));if(p.home==='eltern'&&a>=26)add('gl',-3);
@@ -1472,10 +1534,10 @@ function ageUp(){
   const risk=LY.risk+(p.st.ge<=0?1:0)+(a>65?(a-65)*.008:0)+(p.st.ge<20?.08:0);
   if(!p.sb&&ch(risk)){die(p.st.ge<20?'an einer schweren Krankheit':'friedlich im Schlaf');return}
   p.m0=p.money;save();render();
-  const ev=EVENTS.filter(e=>e.c()),next=ev.length&&ch(.65)?pick(ev):null;
+  const ev=EVENTS.filter(e=>e.c()),next=nextEvent()||(ev.length&&ch(.65)?pick(ev):null);
   recap(R0,()=>{if(next)showEvent(next)});
 }
-function die(c){p.alive=false;p.cause=c;log('Du bist '+c+' gestorben.');save();render()}
+function die(c){sfx('bad');vib(300);p.alive=false;p.cause=c;log('Du bist '+c+' gestorben.');save();render()}
 function htmlDialog(html,label,then,cls){
   const d=document.getElementById('dlg'),m=document.getElementById('modal');d.className='dlg'+(cls?' '+cls:'');
   d.innerHTML=html+'<div class="ch"><button class="btn o" data-o="0">'+esc(label)+'</button></div>';m.classList.add('on');d.scrollTop=0;
@@ -1494,7 +1556,7 @@ function recap(R0,then){
   if(ti||to)h+='<div class="mbox"><div class="mt">Einnahmen</div>'+(li(R0.inc,1)||'<div class="mrow"><span>keine</span></div>')+'<div class="mt">Ausgaben</div>'+(li(R0.out,-1)||'<div class="mrow"><span>keine</span></div>')+
     '<div class="mrow tot"><span>Bilanz des Jahres</span><b class="'+(ti-to>=0?'up':'down')+'">'+(ti-to>=0?'+':'−')+eur(Math.abs(ti-to))+'</b></div><div class="mrow"><span>Kontostand</span><b>'+eur(R0.m0)+' → '+eur(p.money)+'</b></div></div>';
   if(evs.length)h+='<div class="mt">Dein Jahr</div><ul class="evl">'+evs.map(e=>'<li>'+esc(e.t)+'</li>').join('')+'</ul>';
-  htmlDialog(h,'Weiter',then,'recap');
+  if(p.gr&&p.gr.a===a)h+=zeugnis();sfx('bday');vib([30,50,30]);htmlDialog(h,'Weiter',then,'recap');
 }
 
 /* ---------- Ereignisse ---------- */
@@ -1527,7 +1589,8 @@ E('Aktientipp','Ein Kollege schwört: „Pixelhaus Games geht durch die Decke!�
 E('Steuerprüfung','Das Finanzamt prüft deine Steuererklärung.',()=>!!p.job&&p.job.pay>40000&&ch(.4),[['Alle Belege vorlegen',()=>ch(.7)?'Alles in Ordnung.':(p.money-=1500,'Nachzahlung: 1.500 €.')],['Steuerberater (800 €)',()=>(p.money-=800,'Der Berater regelt alles.')]]),
 E('Überfall','Auf dem Heimweg stellt sich dir jemand in den Weg: „Geld her!“',()=>p.age>=14&&!p.prison&&!(p.staff&&p.staff.guard)&&p.money>50,[['Wehren',()=>{if(p.items.includes('pfeffer')||ch(p.sk.kampf/120)){add('gl',3);p.sk.kampf=Math.min(100,p.sk.kampf+2);return p.items.includes('pfeffer')?'Ein Sprühstoß Pfefferspray, und er rennt weg.':'Du wehrst dich, er gibt auf und rennt weg.'}const l=Math.min(500,Math.round(p.money*.2));p.money-=l;add('ge',-8);return 'Er war stärker. Du bist verletzt und '+eur(l)+' los.'}],['Geld geben',()=>{const l=Math.min(300,Math.round(p.money*.1));p.money-=l;add('gl',-4);return 'Du gibst ihm '+eur(l)+'. Zum Glück ist dir nichts passiert.'}]]),
 E('Ärger im Knast','Ein Mitgefangener provoziert dich beim Essen.',()=>p.prison>0,[['Zurückschlagen',()=>ch(.4)?(add('ge',-8),p.prison++,'Prügelei. Ein Jahr mehr Haft.'):(add('gl',2),'Er lässt dich ab jetzt in Ruhe.')],['Ignorieren',()=>'Du isst einfach weiter.']])];
-function showEvent(e){const t=typeof e.x==='function'?e.x():e.x;dialog(e.t,t,e.o.map(([l,f])=>[l,()=>{const r=f();log(r);checkAch();save();render();dialog('Ergebnis',r,[['Weiter',null]])}]))}
+function showEvent(e){showEvent0(e);if(e.big){const d=document.getElementById('dlg');d.classList.add('bigev');sfx('big');vib([60,40,60])}}
+function showEvent0(e){const t=typeof e.x==='function'?e.x():e.x;dialog(e.t,t,e.o.map(([l,f])=>[l,()=>{const r=f();log(r);checkAch();save();render();dialog('Ergebnis',r,[['Weiter',null]])}]))}
 function dialog(h,t,opts){
   const d=document.getElementById('dlg');d.className='dlg';
   d.innerHTML='<h2>'+esc(h)+'</h2><p>'+esc(t)+'</p><div class="ch">'+opts.map((o,i)=>'<button class="btn" data-o="'+i+'">'+esc(o[0])+'</button>').join('')+'</div>';
@@ -1537,10 +1600,10 @@ function dialog(h,t,opts){
 }
 
 /* ---------- Aktionen ---------- */
-function newPartner(rel){p.partner={name:pick(ch(.5)?FN:MN),rel,mar:false};p.chats.partner={msgs:[],un:0};msg('partner','Hey du :) Ich hab die ganze Zeit an dich gedacht.')}
+function newPartner(rel){if(p.stats)p.stats.partners++;p.partner={name:pick(ch(.5)?FN:MN),rel,mar:false};p.chats.partner={msgs:[],un:0};msg('partner','Hey du :) Ich hab die ganze Zeit an dich gedacht.')}
 function adoptPet(t,free){const P=PETS[t];if(!free)p.money-=P.pr;p.pets.push({t,n:pick(P.names),age:0});add('gl',8);ach('tier')}
 function crime(succ,gain,jail,txt){
-  p.crimes++;succ=clamp(succ-(p.wanted||0)*.05,.05,.95);p.wanted=Math.min(5,(p.wanted||0)+1);
+  p.crimes++;addRuf(-4);succ=clamp(succ-(p.wanted||0)*.05,.05,.95);p.wanted=Math.min(5,(p.wanted||0)+1);
   if(ch(succ)){add('gl',R(-2,4));if(gain>=1000){p.dirty=(p.dirty||0)+gain;return txt+': +'+eur(gain)+' Schwarzgeld. Waschen kannst du es über die App Geschäfte.'}p.money+=gain;return txt+': +'+eur(gain)+'.'}
   if(p.age<14){add('gl',-6);return 'Erwischt! Deine Eltern holen dich bei der Polizei ab.'}
   if(!jail){p.money-=500;add('gl',-6);return 'Erwischt! Geldstrafe: 500 €.'}
@@ -1551,7 +1614,7 @@ lesen:{n:'Lesen',d:'Intelligenz +',ok:()=>p.age>=5,f:()=>{add('in',R(2,5));retur
 medi:{n:'Meditieren',d:'Glück +',ok:()=>p.age>=8,f:()=>{add('gl',R(3,7));return 'Du fühlst dich ruhiger.'}},
 pet:{n:'Mit dem Haustier spielen',d:'Glück +',ok:()=>p.pets.length>0,f:()=>{add('gl',R(4,8));return 'Du kuschelst mit '+p.pets[0].n+'.'}},
 kidstime:{n:'Zeit mit den Kindern',d:'Glück +',ok:()=>p.kids.length>0,f:()=>{add('gl',R(4,8));return 'Ein schöner Tag mit den Kindern.'}},
-lernen:{n:'Extra lernen',d:'Intelligenz ++',ok:()=>p.age>=6&&p.age<=30,f:()=>{add('in',R(3,6));return 'Du hast fleißig gelernt.'}},
+lernen:{n:'Extra lernen',d:'Intelligenz ++',ok:()=>p.age>=6&&p.age<=30,f:()=>{add('in',R(3,6));p.lernN=(p.lernN||0)+1;return 'Du hast fleißig gelernt.'}},
 sport:{n:'Training',d:'Gesundheit und Aussehen +',ok:()=>p.age>=6,f:()=>{add('ge',R(2,6));add('au',R(1,3));return 'Du hast dich ausgepowert.'}},
 jog:{n:'Joggen',d:'Gesundheit und Glück +',ok:()=>p.age>=8,f:()=>{add('ge',R(2,5));add('gl',R(1,3));return 'Eine Runde durch den Park.'}},
 date:{n:'Jemanden kennenlernen',d:'ab 14 Jahren, als Single',ok:()=>p.age>=14&&!p.partner,f:()=>{if(ch(.35+p.st.au/200+p.sk.charme/400)){newPartner(50);add('gl',8);return 'Du bist jetzt mit '+p.partner.name+' zusammen!'}add('gl',-3);return 'Kein Glück diesmal.'}},
@@ -1569,9 +1632,9 @@ einbruch:{n:'Einbruch in eine Villa',d:'Kriminalität, hohes Risiko',crime:1,ok:
 bankraub:{n:'Banküberfall',d:'Kriminalität, extremes Risiko',crime:1,ok:()=>p.age>=18,f:()=>crime(.2,R(50000,250000),R(5,10),'Der Banküberfall ist geglückt')},
 hack:{n:'Hacken',d:'braucht Intelligenz 75 %, Informatik oder Hacken 50',crime:1,ok:()=>p.age>=16&&(p.st.in>=75||p.deg==='Informatik'||p.sk.hack>=50),f:()=>crime(.5+p.sk.hack/200,R(20000,80000),R(2,5),'Du hast ein Firmenkonto gehackt')}};
 const PRISON_OK=['sport','lesen'];
-function can(id){const A=ACTS[id];return A.ok()&&(!p.prison||PRISON_OK.includes(id))&&p.act>0}
+function can(id){const A=ACTS[id];return A.ok()&&!(p.world&&p.world.ph==='pandemie'&&(id==='party'||id==='urlaub'))&&(!p.prison||PRISON_OK.includes(id))&&p.act>0}
 function useAct(){if(p.act<=0){toast('Keine Aktionen mehr in diesem Jahr. Werde 1 Jahr älter.');return false}p.act--;return true}
-function done(t){log(t);checkAch();save();render();toast(t)}
+function done(t){sfx('tap');log(t);checkAch();save();render();toast(t)}
 function canJob(j){
   if(p.prison)return 'nicht im Gefängnis';
   if(p.age<j.min)return 'ab '+j.min+' Jahren';
@@ -1585,24 +1648,15 @@ function canJob(j){
   for(const k of ['ge','in','au'])if(j[k]&&p.st[k]<j[k])return 'braucht '+STAT[k]+' '+j[k]+' %';
   return '';
 }
-function shift(){
-  if(!p.job||p.prison||!useAct())return;let sc=0,n=0;
-  const q=()=>{
-    if(n===3){const d=sc*10-10;p.job.perf=clamp(p.job.perf+d,0,100);const bonus=sc*Math.round(p.job.pay/400);p.money+=bonus;if(sc===3)add('gl',3);
-      const t='Schicht als '+p.job.t+': '+sc+' von 3 richtig. '+(bonus?'Bonus '+eur(bonus)+'. ':'')+'Leistung '+(d>=0?'+':'')+d+'.';log(t);save();render();dialog('Schicht beendet',t,[['Weiter',null]]);return}
-    n++;const a=R(3,12),b=R(2,12),op=pick(['+','×','−']);const res=op==='+'?a+b:op==='×'?a*b:a-b;
-    dialog('Schicht · Aufgabe '+n+' von 3','Schnell! '+a+' '+op+' '+b+' = ?',shuffle([res,res+R(1,4),res-R(1,5)]).map(v=>[String(v),()=>{if(v===res)sc++;q()}]))};
-  q();
-}
 function act(id,arg){
   if(!p||!p.alive)return;
   if(ACTS[id]){const A=ACTS[id];if(!can(id))return;p.act--;const r=A.f();if(r===null){p.act++;toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg)||act3(id,arg)||act4(id,arg))return;
+  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg))return;
   switch(id){
   case 'goto':tab=arg;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
-    if(ch(.45+p.st.in/250+p.st.au/500+p.sk.charme/500)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.');break}
+    if(ch(.45+p.st.in/250+p.st.au/500+p.sk.charme/500)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');if(p.stats)p.stats.jobs++;p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.');break}
   case 'work':shift();break;
   case 'quit':if(!p.job)return;{const t=p.job.t;p.job=null;done('Du hast als '+t+' gekündigt.')}break;
   case 'study':if(p.edu!=='Abitur'||inSchool()||p.age<17||p.prison||p.deg)return;if(p.job&&!p.job.part)p.job=null;p.study={f:arg,left:STUDY[arg]};done('Du studierst jetzt '+arg+'.');break;
@@ -1611,7 +1665,7 @@ function act(id,arg){
   case 'propose':if(!p.partner||p.partner.mar||p.age<18||p.prison||!useAct())return;
     if(ch(p.partner.rel/110+p.sk.charme/300)){p.partner.mar=true;p.money-=8000;add('gl',15);ach('heirat');msg('partner','Bester Tag meines Lebens!');done(p.partner.name+' hat Ja gesagt! Die Hochzeit kostet 8.000 €.')}else{p.partner.rel-=10;add('gl',-8);done(p.partner.name+' hat Nein gesagt …')}break;
   case 'baby':if(!p.partner||p.age<18||p.age>48||p.prison||!useAct())return;
-    if(ch(.55)){const n=pick(ch(.5)?FN:MN);p.kids.push({n,b:p.age});add('gl',12);ach('kind');if(!p.parentsGone)msg('mama','Ich bin Oma geworden?! Ich freu mich so!');done(n+' ist geboren!')}else done('Diesmal hat es nicht geklappt.');break;
+    if(ch(.55)){const n=pick((ch(.5)?FN:MN).filter(x=>!p.kids.some(k=>k.n===x)&&x!==p.first));p.kids.push({n,b:p.age});add('gl',12);ach('kind');mile(n+' ist geboren','kid');if(!p.parentsGone)msg('mama','Ich bin Oma geworden?! Ich freu mich so!');done(n+' ist geboren!')}else done('Diesmal hat es nicht geklappt.');break;
   case 'split':if(!p.partner)return;{const nm=p.partner.name,m=p.partner.mar;if(m&&p.money>0)p.money=Math.round(p.money*.7);p.partner=null;add('gl',-10);done(m?'Scheidung von '+nm+'. Das kostet 30 % deines Geldes.':'Du hast mit '+nm+' Schluss gemacht.')}break;
   case 'home':{if(p.home==='eigen')(p.props||[]).forEach(x=>{if(x.use==='self')x.use='leer'});const h=HOMES[arg];if(p.age<h.min||p.home===arg||p.prison)return;if(h.study&&!p.study){toast('Nur für Studierende.');return}
     if(h.buy&&!p.owned.includes(arg)){const pr=px$(h.buy);if(p.money<pr){toast(h.n+' kostet '+eur(pr)+'.');return}p.money-=pr;p.owned.push(arg);ach('haus')}if(p.rented)delete p.rented[arg];
@@ -1620,7 +1674,7 @@ function act(id,arg){
   case 'buycar':{const c=CARS[arg];if(p.age<18||p.prison)return;if(p.money<c.pr){toast(c.n+' kostet '+eur(c.pr)+'.');return}p.money-=c.pr;p.cars.push(arg);add('gl',arg==='sport'?10:5);done('Du hast jetzt einen '+c.n+'.');break}
   case 'sellcar':{const i=p.cars.indexOf(arg);if(i<0)return;p.cars.splice(i,1);const v=Math.round(CARS[arg].pr*.5);p.money+=v;done(CARS[arg].n+' für '+eur(v)+' verkauft.');break}
   case 'buy':{const s=SHOP.find(x=>x.id===arg);if(p.items.includes(arg)||p.age<s.min||p.prison)return;if(p.money<s.pr){toast(s.n+' kostet '+eur(s.pr)+'.');return}
-    p.money-=s.pr;p.items.push(arg);Object.keys(s.e).forEach(k=>add(k,s.e[k]));done('Gekauft: '+s.n+'.');break}
+    p.money-=s.pr;p.items.push(arg);if(arg.startsWith('handy'))p.phoneY=p.age;Object.keys(s.e).forEach(k=>add(k,s.e[k]));done('Gekauft: '+s.n+'.');break}
   case 'adopt':{const P=PETS[arg];if(p.age<8||p.prison)return;if(p.money<P.pr){toast('Das kostet '+eur(P.pr)+'.');return}adoptPet(arg);done('Ein '+P.n+' namens '+p.pets[p.pets.length-1].n+' zieht bei dir ein.');break}
   case 'dep':{const v=arg==='all'?Math.max(0,p.money):Math.min(1000,p.money);if(v<=0)return;p.money-=v;p.sav+=v;done(eur(v)+' aufs Sparkonto gelegt.');break}
   case 'wd':{const v=arg==='all'?p.sav:Math.min(1000,p.sav);if(v<=0)return;p.sav-=v;p.money+=v;done(eur(v)+' vom Sparkonto abgehoben.');break}
@@ -1632,7 +1686,7 @@ function act(id,arg){
     p.money+=v;p.sh[id]=n*(1-f);p.cost[id]=(p.cost[id]||0)*(1-f);if(f===1)p.sh[id]=0;done((f===1?'Alle':'Die Hälfte der')+' Aktien von '+STK[id].n+' für '+eur(v)+' verkauft.');break}
   case 'stock':stockSel=arg||null;render();window.scrollTo(0,0);break;
   case 'range':stockRange=+arg;render();break;
-  case 'newcity':if(p.prison)return;p.seed=R(1,2e9);log('Du ziehst in eine neue Stadt: '+cityName(p.seed)+'.');sel='home';save();render();break;
+  case 'newcity':movePick();break;
   case 'mode':cityMode=arg;render();break;
   case 'cofound':{ensureBiz();if(p.biz.co||p.age<18||p.prison)return;if(p.money<CO_COST){toast('Die Gründung kostet '+eur(CO_COST)+'.');return}const nm=(drafts.coName||'').trim()||p.last+' GmbH';p.money-=CO_COST;p.biz.co={name:nm,a:p.age};drafts.coName='';ach('unternehmer');done(nm+' ist gegründet und im Handelsregister eingetragen.');break}
   case 'holding':if(!p.biz.co||p.biz.hold||p.money<HOLD_COST||p.prison)return;p.money-=HOLD_COST;p.biz.hold=true;done(p.biz.co.name+' ist jetzt eine Holding.');break;
@@ -1664,8 +1718,8 @@ function act(id,arg){
   case 'bjstand':bjStand();break;
   case 'bjdouble':bjDouble();break;
   case 'chat':chatSel=arg||null;render();window.scrollTo(0,0);break;
-  case 'call':{if(p.prison||!useAct())return;msg(arg,'Ich ruf dich gleich mal an!',true);msg(arg,pick(['Schön, dass du anrufst!','Endlich meldest du dich :)','Hab mich so gefreut, deine Stimme zu hören!']));p.chats[arg].un=0;add('gl',R(3,6));done('Ihr habt lange telefoniert.');break}
-  case 'meet':{if(p.prison||!useAct())return;msg('freund','Lust, heute was zu machen?',true);msg('freund',pick(['Klar! Bin in 20 Minuten da.','Immer! Kino oder Pizza?','Ja!! Endlich.']));p.chats.freund.un=0;add('gl',R(5,9));done('Ein toller Tag mit '+p.friend+'.');break}
+  case 'call':{if(p.prison||!useAct())return;if(p.rel&&p.rel[arg]!=null)p.rel[arg]=Math.min(100,p.rel[arg]+8);if(String(arg).startsWith('kid')){const k=p.kids[+arg.slice(3)];if(k)k.rel=Math.min(100,k.rel+6)}if(arg==='rival'&&p.rival&&p.age>=25&&ch(.1)){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}msg(arg,'Ich ruf dich gleich mal an!',true);msg(arg,pick(['Schön, dass du anrufst!','Endlich meldest du dich :)','Hab mich so gefreut, deine Stimme zu hören!']));p.chats[arg].un=0;add('gl',R(3,6));done('Ihr habt lange telefoniert.');break}
+  case 'meet':{if(p.prison||!useAct())return;if(p.rel)p.rel.freund=Math.min(100,p.rel.freund+10);msg('freund','Lust, heute was zu machen?',true);msg('freund',pick(['Klar! Bin in 20 Minuten da.','Immer! Kino oder Pizza?','Ja!! Endlich.']));p.chats.freund.un=0;add('gl',R(5,9));done('Ein toller Tag mit '+p.friend+'.');break}
   case 'love':{if(!p.partner||p.prison||p.loveA===p.age)return;p.loveA=p.age;msg('partner',pick(['Ich denk an dich.','Hab dich lieb!','Freu mich auf heute Abend.']),true);msg('partner',pick(['Ich dich auch <3','Du bist süß.','Kann es kaum erwarten!']));p.chats.partner.un=0;p.partner.rel=Math.min(100,p.partner.rel+4);done('Du hast '+p.partner.name+' eine liebe Nachricht geschickt.');break}
   case 'smjoin':if(p.age<13||p.sm)return;smJoin();msg('freund','Du bist jetzt auf Klick? Folge dir!');done('Dein Klick-Konto '+p.sm.h+' ist online.');break;
   case 'smtab':smTab=arg;render();break;
@@ -1830,14 +1884,538 @@ function viewBoerse(){
   if(p.mnews.length)h+=card('Börsennews',p.mnews.map(m=>row(esc(m.t),'Alter '+m.a)).join(''));
   return h;
 }
+/* ================= Einstellungen, Präsentation, Handy ================= */
+const OKEY='lebenslauf-opts';
+let O={snd:true,vib:true,theme:'auto',mini:'ask',rival:true,wall:0};try{Object.assign(O,JSON.parse(localStorage.getItem(OKEY)||'{}'))}catch(e){}
+function applyTheme(){try{const r=document.documentElement;if(O.theme==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',O.theme)}catch(e){}}
+function saveO(){try{localStorage.setItem(OKEY,JSON.stringify(O))}catch(e){}applyTheme()}
+applyTheme();
+let AC=null;
+const SFX={coin:[[988,.06],[1319,.12]],win:[[523,.09],[659,.09],[784,.09],[1047,.22]],bday:[[523,.12],[523,.1],[587,.22],[523,.22],[698,.22],[659,.36]],msg:[[880,.06],[1175,.09]],bad:[[330,.16],[247,.34]],tap:[[700,.035]],big:[[392,.12],[523,.12],[659,.12],[784,.12],[1047,.3]]};
+function sfx(k){if(!O.snd)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();let t=AC.currentTime+.01;
+  (SFX[k]||SFX.tap).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=k==='bad'?'triangle':'sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.13,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.03);t+=d*.92})}catch(e){}}
+function vib(ms){if(!O.vib)return;try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}}
+const WALLS=[['Nachtblau','linear-gradient(160deg,#1B2340,#0B1022)'],['Sonnenuntergang','linear-gradient(160deg,#F5A25D,#C2306A 60%,#3A1F5C)'],['Ozean','linear-gradient(160deg,#1E9ED8,#1B3C7A)'],
+  ['Wald','linear-gradient(160deg,#3BB273,#14503A)'],['Aurora','linear-gradient(160deg,#16213E,#1B7F79 50%,#7A4BD6)'],['Gold','linear-gradient(160deg,#3A2E12,#C9A227 60%,#2A220C)'],['Neon','linear-gradient(160deg,#120C2E,#E5407A 55%,#2BD1E6)'],['Marmor','linear-gradient(160deg,#5A6275,#2A2F3A 50%,#7C8396)']];
+const PHONES=[['Kinderhandy','Tasten und ein kleines Display. Telefonieren geht.',1],['Smartphone','Das erste richtige Handy. Kamera ist okay.',3],['Smartphone Pro','Super Kamera: Posts gelingen besser.',5],['Ultra Fold','Faltbar, beste Kamera, alle Hintergründe.',8]];
+function phoneTier(){const it=p.items;return it.includes('handy3')?3:it.includes('handy2')?2:it.includes('handy')?1:0}
+const phoneOld=()=>phoneTier()>0&&p.phoneY!=null&&p.age-p.phoneY>=6;
+const wallOk=i=>i<PHONES[phoneTier()][2];
+SHOP.push({id:'handy2',n:'Smartphone Pro',pr:1400,e:{gl:4},min:12},{id:'handy3',n:'Ultra Fold',pr:2800,e:{gl:6,au:1},min:14});
+
+/* ---------- Meilensteine, Ruf, Statistik ---------- */
+function mile(t,k){if(!p.ms)p.ms=[];if(p.ms.some(m=>m.t===t&&m.a===p.age))return;p.ms.push({a:p.age,t,k:k||'star'});if(p.ms.length>60)p.ms.shift()}
+const rufTxt=r=>r>=60?'Vorbild':r>=25?'Ehrlich':r>-25?'Unauffällig':r>-60?'Zwielichtig':'Skrupellos';
+function addRuf(n){p.ruf=clamp((p.ruf||0)+n,-100,100)}
+const MILE_ACH=['job','abi','studium','heirat','kind','befoerd','mio','haus','knast','jackpot','unternehmer','star','micro','ipo','hundert','achtzig'];
+
+/* ---------- Weltgeschehen ---------- */
+const WORLD={normal:['Normale Zeiten',1,0,0,'Die Wirtschaft läuft ruhig.'],boom:['Wirtschaftsboom',1.1,.03,0,'Aktien steigen, Gehälter auch.'],rezession:['Rezession',.86,-.01,.07,'Firmen sparen, Entlassungen drohen.'],
+  pandemie:['Pandemie',.92,0,.03,'Clubs und Reisen sind eingeschränkt, Gesundheit leidet.'],krise:['Energiekrise',.94,-.005,.03,'Alles wird teurer.']};
+const worldF=()=>p&&p.world?WORLD[p.world.ph][1]:1;
+const LOCAL=['Neues Stadion für {c} geplant','{c}: Busfahrer streiken drei Tage lang','Rekordhitze in {c}, Freibäder überfüllt','{c} bekommt eine neue Straßenbahnlinie','Stadtfest in {c} lockt 80.000 Besucher',
+  'Bürgerentscheid in {c}: Park statt Parkhaus','Bäckerei in {c} backt größte Brezel der Welt','Schneechaos legt {c} lahm','Neues Kino in {c} eröffnet','Hafen von {c} wird modernisiert','Ein Fuchs spaziert durchs Rathaus von {c}','Marathon in {c}: Streckenrekord!'];
+const KULTUR=['Sommerhit des Jahres: „Wolkenlos“ von Juna Ray','Serie „Hafenkinder“ bricht alle Streaming-Rekorde','Raumfahrt: erste Touristin landet auf der Mondstation','Studie: Hunde machen glücklicher als Katzen. Katzen widersprechen.',
+  'Neues Handy faltet sich jetzt dreimal','Fußball: Außenseiter gewinnt den Pokal','Forscher entdecken neue Froschart im Regenwald','Robotertaxis fahren jetzt in fünf Großstädten','Promi-Hochzeit des Jahres in Venedig','Videospiel „Sternenstaub“ verkauft 20 Millionen Mal'];
+function news(t,cat,txt){if(!p.news)p.news=[];p.news.unshift({a:p.age,t,cat:cat||'welt',x:txt||''});p.news=p.news.slice(0,40);p.newsUn=(p.newsUn||0)+1}
+function worldYear(R0){const w=p.world;w.y++;let ch2=false;
+  if(w.ph==='normal'){const r=Math.random();const nx=r<.08?'boom':r<.14?'rezession':r<.16?'pandemie':r<.2?'krise':null;if(nx){w.ph=nx;w.y=0;w.dur=nx==='pandemie'?2:nx==='boom'?R(2,4):R(1,3);ch2=true}}
+  else if(w.y>=w.dur){w.ph='normal';w.y=0;ch2=true;news('Experten: Die Lage hat sich normalisiert','welt','Nach der '+WORLD[p.world.ph][0]+' kehrt Ruhe ein.')}
+  const W=WORLD[w.ph];if(ch2&&w.ph!=='normal'){news(W[0]+'!','welt',W[4]);log('Weltgeschehen: '+W[0]+'. '+W[4])}
+  if(w.ph!=='normal'&&!ch2)news(W[0]+' hält an','welt',W[4]);
+  if(p.job&&p.job.id!=='influ'&&p.job.id!=='pol'&&W[2])p.job.pay=Math.round(p.job.pay*(1+W[2]));
+  if(p.job&&!p.job.part&&p.job.id!=='influ'&&p.job.id!=='pol'&&W[3]&&ch(W[3])){log('Wegen der '+W[0]+' wurdest du entlassen.');news('Welle von Entlassungen','welt','Auch '+p.first+' '+p.last+' hat es getroffen.');p.job=null;add('gl',-8)}
+  if(w.ph==='pandemie'){add('ge',-R(0,4));add('gl',-2)}
+  if(w.ph==='krise'){const c=px$(R(600,1500));p.money-=c;R0.out.push(['Energiekrise: höhere Rechnungen',c])}
+  news(LOCAL[R(0,LOCAL.length-1)].split('{c}').join(cityName(p.seed)),'lokal');if(ch(.7))news(pick(KULTUR),'kultur');
+  if(p.mnews&&p.mnews[0]&&p.mnews[0].a===p.age)news(p.mnews[0].t,'boerse');
+  const me=p.first+' '+p.last;
+  if(p.sm&&p.sm.fol>=100000&&ch(.6))news(me+': '+kfmt(p.sm.fol)+' Follower und kein Ende in Sicht','promi');
+  if(netWorth()>=1e6&&ch(.4))news('Reichenliste: '+me+' besitzt über '+eur(Math.floor(netWorth()/1e6)*1e6),'promi');
+  if(p.prison&&ch(.5))news(me+' sitzt weiter in Haft','lokal');
+}
+
+/* ---------- Kalender ---------- */
+const MON=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+function bdOf(id){p.bd=p.bd||{};if(!p.bd[id]){const r=rng((p.seed%100000)+[...id].reduce((t,c,i)=>t+c.charCodeAt(0)*(i+3)*17,0));p.bd[id]=[1+Math.floor(r()*28),Math.floor(r()*12)]}return p.bd[id]}
+function people(){const L=[];if(!p.parentsGone)L.push(['mama','Mama'],['papa','Papa']);if(p.age>=6)L.push(['freund',p.friend]);if(p.partner)L.push(['partner',p.partner.name]);
+  p.kids.forEach((k,i)=>{if(k.alive!==false)L.push(['kid'+i,k.n])});if(p.rival&&O.rival&&p.age>=6)L.push(['rival',p.rival.n]);return L}
+const TERM={arzt:['Vorsorge beim Hausarzt','Gesundheit +3',()=>p.age>=18,()=>{add('ge',3);return 'Alles im grünen Bereich.'},null],
+ zahn:['Zahnarzt-Kontrolle','Aussehen +1',()=>p.age>=6,()=>{add('au',1);return 'Keine Löcher!'},null],
+ eltern:['Elternabend','Deine Kinder freuen sich',()=>p.kids.some(k=>p.age-k.b>=6&&p.age-k.b<18),()=>{p.kids.forEach(k=>{if(p.age-k.b>=6&&p.age-k.b<18)k.rel=Math.min(100,k.rel+5)});return 'Die Lehrerin lobt deine Kinder.'},()=>{p.kids.forEach(k=>{if(p.age-k.b>=6&&p.age-k.b<18)k.rel-=3});return 'Elternabend verpasst. Die Kinder sind enttäuscht.'}],
+ jahrestag:['Hochzeitstag','Verbindung +8 (Essen 150 €)',()=>!!(p.partner&&p.partner.mar),()=>{p.money-=150;p.partner.rel=Math.min(100,p.partner.rel+8);add('gl',3);return 'Ein romantischer Abend.'},()=>{if(!p.partner)return '';p.partner.rel-=12;msg('partner','Du hast unseren Hochzeitstag vergessen. Echt jetzt?');return 'Hochzeitstag vergessen! Verbindung −12.'}],
+ tuev:['TÜV-Termin','Auto bleibt in Schuss (120 €)',()=>p.cars.length>0,()=>{p.money-=120;return 'Plakette bekommen.'},()=>{p.money-=300;return 'TÜV vergessen: 300 € Bußgeld.'}],
+ treffen:['Klassentreffen','Alte Gesichter wiedersehen',()=>[20,30,40,50,60].includes(p.age),()=>{add('gl',5);let t='Viele alte Geschichten, viel Gelächter.';if(p.rival&&O.rival&&!p.rival.friend){const me=netWorth(),rv=p.rival.money;t+=me>=rv?' '+p.rival.n+' ist sichtlich neidisch auf deinen Erfolg.':' '+p.rival.n+' prahlt den ganzen Abend. Das nervt.';add('gl',me>=rv?5:-4)}return t},null],
+ wahl:['Wahltag','Deine Stimme zählt',()=>p.age>=18&&p.age%4===0,()=>{addRuf(1);return 'Du warst wählen.'},null],
+ blut:['Blutspende','Glück +3, Ruf +2',()=>p.age>=18&&p.age<=68,()=>{add('gl',3);addRuf(2);return 'Du hast Leben gerettet.'},null]};
+function newTerms(){const ks=Object.keys(TERM).filter(k=>TERM[k][2]());p.terms=shuffle(ks).slice(0,4).map(k=>({k,d:R(1,28),m:R(0,11),done:false})).sort((x,y)=>x.m-y.m||x.d-y.d)}
+function calYear(R0){if(p.age-1>=10)people().forEach(([id,n])=>{if(p.grat&&p.grat[id]===p.age-1)return;
+    if(id==='partner'&&p.partner){p.partner.rel-=8;msg('partner','Du hast meinen Geburtstag vergessen …')}
+    else if(id==='mama'||id==='papa'){p.rel[id]=Math.max(0,p.rel[id]-5);msg(id,'Hast du meinen Geburtstag vergessen? Naja.')}
+    else if(id==='freund'){p.rel.freund=Math.max(0,p.rel.freund-7)}
+    else if(id.startsWith('kid')){const k=p.kids[+id.slice(3)];if(k&&p.age-1-k.b>=3)k.rel-=6}});
+  (p.terms||[]).forEach(t=>{if(!t.done&&TERM[t.k]&&TERM[t.k][4]){const r=TERM[t.k][4]();if(r)log(r)}});newTerms()}
+function openBd(){if(p.age<10)return 0;return people().filter(([id])=>!(p.grat&&p.grat[id]===p.age)).length}
+
+/* ---------- Ensure ---------- */
+function ensureLife(){
+  if(p.ruf==null)p.ruf=0;if(!p.ms)p.ms=[];if(!p.news)p.news=[];if(p.newsUn==null)p.newsUn=0;if(!p.world)p.world={ph:'normal',y:0,dur:0};
+  if(!p.rel)p.rel={mama:70,papa:70,freund:65};if(!p.grat)p.grat={};if(!p.terms)newTerms();if(!p.later)p.later=[];if(!p.q)p.q=[];if(!p.habit)p.habit={};
+  if(!p.stats)p.stats={maxNW:Math.max(0,p.money),earn:0,jobs:p.job?1:0,partners:p.partner?1:0,cities:1,maxFol:0};if(!p.tree)p.tree=[];if(!p.gen)p.gen=1;if(!p.will)p.will='gleich';
+  if(!p.city)p.city='mittel';if(p.phoneY==null&&phoneTier()>0)p.phoneY=p.age;
+  p.kids.forEach(k=>{if(k.rel==null){k.rel=70;k.g=k.g||(FN.includes(k.n)?'w':'m');k.tal=pick(Object.keys(TAL));k.ts=R(10,40);k.st={in:R(35,90),ge:R(65,95),gl:70};k.fd={};k.edu='keine';k.alive=true;k.kids=0}});
+  if(p.rival===undefined)p.rival=null;if(!p.rival&&O.rival&&p.age>=6)mkRival();
+  if(!p.gr)p.gr=null;if(p.rep==null)p.rep=0;
+}
+
+/* ---------- Views: Einstellungen, Nachrichten, Kalender ---------- */
+const tog=(k,on,l,s)=>'<button class="tg" data-a="opt" data-g="'+k+'" aria-pressed="'+on+'"><span><b>'+l+'</b><small>'+s+'</small></span><i></i></button>';
+function viewEinst(){const t=phoneTier();
+  let h='<section class="card"><h2 class="h">Dein Handy</h2>'+row(PHONES[t][0]+(phoneOld()?' (alt)':''),PHONES[t][1]+(phoneOld()?' Der Akku hält kaum noch einen Tag.':''),t<3?btn('goto','shop','Upgrade','o',p.age<10):'<span class="chip">Top</span>')+'</section>';
+  h+='<section class="card"><h2 class="h">Hintergrund</h2><div class="walls">'+WALLS.map((w,i)=>'<button class="wall" data-a="wall" data-g="'+i+'" aria-pressed="'+(O.wall===i)+'" aria-label="'+w[0]+'" style="background:'+w[1]+'"'+(wallOk(i)?'':' disabled')+'>'+(wallOk(i)?'':'<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>')+'</button>').join('')+'</div><p class="note" style="margin-top:8px">Bessere Handys schalten mehr Hintergründe frei.</p></section>';
+  h+='<section class="card"><h2 class="h">Design</h2><div class="seg full">'+[['auto','Automatisch'],['light','Hell'],['dark','Dunkel']].map(([k,l])=>'<button data-a="theme" data-g="'+k+'" aria-pressed="'+(O.theme===k)+'">'+l+'</button>').join('')+'</div></section>';
+  h+='<section class="card tgs">'+tog('snd',O.snd,'Töne','Kleine Klänge bei Geld, Erfolgen, Geburtstagen')+tog('vib',O.vib,'Vibration','Kurzes Brummen bei wichtigen Momenten')+tog('rival',O.rival,'Rivale','Eine Person aus deiner Schulzeit fordert dich ein Leben lang heraus')+'</section>';
+  h+='<section class="card"><h2 class="h">Minispiele bei der Arbeit</h2><div class="seg full">'+[['ask','Fragen'],['play','Immer spielen'],['skip','Überspringen']].map(([k,l])=>'<button data-a="mini" data-g="'+k+'" aria-pressed="'+(O.mini===k)+'">'+l+'</button>').join('')+'</div><p class="note" style="margin-top:6px">Beim Überspringen wird das Ergebnis aus deinen Werten berechnet.</p></section>';
+  return h}
+const NCAT={welt:['Welt','#2B59C3'],lokal:['Lokal','#2FA88F'],kultur:['Kultur','#8E63D6'],boerse:['Börse','#158A7A'],promi:['Promis','#E5407A'],gross:['Eilmeldung','#D64545'],rival:['Leute','#F08A24']};
+function viewNews(){p.newsUn=0;const W=WORLD[p.world.ph];
+  let h='<section class="card nwhead ph-'+p.world.ph+'"><small>WELTLAGE</small><b>'+W[0]+'</b><span>'+W[4]+'</span></section>';
+  if(!p.news.length)return h+card('','<p class="note">Noch keine Nachrichten. Werde ein Jahr älter.</p>');
+  let la=null;p.news.forEach(n=>{if(n.a!==la){h+='<h3 class="sec">Alter '+n.a+'</h3>';la=n.a}const c=NCAT[n.cat]||NCAT.welt;
+    h+='<article class="nw'+(n.cat==='gross'?' brk':'')+'"><span class="nc" style="background:'+c[1]+'">'+c[0]+'</span><b>'+esc(n.t)+'</b>'+(n.x?'<small>'+esc(n.x)+'</small>':'')+'</article>'});
+  return h}
+function viewKal(){let h='';const bds=people().map(([id,n])=>({id,n,d:bdOf(id)})).sort((x,y)=>x.d[1]-y.d[1]||x.d[0]-y.d[0]);
+  const items=bds.map(b=>({m:b.d[1],d:b.d[0],h:'<div class="kal'+(p.grat[b.id]===p.age?' done':'')+'"><span class="kd"><b>'+b.d[0]+'</b><small>'+MON[b.d[1]].slice(0,3)+'</small></span><div class="kt"><b>Geburtstag: '+esc(b.n)+'</b><small>'+(p.grat[b.id]===p.age?'Gratuliert':'Nicht vergessen! Sonst ist jemand enttäuscht.')+'</small></div>'+(p.grat[b.id]===p.age?'<span class="chip">Erledigt</span>':btn('grat',b.id,'Gratulieren','o',p.age<6||!!p.prison&&b.id!=='mama'&&b.id!=='papa'))+'</div>'}))
+   .concat(p.terms.map((t,i)=>{const T=TERM[t.k];if(!T)return null;return {m:t.m,d:t.d,h:'<div class="kal term'+(t.done?' done':'')+'"><span class="kd"><b>'+t.d+'</b><small>'+MON[t.m].slice(0,3)+'</small></span><div class="kt"><b>'+T[0]+'</b><small>'+(t.done?'Erledigt':T[1]+(T[4]?' · verpassen hat Folgen':''))+'</small></div>'+(t.done?'<span class="chip">Erledigt</span>':btn('term',i,'Hingehen','',!!p.prison))+'</div>'}}).filter(Boolean)).sort((x,y)=>x.m-y.m||x.d-y.d);
+  h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Dein Jahr mit '+p.age+'</h2><span class="chip">'+openBd()+' offen</span></div><p class="note" style="margin:4px 0 8px">Gratulieren und Termine kosten keine Aktion. Vergessene Geburtstage und Termine haben Folgen.</p>'+(items.length?items.map(x=>x.h).join(''):'<p class="note">Keine Termine.</p>')+'</section>';
+  const up=[];if(p.school)up.push(['Schulabschluss',(p.school==='Gymnasium'?18:p.school==='Hauptschule'?15:16)+(p.rep||0)-p.age+' Jahr(e)']);if(p.study)up.push(['Studienabschluss '+p.study.f,p.study.left+' Jahr(e)']);if(p.azubi)up.push(['Ausbildungsende',p.azubi.left+' Jahr(e)']);
+  if(p.pol&&p.pol.next)up.push(['Nächste Wahl ('+POLO[Math.min(POLO.length-1,p.pol.lvl+1)][0]+')',Math.max(0,p.pol.next-p.age)+' Jahr(e)']);if(p.job&&!p.pension&&p.age<67&&p.job.id!=='influ')up.push(['Rente',67-p.age+' Jahre']);
+  if(p.sm&&p.sm.ch&&p.sm.ch.plan.length)up.push(['Plan-Streams',p.sm.ch.plan.map(i=>SLOTS[i][0]+':00').join(', ')]);
+  (p.loans||[]).forEach(l=>up.push(['Kredit abbezahlt',l.left+' Jahr(e)']));
+  if(up.length)h+=card('Demnächst',up.map(u=>row(u[0],'in '+u[1])).join(''));
+  return h}
+
+/* ================= Minispiele ================= */
+const eur2=v=>v.toFixed(2).replace('.',',')+' €';
+const QZ=[['Wie viele Bundesländer hat Deutschland?','16','14','18'],['Welcher Planet ist der Sonne am nächsten?','Merkur','Venus','Mars'],['Wie viele Minuten hat ein Tag?','1.440','1.240','2.400'],['Hauptstadt von Spanien?','Madrid','Barcelona','Sevilla'],
+ ['Wer schrieb „Faust“?','Goethe','Schiller','Kafka'],['Wie viele Seiten hat ein Sechseck?','6','5','8'],['Chemisches Zeichen für Gold?','Au','Ag','Go'],['Größter Ozean der Erde?','Pazifik','Atlantik','Indischer Ozean'],
+ ['Wie viele Spieler hat eine Fußballmannschaft auf dem Feld?','11','10','12'],['Welches Tier ist ein Säugetier?','Wal','Hai','Thunfisch'],['In welchem Jahr fiel die Berliner Mauer?','1989','1991','1985'],['Wie heißt der längste Fluss Deutschlands?','Rhein','Elbe','Donau'],
+ ['Was ist 15 % von 200?','30','25','35'],['Wie viele Knochen hat ein erwachsener Mensch etwa?','206','150','312'],['Wer malte die Mona Lisa?','Leonardo da Vinci','Michelangelo','Raffael'],['Welche Farbe entsteht aus Blau und Gelb?','Grün','Lila','Orange'],
+ ['Hauptstadt von Australien?','Canberra','Sydney','Melbourne'],['Wie viele Kontinente gibt es?','7','5','6'],['Was misst ein Thermometer?','Temperatur','Luftdruck','Feuchtigkeit'],['Wie viele Bytes hat ein Kilobyte (klassisch)?','1.024','1.000','512'],
+ ['Höchster Berg Deutschlands?','Zugspitze','Watzmann','Brocken'],['Wie heißt das Grundgesetz-Organ, das Gesetze beschließt?','Bundestag','Bundesrat','Kanzleramt'],['Welches Gas atmen Pflanzen bei Licht aus?','Sauerstoff','Stickstoff','Kohlendioxid'],
+ ['Wie viele Ecken hat ein Würfel?','8','6','12'],['Was ist die Wurzel aus 144?','12','14','11'],['Welche Sprache hat die meisten Muttersprachler?','Chinesisch','Englisch','Spanisch'],['Wer entwickelte die Relativitätstheorie?','Albert Einstein','Isaac Newton','Max Planck'],
+ ['Wie viele Tage hat ein Schaltjahr?','366','365','364'],['Hauptstadt von Kanada?','Ottawa','Toronto','Vancouver'],['Wie heißt der Mond der Erde auf Latein?','Luna','Sol','Terra']];
+const DG=[['Fieber, Husten, Gliederschmerzen seit zwei Tagen.','Grippe','Sonnenbrand','Heuschnupfen'],['Juckende Augen und Niesen, immer im Frühling.','Heuschnupfen','Grippe','Migräne'],['Pochender Schmerz auf einer Kopfseite, lichtempfindlich.','Migräne','Mandelentzündung','Gastritis'],
+ ['Rechts unten im Bauch starke Schmerzen, Fieber.','Blinddarmentzündung','Erkältung','Sodbrennen'],['Knöchel nach Sturz geschwollen und blau.','Verstauchung','Allergie','Grippe'],['Halsschmerzen, weiße Beläge auf den Mandeln.','Mandelentzündung','Migräne','Bronchitis'],
+ ['Brennen hinter dem Brustbein nach dem Essen.','Sodbrennen','Herzinfarkt sicher','Heuschnupfen'],['Rote, juckende Quaddeln nach Erdbeeren.','Allergie','Masern','Sonnenstich'],['Durst, häufiges Wasserlassen, Müdigkeit.','Diabetes prüfen','Erkältung','Verstauchung']];
+const AU=[['Es quietscht beim Bremsen.','Bremsbeläge','Zündkerzen','Scheibenwischer'],['Der Motor springt nicht an, es klickt nur.','Batterie','Reifen','Auspuff'],['Das Auto zieht beim Fahren nach links.','Spur/Reifendruck','Ölfilter','Hupe'],
+ ['Blauer Rauch aus dem Auspuff.','Motor verbrennt Öl','Zu viel Wasser','Leerer Tank'],['Die Lenkung ist schwer geworden.','Servolenkung','Radio','Kofferraum'],['Warnlampe: Öl!','Ölstand prüfen','Reifen wechseln','Licht putzen']];
+const FG=[['Kundin will neue Haare. Was zuerst?','Haare waschen','Föhnen','Färben ohne Beratung'],['Kunde sitzt frisch gewaschen. Als Nächstes?','Schneiden','Föhnen','Kassieren'],['Schnitzel. Was zuerst?','Fleisch klopfen','Panieren','Braten'],
+ ['Paniert ist das Schnitzel. Als Nächstes?','In heißem Fett braten','Klopfen','Würzen mit Zucker'],['Spaghetti. Was zuerst?','Wasser salzen und kochen','Nudeln in kaltes Wasser','Soße ins Wasser'],['Risotto. Was zuerst?','Zwiebeln andünsten','Reis kochen wie Nudeln','Parmesan zuerst']];
+const KD=[['Das Kind will um 23 Uhr noch Süßigkeiten.','Freundlich Nein sagen, Zähne putzen','Ganze Tüte geben','Eltern anrufen und petzen'],['Das Kind ist hingefallen und weint.','Trösten und Pflaster','Ignorieren','Schimpfen'],
+ ['Das Kind langweilt sich.','Zusammen etwas basteln','Den ganzen Abend Handy','Ins Bett schicken'],['Das Kind hat Fieber.','Eltern informieren','Eis essen gehen','Nichts tun']];
+const STR=[['Zwei Männer streiten laut vor einer Kneipe.','Ruhig ansprechen und trennen','Sofort Handschellen','Wegschauen'],['Ein Auto parkt in der Feuerwehrzufahrt.','Halter ermitteln, Abschleppen','Reifen zerstechen','Ignorieren'],
+ ['Ein Kind hat seine Eltern im Kaufhaus verloren.','Ausrufen lassen und beruhigen','Allein suchen lassen','Mitnehmen zur Wache sofort'],['Ein Autofahrer ist auffällig in Schlangenlinien unterwegs.','Anhalten und kontrollieren','Hinterherhupen','Nichts tun']];
+const bank=B=>()=>{const x=pick(B);return {q:x[0],o:[[x[1],1],[x[2],0],[x[3],0]]}};
+const MG={rechnen:()=>{const a=R(3,14),b=R(2,12),op=pick(['+','×','−']),r=op==='+'?a+b:op==='×'?a*b:a-b;return {q:'Schnell! '+a+' '+op+' '+b+' = ?',o:[[String(r),1],[String(r+R(1,4)),0],[String(r-R(1,5)),0]]}},
+ wechsel:()=>{const pr=R(1,48)+R(0,19)*.05,pay=[5,10,20,50].find(v=>v>pr)||50,c=+(pay-pr).toFixed(2);return {q:'Rechnung '+eur2(pr)+'. Gegeben: '+pay+' €. Wie viel Rückgeld?',o:[[eur2(c),1],[eur2(c+R(1,4)*.5),0],[eur2(Math.max(.05,c-R(1,3)*.1)),0]]}},
+ sort:()=>{const L='ABCDEF',a=L[R(0,5)],n=R(1,9),w=()=>{let x;do{x=L[R(0,5)]+R(1,9)}while(x===a+n);return x};return {pre:'Das Paket gehört in Regal '+a+n+'.',q:'In welches Regal gehört das Paket?',o:[[a+n,1],[w(),0],[w(),0]]}},
+ logik:()=>{const t=R(0,2),a=R(1,9),d=R(2,7);let s;if(t===0)s=[a,a+d,a+2*d,a+3*d,a+4*d];else if(t===1)s=[a,a*2,a*4,a*8,a*16];else s=[a,a+d,a+d+1,a+2*d+1,a+2*d+2];const r=s[4];
+   return {q:'Wie geht die Reihe weiter? '+s.slice(0,4).join(', ')+', …',o:[[String(r),1],[String(r+R(1,3)),0],[String(r-R(1,3)),0]]}},
+ quiz:bank(QZ),diag:bank(DG),auto:bank(AU),folge:bank(FG),kind:bank(KD),streit:bank(STR)};
+const MGN={rechnen:['Kopfrechnen','Rechne schnell und richtig.'],wechsel:['Wechselgeld','Gib das richtige Rückgeld heraus.'],sort:['Sortieren','Merk dir das Regal und sortiere richtig ein.'],reakt:['Reaktion','Drück Stopp, wenn der Punkt im grünen Feld ist.'],
+ logik:['Logik','Finde die nächste Zahl der Reihe.'],quiz:['Wissensquiz','Beantworte die Fragen.'],diag:['Diagnose','Welche Erkrankung passt zu den Beschwerden?'],auto:['Werkstatt','Finde den Fehler am Auto.'],
+ folge:['Arbeitsschritte','Was kommt als Nächstes?'],kind:['Kinder hüten','Wie reagierst du richtig?'],streit:['Streifendienst','Was ist die richtige Maßnahme?']};
+const JOBMG={zeitung:'sort',baby:'kind',cafe:'wechsel',kellner:'wechsel',kasse:'wechsel',lager:'sort',paket:'sort',bus:'reakt',friseur:'folge',koch:'folge',buero:'logik',mecha:'auto',pflege:'diag',bankkfm:'rechnen',polizei:'streit',pilot:'reakt',lehrer:'quiz',architekt:'logik',info:'logik',jura:'quiz',arzt:'diag',profi:'reakt',sport:'reakt',berater:'logik',pol:'quiz'};
+function reactRound(title,cb){const d=document.getElementById('dlg'),m=document.getElementById('modal');d.className='dlg';const x=R(15,62),w=R(15,22);
+  d.innerHTML='<h2>'+esc(title)+'</h2><p>Drück Stopp, wenn der Punkt im grünen Feld ist.</p><div class="rbar"><i class="rz" style="left:'+x+'%;width:'+w+'%"></i><b class="rm" id="rm"></b></div><div class="ch"><button class="btn o" id="rstop">Stopp!</button></div>';m.classList.add('on');
+  let pos=0,dir=1;const sp=1.5+Math.random()*1.5,mk=d.querySelector('#rm'),iv=setInterval(()=>{pos+=dir*sp;if(pos>=100){pos=100;dir=-1}if(pos<=0){pos=0;dir=1}if(mk&&mk.style)mk.style.left=pos+'%'},16);
+  const b=d.querySelector('#rstop');if(b){b.onclick=()=>{clearInterval(iv);m.classList.remove('on');const ok=pos>=x&&pos<=x+w;sfx(ok?'coin':'bad');cb(ok)};if(b.focus)b.focus()}}
+function playMG(type,n,title,cb){let sc=0,i=0;
+  const step=()=>{if(i>=n){cb(sc,false);return}i++;const tt=title+' · '+i+' von '+n;
+    if(type==='reakt'){reactRound(tt,ok=>{if(ok)sc++;step()});return}
+    const g=MG[type](),ask=()=>dialog(tt,g.q,shuffle(g.o.slice()).map(([l,ok])=>[l,()=>{if(ok){sc++;sfx('coin')}else sfx('bad');step()}]));
+    if(g.pre)dialog(tt,'Merke dir: '+g.pre,[['Gemerkt',ask]]);else ask()};
+  step()}
+const autoMG=(n,v)=>{let s=0;for(let i=0;i<n;i++)if(ch(.35+v/250))s++;return s};
+function mgStart(type,n,title,cb,v){const auto=()=>cb(autoMG(n,v==null?p.st.in:v),true);
+  if(O.mini==='skip')return auto();if(O.mini==='play')return playMG(type,n,title,cb);
+  dialog(title,MGN[type][1]+' Du kannst spielen oder überspringen. Überspringen nimmt dein Ergebnis aus deinen Werten.',[['Spielen',()=>playMG(type,n,title,cb)],['Überspringen',auto]])}
+function shift(){
+  if(!p.job||p.prison||!useAct())return;const ty=JOBMG[p.job.id]||'rechnen';
+  mgStart(ty,3,'Schicht: '+MGN[ty][0],(sc,auto)=>{const d=sc*10-10;p.job.perf=clamp(p.job.perf+d,0,100);const bonus=sc*Math.round(p.job.pay/400);p.money+=bonus;if(sc===3)add('gl',3);if(bonus)sfx('coin');
+    const t='Schicht als '+p.job.t+(auto?' (übersprungen)':'')+': '+sc+' von 3 richtig. '+(bonus?'Bonus '+eur(bonus)+'. ':'')+'Leistung '+(d>=0?'+':'')+d+'.';log(t);save();render();dialog('Schicht beendet',t,[['Weiter',null]])},ty==='reakt'?p.sk.fahren/2+p.st.ge/2:p.st.in);
+}
+
+/* ================= Seltene Großereignisse ================= */
+const BE=(t,x,c,o)=>Object.assign(E(t,x,c,o),{big:1});
+function quizShow(){const L=[500,2000,10000,50000,250000];let st=0;
+  const end=(w,t)=>{if(w){p.money+=w;add('gl',w>=50000?20:8);mile('Quizshow: '+eur(w)+' gewonnen','big');news(p.first+' '+p.last+' gewinnt '+eur(w)+' in „Wer weiß es?“','gross')}log(t);checkAch();save();render();sfx(w?'big':'bad');dialog('Quizshow',t,[['Weiter',null]])};
+  if(O.mini==='skip'){let s=0;while(s<5&&ch(.55+p.st.in/400))s++;const w=s?L[s-1]:0;end(w,s===5?'Du beantwortest alle Fragen. 250.000 €!':s?'Bei Frage '+(s+1)+' liegst du daneben, aber du nimmst '+eur(w)+' mit.':'Schon die erste Frage geht schief. Peinlich, aber lustig.');return}
+  const q=()=>{const g=MG.quiz();dialog('Quizshow · Frage '+(st+1)+' um '+eur(L[st]),g.q,shuffle(g.o.slice()).map(([l,ok])=>[l,()=>{
+    if(!ok){const w=st>=2?L[0]:0;end(w,'Falsch! '+(w?'Du fällst auf die Sicherheitsstufe und nimmst '+eur(w)+' mit.':'Leider ohne Gewinn nach Hause.'));return}
+    sfx('coin');st++;if(st>=5){end(L[4],'Alle Fragen richtig! Konfetti regnet. 250.000 €!');return}
+    dialog('Richtig!','Du hast '+eur(L[st-1])+'. Weiter um '+eur(L[st])+'?',[['Weiterspielen',q],['Aufhören',()=>end(L[st-1],'Du nimmst '+eur(L[st-1])+' mit nach Hause.')]])}]))};q()}
+const BIG=[
+ BE('Tippgemeinschaft!','Deine Tippgemeinschaft hat sechs Richtige! Dein Anteil ist riesig.',()=>p.age>=18,[['Alles behalten',()=>{const w=R(15,90)*10000;p.money+=w;add('gl',20);mile('Lottogewinn mit der Tippgemeinschaft','big');news('Tippgemeinschaft aus '+cityName(p.seed)+' knackt den Jackpot','gross');return 'Du bekommst '+eur(w)+'!'}],
+   ['Mit der Familie teilen',()=>{const w=R(15,90)*10000;p.money+=Math.round(w*.6);add('gl',24);addRuf(10);Object.keys(p.rel).forEach(k=>p.rel[k]=Math.min(100,p.rel[k]+15));p.kids.forEach(k=>k.rel=Math.min(100,k.rel+15));mile('Lottogewinn geteilt','big');return 'Du behältst '+eur(Math.round(w*.6))+' und machst alle glücklich.'}]]),
+ BE('Brief aus Kanada','Ein Anwalt schreibt: Dein unbekannter Großonkel Walter hat dir etwas vererbt.',()=>p.age>=20,[['Erbe annehmen',()=>{const w=R(8,60)*10000;p.money+=w;add('gl',10);mile('Erbe aus Kanada','big');return 'Du erbst '+eur(w)+' und eine alte Taschenuhr.'}],['Ablehnen (könnten Schulden sein)',()=>ch(.5)?(add('in',2),'Gut gemacht: Onkel Walter hatte mehr Schulden als Geld.'):(add('gl',-6),'Später erfährst du: Es wären 300.000 € gewesen.')]]),
+ BE('Einladung zur Quizshow','Das Fernsehen lädt dich zu „Wer weiß es?“ ein. Bis zu 250.000 € sind drin.',()=>p.age>=16&&!p.prison,[['Hingehen',()=>{setTimeout(quizShow,10);return 'Scheinwerfer an, Kamera läuft …'}],['Absagen',()=>'Du schaust die Sendung lieber zu Hause.']]),
+ BE('Jahrhunderthochwasser','Der Fluss tritt über die Ufer. Die Straßen stehen unter Wasser.',()=>p.age>=10,[['Sandsäcke schleppen',()=>{add('ge',-5);addRuf(8);add('gl',4);mile('Helfer beim Hochwasser','big');news('Freiwillige retten Altstadt von '+cityName(p.seed),'gross');return 'Tagelang hilfst du mit. Die Stadt dankt dir.'}],
+   ['Wertsachen retten',()=>{const d=(p.props||[]).length||p.owned.length?px$(R(10,40)*1000):0;p.money-=d;return d?'Deine Immobilien haben Wasserschäden: '+eur(d)+'.':'Bei dir bleibt zum Glück alles trocken.'}]]),
+ BE('Ein Meteorit!','Mit einem Knall schlägt ein kleiner Meteorit in deinem Garten ein.',()=>p.age>=8,[['Ans Museum verkaufen',()=>{const w=R(20,60)*1000;p.money+=w;mile('Meteorit gefunden','big');news('Meteorit landet in Garten in '+cityName(p.seed),'gross');return 'Das Museum zahlt '+eur(w)+'.'}],['Versteigern',()=>{const w=ch(.5)?R(80,250)*1000:R(5,15)*1000;p.money+=w;mile('Meteorit versteigert','big');return 'Der Hammer fällt bei '+eur(w)+'.'}],['Behalten',()=>(add('gl',8),'Er liegt jetzt auf deinem Regal. Ein Stück Weltall.')]]),
+ BE('Begegnung mit einem Star','Im Café sitzt der Superstar Juna Ray neben dir.',()=>p.age>=12,[['Selfie fragen',()=>{add('gl',8);if(p.sm){const f=R(3,25)*1000;smGain(f);return 'Sie sagt Ja! Dein Selfie geht durch die Decke: +'+kfmt(f)+' Follower.'}return 'Sie sagt Ja! Das Foto hängt jetzt an deiner Wand.'}],['Cool bleiben',()=>(add('gl',3),'Ihr redet ganz normal übers Wetter. Ihr fandet das beide gut.')]]),
+ BE('Kind im Fluss!','Am Ufer schreit jemand: Ein Kind ist ins Wasser gefallen!',()=>p.age>=14&&!p.prison,[['Hinterherspringen',()=>{if(ch(.85)){addRuf(20);add('gl',12);add('ge',-4);mile('Lebensretter/in','big');news(p.first+' '+p.last+' rettet Kind aus dem Fluss','gross','Die Stadt will eine Medaille verleihen.');if(p.sm)smGain(R(2,10)*1000);return 'Du rettest das Kind! Alle feiern dich.'}add('ge',-25);return 'Du rettest das Kind, kommst aber selbst ins Krankenhaus.'}],['Hilfe rufen',()=>(addRuf(2),'Die Feuerwehr ist schnell da. Alles geht gut.')]]),
+ BE('Du warst Zeuge','Du hast einen Unfall mit Fahrerflucht gesehen. Der Fahrer ist ein reicher Geschäftsmann.',()=>p.age>=16,[['Aussagen',()=>{addRuf(10);later('zeuge',R(2,5),0);return 'Du sagst vor Gericht aus. Der Mann wird verurteilt.'}],['Schweigegeld nehmen (30.000 €)',()=>{p.money+=30000;addRuf(-20);later('schweige',R(3,8),0);return 'Ein Umschlag mit 30.000 € wechselt den Besitzer. Ob das gut geht?'}],['Nichts sagen',()=>(addRuf(-4),'Du hältst dich raus.')]]),
+ BE('Fund auf dem Dachboden','Hinter alten Kisten steht ein verstaubtes Ölgemälde.',()=>p.age>=18,[['Gutachten machen lassen',()=>{if(ch(.2)){const w=R(15,50)*10000;p.money+=w;mile('Gemälde-Fund','big');news('Verschollenes Gemälde in '+cityName(p.seed)+' aufgetaucht','gross');return 'Ein verschollenes Meisterwerk! Verkauft für '+eur(w)+'.'}const w=R(2,8)*100;p.money+=w;return 'Hübsch, aber nicht viel wert: '+eur(w)+'.'}],['Auf den Flohmarkt',()=>(p.money+=50,'50 €. Wer weiß, was es wert war …')]]),
+ BE('Casting fürs Fernsehen','Eine Reality-Show sucht Kandidatinnen und Kandidaten. Du wurdest angesprochen.',()=>p.age>=18&&p.age<=45&&!p.prison,[['Mitmachen',()=>{if(ch(.5)){add('gl',10);if(p.sm)smGain(R(20,80)*1000);p.money+=20000;mile('Reality-Show','big');news(p.first+' wird Publikumsliebling der Show','promi');return 'Du wirst Publikumsliebling! 20.000 € Gage.'}add('gl',-8);addRuf(-5);if(p.sm)smGain(R(5,20)*1000);return 'Die Show schneidet dich als Bösewicht. Peinlich, aber bekannt.'}],['Absagen',()=>'Fernsehen ist nichts für dich.']]),
+ BE('Notlandung','Dein Flugzeug muss auf einem Feld notlanden. Alle überleben.',()=>p.travelY===p.age||p.welt&&p.age>=18,[['Entschädigung annehmen',()=>{p.money+=6000;add('gl',-6);mile('Notlandung überlebt','big');return '6.000 € Entschädigung. Fliegen wirst du so schnell nicht mehr.'}],['Interview im Fernsehen',()=>{add('gl',4);if(p.sm)smGain(R(5,20)*1000);mile('Notlandung überlebt','big');return 'Du erzählst ganz ruhig, was passiert ist. Ganz Deutschland kennt dich jetzt.'}]]),
+ BE('Freund mit Start-up','Ein alter Freund gründet ein Start-up und sucht 10.000 € Startkapital.',()=>p.age>=22&&p.age<=55&&p.money>=10000,[['10.000 € investieren',()=>{p.money-=10000;later('startup',R(4,8),0);return 'Du bist jetzt Teilhaber/in. Mal sehen, was daraus wird.'}],['Nein danke',()=>'Du bleibst lieber vorsichtig.']])];
+
+/* ================= Rivale ================= */
+function mkRival(){const g=ch(.5)?'w':'m';p.rival={n:pick(g==='m'?MN:FN)+' '+pick(LN.filter(x=>x!==p.last)),g,in:R(40,92),edu:'keine',deg:null,job:null,pay:0,money:0,fol:0,partner:false,kids:0,friend:false,wins:0,loss:0}}
+const RTAUNT=['Na, immer noch nichts aus dir geworden? ;)','Hab gerade ein neues Auto gekauft. Und du so?','Hab gehört, du bist auch noch da. Witzig.','Ich bin schon wieder befördert worden. Läuft bei mir.','Mein Leben ist einfach besser. Sorry, not sorry.'];
+const RRESP=['Okay, Respekt. Das hast du gut gemacht.','Pff. Das hätte ich auch geschafft.','Glückwunsch … glaub ich.'];
+function rivalYear(){const r=p.rival;if(!r||!O.rival||p.age<6)return;const a=p.age;
+  if(a===16&&r.in<55){r.edu='Realschule'}if(a===18&&r.in>=55){r.edu='Abitur';if(!r.friend)news(r.n+' macht Abitur mit 1,'+R(0,9),'rival')}
+  if(a===23&&r.edu==='Abitur'&&ch(.6)){r.deg=pick(Object.keys(STUDY));news(r.n+' schließt Studium '+r.deg+' ab','rival')}
+  if(a>=18&&!r.job&&ch(.5)){const js=JOBS.filter(j=>!j.part&&j.pay>0&&j.min<=a&&!j.fol&&j.id!=='profi'&&(!j.edu||RANK[r.edu]>=j.edu)&&(!j.deg||j.deg===r.deg)&&(!j.aus||ch(.5)));if(js.length){const j=js.sort((x,y)=>y.pay-x.pay)[Math.min(js.length-1,R(0,2))];r.job=j.t;r.pay=j.pay;news(r.n+' arbeitet jetzt als '+j.t,'rival')}}
+  if(r.job){r.pay=Math.round(r.pay*1.03);r.money+=Math.round(r.pay*.18)}if(a>=67&&r.job){r.job='Rentner/in';r.pay=Math.round(r.pay*.45)}
+  if(a>=20&&ch(.03)){r.money+=R(5,50)*10000;news(r.n+' landet einen großen Coup','rival')}else if(a>=20&&ch(.03)&&r.money>20000){r.money=Math.round(r.money*.4);news(r.n+' verliert viel Geld mit Aktien','rival')}
+  if(a>=13&&ch(.4))r.fol=Math.round(r.fol*1.35+R(30,400));
+  if(!r.partner&&a>=22&&a<=40&&ch(.15)){r.partner=true;if(!r.friend)msg('rival','Ich heirate übrigens. Du bist nicht eingeladen.')}if(r.partner&&a>=25&&a<=42&&r.kids<3&&ch(.15))r.kids++;
+  if(r.friend){if(ch(.3))msg('rival',pick(['Lust auf ein Bier wie früher?','Danke nochmal für damals.','Wer hätte gedacht, dass wir mal Freunde werden.']));return}
+  const myMs=(p.ms||[]).filter(m=>m.a===a);if(myMs.length&&ch(.6))msg('rival',pick(RRESP));else if(ch(.35))msg('rival',pick(RTAUNT));
+}
+const rivE=c=>()=>!!(O.rival&&p.rival&&!p.rival.friend&&p.age>=6)&&c();
+EVENTS.push(
+ E('Ärger mit dem Rivalen',()=>p.rival.n+' macht sich vor der ganzen Klasse über dich lustig.',rivE(()=>p.age>=6&&p.age<=16),[['Schlagfertig kontern',()=>{if(ch(.4+p.sk.charme/200)){add('gl',6);p.rival.loss++;return 'Die ganze Klasse lacht. Aber über '+p.rival.n+'.'}add('gl',-5);p.rival.wins++;return 'Dir fällt nichts ein. Mist.'}],['Lehrerin holen',()=>(addRuf(1),'Es gibt einen Eintrag ins Klassenbuch. Für '+p.rival.n+'.')],['Ignorieren',()=>(add('gl',-2),'Du lässt es an dir abprallen. Fast.')]]),
+ E('Duell um die Beförderung',()=>p.rival.n+' arbeitet plötzlich in deiner Firma und will dieselbe Beförderung.',rivE(()=>!!p.job&&!p.job.part&&p.job.id!=='influ'&&p.age>=22),[['Härter arbeiten',()=>{add('ge',-3);if(ch(.45+p.job.perf/250)){p.job.perf=Math.min(100,p.job.perf+20);p.rival.loss++;return 'Du überzeugst die Chefin. '+p.rival.n+' geht leer aus.'}p.rival.wins++;return p.rival.n+' bekommt die Stelle. Ärgerlich.'}],
+   ['Intrige spinnen',()=>{addRuf(-12);if(ch(.6)){p.job.perf=Math.min(100,p.job.perf+15);p.rival.loss++;return 'Ein paar Gerüchte später ist '+p.rival.n+' aus dem Rennen.'}p.job.perf-=20;return 'Die Intrige fliegt auf. Peinlich.'}],['Fair bleiben',()=>(addRuf(4),ch(.5)?(p.job.perf+=8,'Fair gewonnen!'):'Fair verloren. Wenigstens kannst du in den Spiegel schauen.')]]),
+ E('Video über dich',()=>p.rival.n+' hat ein Video über dich gepostet. Nicht nett.',rivE(()=>!!p.sm&&p.age>=13),[['Antwortvideo',()=>{if(ch(.5)){const f=Math.round(p.sm.fol*.15+R(100,800));smGain(f);return 'Dein Konter geht viral: +'+kfmt(f)+' Follower.'}smGain(-p.sm.fol*.05);return 'Das Internet steht auf '+p.rival.n+'s Seite.'}],['Ignorieren',()=>(addRuf(2),'Nach einer Woche redet keiner mehr darüber.')]]),
+ E('Der Rivale braucht Hilfe',()=>p.rival.n+' hat alles verloren und fragt kleinlaut, ob du helfen kannst.',rivE(()=>p.age>=35&&p.money>=5000),[['Helfen (5.000 €)',()=>{p.money-=5000;p.rival.friend=true;addRuf(12);add('gl',8);mile('Frieden mit '+p.rival.n,'star');p.rival.money+=5000;return 'Ihr redet die ganze Nacht. Aus Rivalen werden Freunde.'}],['Schadenfreude',()=>(addRuf(-5),add('gl',3),'Du gönnst dir ein kleines Grinsen.')]]),
+ E('Wer hat mehr?',()=>p.rival.n+' fährt mit einem neuen Sportwagen an deinem Haus vorbei und hupt.',rivE(()=>p.age>=20),[['Lässig winken',()=>(add('gl',1),'Du bist über so etwas erhaben.')],['Zeigefinger',()=>(addRuf(-2),add('gl',2),'Befriedigend. Aber nicht erwachsen.')]]));
+function viewRival(){const r=p.rival;if(!r)return '';const me=netWorth(),rv=r.money;const cmp=(l,a,b,f)=>'<div class="cmp"><span>'+l+'</span><b class="'+(f(a,b)?'up':'')+'">'+a+'</b><b class="'+(f(b,a)?'up':'')+'">'+b+'</b></div>';
+  const P={g:r.g,st:{gl:r.friend?85:50},skin:(p.skin+2)%5,hair:(p.hair+3)%6,beard:false,bald:false,glasses:true,look:{o:null,acc:[]}};
+  return '<section class="card rival"><div class="fh"><span class="meav sm">'+avatarSvg(p.age,64,P)+'</span><div><b>'+esc(r.n)+'</b><small>'+(r.friend?'Früher Rivale, heute Freund/in':'Dein/e Rival/in seit der Schulzeit')+'</small><small>'+esc(r.job||(p.age<18?'Schüler/in':'ohne Job'))+'</small></div></div>'+
+    '<div class="cmp head"><span></span><b>Du</b><b>'+esc(r.n.split(' ')[0])+'</b></div>'+cmp('Vermögen',eur(me),eur(rv),(a,b)=>parseFloat(a.replace(/\D/g,''))>parseFloat(b.replace(/\D/g,'')))+
+    cmp('Abschluss',p.deg?'Studium':p.edu,r.deg?'Studium':r.edu,()=>false)+cmp('Follower',kfmt(p.sm?p.sm.fol:0),kfmt(r.fol),(a,b)=>(p.sm?p.sm.fol:0)>r.fol&&a!==b)+
+    cmp('Familie',(p.partner?'Partner, ':'')+p.kids.length+' Kind(er)',(r.partner?'Partner, ':'')+r.kids+' Kind(er)',()=>false)+cmp('Duelle',String(r.loss),String(r.wins),(a,b)=>+a>+b)+
+    '<p class="note" style="margin-top:8px">'+(r.friend?'Ihr seid jetzt befreundet.':me>=rv?'Du liegst vorne. '+esc(r.n.split(' ')[0])+' wird das nicht gefallen.':esc(r.n.split(' ')[0])+' liegt vorne. Zeit für eine Aufholjagd!')+' Den Rivalen kannst du in den Einstellungen ausschalten.</p></section>'}
+
+/* ================= Entscheidungen mit Folgen ================= */
+function later(id,yrs,d){p.later.push({a:p.age+yrs,id,d})}
+const LATER={
+ zeuge:{ev:1,f:()=>E('Drohbrief','Der verurteilte Geschäftsmann ist wieder frei und schickt dir einen Drohbrief.',()=>true,[['Zur Polizei',()=>(addRuf(3),'Die Polizei nimmt es ernst. Es bleibt ruhig.')],['Umziehen in eine andere Stadt',()=>{p.seed=R(1,2e9);p.stats.cities++;return 'Du ziehst nach '+cityName(p.seed)+'. Sicher ist sicher.'}]])},
+ schweige:{ev:1,f:()=>E('Die Sache von damals','Ein Journalist hat herausgefunden, dass du Schweigegeld genommen hast.',()=>true,[['Alles zugeben',()=>{p.money-=Math.min(Math.max(0,p.money),30000);addRuf(5);news(p.first+' '+p.last+' gesteht: Schweigegeld genommen','lokal');return 'Du zahlst das Geld zurück. Ehrlich, aber teuer.'}],['Abstreiten',()=>{if(ch(.5)){addRuf(-15);p.prison=1;p.job=null;ach('knast');return 'Vor Gericht fliegt alles auf: ein Jahr Haft.'}return 'Die Beweise reichen nicht. Glück gehabt.'}]])},
+ startup:{ev:1,f:()=>ch(.3)?E('Das Start-up!','Erinnerst du dich an die 10.000 €? Das Start-up wurde gerade für Millionen verkauft!',()=>true,[['Anteil kassieren',()=>{const w=R(12,40)*10000;p.money+=w;add('gl',15);mile('Start-up-Glück: '+eur(w),'big');news('Start-up aus '+cityName(p.seed)+' für Millionen verkauft','gross');return 'Dein Anteil: '+eur(w)+'!'}]]):E('Das Start-up','Das Start-up deines Freundes ist pleite. Die 10.000 € sind weg.',()=>true,[['Schade',()=>(add('gl',-4),'Lehrgeld.')]])},
+ boerse:{ev:1,f:()=>E('Der Besitzer der Geldbörse','Der Mann, dem die Geldbörse gehörte, steht vor deiner Tür. Er ist Unternehmer.',()=>true,[['Hallo!',()=>{p.money+=10000;add('gl',6);return '„Ehrliche Menschen gibt es kaum noch.“ Er schenkt dir 10.000 €.'}]])},
+ boerse2:{ev:1,f:()=>E('Videoaufnahme','Die Polizei hat dich auf einer Kamera: Du hast damals die Geldbörse eingesteckt.',()=>true,[['Zahlen',()=>(p.money-=2500,addRuf(-5),'2.500 € Strafe. Teurer Fund.')]])},
+ alibi:{ev:1,f:()=>E('Das Alibi fliegt auf','Die Polizei weiß, dass dein Alibi für '+p.friend+' gelogen war.',()=>true,[['Reue zeigen',()=>(p.money-=3000,addRuf(-5),'3.000 € Geldstrafe.')],['Weiter lügen',()=>ch(.5)?(p.prison=1,p.job=null,ach('knast'),'Falschaussage: ein Jahr Haft.'):'Sie können dir nichts beweisen.']])},
+ kollege:{ev:1,f:()=>E('Ehemaliger Kollege packt aus','Der Kollege, den du damals rausgeworfen hast, erzählt überall, wie es lief.',()=>!!p.job,[['Entschuldigen',()=>(addRuf(4),'Er nimmt die Entschuldigung an. Halbwegs.')],['Kontern',()=>(p.job.perf-=15,addRuf(-4),'Die Sache wird hässlich. Deine Leistung leidet.')]])},
+ plagiat:{ev:0,f:()=>{if(p.deg&&ch(.35)){news('Plagiat: '+p.first+' '+p.last+' verliert den Titel','lokal');log('Plagiatsjäger haben deine Abschlussarbeit geprüft: Du verlierst den Abschluss '+p.deg+'!');p.deg=null;add('gl',-15);addRuf(-15)}}},
+ liebe:{ev:1,f:()=>E('Die Jugendliebe','Nach all den Jahren schreibt dir deine erste große Liebe: „Weißt du noch?“',()=>p.age<70,[[p.partner?'Treffen (heimlich)':'Treffen',()=>{if(p.partner){if(ch(.4)){p.partner.rel-=40;addRuf(-8);return 'Es fliegt auf. Riesiger Krach zu Hause.'}add('gl',6);return 'Ein Abend voller Erinnerungen. Mehr nicht.'}if(ch(.6)){newPartner(75);add('gl',15);mile('Wiedersehen mit der Jugendliebe','star');return 'Es funkt wie damals! Ihr seid wieder zusammen.'}return 'Schön, aber die Zeit ist vorbei.'}],['Nicht antworten',()=>'Manche Kapitel bleiben besser zu.']])},
+ fit:{ev:0,f:d=>{if(d){add('ge',6);log('Die Jahre im Sportverein zahlen sich aus: Du bist fitter als die meisten in deinem Alter.')}else{add('ge',-6);log('Die wilden Jahre machen sich bemerkbar. Dein Körper ist nicht mehr so fit.')}}},
+ nachbar:{ev:0,f:()=>{const w=R(2,6)*10000;p.money+=w;add('gl',5);log('Frau Becker von nebenan ist gestorben und hat dir '+eur(w)+' vererbt. Du hast ihr damals so oft geholfen.');mile('Erbe von Frau Becker','star')}},
+ kumpel:{ev:1,f:()=>E('Post vom Anwalt','Dein alter Kumpel will die 2.000 € von damals zurück. Mit Zinsen.',()=>true,[['Zahlen (3.000 €)',()=>(p.money-=3000,p.rel.freund=Math.min(100,p.rel.freund+5),'Erledigt. Die Freundschaft hat gelitten, ist aber nicht kaputt.')],['Vor Gericht gehen',()=>ch(.3)?'Der Richter gibt dir recht. Glück gehabt.':(p.money-=5000,addRuf(-6),'Verloren: 5.000 € mit Gerichtskosten.')]])}};
+function laterYear(){p.later=p.later.filter(l=>{if(l.a>p.age)return true;const L=LATER[l.id];if(!L)return false;if(L.ev)return true;L.f(l.d);return false})}
+const zE=(id,t,x,c,o)=>E(t,x,()=>!(p.zd&&p.zd[id])&&c(),o.map(([l,f])=>[l,()=>{p.zd=p.zd||{};p.zd[id]=1;return f()}]));
+EVENTS.push(
+ zE('chef','Ein Angebot vom Chef','„Ich befördere Sie, wenn Sie mir helfen, Ihren Kollegen Herrn Wolf loszuwerden.“',()=>!!p.job&&!p.job.part&&p.job.id!=='influ'&&p.age>=22,[['Mitmachen',()=>{p.job.rank=Math.min(4,(p.job.rank||1)+1);p.job.pay=Math.round(p.job.pay*1.2);addRuf(-15);later('kollege',R(3,6));return 'Herr Wolf muss gehen, du steigst auf. Gehalt +20 %.'}],['Ablehnen',()=>(addRuf(8),p.job.perf-=5,'Du bleibst anständig. Der Chef ist verstimmt.')]]),
+ zE('alibi','Ein Freund in Not',()=>p.friend+' bittet dich: „Sag der Polizei, dass ich gestern Abend bei dir war.“',()=>p.age>=16&&p.age<=50,[['Decken',()=>{p.rel.freund=Math.min(100,p.rel.freund+15);addRuf(-10);if(ch(.4))later('alibi',R(1,4));return 'Du lügst für '+p.friend+'. Ihr seid jetzt unzertrennlich.'}],['Ablehnen',()=>{p.rel.freund=Math.max(0,p.rel.freund-25);addRuf(5);return p.friend+' ist sehr enttäuscht.'}]]),
+ zE('boerse','Eine volle Geldbörse','Im Park liegt eine Geldbörse mit 2.000 € und einem Ausweis.',()=>p.age>=12,[['Behalten',()=>{p.money+=2000;addRuf(-8);if(ch(.25))later('boerse2',R(1,3));return '2.000 € mehr. Ein bisschen schlechtes Gewissen.'}],['Zurückgeben',()=>{p.money+=200;addRuf(10);if(ch(.35))later('boerse',R(1,5));return 'Der Besitzer gibt dir 200 € Finderlohn.'}]]),
+ zE('plagiat','Die Abschlussarbeit','Abgabe in einer Woche, du bist noch lange nicht fertig. Im Internet gibt es eine passende Arbeit.',()=>!!p.study&&p.study.left<=1,[['Abschreiben',()=>{addRuf(-6);later('plagiat',R(6,15));return 'Abgabe pünktlich. Note 1,7.'}],['Durchziehen',()=>(add('in',4),add('ge',-4),'Drei Nächte durchgearbeitet. Aber ehrlich geschafft.')]]),
+ zE('liebe','Erste große Liebe','Deine erste große Liebe zieht mit der Familie ans andere Ende des Landes.',()=>p.age>=15&&p.age<=19,[['Fernbeziehung versuchen',()=>(add('gl',-4),later('liebe',R(25,32)),'Ihr schreibt euch noch lange. Irgendwann wird es weniger.')],['Schluss machen',()=>(add('gl',-8),later('liebe',R(25,32)),'Es bricht dir das Herz. Aber du vergisst sie/ihn nie.')]]),
+ zE('fit','Wie willst du deine Zwanziger verbringen?','Deine Freunde gehen jedes Wochenende feiern. Der Sportverein sucht Mitglieder.',()=>p.age>=19&&p.age<=23,[['Sportverein',()=>(add('ge',3),later('fit',R(25,30),1),'Training dreimal die Woche. Langfristig ein Gewinn.')],['Feiern!',()=>(add('gl',6),later('fit',R(25,30),0),'Die Wochenenden sind legendär.')]]),
+ zE('nachbar','Die alte Nachbarin','Frau Becker von nebenan schafft ihre Einkäufe nicht mehr allein.',()=>p.age>=12&&p.age<=50,[['Helfen',()=>(add('gl',4),addRuf(5),later('nachbar',R(6,14)),'Du hilfst jede Woche. Sie erzählt dir Geschichten von früher.')],['Keine Zeit',()=>'Jemand anderes wird schon helfen.']]),
+ zE('kumpel','Geld vom Kumpel','Du brauchst dringend 2.000 €. Dein Kumpel würde sie dir leihen.',()=>p.age>=16&&p.age<=30,[['Leihen und vergessen',()=>{p.money+=2000;later('kumpel',R(3,7));return '2.000 € auf dem Konto. Zurückzahlen? Irgendwann.'}],['Leihen und zurückzahlen',()=>{p.rel.freund=Math.min(100,p.rel.freund+5);addRuf(3);return 'Du nimmst das Geld und zahlst es nach einem Jahr zurück.'}],['Nicht leihen',()=>'Du kommst irgendwie anders klar.']]),
+ zE('betrug','Was macht der Kollege da?','Du bemerkst, dass ein Kollege Firmengeld auf sein eigenes Konto überweist.',()=>!!p.job&&!p.job.part&&p.age>=20,[['Melden',()=>(addRuf(10),p.job.perf=Math.min(100,p.job.perf+15),'Er fliegt raus, du bekommst ein Lob vom Vorstand.')],['Schweigen',()=>{if(ch(.35)){p.job=null;addRuf(-10);return 'Bei der Prüfung kommt raus, dass du es wusstest. Fristlos gekündigt.'}return 'Du sagst nichts. Es geht dich ja nichts an.'}]]),
+ zE('schwarz','Fahrkartenkontrolle','„Die Fahrkarten bitte.“ Du hast keine.',()=>p.age>=13&&p.age<=25,[['Zahlen (60 €)',()=>(p.money-=60,'60 € erhöhtes Beförderungsentgelt.')],['Wegrennen',()=>ch(.6)?(addRuf(-3),'Entkommen! Dein Herz rast.'):(p.money-=60,p.wanted=Math.min(5,(p.wanted||0)+1),'Erwischt. Jetzt auch noch eine Anzeige.')]]),
+ E('Rauchen aufhören?','Du rauchst jetzt seit Jahren. Dein Arzt rät dringend zum Aufhören.',()=>!!(p.habit&&p.habit.rauchen)&&p.age>=25,[['Ich versuche es',()=>ch(.5)?(p.habit.rauchen=0,add('gl',4),mile('Rauchstopp','star'),'Geschafft! Du bist rauchfrei.'):(add('gl',-3),'Nach drei Wochen rauchst du wieder.')],['Nein',()=>'Du zündest dir eine an.']]));
+{const z=EVENTS.find(e=>e.t==='Zigarette?');if(z)z.o[1][1]=()=>{add('ge',-6);add('gl',2);if(ch(.5)){p.habit.rauchen=1;return 'Du hustest. Und kommst trotzdem nicht mehr davon los.'}return 'Du hustest dir die Seele aus dem Leib.'}}
+function habitYear(){if(p.habit.rauchen){add('ge',-1);p.money-=px$(1200);if(p.age>=45&&ch(.04)){p.ill=p.ill||{};if(!p.ill.herz)p.ill.herz={y:0};log('Das Rauchen fordert seinen Tribut: Dein Herz macht Probleme.')}}}
+
+/* ================= Kinder und Generationen ================= */
+const TAL={sport:['Sport','sv'],musik:['Musik','mu'],kopf:['Köpfchen','nh'],kunst:['Kunst','mu']};
+const FD={nh:['Nachhilfe',1200,'Intelligenz +'],sv:['Sportverein',500,'Gesundheit +'],mu:['Musik und Kunst',800,'Kreativität +']};
+const KJOBS={sport:['Sporttrainer/in','Profisportler/in','Physiotherapeut/in'],musik:['Musiker/in','Musiklehrer/in','Tontechniker/in'],kopf:['Ingenieur/in','Ärztin/Arzt','Informatiker/in'],kunst:['Designer/in','Fotograf/in','Architekt/in']};
+function kidJob(k){if(k.edu==='keine'&&k.st.in<45)return pick(['Lagerarbeiter/in','Verkäufer/in','Paketbote/-botin']);const L=KJOBS[k.tal];return k.ts>=70||k.edu==='Abitur'?pick(L):pick(['Bürokaufmann/-frau','Mechatroniker/in','Pflegefachkraft',L[0]])}
+const KIDMSG=['Kannst du mich abholen?','Ich hab eine 1 in Mathe!!','Darf ich bei Lea übernachten?','Ich hab dich lieb.','Wann gibt es Essen?','Papa/Mama, kann ich mehr Taschengeld?'];
+const KIDMSG2=['Wie geht es dir?','Kommst du am Sonntag zum Essen?','Die Kleinen fragen nach dir!','Danke für alles, was du für mich getan hast.','Wir sollten mal wieder telefonieren.'];
+function kidYear(R0){let cost=0;
+  p.kids.forEach((k,i)=>{if(k.alive===false)return;const ka=p.age-k.b;if(ka<0)return;
+    k.rel=clamp(k.rel-(ka>=13&&ka<=18?3:1),0,100);
+    if(ka>=6&&ka<19)Object.keys(FD).forEach(f=>{if(k.fd[f]){cost+=px$(FD[f][1]);if(f==='nh')k.st.in=Math.min(100,k.st.in+3);if(f==='sv')k.st.ge=Math.min(100,k.st.ge+2);if(TAL[k.tal][1]===f)k.ts=Math.min(100,k.ts+6);k.rel=Math.min(100,k.rel+1)}});
+    if(ka>=19)k.fd={};if(ka>=4)k.ts=Math.min(100,k.ts+R(0,3));k.st.in=clamp(k.st.in+R(-1,2),0,100);
+    if(ka===16&&k.st.in<55&&k.edu==='keine'){k.edu='Realschule';log(k.n+' hat den Realschulabschluss.')}
+    if(ka===18&&k.st.in>=55){k.edu='Abitur';log(k.n+' hat das Abitur bestanden!');add('gl',5);mile(k.n+' macht Abitur','kid')}
+    if(ka>=13&&ka<=17&&k.rel<45&&ch(.3))p.q.push({id:'rebel',d:i});
+    if(ka>=8&&ka<=22&&k.ts>=70&&ch(.25)){log(k.n+' gewinnt einen Wettbewerb ('+TAL[k.tal][0]+')!');add('gl',4);k.rel=Math.min(100,k.rel+3);if(ch(.4))news(k.n+' '+p.last+' gewinnt Talentwettbewerb','lokal')}
+    if(ka>=18&&ka<=23&&!k.out&&ch(.35)){k.out=true;log(k.n+' zieht aus.');mile(k.n+' zieht aus','kid');add('gl',-2)}
+    if(ka>=20&&!k.job&&ch(.4)){k.job=kidJob(k);log(k.n+' arbeitet jetzt als '+k.job+'.')}
+    if(ka>=24&&ka<=40&&!k.mar&&ch(.12)){k.mar=true;log(k.n+' hat geheiratet!');add('gl',6);mile('Hochzeit von '+k.n,'kid')}
+    if(ka>=25&&ka<=42&&k.mar&&k.kids<3&&ch(.15)){k.kids++;const first=p.kids.reduce((s,x)=>s+(x.kids||0),0)===1;log(k.n+' hat ein Baby bekommen. Du bist '+(first?'jetzt':'wieder')+' Großmutter/Großvater!');add('gl',8);mile(first?'Erstes Enkelkind':'Enkelkind ('+k.n+')','kid')}
+    if(ka>=22&&ch(.07))p.q.push({id:'kidmoney',d:i});
+    if(p.age>=70){if(k.rel>=60){add('ge',1);add('gl',1)}else if(k.rel<25&&ch(.3)){add('gl',-3);log(k.n+' meldet sich kaum noch bei dir.')}}
+    if(ka>=10&&ch(.25))msg('kid'+i,pick(ka>=20?KIDMSG2:KIDMSG));
+  });
+  if(cost){p.money-=cost;R0.out.push(['Kinderförderung',cost])}}
+const QEV={
+ rebel:i=>{const k=p.kids[i];if(!k)return null;return E(k.n+' rebelliert',k.n+' kommt nachts um drei nach Hause und knallt die Tür.',()=>true,[['Hausarrest',()=>(k.rel-=10,k.st.in=Math.min(100,k.st.in+2),'Zwei Wochen Hausarrest. Eisige Stimmung.')],['In Ruhe reden',()=>(k.rel=Math.min(100,k.rel+8),'Ihr redet lange. '+k.n+' weint ein bisschen. Danach ist es besser.')],['Ignorieren',()=>(k.rel-=3,'Du tust so, als hättest du nichts gehört.')]])},
+ kidmoney:i=>{const k=p.kids[i];if(!k)return null;const a=px$(R(3,15)*1000);return E(k.n+' braucht Geld',k.n+' fragt, ob du mit '+eur(a)+' aushelfen kannst. '+pick(['Die Waschmaschine ist kaputt.','Die Miete ist gestiegen.','Ein Kurs für den Job.','Für die Hochzeit.']),()=>true,[['Geben',()=>p.money<a?'Du hast gerade selbst nicht genug Geld.':(p.money-=a,k.rel=Math.min(100,k.rel+15),add('gl',3),'Du hilfst gern. '+k.n+' ist dir sehr dankbar.')],['Nein',()=>(k.rel-=12,k.n+' ist enttäuscht.')]])},
+ label:()=>E('Ein Plattenvertrag!','Ein Label hat dich spielen sehen und will einen Vertrag. 10.000 € Vorschuss.',()=>true,[['Unterschreiben',()=>{p.mus.label=true;p.money+=10000;add('gl',10);mile('Plattenvertrag','star');news('Label nimmt '+p.mus.band+' unter Vertrag','kultur');return 'Du bist jetzt bei einem echten Label!'}],['Lieber unabhängig',()=>(add('gl',2),'Du machst weiter auf eigene Faust.')]]),
+ transfer:d=>E('Transferangebot','Ein Spitzenverein will dich holen. Gehalt: '+eur(d)+' im Jahr.',()=>!!(p.job&&p.job.id==='sport'),[['Wechseln',()=>{p.job.pay=d;p.spo.lvl=Math.max(p.spo.lvl,3);p.spo.club=pick(['FC Nordstern','Union Hafenstadt','SV Weißblau','Eintracht Südpark']);mile('Wechsel zu '+p.spo.club,'star');news(p.first+' '+p.last+' wechselt zu '+p.spo.club,'kultur');return 'Neuer Verein: '+p.spo.club+'!'}],['Bleiben',()=>(p.spo.fans=Math.round(p.spo.fans*1.1),'Die Fans lieben dich für deine Treue.')]])};
+function nextEvent(){
+  const i=p.later.findIndex(l=>l.a<=p.age&&LATER[l.id]&&LATER[l.id].ev);if(i>=0){const l=p.later.splice(i,1)[0];const e=LATER[l.id].f(l.d);if(e&&e.c())return e}
+  while(p.q.length){const q=p.q.shift();const e=QEV[q.id]&&QEV[q.id](q.d);if(e&&e.c())return e}
+  if(!p.prison&&(p.bigY==null||p.age-p.bigY>=4)&&ch(.06)){const bs=BIG.filter(b=>b.c());if(bs.length){p.bigY=p.age;return pick(bs)}}
+  return null}
+function kidP(k,i){return {g:k.g,st:{gl:k.rel},skin:(p.skin+(p.partner?i%2:0))%5,hair:(p.hair+i)%6,beard:false,bald:false,glasses:false,look:{o:null,acc:[]}}}
+let famTab='kinder';
+function viewFamilie(){if(!['kinder','eltern','baum','erbe'].includes(famTab))famTab='kinder';
+  let h='<div class="seg full">'+[['kinder','Kinder'],['eltern','Eltern'],['baum','Stammbaum'],['erbe','Testament']].map(([k,l])=>'<button data-a="famtab" data-g="'+k+'" aria-pressed="'+(famTab===k)+'">'+l+'</button>').join('')+'</div>';
+  if(famTab==='kinder'){
+    h+=p.kids.length?p.kids.map((k,i)=>{const ka=p.age-k.b,st=ka<6?'Kleinkind':ka<18?(ka<10?'Grundschule':'Schule'):k.job||(k.edu!=='keine'?k.edu:'sucht sich noch'),T=TAL[k.tal];
+      return '<section class="card kid"><div class="fh"><span class="meav sm">'+avatarSvg(ka,60,kidP(k,i))+'</span><div><b>'+esc(k.n)+(k.adopt?' (adoptiert)':'')+'</b><small>'+ka+' Jahre · '+esc(st)+(k.out?' · ausgezogen':'')+(k.mar?' · verheiratet':'')+(k.kids?' · '+k.kids+' Kind(er)':'')+'</small></div></div>'+
+        '<div class="stat"><div class="r"><span>Verbindung zu dir</span><span>'+k.rel+' %</span></div><div class="bar"><i class="'+(k.rel<30?'low':'')+'" style="width:'+k.rel+'%"></i></div></div>'+
+        '<div class="stat"><div class="r"><span>Talent: '+T[0]+'</span><span>'+k.ts+'</span></div><div class="bar"><i style="width:'+k.ts+'%;background:#8E63D6"></i></div></div>'+
+        (ka>=6&&ka<19?'<div class="mt">Förderung (pro Jahr)</div><div class="amts">'+Object.keys(FD).map(f=>'<button class="amt" data-a="kidfd" data-g="'+i+':'+f+'" aria-pressed="'+!!k.fd[f]+'">'+FD[f][0]+' · '+eur(px$(FD[f][1]))+'</button>').join('')+'</div><p class="note" style="margin-top:4px">'+T[0]+'-Talent wächst am schnellsten mit '+FD[T[1]][0]+'.</p>':'')+
+        '<div class="btns">'+btn('kidtime',i,'Zeit verbringen','o',p.act<=0||!!p.prison)+(ka>=18?btn('kidgift',i,'2.000 € schenken','',p.money<2000):'')+'</div></section>'}).join(''):card('','<p class="note">Noch keine Kinder. Ein Baby bekommst du in der App Liebe, adoptieren kannst du hier.</p>');
+    h+=card('Adoption',row('Ein Kind adoptieren','ab 25 Jahren · '+eur(px$(8000))+' Gebühren · 1 Aktion',btn('adoptkid',null,'Adoptieren','o',p.age<25||p.age>55||p.act<=0||!!p.prison||p.money<px$(8000))));
+  }
+  if(famTab==='eltern'){const rb=(id,n,s)=>'<div class="stat"><div class="r"><span>'+esc(n)+' <small class="note">'+s+'</small></span><span>'+p.rel[id]+' %</span></div><div class="bar"><i class="'+(p.rel[id]<30?'low':'')+'" style="width:'+p.rel[id]+'%"></i></div></div>';
+    h+=card('Beziehungen',(p.parentsGone?'<p class="note">Deine Eltern sind verstorben.</p>':rb('mama','Mama','')+rb('papa','Papa',''))+(p.age>=6?rb('freund',p.friend,'beste/r Freund/in'):'')+'<p class="note" style="margin-top:6px">Anrufe, Treffen und Geburtstage halten Beziehungen warm. Ohne Kontakt kühlen sie ab.</p><div class="btns">'+btn('goto','chats','Zu den Chats','o')+btn('goto','kalender','Zum Kalender')+'</div>');
+    h+=card('Haustiere',(p.pets.length?p.pets.map(x=>row(esc(x.n),PETS[x.t].n+' · '+x.age+' Jahre')).join(''):'<p class="note">Noch kein Haustier.</p>')+actRows(['pet']))+card('Tierheim',special('adopt'));
+  }
+  if(famTab==='baum'){const node=(n,s,cls)=>'<div class="tn '+(cls||'')+'"><b>'+esc(n)+'</b><small>'+esc(s)+'</small></div>';
+    h+='<section class="card tree">'+(p.tree.length?p.tree.map(t=>node(t.n,'Generation '+t.gen+' · '+t.age+' Jahre · '+t.job,'anc')+'<i class="tl"></i>').join(''):'')+
+      '<div class="trow">'+node(p.first+' '+p.last,'Du · Generation '+p.gen+' · '+p.age+' Jahre','me')+(p.partner?node(p.partner.name,p.partner.mar?'verheiratet':'Partner/in','pt'):'')+'</div>'+
+      (p.kids.length?'<i class="tl"></i><div class="trow wrap">'+p.kids.map(k=>node(k.n,(p.age-k.b)+' Jahre'+(k.kids?' · '+k.kids+' Enkel':''),'kd')).join('')+'</div>':'')+'</section><p class="note">Wenn du stirbst, kannst du als eines deiner Kinder weiterspielen. So wächst dein Stammbaum über Generationen.</p>';
+  }
+  if(famTab==='erbe'){const opts=[['gleich','Gerecht aufteilen','Alle Kinder bekommen gleich viel.']].concat(p.kids.map((k,i)=>['kid'+i,'Alles an '+k.n,'Die anderen Kinder gehen leer aus.']),p.partner?[['partner','Alles an '+p.partner.name,'Die Kinder erben erst später.']]:[],[['stiftung','Stiftung für einen guten Zweck','Ruf +, die Familie erbt nichts.']]);
+    h+='<section class="card"><h2 class="h">Dein Testament</h2><p class="note" style="margin-bottom:8px">Geschätztes Erbe heute: '+eur(Math.max(0,netWorth())*.9)+' (nach 10 % Erbschaftsteuer).</p>'+opts.map(([k,l,s])=>'<button class="opt wl" data-a="will" data-g="'+k+'" aria-pressed="'+(p.will===k)+'"><b>'+esc(l)+'</b><small>'+s+'</small></button>').join('')+
+      '<p class="note" style="margin-top:8px">Ungleiche Testamente sorgen oft für Streit zwischen den Kindern. Wer erbt, startet beim Weiterspielen mit diesem Geld.</p></section>';
+  }
+  return h}
+function estate(){return Math.max(0,Math.round(netWorth()*.9))}
+function shareOf(i){const e=estate(),alive=p.kids.filter(k=>k.alive!==false).length||1;if(p.will==='gleich')return Math.round(e/alive);if(p.will==='kid'+i)return e;return 0}
+function continueAs(i){const prev=p,k=prev.kids[i];if(!k)return;const ka=prev.age-k.b,share=shareOf(i),deg=k.edu;
+  const tree=(prev.tree||[]).concat([{n:prev.first+' '+prev.last,gen:prev.gen||1,age:prev.age,job:prev.pension?'Rentner/in':status(),nw:Math.round(netWorth())}]);
+  const lastN=prev.last,sb=prev.sb;newLife(k.n,lastN,k.g,Math.max(0,ka),sb);ensureLife();
+  p.gen=(prev.gen||1)+1;p.tree=tree;p.money+=share;p.st.in=k.st.in;p.st.ge=Math.min(100,k.st.ge);p.st.gl=clamp(50+Math.round(k.rel/3),0,100);
+  if(ka>=18){p.edu=deg==='keine'?(k.st.in>=55?'Abitur':'Realschule'):deg;p.school=null}
+  p.parentsGone=!prev.partner;p.pa=ka+R(25,35);if(prev.rival&&ka>=6){p.rival=null}
+  for(let j=0;j<(k.kids||0);j++){const ca=R(0,Math.max(0,Math.min(20,ka-22)));p.kids.push({n:pick(ch(.5)?FN:MN),b:p.age-ca})}
+  if(k.mar&&ka>=18){newPartner(70);p.partner.mar=true}
+  if(k.tal==='sport')p.sk.form=Math.max(p.sk.form,k.ts*.6);if(share)log('Du erbst '+eur(share)+'.');
+  mile('Generation '+p.gen+' beginnt','star');log('Du spielst jetzt als '+k.n+' weiter, Kind von '+prev.first+'.');ensureLife();save();render()}
+const EPI=['Hat gelebt, geliebt und gelacht.','Lieber reich als langweilig.','Endlich mal ausschlafen.','Danke für alles.','Ich war hier.','Alles richtig gemacht. Fast.'];
+function viewDeath(){ensureLife();const S=p.stats,ep=p.epi!=null?EPI[p.epi]:null,heirs=p.kids.filter(k=>k.alive!==false);
+  const enk=p.kids.reduce((s,k)=>s+(k.kids||0),0),me=p.first+' '+p.last;
+  const nach=me+' wurde '+p.age+' Jahre alt. '+(p.deg?'Studierte '+p.deg+'. ':'')+(p.pension?'Arbeitete bis zur Rente. ':p.job?'Zuletzt '+p.job.t+'. ':'')+(p.partner&&p.partner.mar?'Hinterlässt '+p.partner.name+'. ':'')+(p.kids.length?p.kids.length+' Kind(er)'+(enk?' und '+enk+' Enkel':'')+' trauern. ':'')+(p.ruf>=40?'Bekannt für ein großes Herz.':p.ruf<=-40?'Nicht alle werden weinen.':'');
+  let h='<div class="start death"><div class="grave"><div class="stone"><small>In Erinnerung an</small><b>'+esc(me)+'</b><span>'+(p.gen>1?'Generation '+p.gen+' · ':'')+'† mit '+p.age+'</span><em>'+(ep?'„'+esc(ep)+'“':'Wähle unten einen Spruch')+'</em></div></div>'+
+    '<p class="obit">'+esc(nach)+' Gestorben '+esc(p.cause)+'.</p>';
+  if(p.epi==null)h+='<section class="card"><h2 class="h">Spruch für den Grabstein</h2><div class="epis">'+EPI.map((e,i)=>'<button class="opt" data-d="epi:'+i+'">'+esc(e)+'</button>').join('')+'</div></section>';
+  h+='<section class="card"><h2 class="h">Statistik</h2><div class="sgrid">'+[[eur(S.maxNW),'höchstes Vermögen'],[eur(S.earn),'insgesamt verdient'],[S.jobs,'Jobs'],[S.partners,'Partner/innen'],[p.kids.length,'Kinder'],[enk,'Enkel'],[S.cities,'Städte'],[p.crimes,'Straftaten'],[kfmt(Math.max(S.maxFol,p.sm?p.sm.fol:0)),'Follower (max.)'],[rufTxt(p.ruf),'Ruf'],[Object.keys(p.ach).length,'Erfolge'],[(p.ms||[]).length,'Meilensteine']].map(x=>'<div><b>'+x[0]+'</b><small>'+x[1]+'</small></div>').join('')+'</div></section>';
+  h+='<section class="card"><h2 class="h">Lebensrückblick</h2><div class="tline">'+((p.ms||[]).length?p.ms.map(m=>'<div class="tm '+m.k+'"><span>'+m.a+'</span><b>'+esc(m.t)+'</b></div>').join(''):'<p class="note">Ein ruhiges Leben ohne große Wendepunkte.</p>')+'</div></section>';
+  if(heirs.length){const e=estate();h+='<section class="card"><h2 class="h">Erbe und Weiterspielen</h2><p class="note">Nachlass: '+eur(e)+' · Testament: '+(p.will==='gleich'?'gerecht aufgeteilt':p.will==='stiftung'?'Stiftung':p.will==='partner'?'an '+(p.partner?p.partner.name:'Partner/in'):'an ein Kind')+'</p>'+
+    (p.will.startsWith('kid')&&heirs.length>1?'<p class="note" style="color:var(--bad)">Die übrigen Kinder fühlen sich übergangen. Es gibt Streit ums Erbe.</p>':'')+
+    p.kids.map((k,i)=>k.alive===false?'':row('Als '+esc(k.n)+' weiterspielen',(p.age-k.b)+' Jahre · erbt '+eur(shareOf(i)),'<button class="btn sm o" data-d="cont:'+i+'">Weiter</button>')).join('')+'</section>'}
+  h+='<button class="btn o big" id="again">Neues Leben</button></div>';return h}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-d]');if(!b||!p||p.alive)return;const [k,v]=b.dataset.d.split(':');
+  if(k==='epi'){p.epi=+v;save();render()}if(k==='cont')continueAs(+v)});
+
+/* ================= Schule und Studium ================= */
+RANK.Hauptschule=.5;STUDY.BWL=4;JOBS.push({id:'berater',t:'Unternehmensberater/in',pay:72000,min:22,deg:'BWL'});
+const SUBJ={ma:'Mathe',de:'Deutsch',en:'Englisch',sp:'Sport'};
+const fmtN=x=>x.toFixed(1).replace('.',',');
+function gradesYear(){if(!p.school||p.age<7)return;const b=1+(100-p.st.in)/26-Math.min(.9,(p.lernN||0)*.3)+(p.skipN||0)*.35;
+  const g={ma:b+(Math.random()-.5)*1.2,de:b+(Math.random()-.5)*1,en:b+(Math.random()-.5)*1.2,sp:1+(100-p.sk.form)/28+(Math.random()-.5)};
+  Object.keys(g).forEach(k=>g[k]=clamp(Math.round(g[k]*2)/2,1,6));g.avg=(g.ma+g.de+g.en+g.sp)/4;g.a=p.age;p.gr=g;
+  log('Zeugnis: Durchschnitt '+fmtN(g.avg)+'.');
+  if(g.avg>4.2&&(p.rep||0)<2&&p.age>=8&&ch(.55)){p.rep=(p.rep||0)+1;add('gl',-8);log('Du bleibst sitzen und musst das Jahr wiederholen.');if(!p.parentsGone)msg('mama','Sitzengeblieben?! Wir reden heute Abend.')}
+  else if(g.avg<=1.5){add('gl',4);if(!p.parentsGone&&ch(.6))msg('papa','Was für ein Zeugnis! Ich bin so stolz.')}}
+function schoolAge(a){const r=p.rep||0;
+  if(p.school==='Hauptschule'&&a>=15+r){p.school=null;p.edu='Hauptschule';log('Hauptschulabschluss geschafft.');mile('Hauptschulabschluss','star')}
+  if(p.school==='Gymnasium'&&a>=18+r&&p.gr&&p.gr.avg>4){p.school=null;p.edu='Realschule';add('gl',-10);log('Das Abitur ist nicht bestanden. Du gehst mit dem Realschulabschluss ab.')}}
+function zeugnis(){const g=p.gr;return '<div class="mt">Zeugnis</div><div class="zgn">'+Object.keys(SUBJ).map(k=>'<span><small>'+SUBJ[k]+'</small><b class="'+(g[k]<=2?'up':g[k]>=4.5?'down':'')+'">'+fmtN(g[k])+'</b></span>').join('')+'<span class="avg"><small>Schnitt</small><b>'+fmtN(g.avg)+'</b></span></div>'}
+function studyYear(R0){if(p.study&&p.study.kr){const k=px$(8000);p.money+=k;p.sdebt=(p.sdebt||0)+k;R0.inc.push(['Studienkredit (BAföG)',k])}
+  if(p.study&&p.study.ex!==p.age-1&&p.study.ex!==p.age){const s=autoMG(3,p.st.in);p.study.sc=(p.study.sc||[]).concat([s])}
+  if(!p.study&&p.sdebt>0){const half=Math.round(p.sdebt/2);ensureEcon();p.loans.push(mkLoan(half,0,10));log('Dein Studienkredit muss zurückgezahlt werden: '+eur(half)+' in 10 Jahren, die Hälfte ist erlassen.');p.sdebt=0}
+  if(p.deg&&p.dnote==null&&p.lastSc){const av=p.lastSc.reduce((s,x)=>s+x,0)/p.lastSc.length;p.dnote=clamp(1+(3-av)*1.1,1,4);log('Abschlussnote '+p.deg+': '+fmtN(p.dnote)+'.')}
+  if(p.study)p.lastSc=p.study.sc||[]}
+function viewBildung(){let h='';
+  h+='<section class="card"><h2 class="h">Abschluss</h2>'+row(p.edu==='keine'?'noch keiner':p.edu,(p.aus?'Ausbildung · ':'')+(p.deg?'Studium '+p.deg+(p.dnote?' (Note '+fmtN(p.dnote)+')':''):(p.school?p.school+(p.rep?' · '+p.rep+'× sitzengeblieben':''):'')))+(p.gr&&p.school?zeugnis():'')+'</section>';
+  if(p.school)h+=card('Schulalltag',actRows(['lernen','schwaenzen'])+row('Klassensprecher/in','ab 12 Jahren · Charme und Ruf +',p.sprecher?'<span class="chip">Gewählt</span>':btn('sprecher',null,'Kandidieren','o',p.age<12||p.act<=0||p.sprY===p.age))+'<p class="note" style="margin-top:6px">Lernen verbessert das nächste Zeugnis, Schwänzen verschlechtert es. Ab Schnitt 4,3 droht Sitzenbleiben.</p>');
+  else if(p.age<30)h+=card('Lernen',actRows(['lernen']));
+  if(p.study){const sc=p.study.sc||[];h+='<section class="card"><h2 class="h">Studium '+p.study.f+'</h2>'+row('Noch '+p.study.left+' Jahr(e)','Prüfungen bisher: '+(sc.length?sc.map(s=>s+'/3').join(', '):'keine'))+
+    row('Semesterprüfung','Einmal im Jahr, kostet keine Aktion',p.study.ex===p.age?'<span class="chip">Erledigt</span>':btn('exam',null,'Antreten','o',!!p.prison))+
+    row('Studienkredit (BAföG)',p.study.kr?'Du bekommst '+eur(px$(8000))+' im Jahr. Die Hälfte zahlst du später zurück.':'8.000 € im Jahr, die Hälfte zahlst du später zurück',p.study.kr?'<span class="chip">Aktiv</span>':btn('bafoeg',null,'Beantragen'))+
+    '<div class="btns">'+btn('studyquit',null,'Studium abbrechen','g')+'</div></section>'}
+  h+=card('Studium und Ausbildung',special('study')+special('azubi'));
+  return h}
+
+/* ================= Karrieren: Sport, Musik, Politik, Untergrund ================= */
+const SPORTS={fussball:'Fußball',basket:'Basketball',tennis:'Tennis',schwimm:'Schwimmen'};
+const SLV=['Jugendverein','Amateurliga','Profi 2. Liga','Profi 1. Liga','Nationalteam'];
+const PARTIES=[['Bürgerbündnis','#2B59C3','Ordnung, Wirtschaft, Sicherheit'],['Zukunftsliste','#2FA88F','Klima, Bildung, Digitales'],['Soziale Mitte','#E5527A','Gerechtigkeit, Wohnen, Rente']];
+const POLO=[['Parteimitglied',0,16],['Stadtrat',8000,21],['Bürgermeister/in',95000,25],['Landtag',115000,28],['Bundestag',130000,30],['Minister/in',190000,35]];
+const GANGS=['Hafenwölfe','Nachtfalken','Die Schatten','Rote Kobras'],GR=['Mitläufer/in','Kurier/in','Vollstrecker/in','Rechte Hand','Boss'],GREP=[0,20,50,100,180];
+const GJ={liefer:['Lieferung','Ein Päckchen ohne Fragen von A nach B.',0,.75,[800,3000],0,'fahren'],schutz:['Schutzgeld eintreiben','Ladenbesitzer „überzeugen“.',1,.6,[2000,6000],1,'kampf'],
+ revier:['Revierkampf','Die andere Gang muss aus dem Viertel.',2,.5,[4000,12000],2,'kampf'],coup:['Großer Coup','Ein Lagerhaus voller Ware.',3,.4,[30000,120000],4,'schloss']};
+const BM=[['handy2','Smartphone Pro',.4],['laptop','Laptop',.4],['uhr','Luxusuhr',.35],['kamera','Kamera',.45]];
+const SONGW=['Mitternacht','Hafenlicht','Kein Zurück','Sommerregen','Neonherz','Leise','Sturm','Für immer jung','Kopfkino','Goldstaub','Zuhause','Funken'];
+let karTab='sport';
+function sportYear(){const s=p.spo;if(!s)return;const a=p.age;if(s.inj>0)s.inj--;if(a>=30)s.sk=Math.max(0,s.sk-R(1,4));s.done=false;
+  if(p.job&&p.job.id==='sport'){s.fans=Math.round(s.fans*1.05+s.sk*20);
+    if(s.lvl===2&&s.sk>=75&&ch(.4))p.q.push({id:'transfer',d:Math.round(p.job.pay*2.2)});
+    if(s.lvl>=3&&s.lvl<4&&s.sk>=88&&ch(.35)){s.lvl=4;p.job.pay=Math.round(p.job.pay*1.4);mile('Nationalteam!','star');news(p.first+' '+p.last+' ins Nationalteam berufen','kultur');log('Du wurdest ins Nationalteam berufen!')}
+    if(a>=36||(a>=31&&s.sk<45)){log('Karriereende als Profi. Danke für alles, sagen die Fans.');mile('Karriereende als Profi','star');p.job=null;s.lvl=Math.min(s.lvl,3);s.ex=true}}}
+function musicYear(R0){const m=p.mus;if(!m)return;m.al=false;m.tr=false;
+  if(m.label){const v=Math.round(m.fans*.6);if(v){p.money+=v;R0.inc.push(['Musik: Streams und Konzerte',v])}}
+  if(!m.label&&m.fans>=3000&&!m.offer&&ch(.5)){m.offer=true;p.q.push({id:'label'})}
+  if(!m.act)m.fans=Math.round(m.fans*.95);m.act=false}
+function polYear(R0){const o=p.pol;if(!o)return;o.pop=clamp(o.pop-2,0,100);o.camp=o.camp||0;o.rd=false;
+  if(o.lvl===1){const v=POLO[1][1];p.money+=v;R0.inc.push(['Politik: Aufwandsentschädigung Stadtrat',v])}
+  if(o.lvl>=1&&p.ruf<-20&&ch(.25)){o.pop=Math.max(0,o.pop-25);news('Skandal um '+p.first+' '+p.last+'!','gross','Die Opposition fordert den Rücktritt.');log('Ein Skandal erschüttert deine politische Karriere.');if(o.lvl>=2&&p.job&&p.job.id==='pol'&&ch(.4)){p.job=null;o.lvl=1;log('Du musst zurücktreten.')}}
+  if(o.next&&p.age>=o.next){const L=Math.min(POLO.length-1,o.lvl+1),thr=30+L*8,sc=o.pop*.5+o.camp*.6+p.ruf*.15+p.sk.charme*.15,w=clamp(.5+(sc-thr)/40,.05,.95);
+    if(ch(w)){o.lvl=L;o.pop=Math.min(100,o.pop+10);add('gl',12);mile('Gewählt: '+POLO[L][0],'star');news(p.first+' '+p.last+' gewinnt die Wahl','gross','Neues Amt: '+POLO[L][0]+'.');log('Wahlsieg! Du bist jetzt '+POLO[L][0]+'.');
+      if(L>=2){p.job={id:'pol',t:POLO[L][0],pay:px$(POLO[L][1]),part:false,yrs:0,perf:50};o.term=p.age+5}}
+    else{o.pop=Math.max(0,o.pop-10);add('gl',-8);log('Wahl verloren ('+Math.round(w*100)+' % Chance). Beim nächsten Mal!');news('Niederlage für '+p.first+' '+p.last,'lokal')}
+    o.next=null;o.camp=0}
+  if(o.term&&p.age>=o.term&&p.job&&p.job.id==='pol'){if(ch(clamp(.3+o.pop/120+p.ruf/400,.1,.9))){o.term=p.age+5;log('Wiedergewählt als '+p.job.t+'!');o.pop=Math.min(100,o.pop+5)}else{log('Du wurdest nicht wiedergewählt.');p.job=null;o.term=null}}}
+function gangYear(R0){const g=p.gang;if(!g)return;g.dn=0;
+  if(g.rank>=3){const v=R(10,40)*1000*g.rank/3|0;p.dirty=(p.dirty||0)+v;log('Deine Leute bringen dir '+eur(v)+' Schwarzgeld.')}
+  if(g.rank>=2&&!p.prison&&ch(.06+(p.wanted||0)*.03)){const y=R(2,5);p.prison=y;p.job=null;g.rank=Math.max(0,g.rank-1);add('gl',-15);ach('knast');news('Razzia bei den '+g.n,'gross');log('Razzia! Die Polizei hat dich erwischt: '+y+' Jahre Haft.')}}
+function viewWege(){if(!['sport','musik','politik','gang'].includes(karTab))karTab='sport';const lock=!!p.prison;
+  let h='<div class="seg full">'+[['sport','Sport'],['musik','Musik'],['politik','Politik'],['gang','Untergrund']].map(([k,l])=>'<button data-a="kartab" data-g="'+k+'" aria-pressed="'+(karTab===k)+'">'+l+'</button>').join('')+'</div>';
+  if(karTab==='sport'){const s=p.spo;
+    if(!s)return h+'<section class="card"><h2 class="h">Sportkarriere</h2><p class="note">Fang im Jugendverein an, trainiere hart, überzeuge beim Probetraining und werde Profi. Ab 6 Jahren, bis 25.</p><div class="amts" style="margin-top:8px">'+Object.keys(SPORTS).map(k=>'<button class="amt" data-a="sp_join" data-g="'+k+'"'+(p.age<6||p.age>25||lock?' disabled':'')+'>'+SPORTS[k]+'</button>').join('')+'</div></section>';
+    const pro=p.job&&p.job.id==='sport';
+    h+='<section class="card"><div class="fh"><span class="fic" style="background:linear-gradient(135deg,#3BB273,#14503A)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></span><div><b>'+SPORTS[s.s]+' · '+(s.ex?'Ex-Profi':SLV[s.lvl])+'</b><small>'+esc(s.club)+(pro?' · '+eur(p.job.pay)+' im Jahr':'')+'</small></div></div>'+
+      '<div class="stat"><div class="r"><span>Können</span><span>'+Math.round(s.sk)+'</span></div><div class="bar"><i style="width:'+s.sk+'%;background:#2FA88F"></i></div></div><p class="note">Fans: '+kfmt(s.fans)+(s.inj?' · verletzt, noch '+s.inj+' Jahr(e)':'')+'</p></section>';
+    if(!s.ex)h+=card('Training und Spiele',row('Training','1 Aktion · Können +',btn('sp_train',null,'Trainieren','o',p.act<=0||lock||s.inj>0))+row('Spieltag','Einmal im Jahr · Minispiel: Reaktion',s.done?'<span class="chip">Gespielt</span>':btn('sp_game',null,'Anpfiff','',lock||s.inj>0))+
+      (!pro?row('Probetraining bei einem Profiverein','16–26 Jahre · ab Können 55 · 1 Aktion',btn('sp_trial',null,'Hingehen','o',p.age<16||p.age>26||p.act<=0||lock||s.trY===p.age)):'')+'<p class="note" style="margin-top:6px">Ab Können 75 kommen Angebote von Spitzenvereinen, ab 88 ruft das Nationalteam.</p>');
+    return h}
+  if(karTab==='musik'){const m=p.mus;
+    if(!m)return h+'<section class="card"><h2 class="h">Musikkarriere</h2><p class="note">Gründe eine Band, schreib Songs, spiel Konzerte und hol dir einen Plattenvertrag. Ab 13 Jahren.</p>'+btn('mu_band',null,'Band gründen','o',p.age<13||lock)+'</section>';
+    const best=m.songs.length?Math.max(...m.songs.map(x=>x.q)):0;
+    h+='<section class="card"><div class="fh"><span class="fic" style="background:linear-gradient(135deg,#8E63D6,#C2306A)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><div><b>'+esc(m.band)+'</b><small>'+(m.label?'Bei einem Label unter Vertrag':'Unabhängig')+' · '+kfmt(m.fans)+' Fans'+(m.hits?' · '+m.hits+' Hit(s)':'')+'</small></div></div>'+
+      '<div class="stat"><div class="r"><span>Musikalisches Können</span><span>'+Math.round(m.sk)+'</span></div><div class="bar"><i style="width:'+m.sk+'%;background:#8E63D6"></i></div></div></section>';
+    h+=card('Proberaum und Bühne',row('Üben','1 Aktion · Können +',btn('mu_prac',null,'Üben','o',p.act<=0||lock))+row('Song schreiben','1 Aktion · Qualität hängt von Können und Intelligenz ab',btn('mu_song',null,'Schreiben','',p.act<=0||lock))+
+      row('Konzert spielen','ab 14 · 1 Aktion · Fans und etwas Geld',btn('mu_gig',null,'Auftreten','o',p.age<14||p.act<=0||lock||!m.songs.length))+
+      (m.label?row('Album veröffentlichen','Einmal im Jahr, braucht 3 neue Songs',m.al?'<span class="chip">Erschienen</span>':btn('mu_album',null,'Veröffentlichen','o',lock||m.songs.filter(x=>!x.rel).length<3))+row('Tour','ab 10.000 Fans · einmal im Jahr · Gesundheit −5',m.tr?'<span class="chip">Getourt</span>':btn('mu_tour',null,'Auf Tour gehen','',lock||m.fans<10000)):'<p class="note" style="margin-top:6px">Ab etwa 3.000 Fans melden sich Plattenlabels.</p>'));
+    if(m.songs.length)h+=card('Deine Songs',m.songs.slice(-8).reverse().map(s=>row('„'+esc(s.t)+'“',(s.rel?'veröffentlicht':'unveröffentlicht')+(s.hit?' · Hit!':''),qbars(s.q,'#8E63D6'))).join(''));
+    return h}
+  if(karTab==='politik'){const o=p.pol;
+    if(!o)return h+'<section class="card"><h2 class="h">Politik</h2><p class="note">Tritt einer Partei bei, mach dir einen Namen und kandidiere: Stadtrat, Bürgermeister/in, Landtag, Bundestag, Ministeramt. Ab 16 Jahren.</p>'+PARTIES.map((x,i)=>row('<span class="pdot" style="background:'+x[1]+'"></span>'+x[0],x[2],btn('po_join',i,'Beitreten','o',p.age<16||lock||!!p.gang))).join('')+(p.gang?'<p class="note">Mit Gang-Vergangenheit nimmt dich keine Partei.</p>':'')+'</section>';
+    const P=PARTIES[o.party],L=Math.min(POLO.length-1,o.lvl+1);
+    h+='<section class="card"><div class="fh"><span class="fic" style="background:'+P[1]+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16M6 21V10M10 21V10M14 21V10M18 21V10M3 10l9-6 9 6z"/></svg></span><div><b>'+POLO[o.lvl][0]+'</b><small>'+P[0]+' · Ruf: '+rufTxt(p.ruf)+'</small></div></div>'+
+      '<div class="stat"><div class="r"><span>Beliebtheit</span><span>'+o.pop+' %</span></div><div class="bar"><i style="width:'+o.pop+'%;background:'+P[1]+'"></i></div></div>'+(o.next?'<div class="stat"><div class="r"><span>Wahlkampf</span><span>'+o.camp+'</span></div><div class="bar"><i style="width:'+Math.min(100,o.camp)+'%;background:#F28C28"></i></div></div><p class="note">Die Wahl ist in '+Math.max(0,o.next-p.age)+' Jahr(en).</p>':'')+'</section>';
+    h+=card('Politische Arbeit',row('Parteiarbeit','1 Aktion · Beliebtheit +',btn('po_work',null,'Los','o',p.act<=0||lock))+
+      (o.lvl<POLO.length-1?(o.next?row('Plakate kleben','1 Aktion · '+eur(px$(3000))+' · Wahlkampf +15',btn('po_plak',null,'Kleben','',p.act<=0||lock||p.money<px$(3000)))+row('Hausbesuche','1 Aktion · Wahlkampf +',btn('po_camp',null,'Klingeln','',p.act<=0||lock))+row('Große Rede','Einmal im Jahr · Minispiel: Quiz',o.rd?'<span class="chip">Gehalten</span>':btn('po_rede',null,'Ans Pult','o',lock)):
+        row('Kandidieren: '+POLO[L][0],'ab '+POLO[L][2]+' Jahren · Wahl nächstes Jahr',btn('po_cand',null,'Antreten','o',p.age<POLO[L][2]||lock))):row('Ganz oben','Du bist Minister/in.'))+
+      '<p class="note" style="margin-top:6px">Die Chance hängt von Beliebtheit, Wahlkampf, Ruf und Charme ab. Ein schlechter Ruf führt zu Skandalen.</p>');
+    return h}
+  const g=p.gang;
+  if(!g)return h+'<section class="card"><h2 class="h">Untergrund</h2><p class="note">Schließ dich einer Gang an. Aufträge bringen Schwarzgeld und Ansehen in der Gang, aber Fahndung und Gefängnis drohen. Ab 16 Jahren.</p>'+btn('ga_join',null,'Der Gang beitreten','g',p.age<16||lock||!!(p.pol&&p.pol.lvl>=2))+'</section>';
+  const nx=GREP[g.rank+1];
+  h+='<section class="card gangc"><div class="fh"><span class="fic" style="background:linear-gradient(135deg,#3A3F4B,#111)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2 3 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-8z"/></svg></span><div><b>'+esc(g.n)+'</b><small>'+GR[g.rank]+' · Ansehen '+g.rep+(nx?' von '+nx:'')+'</small></div></div>'+(nx?'<div class="bar"><i style="width:'+clamp((g.rep-GREP[g.rank])/(nx-GREP[g.rank])*100,0,100)+'%;background:#D64545"></i></div>':'')+
+    '<p class="note" style="margin-top:6px">Schwarzgeld: '+eur(p.dirty||0)+' · Fahndung '+(p.wanted||0)+' von 5</p></section>';
+  h+=card('Aufträge',Object.keys(GJ).map(k=>{const J=GJ[k];return row(J[0],J[1]+' · '+eur(J[4][0])+'–'+eur(J[4][1]),btn('ga_job',k,g.rank<J[2]?'ab '+GR[J[2]]:'Machen','g',g.rank<J[2]||p.act<=0||lock))}).join(''));
+  h+=card('Schwarzmarkt',BM.map(([id,n,f])=>{const S=SHOP.find(x=>x.id===id);return row(n+' (heiß)',eur(Math.round(S.pr*f))+' statt '+eur(S.pr),p.items.includes(id)?'<span class="chip">Besitz</span>':btn('ga_buy',id,'Kaufen','',lock||p.money<S.pr*f))}).join('')+
+    row('Hehler','Wäscht Schwarzgeld sofort, nimmt 45 %',btn('ga_wash',null,'Waschen','g',lock||!(p.dirty>0))))+'<button class="btn g" data-a="ga_leave"'+(lock?' disabled':'')+'>Aussteigen</button>';
+  return h}
+
+/* ================= Städte ================= */
+const CITYT={mittel:['Mittelgroße Stadt',1,1,'Alles in Maßen.'],gross:['Großstadt',1.15,1.45,'Mehr Gehalt, teure Mieten, viel los.'],klein:['Kleinstadt',.93,.75,'Ruhig, günstig, jeder kennt jeden.'],dorf:['Dorf',.86,.55,'Viel Natur, wenig Jobs, sehr günstig.'],ausland:['Ausland',1.22,1.3,'Neues Land, neue Sprache. Intelligenz +, manchmal Heimweh.']};
+const cityF=i=>{const c=CITYT[(p&&p.city)||'mittel']||CITYT.mittel;return c[i+1]};
+function moveCity(t){if(p.prison||!CITYT[t])return;const c=px$(2500);if(p.money<c){toast('Der Umzug kostet '+eur(c)+'.');return}if(!useAct())return;p.money-=c;p.seed=R(1,2e9);p.city=t;p.stats.cities++;
+  if(p.age>=6){p.rel.freund=Math.max(0,p.rel.freund-25);msg('freund','Du ziehst weg?! Ich werd dich so vermissen. Melde dich!')}
+  if(p.job&&!p.job.part&&!['influ','pol','sport'].includes(p.job.id)){log('Du hast deinen Job als '+p.job.t+' für den Umzug aufgegeben.');p.job=null}
+  if(t==='ausland'){add('in',4);add('gl',-2)}mile('Umzug nach '+cityName(p.seed),'star');log('Du ziehst nach '+cityName(p.seed)+' ('+CITYT[t][0]+').');sel='home';save();render()}
+function movePick(){dialog('Wohin soll es gehen?','Umzug kostet '+eur(px$(2500))+' und eine Aktion. Gehälter und Mieten unterscheiden sich je nach Ort.',Object.keys(CITYT).filter(k=>k!=='mittel').map(k=>[CITYT[k][0]+' (Gehalt ×'+String(CITYT[k][1]).replace('.',',')+')',()=>moveCity(k)]).concat([['Doch nicht',null]]))}
+
+/* ================= Jahreswechsel ================= */
+function lifeX(R0){ensureLife();
+  worldYear(R0);calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
+  ['mama','papa'].forEach(k=>p.rel[k]=Math.max(0,p.rel[k]-2));p.rel.freund=Math.max(0,p.rel.freund-3);
+  if(p.age>=8&&p.rel.freund<12){log('Du und '+p.friend+' habt euch aus den Augen verloren.');p.friend=pick(FN.concat(MN).filter(x=>x!==p.friend));p.rel.freund=45;p.chats.freund={msgs:[],un:0};msg('freund','Hi! Wir kennen uns vom Sport. Lust, mal was zu machen?')}
+  p.lernN=0;p.skipN=0;
+  const S=p.stats;S.maxNW=Math.max(S.maxNW,Math.round(netWorth()));S.earn+=Math.round(R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0));if(p.sm)S.maxFol=Math.max(S.maxFol,p.sm.fol);
+  if(p.age>=8&&ch(.3)&&!p.parentsGone){const k=pick(['mama','papa']);if(p.rel[k]<30)msg(k,'Du meldest dich gar nicht mehr. Ist alles okay?')}}
+
+/* ================= Aktionen ================= */
+ACTS.schwaenzen={n:'Schwänzen',d:'Glück +, Zeugnis −',ok:()=>!!p.school&&p.age>=10,f:()=>{p.skipN=(p.skipN||0)+1;add('gl',R(3,6));if(ch(.25)&&!p.parentsGone){p.rel.mama=Math.max(0,p.rel.mama-5);msg('mama','Die Schule hat angerufen. Du warst nicht da?!');return 'Erwischt! Die Schule hat deine Eltern angerufen.'}return 'Ein freier Tag im Park.'}};
+function act5(id,arg){const lock=!!p.prison;
+  switch(id){
+  case 'opt':O[arg]=!O[arg];saveO();if(arg==='rival'&&O.rival)ensureLife();if(arg==='snd'&&O.snd)sfx('coin');render();return 1;
+  case 'theme':O.theme=arg;saveO();render();return 1;
+  case 'wall':if(wallOk(+arg)){O.wall=+arg;saveO();render()}return 1;
+  case 'mini':O.mini=arg;saveO();render();return 1;
+  case 'grat':{if(p.grat[arg]===p.age||p.age<6||!people().some(x=>x[0]===arg))return 1;p.grat[arg]=p.age;const nm=(people().find(x=>x[0]===arg)||[0,''])[1];
+    if(arg==='partner'&&p.partner)p.partner.rel=Math.min(100,p.partner.rel+5);else if(p.rel[arg]!=null)p.rel[arg]=Math.min(100,p.rel[arg]+6);else if(arg.startsWith('kid')){const k=p.kids[+arg.slice(3)];if(k)k.rel=Math.min(100,k.rel+6)}
+    if(arg!=='rival'){msg(arg,'Alles Gute zum Geburtstag!',true);msg(arg,pick(['Danke!! Du hast dran gedacht <3','Wie lieb von dir, danke!','Danke dir! Feiern wir bald zusammen?']))}else{msg('rival','Alles Gute. Ehrlich.',true);msg('rival','… Danke. Hätte ich nicht gedacht.');if(ch(.2)&&p.age>=25){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}}
+    done('Du hast '+nm+' gratuliert.');return 1}
+  case 'term':{const t=p.terms[+arg];if(!t||t.done||lock)return 1;t.done=true;done(TERM[t.k][3]());return 1}
+  case 'famtab':famTab=arg;render();return 1;
+  case 'kidtime':{const k=p.kids[+arg];if(!k||lock||!useAct())return 1;k.rel=Math.min(100,k.rel+R(8,14));k.ts=Math.min(100,k.ts+2);add('gl',R(3,6));done(pick(['Ein Nachmittag im Zoo mit ','Pizza und Filmabend mit ','Fußball im Park mit ','Zusammen gebacken mit '])+k.n+'.');return 1}
+  case 'kidfd':{const [i,f]=arg.split(':'),k=p.kids[+i];if(!k)return 1;k.fd[f]=!k.fd[f];render();return 1}
+  case 'kidgift':{const k=p.kids[+arg];if(!k||p.money<2000)return 1;p.money-=2000;k.rel=Math.min(100,k.rel+10);msg('kid'+arg,'Danke!! Das hilft mir gerade so sehr.');done(k.n+' freut sich über 2.000 €.');return 1}
+  case 'adoptkid':{const c=px$(8000);if(p.age<25||p.age>55||lock||p.money<c||!useAct())return 1;p.money-=c;const g=ch(.5)?'w':'m',n=pick((g==='m'?MN:FN).filter(x=>!p.kids.some(k=>k.n===x)&&x!==p.first)),ka=R(0,6);p.kids.push({n,b:p.age-ka,g,adopt:true});ensureLife();add('gl',12);ach('kind');mile(n+' kommt in die Familie','kid');done(n+' ('+ka+' Jahre) ist jetzt dein Kind.');return 1}
+  case 'will':p.will=arg;if(arg==='stiftung')addRuf(0);save();render();return 1;
+  case 'sprecher':{if(p.sprecher||p.age<12||!p.school||p.sprY===p.age||!useAct())return 1;p.sprY=p.age;if(ch(.35+p.sk.charme/200+p.st.au/400)){p.sprecher=true;p.sk.charme=Math.min(100,p.sk.charme+5);addRuf(5);mile('Klassensprecher/in','star');done('Gewählt! Du bist Klassensprecher/in.')}else done('Knapp verloren. Nächstes Jahr wieder!');return 1}
+  case 'exam':{if(!p.study||p.study.ex===p.age||lock)return 1;mgStart('quiz',3,'Semesterprüfung',(sc,auto)=>{p.study.ex=p.age;p.study.sc=(p.study.sc||[]).concat([sc]);if(sc>=2)add('in',2);else add('gl',-3);const t='Semesterprüfung'+(auto?' (automatisch)':'')+': '+sc+' von 3 Aufgaben richtig.';log(t);save();render();dialog('Prüfung',t,[['Weiter',null]])});return 1}
+  case 'bafoeg':if(p.study){p.study.kr=true;done('Studienkredit bewilligt: '+eur(px$(8000))+' pro Jahr.')}return 1;
+  case 'studyquit':if(p.study){const f=p.study.f;p.study=null;add('gl',-5);done('Du hast das Studium '+f+' abgebrochen.')}return 1;
+  case 'kartab':karTab=arg;render();return 1;
+  case 'sp_join':if(p.spo||p.age<6||p.age>25||lock)return 1;p.spo={s:arg,lvl:0,sk:clamp(R(12,30)+p.sk.form/5,0,100),inj:0,fans:0,club:'TSV '+cityName(p.seed),done:false};done('Du spielst jetzt '+SPORTS[arg]+' beim '+p.spo.club+'.');return 1;
+  case 'sp_train':{const s=p.spo;if(!s||s.inj>0||lock||!useAct())return 1;s.sk=Math.min(100,s.sk+R(3,7)*(p.st.ge/100+.3));p.sk.form=Math.min(100,p.sk.form+2);add('ge',1);if(ch(.05)){s.inj=R(1,2);add('ge',-6);done('Verletzt beim Training! '+s.inj+' Jahr(e) Pause.');return 1}done('Hartes Training. Können: '+Math.round(s.sk)+'.');return 1}
+  case 'sp_game':{const s=p.spo;if(!s||s.done||s.inj>0||lock)return 1;mgStart('reakt',3,'Spieltag',(sc,auto)=>{s.done=true;s.sk=Math.min(100,s.sk+sc);s.fans+=Math.round((sc+1)*(10+s.sk*(s.lvl+1)*3));const pro=p.job&&p.job.id==='sport',b=pro?sc*Math.round(p.job.pay/50):0;p.money+=b;
+    const t=['Niederlage.','Unentschieden.','Knapper Sieg!','Kantersieg, du warst überragend!'][sc]+(b?' Siegprämie '+eur(b)+'.':'')+(auto?' (simuliert)':'');log('Spieltag: '+t);if(sc===3){add('gl',5);if(s.lvl>=3)news(p.first+' '+p.last+' schießt '+(s.club)+' zum Sieg','kultur')}save();render();dialog('Abpfiff',t,[['Weiter',null]])},s.sk);return 1}
+  case 'sp_trial':{const s=p.spo;if(!s||p.age<16||p.age>26||s.trY===p.age||lock||!useAct())return 1;s.trY=p.age;
+    if(s.sk>=55&&ch(.4+(s.sk-55)/60)){s.lvl=2;s.club=pick(['SC Nordhafen','Borussia Weststadt','FC Altbrück','TuS Südfelde']);if(p.job)log('Du hörst als '+p.job.t+' auf.');p.study=null;p.job={id:'sport',t:'Profi ('+SPORTS[s.s]+')',pay:px$(45000+Math.round(s.sk*600)),part:false,yrs:0,perf:50};ach('job');mile('Profivertrag bei '+s.club,'star');news(p.first+' '+p.last+' unterschreibt bei '+s.club,'kultur');done('Profivertrag beim '+s.club+'!')}
+    else if(s.sk>=35&&s.lvl<1){s.lvl=1;done('Für die Profis reicht es noch nicht, aber du spielst jetzt in der Amateurliga.')}else done('Der Trainer schüttelt den Kopf. Weiter trainieren!');return 1}
+  case 'mu_band':if(p.mus||p.age<13||lock)return 1;p.mus={band:pick(['Die ','The ',''])+pick(['Nachtfalter','Hafenlichter','Blauen Stunden','Kometen','Neonherzen','Sturmvögel']),sk:R(10,30),fans:R(5,30),songs:[],label:false,hits:0};done('Deine Band „'+p.mus.band+'“ ist gegründet!');return 1;
+  case 'mu_prac':if(!p.mus||lock||!useAct())return 1;p.mus.sk=Math.min(100,p.mus.sk+R(3,7));p.mus.act=true;done('Stundenlang geübt. Können: '+Math.round(p.mus.sk)+'.');return 1;
+  case 'mu_song':{const m=p.mus;if(!m||lock||!useAct())return 1;const q=clamp((m.sk*.6+p.st.in*.2+R(0,30))/100,0,1),t=pick(SONGW)+(ch(.3)?' ('+pick(['Remix','Akustik','Live'])+')':'');m.songs.push({t,q,rel:false});m.act=true;if(m.songs.length>20)m.songs.shift();done('Neuer Song: „'+t+'“. '+(q>=.8?'Das könnte ein Hit werden!':q>=.5?'Ganz ordentlich.':'Naja, Übung macht den Meister.'));return 1}
+  case 'mu_gig':{const m=p.mus;if(!m||!m.songs.length||p.age<14||lock||!useAct())return 1;const best=Math.max(...m.songs.map(x=>x.q)),nf=Math.round((20+m.fans*.06)*(.5+best)*(.8+Math.random()*.4)),pay=Math.round(50+m.fans*.15);m.fans+=nf;p.money+=pay;m.act=true;if(p.sm)smGain(nf*.3);add('gl',R(3,6));sfx('coin');done('Konzert gespielt: +'+kfmt(nf)+' Fans, '+eur(pay)+' Gage.');return 1}
+  case 'mu_album':{const m=p.mus,nw=m&&m.songs.filter(x=>!x.rel);if(!m||!m.label||m.al||lock||nw.length<3)return 1;m.al=true;const q=nw.reduce((s,x)=>s+x.q,0)/nw.length,hit=ch(q*.6);nw.forEach(x=>x.rel=true);
+    const mul=hit?R(18,30)/10:1+q*.4;m.fans=Math.round(m.fans*mul+500);if(hit){m.hits++;nw.sort((a,b)=>b.q-a.q)[0].hit=true;mile('Hit in den Charts','star');news(m.band+' stürmt die Charts','kultur');if(p.sm)smGain(m.fans*.1)}const pay=Math.round(m.fans*1.2);p.money+=pay;
+    if(!p.ms.some(x=>x.t==='Erstes Album'))mile('Erstes Album','star');done('Album veröffentlicht'+(hit?': ein Hit! Platz '+R(1,5)+' der Charts.':'. Platz '+R(12,80)+' der Charts.')+' '+eur(pay)+' Einnahmen.');return 1}
+  case 'mu_tour':{const m=p.mus;if(!m||!m.label||m.tr||m.fans<10000||lock)return 1;m.tr=true;const pay=Math.round(m.fans*1.5);p.money+=pay;m.fans=Math.round(m.fans*1.1);add('ge',-5);add('gl',8);done('Tour durch 20 Städte: '+eur(pay)+' verdient.');return 1}
+  case 'po_join':if(p.pol||p.age<16||lock||p.gang)return 1;p.pol={party:+arg,lvl:0,pop:R(15,35),camp:0,next:null};addRuf(2);done('Du bist jetzt Mitglied im '+PARTIES[+arg][0]+'.');return 1;
+  case 'po_work':if(!p.pol||lock||!useAct())return 1;p.pol.pop=Math.min(100,p.pol.pop+R(2,6));addRuf(1);done(pick(['Flyer verteilt.','Infostand in der Fußgängerzone.','Sitzung bis Mitternacht.','Bürgersprechstunde gehalten.'])+' Beliebtheit: '+p.pol.pop+' %.');return 1;
+  case 'po_cand':{const o=p.pol;if(!o||o.next||lock)return 1;const L=Math.min(POLO.length-1,o.lvl+1);if(p.age<POLO[L][2])return 1;o.next=p.age+1;o.camp=0;done('Du kandidierst als '+POLO[L][0]+'. Gewählt wird nächstes Jahr.');return 1}
+  case 'po_plak':{const o=p.pol,c=px$(3000);if(!o||!o.next||p.money<c||lock||!useAct())return 1;p.money-=c;o.camp+=15;done('Dein Gesicht hängt an jeder Laterne. Wahlkampf: '+o.camp+'.');return 1}
+  case 'po_camp':{const o=p.pol;if(!o||!o.next||lock||!useAct())return 1;o.camp+=R(6,12)+Math.round(p.sk.charme/12);done('Du hast an hundert Türen geklingelt. Wahlkampf: '+o.camp+'.');return 1}
+  case 'po_rede':{const o=p.pol;if(!o||!o.next||o.rd||lock)return 1;mgStart('quiz',3,'Große Rede',(sc,auto)=>{o.rd=true;o.camp+=sc*7;o.pop=Math.min(100,o.pop+sc*2);const t='Deine Rede'+(auto?' (simuliert)':'')+': '+['Ein Desaster. Buhrufe.','Höflicher Applaus.','Viel Applaus!','Stehende Ovationen!'][sc];log(t);save();render();dialog('Rede gehalten',t,[['Weiter',null]])},p.sk.charme);return 1}
+  case 'ga_join':if(p.gang||p.age<16||lock||(p.pol&&p.pol.lvl>=2))return 1;if(p.pol){p.pol=null;log('Deine Partei hat dich ausgeschlossen.')}p.gang={n:pick(GANGS),rank:0,rep:0};addRuf(-15);done('Du gehörst jetzt zu den '+p.gang.n+'.');return 1;
+  case 'ga_job':{const g=p.gang,J=GJ[arg];if(!g||!J||g.rank<J[2]||lock||!useAct())return 1;const before=(p.dirty||0)+p.money,pr=p.prison;
+    const r=crime(J[3]+p.sk[J[6]]/300+g.rank*.03,R(J[4][0],J[4][1]),J[5],J[0]+' erledigt');const ok=!p.prison&&(p.dirty||0)+p.money>before;
+    g.rep=Math.max(0,g.rep+(ok?R(6,12):-5));addRuf(-3);p.sk[J[6]]=Math.min(100,p.sk[J[6]]+2);while(g.rank<4&&g.rep>=GREP[g.rank+1]){g.rank++;log('Aufstieg in der Gang: Du bist jetzt '+GR[g.rank]+'.');if(g.rank===4)mile('Boss der '+g.n,'star')}
+    log(r);checkAch();save();render();dialog(J[0],r,[['OK',null]]);return 1}
+  case 'ga_buy':{const B=BM.find(x=>x[0]===arg),S=SHOP.find(x=>x.id===arg);if(!B||!S||p.items.includes(arg)||lock)return 1;const c=Math.round(S.pr*B[2]);if(p.money<c)return 1;p.money-=c;addRuf(-3);
+    if(ch(.15)){p.money-=1000;p.wanted=Math.min(5,(p.wanted||0)+1);done('Hehlerei aufgeflogen! Ware weg, 1.000 € Strafe.');return 1}p.items.push(arg);if(arg.startsWith('handy'))p.phoneY=p.age;Object.keys(S.e).forEach(k=>add(k,S.e[k]));done(B[1]+' für '+eur(c)+'. Frag nicht, woher.');return 1}
+  case 'ga_wash':{if(!p.dirty||lock)return 1;const v=Math.round(p.dirty*.55);p.money+=v;p.dirty=0;done('Der Hehler gibt dir '+eur(v)+' sauberes Geld.');return 1}
+  case 'ga_leave':{if(!p.gang)return 1;const n=p.gang.n;p.gang=null;addRuf(5);if(ch(.3)){add('ge',-15);done('Die '+n+' lassen dich nicht einfach gehen. Du landest im Krankenhaus, aber du bist raus.')}else done('Du bist raus bei den '+n+'.');return 1}
+  case 'movepick':if(!lock)movePick();return 1;
+  }return 0}
+
+function rufCard(){return '<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Ruf</h2><b>'+rufTxt(p.ruf)+'</b></div><div class="rufbar"><i style="left:'+((p.ruf+100)/2)+'%"></i></div><div class="listseg rufl"><span>Skrupellos</span><span>Vorbild</span></div><p class="note">Ehrliche Entscheidungen helfen in Politik und Beruf. Ein schlechter Ruf öffnet Türen im Untergrund und sorgt für Skandale.</p></section>'}
+function milesCard(){return card('Meilensteine',p.ms.length?'<div class="tline">'+p.ms.slice().reverse().map(m=>'<div class="tm '+m.k+'"><span>'+m.a+'</span><b>'+esc(m.t)+'</b></div>').join('')+'</div>':'<p class="note">Noch keine. Große Momente landen hier.</p>')}
+
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],
 ['klick','Klick',0xE5407A,'<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><path d="M16.5 7.5h.01"/>','linear-gradient(135deg,#FF9A4C,#E5407A 55%,#8E63D6)'],
 ['geschaefte','Geschäfte',0x5B5BD6,'<rect x="4" y="3" width="10" height="18" rx="1.5"/><path d="M14 9h5a1 1 0 0 1 1 1v11H14M7 7h4M7 11h4M7 15h4"/>','linear-gradient(135deg,#7B7BF0,#4B3FD1)'],
 ['casino','Casino',0xC9A227,'<rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.3"/><circle cx="16" cy="16" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="16" cy="8" r="1.3"/><circle cx="8" cy="16" r="1.3"/>','linear-gradient(135deg,#F6D365,#C9A227 55%,#8A5A00)'],
+['news','Nachrichten',0xD64545,'<rect x="3" y="5" width="15" height="15" rx="2"/><path d="M18 9h3v9a2 2 0 0 1-2 2"/><path d="M7 9h7M7 13h7M7 17h4"/>','linear-gradient(135deg,#F06B5B,#B42318)'],
+['kalender','Kalender',0xF5F7FB,'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 14h2M14 14h2M8 17h2"/>','linear-gradient(135deg,#FF8A65,#E5527A)'],
 ['stadt','Stadt',0x2B59C3,'<path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>'],
 ['jobs','Jobs',0x5B7CE6,'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/>'],
+['wege','Karriere',0x14503A,'<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/>','linear-gradient(135deg,#3BB273,#14503A)'],
 ['bildung','Bildung',0x3F8EDB,'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>'],
 ['liebe','Liebe',0xE5527A,'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'],
 ['familie','Familie',0x2FA88F,'<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M14 20c0-2.5 1.3-5 3-5s4 1.5 4 5"/>'],
@@ -1848,9 +2426,10 @@ const APPS=[
 ['wohnen','Wohnen',0xF08A24,'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'],
 ['garage','Garage',0x6B7385,'<path d="M5 16l1.5-5a2 2 0 0 1 2-1.5h7a2 2 0 0 1 2 1.5L19 16"/><rect x="3" y="16" width="18" height="4" rx="1.5"/><circle cx="7.5" cy="20" r="1"/><circle cx="16.5" cy="20" r="1"/>'],
 ['shop','Shop',0xC2408C,'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'],
-['erfolge','Erfolge',0x8E63D6,'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/>']];
+['erfolge','Erfolge',0x8E63D6,'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/>'],
+['einst','Einstellungen',0x6B7385,'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>']];
 const APP=Object.fromEntries(APPS.map(a=>[a[0],a]));
-const PRISON_APPS=['chats','klick','leben','freizeit','bank','boerse','erfolge','stadt'];
+const PRISON_APPS=['news','kalender','einst','chats','klick','leben','freizeit','bank','boerse','erfolge','stadt'];
 const btn=(id,arg,label,cls,dis)=>'<button class="btn sm '+(cls||'')+'" data-a="'+id+'"'+(arg!=null?' data-g="'+esc(arg)+'"':'')+(dis?' disabled':'')+'>'+label+'</button>';
 const row=(t,s,right)=>'<div class="row"><div class="t"><b>'+t+'</b>'+(s?'<small>'+s+'</small>':'')+'</div>'+(right||'')+'</div>';
 const card=(title,body)=>'<section class="card">'+(title?'<h2 class="h">'+title+'</h2>':'')+body+'</section>';
@@ -1895,6 +2474,7 @@ function viewStadt(){
       '<div class="plist" style="margin-top:10px">'+PLACES.map(x=>'<button class="pl" data-a="sel" data-g="'+x.id+'" aria-pressed="'+(sel===x.id)+'"><i style="background:'+hex(x.c)+'"></i>'+x.n+'</button>').join('')+'</div></section>';
   }
   h+=sel?placeCard(sel):card('','<p class="note">Tippe auf ein Gebäude mit Namensschild.</p>');
+  h+=card('Deine Stadt',row(esc(cityName(p.seed)),CITYT[p.city||'mittel'][0]+' · Gehalt ×'+String(cityF(0)).replace('.',',')+' · Mieten ×'+String(cityF(1)).replace('.',','))+'<p class="note">'+CITYT[p.city||'mittel'][3]+'</p>');
   h+='<button class="btn g" data-a="newcity"'+(p.prison?' disabled':'')+'>In eine neue Stadt ziehen</button>';
   return h;
 }
@@ -1913,11 +2493,11 @@ function viewChats(){
 }
 const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>n===1?'1 Aktion':n+' Aktionen';
-function badgeOf(id){if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();return 0}
+function badgeOf(id){if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();if(id==='news')return p.newsUn||0;if(id==='kalender')return openBd();return 0}
 function viewHome(){
   const last=p.log.filter(e=>!e.t.startsWith('Jahresbilanz')).slice(-1)[0];
   const ring=k=>'<div class="rw"><div class="ring" style="--v:'+p.st[k]+'"><b>'+p.st[k]+'</b></div><small>'+STAT[k]+'</small></div>';
-  return '<section class="phone"><div class="pstat"><span>'+esc(cityName(p.seed))+'</span><span>'+akt(p.act)+' übrig</span></div>'+
+  return '<section class="phone ph'+phoneTier()+(phoneOld()?' old':'')+'" style="--wall:'+WALLS[wallOk(O.wall)?O.wall:0][1]+'"><div class="pstat"><span>'+esc(cityName(p.seed))+'</span><span>'+PHONES[phoneTier()][0]+(phoneOld()?' · Akku 9 %':'')+'</span><span>'+akt(p.act)+'</span></div>'+
     '<div class="rings">'+Object.keys(STAT).map(ring).join('')+'</div>'+
     (last?'<button class="news" data-a="goto" data-g="leben"><small>Neuigkeit · Alter '+last.a+'</small>'+esc(last.t)+'</button>':'')+
     (p.prison?'<p class="pnote">Du sitzt noch '+p.prison+' Jahr(e) im Gefängnis. Einige Apps sind gesperrt.</p>':'')+
@@ -1926,7 +2506,7 @@ function viewHome(){
 }
 function viewApp(id){
   const V={
-  chats:viewChats,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
+  chats:viewChats,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
   leben:viewLeben,
   stadt:viewStadt,
   jobs:()=>{let h='';
@@ -1935,14 +2515,13 @@ function viewApp(id){
     else if(p.job){const rk=p.job.rank||1;h+='<section class="card"><div class="lbl">DEIN JOB</div>'+row(esc(p.job.t),RANKN[rk-1]+' · seit '+p.job.yrs+' Jahr(en) · Leistung '+p.job.perf+' %','<span class="num" style="color:var(--blueText)">'+eur(p.job.pay)+'</span>')+
       '<div class="segs big4">'+[1,2,3,4].map(i=>'<i class="'+(i<=rk?'on':'')+'"></i>').join('')+'</div><p class="note" style="margin:6px 0">Rang '+rk+' von 4 · '+(rk<4?'Gute Leistung bringt Beförderungen mit 20 % mehr Gehalt.':'Ganz oben.')+'</p>'+'<div class="btns">'+btn('work',null,'Schicht (Minispiel)','o',p.act<=0||!!p.prison)+btn('quit',null,'Kündigen','g')+'</div></section>'}
     return h+card('Stellenangebote',JOBS.map(j=>{const r=canJob(j);return row(j.t+(j.part?' (Teilzeit)':''),r||(j.id==='influ'?'Einkommen aus Klick, 1,5× Reichweite':eur(j.pay)+' pro Jahr'),btn('apply',j.id,'Bewerben','o',!!r||p.act<=0||!!(p.job&&p.job.id===j.id)))}).join(''))},
-  bildung:()=>card('Abschluss',row(p.edu==='keine'?'noch keiner':p.edu,(p.aus?'Ausbildung · ':'')+(p.deg?'Studium '+p.deg:(p.school?p.school+', läuft automatisch weiter':'')))+actRows(['lernen']))+card('Studium und Ausbildung',special('study')+special('azubi')),
+  bildung:viewBildung,
   liebe:()=>{let h='';
     if(p.partner)h=row(esc(p.partner.name),(p.partner.mar?'verheiratet':'in einer Beziehung')+' · Verbindung '+clamp(p.partner.rel,0,100)+' %')+
       '<div class="btns">'+btn('time',null,'Zeit verbringen','',p.act<=0||!!p.prison)+(p.partner.mar?'':btn('propose',null,'Heiratsantrag','o',p.age<18||p.act<=0||!!p.prison))+btn('baby',null,'Kind bekommen','',p.age<18||p.age>48||p.act<=0||!!p.prison)+btn('split',null,p.partner.mar?'Scheidung':'Schluss machen','g')+'</div>';
     else h=row('Single',p.age<14?'ab 14 Jahren kannst du daten':'Mach dich auf die Suche')+actRows(['date']);
     return card('Beziehung',h)},
-  familie:()=>card('Kinder',(p.kids.length?p.kids.map(k=>row(esc(k.n),(p.age-k.b)+' Jahre')).join(''):'<p class="note">Noch keine Kinder. Die bekommst du in der App Liebe.</p>')+actRows(['kidstime']))+
-    card('Haustiere',(p.pets.length?p.pets.map(x=>row(esc(x.n),PETS[x.t].n+' · '+x.age+' Jahre')).join(''):'<p class="note">Noch kein Haustier.</p>')+actRows(['pet']))+card('Tierheim',special('adopt')),
+  familie:viewFamilie,
   freizeit:viewFreizeit,
   strasse:()=>card('Kriminalität','<p class="note" style="margin-bottom:6px">Wer erwischt wird, landet vor Gericht.</p>'+actRows(['klau','tasche','einbruch','hack','bankraub','race']))+card('Polizei & Gericht',special('record')),
   bank:viewBank,
@@ -1979,9 +2558,7 @@ function render(){if(p&&p.sm)ensureSm();
   const app=document.getElementById('app');
   if(!p){shell=false;if(G)G.run=false;renderStart();return}
   if(!p.alive){shell=false;if(G)G.run=false;
-    app.innerHTML='<div class="start"><div class="meav" style="align-self:center">'+avatarSvg(p.age,120)+'</div><h1>Ruhe in Frieden</h1><p>'+esc(p.first+' '+p.last)+' ist mit '+p.age+' Jahren in '+esc(cityName(p.seed))+' '+esc(p.cause)+' gestorben.</p><section class="card">'+
-      row('Beruf',esc(p.pension?'Rentner/in':status()))+row('Vermögen',eur(netWorth()))+row('Bildung',p.deg?'Studium '+p.deg:(p.aus?'Ausbildung':p.edu))+row('Familie',(p.partner?(p.partner.mar?'verheiratet mit ':'zusammen mit ')+esc(p.partner.name):'Single')+' · '+p.kids.length+' Kind(er)')+row('Straftaten',String(p.crimes))+row('Erfolge',Object.keys(p.ach).length+' von '+Object.keys(ACH).length)+
-      '</section><section class="card"><h2 class="h">Lebensweg</h2><div class="log">'+p.log.filter(e=>!e.t.startsWith('Jahresbilanz')).slice(-12).map(e=>'<div><span>Alter '+e.a+'</span><span>'+esc(e.t)+'</span></div>').join('')+'</div></section><button class="btn o big" id="again">Neues Leben</button></div>';
+    app.innerHTML=viewDeath();
     document.getElementById('again').onclick=()=>{p=null;try{localStorage.removeItem(KEY)}catch(e){}render()};return}
   if(!APP[tab])tab='home';ensureStocks();ensureNew();
   if(!shell)buildShell();
