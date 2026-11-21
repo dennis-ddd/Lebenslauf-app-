@@ -35,7 +35,7 @@ function stil(){const o=p.ward.filter(k=>OF[k]).reduce((m,k)=>Math.max(m,OF[k][2
 function lifeYear(){const out={ls:0,treat:0,risk:0},a=p.age;
   // Lebensstil
   const dk=p.staff.koch?'mediterran':p.ls.diet,D=DIET[dk];out.ls+=px$(DIET[p.ls.diet].c)+px$(VORS[p.ls.vors][1]);
-  if(p.gym)out.ls+=px$(GYM[p.gym].c);p.clubs.forEach(c=>out.ls+=px$(CLUBS[c][1]));
+  if(p.gym){out.gym=px$(GYM[p.gym].c);out.ls+=out.gym}p.clubs.forEach(c=>out.ls+=px$(CLUBS[c][1]));
   if(D.ge)add('ge',D.ge);if(D.au)add('au',D.au);if(D.gl)add('gl',D.gl);if(D.form)p.sk.form=clamp(p.sk.form+D.form,0,100);
   if(p.clubs.includes('fc')){add('gl',4);p.sk.form=Math.min(100,p.sk.form+2)}if(p.clubs.includes('box')){p.sk.kampf=Math.min(100,p.sk.kampf+3);p.sk.form=Math.min(100,p.sk.form+2)}if(p.clubs.includes('lauf')){p.sk.form=Math.min(100,p.sk.form+3);add('ge',2)}
   p.gymU=p.gym?GYM[p.gym].u:0;
@@ -68,7 +68,7 @@ function viewFreizeit(){ensureEcon();const lock=!!p.prison;
   }
   if(fTab==='sport'){
     h+='<div class="bizsum"><div><b>'+Math.round(p.sk.form)+'</b><small>Form von 100</small></div><div><b>'+Math.round(p.sk.kampf)+'</b><small>Kampf von 100</small></div></div>';
-    h+=card('Fitnessstudio',Object.keys(GYM).map(k=>{const G=GYM[k];return row(G.n,eur(px$(G.c))+' im Jahr · '+G.d,p.gym===k?btn('gym','none','Kündigen','g'):btn('gym',k,'Abschließen','',p.age<14||lock))}).join('')+
+    h+=card('Fitnessstudio',Object.keys(GYM).map(k=>{const G=GYM[k];return row(G.n,eur(px$(G.c)/12)+' im Monat · '+G.d+' Monatlich kündbar.',p.gym===k?btn('gym','none','Kündigen','g'):btn('gym',k,'Abschließen','',p.age<14||lock))}).join('')+
       (p.gym?row('Trainieren',(p.gymU||0)+' von '+GYM[p.gym].u+' Einheiten übrig · kostet keine Aktion',btn('train',null,'Los','o',!p.gymU)):'')+
       '<div class="mt" style="margin-top:10px">Trainingsschwerpunkt</div><div class="amts">'+Object.keys(FOCUS).map(k=>'<button class="amt" data-a="focus" data-g="'+k+'" aria-pressed="'+(p.focus===k)+'">'+FOCUS[k][0]+'</button>').join('')+'</div><p class="note" style="margin-top:6px">'+FOCUS[p.focus][1]+'</p>');
     h+=card('Verein',Object.keys(CLUBS).map(k=>{const C=CLUBS[k],in_=p.clubs.includes(k);return row(C[0],eur(px$(C[1]))+' im Jahr · '+C[2],btn('club',k,in_?'Austreten':'Eintreten',in_?'g':'',lock||p.age<8))}).join(''));
@@ -122,7 +122,7 @@ function act2(id,arg){
     else{add('gl',R(3,7));t=e[1]+': '+e[3]}done(t);return 1}
   case 'welt':if(p.welt||p.age<18||!useAct())return 1;{const c=px$(25000);if(p.money<c){refundAct();toast('Die Weltreise kostet '+eur(c)+'.');return 1}p.money-=c;p.welt=true;add('gl',25);add('in',3);done('Ein halbes Jahr um die Welt. Unvergesslich!')}return 1;
   case 'kurs':{const K=KURSE[arg],c=px$(K[1]);if(p.age<K[3]||p.money<c||!useAct())return 1;p.money-=c;const g=R(10,20);p.sk[K[2]]=Math.min(100,p.sk[K[2]]+g);if(arg==='hack')add('in',2);done(K[0]+' abgeschlossen: '+SKN[K[2]][0]+' +'+g+'.');return 1}
-  case 'gym':if(arg==='none'){p.gym=null;p.gymU=0;done('Studio-Abo gekündigt.');return 1}if(p.age<14||p.prison)return 1;{const c=px$(GYM[arg].c);if(p.money<c){toast('Das erste Jahr kostet '+eur(c)+'.');return 1}p.money-=c;p.gym=arg;p.gymU=GYM[arg].u;done(GYM[arg].n+' abgeschlossen. Das erste Jahr ist bezahlt.')}return 1;
+  case 'gym':if(arg==='none'){p.gym=null;p.gymU=0;done('Studio-Abo gekündigt.');return 1}if(p.age<14||p.prison)return 1;{p.gym=arg;p.gymU=GYM[arg].u;done(GYM[arg].n+' abgeschlossen: '+eur(px$(GYM[arg].c)/12)+' im Monat, abgebucht zum Jahresende.')}return 1;
   case 'train':{if(!p.gym||!p.gymU)return 1;p.gymU--;const f=p.focus;p.sk.form=Math.min(100,p.sk.form+(f==='ausdauer'?5:3));add('ge',f==='ausdauer'?3:2);if(f==='kraft'||f==='ganz')add('au',f==='kraft'?3:1);if(f==='kampfs')p.sk.kampf=Math.min(100,p.sk.kampf+4);
     if(p.ls.diet==='eiweiss')add('au',1);if(ch(.04)){p.ill.verletzt={y:0};done('Autsch, beim Training verletzt.')}else done('Training ('+FOCUS[f][0]+') erledigt.');return 1}
   case 'focus':p.focus=arg;render();return 1;

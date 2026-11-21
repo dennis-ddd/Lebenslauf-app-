@@ -47,6 +47,8 @@ const S={
   if(a>=18&&!p.job&&ch2(.3))A('apply','lager');if(p.st.ge<50)A('arzt');A('party')},
  faulenzer(p){const a=p.age;if(a>=18&&!p.job)A('apply','lager');A('party');if(ch2(.5))A('lesen')}};
 function ch2(x){return Math.random()<x}
+const post=p=>{if(!p.mail)return;A('mailpayall');for(let i=p.mail.length-1;i>=0;i--){const m=p.mail[i];if(m&&m.k==='steuer')A('mailtax',i);else if(m&&(m.k==='oma'))A('mailpay',i);else if(m&&['werbung','gewinn'].includes(m.k))A('mailtrash',i)}};
+for(const k of ['fleissig','influencer','unternehmer','kriminell']){const f0=S[k];S[k]=p=>{post(p);f0(p)}}
 const out={};
 for(const k of Object.keys(S)){const L=[];
  for(let r=0;r<N;r++){T.newLife('Test','Person',pick(['w','m']),0,false);T.applyCfg({act:6,clock:true,ev:'normal',big:true,wealth:'normal'});const p=T.p;

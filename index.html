@@ -629,6 +629,13 @@ small{font-size:max(12.5px,1em*.8)}
 .dirty.slim .bigd{font-size:22px}.dirty.slim small{display:block;color:var(--muted);font-weight:600}
 .ibtn{width:40px;height:40px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);font-weight:900;font-style:italic;font-family:Georgia,serif;font-size:18px;flex:none}
 .but .stars{margin:3px 0 0}.dirty.slim small{color:#CFC8DA!important}.dirty.slim .lbl{color:#FFB3B3}
+
+/* Post */
+.postsum .listseg>div b{display:block;font-weight:900;font-size:17px}.postsum .listseg>div small{display:block;color:var(--muted);font-weight:600}
+.letter{display:flex;flex-direction:column;gap:6px;border-left:6px solid #C9A227}
+.letter.st1{border-left-color:#F28C28}.letter.st2{border-left-color:#D64545}.letter.st3{border-left-color:#7A1F1F}
+.lh{display:flex;gap:12px;align-items:center}.lh small{display:block;color:var(--muted);font-weight:700;font-size:13px}.lh>div b{display:block;font-weight:900;font-size:16px}
+.lic{width:40px;height:40px;border-radius:12px;background:light-dark(#FFF4D6,#3A2E12);color:#A8851A;display:grid;place-items:center;flex:none}
 </style>
 </head>
 <body>
@@ -1255,7 +1262,7 @@ function stil(){const o=p.ward.filter(k=>OF[k]).reduce((m,k)=>Math.max(m,OF[k][2
 function lifeYear(){const out={ls:0,treat:0,risk:0},a=p.age;
   // Lebensstil
   const dk=p.staff.koch?'mediterran':p.ls.diet,D=DIET[dk];out.ls+=px$(DIET[p.ls.diet].c)+px$(VORS[p.ls.vors][1]);
-  if(p.gym)out.ls+=px$(GYM[p.gym].c);p.clubs.forEach(c=>out.ls+=px$(CLUBS[c][1]));
+  if(p.gym){out.gym=px$(GYM[p.gym].c);out.ls+=out.gym}p.clubs.forEach(c=>out.ls+=px$(CLUBS[c][1]));
   if(D.ge)add('ge',D.ge);if(D.au)add('au',D.au);if(D.gl)add('gl',D.gl);if(D.form)p.sk.form=clamp(p.sk.form+D.form,0,100);
   if(p.clubs.includes('fc')){add('gl',4);p.sk.form=Math.min(100,p.sk.form+2)}if(p.clubs.includes('box')){p.sk.kampf=Math.min(100,p.sk.kampf+3);p.sk.form=Math.min(100,p.sk.form+2)}if(p.clubs.includes('lauf')){p.sk.form=Math.min(100,p.sk.form+3);add('ge',2)}
   p.gymU=p.gym?GYM[p.gym].u:0;
@@ -1288,7 +1295,7 @@ function viewFreizeit(){ensureEcon();const lock=!!p.prison;
   }
   if(fTab==='sport'){
     h+='<div class="bizsum"><div><b>'+Math.round(p.sk.form)+'</b><small>Form von 100</small></div><div><b>'+Math.round(p.sk.kampf)+'</b><small>Kampf von 100</small></div></div>';
-    h+=card('Fitnessstudio',Object.keys(GYM).map(k=>{const G=GYM[k];return row(G.n,eur(px$(G.c))+' im Jahr · '+G.d,p.gym===k?btn('gym','none','Kündigen','g'):btn('gym',k,'Abschließen','',p.age<14||lock))}).join('')+
+    h+=card('Fitnessstudio',Object.keys(GYM).map(k=>{const G=GYM[k];return row(G.n,eur(px$(G.c)/12)+' im Monat · '+G.d+' Monatlich kündbar.',p.gym===k?btn('gym','none','Kündigen','g'):btn('gym',k,'Abschließen','',p.age<14||lock))}).join('')+
       (p.gym?row('Trainieren',(p.gymU||0)+' von '+GYM[p.gym].u+' Einheiten übrig · kostet keine Aktion',btn('train',null,'Los','o',!p.gymU)):'')+
       '<div class="mt" style="margin-top:10px">Trainingsschwerpunkt</div><div class="amts">'+Object.keys(FOCUS).map(k=>'<button class="amt" data-a="focus" data-g="'+k+'" aria-pressed="'+(p.focus===k)+'">'+FOCUS[k][0]+'</button>').join('')+'</div><p class="note" style="margin-top:6px">'+FOCUS[p.focus][1]+'</p>');
     h+=card('Verein',Object.keys(CLUBS).map(k=>{const C=CLUBS[k],in_=p.clubs.includes(k);return row(C[0],eur(px$(C[1]))+' im Jahr · '+C[2],btn('club',k,in_?'Austreten':'Eintreten',in_?'g':'',lock||p.age<8))}).join(''));
@@ -1342,7 +1349,7 @@ function act2(id,arg){
     else{add('gl',R(3,7));t=e[1]+': '+e[3]}done(t);return 1}
   case 'welt':if(p.welt||p.age<18||!useAct())return 1;{const c=px$(25000);if(p.money<c){refundAct();toast('Die Weltreise kostet '+eur(c)+'.');return 1}p.money-=c;p.welt=true;add('gl',25);add('in',3);done('Ein halbes Jahr um die Welt. Unvergesslich!')}return 1;
   case 'kurs':{const K=KURSE[arg],c=px$(K[1]);if(p.age<K[3]||p.money<c||!useAct())return 1;p.money-=c;const g=R(10,20);p.sk[K[2]]=Math.min(100,p.sk[K[2]]+g);if(arg==='hack')add('in',2);done(K[0]+' abgeschlossen: '+SKN[K[2]][0]+' +'+g+'.');return 1}
-  case 'gym':if(arg==='none'){p.gym=null;p.gymU=0;done('Studio-Abo gekündigt.');return 1}if(p.age<14||p.prison)return 1;{const c=px$(GYM[arg].c);if(p.money<c){toast('Das erste Jahr kostet '+eur(c)+'.');return 1}p.money-=c;p.gym=arg;p.gymU=GYM[arg].u;done(GYM[arg].n+' abgeschlossen. Das erste Jahr ist bezahlt.')}return 1;
+  case 'gym':if(arg==='none'){p.gym=null;p.gymU=0;done('Studio-Abo gekündigt.');return 1}if(p.age<14||p.prison)return 1;{p.gym=arg;p.gymU=GYM[arg].u;done(GYM[arg].n+' abgeschlossen: '+eur(px$(GYM[arg].c)/12)+' im Monat, abgebucht zum Jahresende.')}return 1;
   case 'train':{if(!p.gym||!p.gymU)return 1;p.gymU--;const f=p.focus;p.sk.form=Math.min(100,p.sk.form+(f==='ausdauer'?5:3));add('ge',f==='ausdauer'?3:2);if(f==='kraft'||f==='ganz')add('au',f==='kraft'?3:1);if(f==='kampfs')p.sk.kampf=Math.min(100,p.sk.kampf+4);
     if(p.ls.diet==='eiweiss')add('au',1);if(ch(.04)){p.ill.verletzt={y:0};done('Autsch, beim Training verletzt.')}else done('Training ('+FOCUS[f][0]+') erledigt.');return 1}
   case 'focus':p.focus=arg;render();return 1;
@@ -1557,7 +1564,7 @@ function doLive(){const sm=p.sm;if(!sm||p.prison||!sm.ch)return;ensureSm();const
 function sponPay(S){const sm=p.sm,c=sm.ch;return Math.round(((sm.fol+(c?c.subs:0)*3)*S[3]/10)*(sm.studio.manager?1.2:1)/10)*10+200}
 function smYear(){const sm=p.sm;if(!sm)return 0;ensureSm();let inc=0;
   inc+=Math.round(sm.yv*.01);if(sm.fol>=1000)inc+=Math.round(sm.fol*.02);
-  const c=sm.ch;if(c){inc+=Math.round(c.subs*1.5);const miss=c.plan.filter(i=>!c.done.includes(i)).length;if(miss){c.streak=0;c.com=Math.max(0,c.com-8*miss);log('Klick: '+miss+' geplante(r) Stream(s) ausgefallen. Die Community ist enttäuscht.')}
+  const c=sm.ch;if(c){inc+=Math.round(c.subs*1.5/(1+c.subs/300000));const miss=c.plan.filter(i=>!c.done.includes(i)).length;if(miss){c.streak=0;c.com=Math.max(0,c.com-8*miss);log('Klick: '+miss+' geplante(r) Stream(s) ausgefallen. Die Community ist enttäuscht.')}
     if(sm.studio.mods)c.com=Math.min(100,c.com+5);c.hist.push(c.subs);if(c.hist.length>30)c.hist.shift();c.sl=streamBudget();c.done=[];c.ann=[]}
   let sp=0;sm.spon.forEach(k=>{const S=SPONS.find(x=>x[0]===k);if(!S)return;sp+=sponPay(S);if(S[4]){sm.trust=Math.max(10,sm.trust-8);if(c)c.com=Math.max(0,c.com-5)}});
   if(sm.studio.manager)sp=Math.round(sp*.85);inc+=sp;
@@ -1623,7 +1630,7 @@ function viewKlick(){
     if(chSub==='stats'){const sp=sm.spon.reduce((s,k)=>{const S=SPONS.find(x=>x[0]===k);return s+(S?sponPay(S):0)},0);
       h+=card('Abonnenten pro Jahr',c.hist.length>1?lineSvg(c.hist.slice(-15),110,true,'neu'):'<p class="note">Nach dem ersten Jahr siehst du hier deine Kurve.</p>')+
         card('Zuschauer pro Stream',c.vh.length?bars(c.vh)+'<p class="note">Rekord: '+kfmt(c.rec)+' Zuschauer gleichzeitig.</p>':'<p class="note">Noch keine Streams.</p>')+
-        card('Einnahmen pro Jahr (geschätzt)','<div class="mrow"><span>Abos (1,50 € pro Abo)</span><b>'+eur(c.subs*1.5)+'</b></div><div class="mrow"><span>Creator-Fonds</span><b>'+eur(sm.fol>=1000?sm.fol*.02:0)+'</b></div><div class="mrow"><span>Sponsoren</span><b>'+eur(sm.studio.manager?sp*.85:sp)+'</b></div><div class="mrow"><span>Merch</span><b>'+eur(sm.studio.merch?(sm.fol*.01+c.subs*.08)*(.5+c.com/100):0)+'</b></div><div class="mrow"><span>Spenden bisher gesamt</span><b>'+eur(c.earn)+'</b></div>');
+        card('Einnahmen pro Jahr (geschätzt)','<div class="mrow"><span>Abos (bis 1,50 € pro Abo)</span><b>'+eur(c.subs*1.5/(1+c.subs/300000))+'</b></div><div class="mrow"><span>Creator-Fonds</span><b>'+eur(sm.fol>=1000?sm.fol*.02:0)+'</b></div><div class="mrow"><span>Sponsoren</span><b>'+eur(sm.studio.manager?sp*.85:sp)+'</b></div><div class="mrow"><span>Merch</span><b>'+eur(sm.studio.merch?(sm.fol*.01+c.subs*.08)*(.5+c.com/100):0)+'</b></div><div class="mrow"><span>Spenden bisher gesamt</span><b>'+eur(c.earn)+'</b></div>');
     }
   }
   if(smTab==='biz'){const max=3+(sm.studio.manager?1:0),reach=sm.fol+(c?c.subs*3:0);
@@ -1691,7 +1698,7 @@ function ageUp(){
       if(p.job)p.job.perf+=Math.sign(50-p.job.perf)*5}}
   const smi=smYear();if(p.job&&p.job.id==='influ')p.job.pay=smi;const BZ=bizYear();
   const azubi=p.azubi?12000:0,pocket=a>=6&&a<18?(cfg().wealth==='arm'?0:cfg().wealth==='reich'?1200:300):0;
-  const gross=sal+azubi+p.pension+smi,tax=gross+BZ.taxable>12000?Math.round((gross+BZ.taxable-12000)*.25):0;
+  const gross=sal+azubi+p.pension+smi,tax=incTax(gross+BZ.taxable);
   const wohnen=Math.round(cityF(1)*(a>=18?px$(HOMES[p.home].c+(p.home==='eltern'?1200:0))+p.owned.filter(k=>k!==p.home).reduce((t,k)=>t+px$(HOMES[k].c),0):0)),kids=p.kids.filter(k=>a-k.b<18).length*3000,
     cars=p.cars.reduce((s,c)=>s+CARS[c].c,0),pets=p.pets.reduce((s,x)=>s+PETS[x.t].c,0),zins=0;
   p.money+=gross-tax-wohnen-kids-cars-pets-zins+pocket;
@@ -1704,7 +1711,7 @@ function ageUp(){
    const why=mv[1]>=0?pick(['Rekordgewinn gemeldet','neuer Großauftrag','Analysten begeistert','Übernahmegerüchte']):pick(['Gewinnwarnung','Chef tritt zurück','Skandal um Produkte','schwaches Jahr']);
    p.mnews.unshift({a:p.age,t:mv[0].n+' '+(mv[1]>=0?'+':'−')+pc+' %: '+why});p.mnews=p.mnews.slice(0,5)}
   R0.inc=[['Gehalt',sal],['Ausbildungsvergütung',azubi],['Rente',p.pension],['Taschengeld',pocket],['Klick: Abos, Sponsoren, Merch & Werbung',smi],['Klick: Deals & Spenden',p.yr.social],['Dividenden',dv],['Sparzinsen',si],['Mieteinnahmen',HY.rent],['Immobilien: Mieten',PY.rent]].concat(BZ.inc,[['Casino-Gewinne',Math.max(0,p.yr.casino)]]);
-  R0.out=[['Steuern',tax],['Wohnen',wohnen],['Kinder',kids],['Autos',cars],['Haustiere',pets],['Kreditraten',BK.raten],['Personal',HY.staff],['Reparaturen',HY.repair],['Immobilien: Unterhalt & Schäden',PY.cost],['Lebensstil & Sport',LY.ls],['Behandlungen',LY.treat]].concat(BZ.out,[['Casino-Verluste',Math.max(0,-p.yr.casino)]]);
+  R0.out=[['Steuern',tax],['Wohnen',wohnen],['Kinder',kids],['Autos',cars],['Haustiere',pets],['Kreditraten',BK.raten],['Personal',HY.staff],['Reparaturen',HY.repair],['Immobilien: Unterhalt & Schäden',PY.cost],['Lebensstil',LY.ls-(LY.gym||0)],['Fitnessstudio-Abo (12 × '+eur((LY.gym||0)/12)+')',LY.gym||0],['Behandlungen',LY.treat]].concat(BZ.out,[['Casino-Verluste',Math.max(0,-p.yr.casino)]]);
   lifeX(R0);p.fin.push({a:p.age,inc:R0.inc.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])]),out:R0.out.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])])});if(p.fin.length>15)p.fin.shift();
   p.yr={social:0,casino:0};
   if(p.money<0){add('gl',-8);if(a>=18){log('Du bist im Minus: '+eur(p.money)+'.');if(!p.parentsGone)msg('mama','Brauchst du Hilfe mit Geld? Sag ruhig Bescheid.')}}
@@ -1841,7 +1848,7 @@ function act(id,arg){
   if(!p||!p.alive)return;CUR=id;
   if(ACTS[id]){const A=ACTS[id];if(!can(id)||!useAct())return;const r=A.f();if(r===null){refundAct();toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg))return;
+  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg)||act12(id,arg))return;
   switch(id){
   case 'goto':tab=arg;if(p.appSeen)p.appSeen[arg]=1;if(arg==='store')p.storeY=p.age;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
@@ -2528,7 +2535,7 @@ function movePick(){dialog('Wohin soll es gehen?','Umzug kostet '+eur(px$(2500))
 
 /* ================= Jahreswechsel ================= */
 function lifeX(R0){ensureLife();
-  worldYear(R0);bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
+  worldYear(R0);bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);{const net=R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0)-((R0.out.find(x=>x[0]==='Steuern')||[0,0])[1]);costYear(R0,net)}mailYear();examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
   ['mama','papa'].forEach(k=>p.rel[k]=Math.max(0,p.rel[k]-2));p.rel.freund=Math.max(0,p.rel.freund-3);
   if(p.age>=8&&p.rel.freund<12){log('Du und '+p.friend+' habt euch aus den Augen verloren.');p.friend=pick(FN.concat(MN).filter(x=>x!==p.friend));p.rel.freund=45;p.chats.freund={msgs:[],un:0};msg('freund','Hi! Wir kennen uns vom Sport. Lust, mal was zu machen?')}
   p.lernN=0;p.skipN=0;if(p.trust&&p.age>=18){p.money+=p.trust;R0.inc.push(['Treuhandfonds der Familie',p.trust]);log('Du bekommst deinen Treuhandfonds: '+eur(p.trust)+'.');p.trust=0}
@@ -2683,6 +2690,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+ {v:'3.0',big:true,t:'Das echte Leben kostet',neu:['Post-App ab 16: Rechnungen, Steuererklärung, Behördenbriefe, Betrugsversuche und Briefe von Oma','Wer Rechnungen ignoriert, bekommt Mahnung, Inkasso und am Ende den Gerichtsvollzieher','Lebenshaltungskosten ab 18: Essen, Kleidung, Handyvertrag, Strom und Internet, Versicherungen, Bus und Bahn, Konsum und Urlaub','Grundsteuer auf alle Immobilien, ab der 4. Immobilie eine zusätzliche Abgabe'],mod:['Einkommensteuer in Stufen: 0, 25, 38 und 45 %','Fitnessstudio kostet jetzt monatlich statt einmalig','Ab 25 verlangen die Eltern Kostgeld, wenn du noch zu Hause wohnst','Wer viel Geld hat, gibt auch mehr aus']},
  {v:'2.9',big:true,t:'Lebendiger Alltag',neu:['Geschäfte neu sortiert: Kopfkarte mit Gewinn, Firmenwert und Hinweisen, dazu 5 Reiter','Chats: Antworten auswählen, Gruppenchats für Familie, Klasse und Kollegen, Einladungen annehmen oder absagen','Jobs: Vorstellungsgespräch, dein Team mit Namen, Kaffeepause, Homeoffice-Tag, Firmenfeier','Hobbys mit 5 Stufen, Wettbewerben und Nebeneinkünften','Geschwister, Pflege der Eltern und Erbe der Eltern','Apps auf dem Handy selbst anordnen','Abschlussprüfung mit 5 Fragen nach Schule, Ausbildung und Studium','Die Stadt lebt: anklickbare Ereignisse, teils passend zu deinem Job','Erinnerungen von oben: Arzt, Sport, Geburtstage, Termine'],mod:['„+1 Jahr“ erscheint nur noch auf dem Handy und in der Stadt']},
  {v:'2.8',big:true,t:'Der App Store',neu:['App Store: Klick, Nachrichten, Börse, Geschäfte, Casino, Karriere, Wohnen, Garage und Straße lädst du dir, wenn du sie willst','Apps wachsen mit deinem Alter: Als Kind siehst du nur wenige, neue Apps landen mit „Neu“-Markierung auf dem Handy','Speicherplatz je nach Handy: 2, 4, 7 oder 9 Store-Apps','Empfehlungen im Store passend zu deinem Leben','Börse Pro mit Kursalarmen','Fahrschule im App Store bei der Garage'],mod:['Apps, die du schon benutzt hast, sind automatisch installiert','Gelöschte Apps behalten ihre Daten']},
  {v:'2.7',big:true,t:'Unternehmer-Update',neu:['Filialen für alle Geschäfte, ab 5 Standorten Franchise mit Lizenzgebühren','Eigene Produkte im Onlineshop (bis zu 4) mit Preisstufe, Qualität und Bewertungen','Bankfilialen: mehr Kundengelder, mehr Gewinn','Marketing-Kampagnen von Flyern bis TV-Spot','Konkurrenz mit Preiskampf, Aufkauf, Qualität oder, mit krimineller Vergangenheit, Sabotage und Einschüchterung','Kundenbewertungen mit Sternen und Mitarbeiter-Ereignisse','Geschäfte verkaufen oder an dein Kind vererben','Eigene Produktion als Lieferkette'],mod:['Immobilien-Ausbau braucht echte Bauzeit: während der Bauarbeiten weniger Miete, die neue Miete gilt erst ab dem Jahr danach','Der Code ist jetzt in 35 Module aufgeteilt']},
@@ -2903,7 +2911,7 @@ function act8(id,arg){const B=p.biz;if(!B)return 0;ensurePlus();const lock=!!p.p
   }return 0}
 /* ================= App Store, Altersfreigaben und Speicherplatz ================= */
 // Grund-Apps: immer installiert, erscheinen ab einem Alter
-const APPMIN={leben:0,familie:0,bildung:0,freizeit:0,kalender:0,erfolge:0,einst:0,chats:4,stadt:6,store:8,shop:8,liebe:13,jobs:13,bank:16};
+const APPMIN={post:16,leben:0,familie:0,bildung:0,freizeit:0,kalender:0,erfolge:0,einst:0,chats:4,stadt:6,store:8,shop:8,liebe:13,jobs:13,bank:16};
 // Store-Apps: [Kurzbeschreibung, ab Alter, Größe, Bewertung, Funktionen]
 const OPT={
  klick:['Social Media: Posts, Livestreams, Follower und Sponsoren.',13,'48 MB',4.6,['Eigenes Profil mit Posts','Kanal mit Livestreams und Videos','Sponsoren, Merch und Influencer-Karriere']],
@@ -3184,6 +3192,78 @@ function act11(id,arg){switch(id){
   case 'bizself':bizSelF=arg||null;bizTab='laeden';render();return 1;
   case 'bizbuy':bizBuy=!bizBuy;render();return 1;
   }return 0}
+/* ================= Kosten des Lebens, Steuern und Post ================= */
+// Einkommensteuer mit Stufen (Grenzen wachsen mit der Inflation)
+const INCTAX=[[12000,0],[60000,.25],[250000,.38],[1e15,.45]];
+function incTax(x){let t=0,prev=0;for(const [lim0,r] of INCTAX){const lim=lim0>1e14?lim0:px$(lim0);if(x>prev)t+=(Math.min(x,lim)-prev)*r;prev=lim}return Math.round(t)}
+// Lebenshaltungskosten ab 18
+function livingCosts(net){const a=p.age;if(a<18||p.prison)return [];const home=p.home==='eltern',cf=cityF(1),L=[];
+  L.push([home?(a>=25?'Kostgeld an die Eltern':'Essen und Haushalt (bei den Eltern)'):'Essen und Haushalt',Math.round(px$(home?(a>=25?3600:a>=21?2400:1200):3600)*(home?1:cf))]);
+  L.push(['Kleidung und Pflege',px$(900)]);
+  const ph=[0,240,420,600][phoneTier()];if(ph)L.push(['Handyvertrag ('+PHONES[phoneTier()][0]+')',px$(ph)]);
+  if(!home&&p.home!=='wohnheim')L.push(['Strom und Internet',Math.round(px$(1300)*cf)]);
+  L.push(['Versicherungen',px$(600)]);if(!p.cars.length)L.push(['Bus und Bahn',px$(700)]);
+  const kon=Math.round(Math.max(0,net)*.25+Math.max(0,p.money-px$(250000))*.015);if(kon)L.push(['Konsum, Ausgehen und Urlaub',kon]);
+  return L}
+// Steuern auf Immobilienbesitz
+function propTaxes(){const L=[];let g=0;const vals=(p.props||[]).map(pr=>pr.val).concat((p.owned||[]).map(k=>HOMES[k]&&HOMES[k].buy?px$(HOMES[k].buy):0)).filter(v=>v>0);
+  vals.forEach(v=>g+=v*.0035);if(g)L.push(['Grundsteuer ('+vals.length+' Objekt'+(vals.length>1?'e':'')+')',Math.round(g)]);
+  if(vals.length>3){const extra=vals.sort((x,y)=>y-x).slice(3).reduce((s,v)=>s+v*.01,0);L.push(['Abgabe auf Mehrfachbesitz (ab der 4. Immobilie)',Math.round(extra)])}
+  return L}
+function costYear(R0,net){const L=livingCosts(net).concat(propTaxes());L.forEach(([n,c])=>{if(net<=0&&n==='Kostgeld an die Eltern')c=Math.round(c/3);p.money-=c;R0.out.push([n,c])});
+  if(p.age>=18&&!p.prison&&net<px$(6000)&&p.money<px$(5000)&&!p.study&&p.age<67){const b=px$(6500)-Math.max(0,net);if(b>0){p.money+=b;R0.inc.push(['Bürgergeld (Grundsicherung)',b])}}}
+
+/* ---------- Post: Briefe, Rechnungen, Mahnungen ---------- */
+const MAIL={
+ rundfunk:['Rundfunkbeitrag','Beitragsservice','Der Rundfunkbeitrag für das Jahr ist fällig.',1,()=>220],
+ steuer:['Steuererklärung','Finanzamt','Bitte reichen Sie Ihre Steuererklärung ein. Oft gibt es Geld zurück.',2,()=>0],
+ arzt:['Arztrechnung','Praxis Dr. Weber','Rechnung für Ihre letzte Behandlung.',1,()=>R(80,350)],
+ knoellchen:['Strafzettel','Ordnungsamt','Falschparken in der Innenstadt.',1,()=>R(30,90)],
+ kfz:['Kfz-Steuer','Hauptzollamt','Die Kfz-Steuer für Ihr Fahrzeug ist fällig.',1,()=>R(120,400)],
+ nebenkosten:['Nebenkostenabrechnung','Hausverwaltung','Ihre Nebenkostenabrechnung für das letzte Jahr.',1,()=>R(-300,700)],
+ handy:['Handyrechnung','Mobilfunkanbieter','Zusatzkosten: Sie haben Ihr Datenvolumen überschritten.',1,()=>R(20,120)],
+ gewinn:['Sie haben gewonnen!','Glücks-Zentrale','Sie haben 10.000 € gewonnen! Überweisen Sie nur 49 € Bearbeitungsgebühr.',3,()=>49],
+ oma:['Brief von Oma','Oma','Ein Brief mit krakeliger Schrift. Es fällt ein Geldschein heraus.',4,()=>50],
+ werbung:['Werbung','Möbelhaus XXL','Riesiger Räumungsverkauf! Alles muss raus!',5,()=>0],
+ schaetzung:['Steuerschätzung','Finanzamt','Weil keine Steuererklärung kam, wurde Ihre Steuer geschätzt. Bitte zahlen Sie die Nachzahlung.',1,()=>0]};
+const MSTAGE=['Rechnung','1. Mahnung','Inkasso','Gerichtsvollzieher'];
+function mailYear(){if(p.age<16||p.prison)return;p.mail=p.mail||[];const a=p.age,nw=[];
+  // Unbeantwortete Briefe eskalieren
+  p.mail=p.mail.filter(m=>{const M=MAIL[m.k];if(!M)return false;
+    if(M[3]>=3)return false;
+    if(M[3]===2){const pen=px$(R(600,1800));nw.push({k:'schaetzung',amt:pen,st:0,id:R(1,1e9),y:a});log('Steuererklärung nicht abgegeben: Das Finanzamt hat geschätzt. Nachzahlung '+eur(pen)+'.');p.bon=Math.max(0,p.bon-3);return false}
+    if(m.amt<=0)return false;
+    m.st++;if(m.st===1){m.amt+=40;p.bon=Math.max(0,p.bon-3);log('Mahnung: '+M[0]+' ist überfällig (+40 € Gebühr).')}
+    else if(m.st===2){m.amt=m.amt*2+100;p.bon=Math.max(0,p.bon-8);log('Inkasso! Die offene Rechnung „'+M[0]+'“ liegt jetzt beim Inkassobüro: '+eur(m.amt)+'.');msg('mama','Hast du deine Post nicht geöffnet? Da kam was vom Inkasso …')}
+    else{const v=Math.round(m.amt*1.3);p.money-=v;p.bon=Math.max(0,p.bon-15);addRuf(-3);add('gl',-6);log('Der Gerichtsvollzieher war da und hat '+eur(v)+' gepfändet.');news('Gerichtsvollzieher im Viertel','lokal');return false}
+    m.y=a;return true});p.mail=p.mail.concat(nw);
+  const add2=k=>{const M=MAIL[k];p.mail.push({k,amt:px$(M[4]()),st:0,id:R(1,1e9),y:a})};
+  if(a>=18&&p.home!=='eltern')add2('rundfunk');if(p.job||p.pension||p.biz&&p.biz.co)add2('steuer');
+  if(p.cars.length){add2('kfz');if(ch(.35))add2('knoellchen')}if(p.home!=='eltern'&&p.home!=='wohnheim'&&ch(.6))add2('nebenkosten');
+  if(Object.keys(p.ill||{}).length&&ch(.5))add2('arzt');if(phoneTier()&&ch(.25))add2('handy');
+  if(ch(.25))add2('gewinn');if(a<30&&!p.parentsGone&&ch(.3))add2('oma');if(ch(.4))add2('werbung');
+  p.mail=p.mail.slice(-14)}
+const mailOpen=()=>(p.mail||[]).filter(m=>MAIL[m.k]&&MAIL[m.k][3]<=2).length;
+function viewPost(){p.mail=p.mail||[];const lock=!!p.prison;const bills=p.mail.filter(m=>MAIL[m.k]&&MAIL[m.k][3]===1&&m.amt>0),sum=bills.reduce((s,m)=>s+m.amt,0);
+  let h='<section class="card postsum"><div class="listseg"><div><b>Briefkasten</b><small>'+(p.mail.length?p.mail.length+' Brief(e)':'Leer')+'</small></div>'+(bills.length?btn('mailpayall',null,'Alle bezahlen · '+eur(sum),'o',lock||p.money<sum):'<span class="chip">Alles erledigt</span>')+'</div>'+
+    '<p class="note">Unbezahlte Rechnungen werden zur Mahnung, dann geht es zum Inkasso und am Ende kommt der Gerichtsvollzieher. Jeder Brief kostet 10 Minuten.</p></section>';
+  if(!p.mail.length)return h+card('','<p class="note">Keine Post. Herrlich.</p>');
+  h+=p.mail.map((m,i)=>{const M=MAIL[m.k];if(!M)return '';const st=m.st||0;
+    let act='';if(M[3]===1)act=m.amt>0?btn('mailpay',i,'Bezahlen · '+eur(m.amt),'o',lock||p.money<m.amt):btn('mailpay',i,'Gutschrift '+eur(-m.amt)+' annehmen','o',lock);
+    else if(M[3]===2)act=btn('mailtax',i,'Erklärung machen (1 Std.)','o',lock);else if(M[3]===3)act=btn('mailpay',i,'49 € überweisen','',lock)+btn('mailtrash',i,'Wegwerfen','g');
+    else if(M[3]===4)act=btn('mailpay',i,'Öffnen','o',lock);else act=btn('mailtrash',i,'Wegwerfen','g');
+    return '<section class="card letter st'+st+'"><div class="lh"><span class="lic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><div><small>'+esc(M[1])+(st?' · <b class="down">'+MSTAGE[st]+'</b>':'')+'</small><b>'+esc(st?MSTAGE[st]+': '+M[0]:M[0])+'</b></div></div><p class="note">'+esc(M[2])+'</p><div class="btns">'+act+'</div></section>'}).join('');
+  return h}
+function act12(id,arg){const lock=!!p.prison;if(id.startsWith('mail')){if(lock)return 1;p.mail=p.mail||[]}switch(id){
+  case 'mailpay':{const m=p.mail[+arg];if(!m)return 1;const M=MAIL[m.k];if(m.amt>0&&p.money<m.amt)return 1;if(!spendTime(10))return 1;
+    if(M[3]===3){p.money-=m.amt;p.mail.splice(+arg,1);add('gl',-5);done('Du hast 49 € überwiesen. Die 10.000 € kommen nie an. Es war Betrug.');return 1}
+    if(M[3]===4){p.money+=m.amt;p.mail.splice(+arg,1);add('gl',4);done('Oma schreibt, dass sie stolz auf dich ist. Und legt '+eur(m.amt)+' bei.');return 1}
+    p.money-=m.amt;p.mail.splice(+arg,1);done(m.amt>=0?M[0]+' bezahlt: '+eur(m.amt)+'.':'Gutschrift: '+eur(-m.amt)+' zurück.');return 1}
+  case 'mailpayall':{const bills=p.mail.filter(m=>MAIL[m.k]&&MAIL[m.k][3]===1);const sum=bills.reduce((s,m)=>s+m.amt,0);if(p.money<sum)return 1;if(!spendTime(10*bills.length))return 1;p.money-=sum;p.mail=p.mail.filter(m=>!bills.includes(m));done(bills.length+' Rechnung(en) bezahlt: '+eur(sum)+'.');return 1}
+  case 'mailtax':{const m=p.mail[+arg];if(!m||!spendTime(60))return 1;mgStart('rechnen',3,'Steuererklärung',(s,auto)=>{const v=px$(R(150,500))*(s+1);p.money+=v;p.mail=p.mail.filter(x=>x!==m);log('Steuererklärung abgegeben: '+eur(v)+' Rückzahlung.');save();render();dialog('Steuererklärung',s+' von 3 Belegen richtig zugeordnet. Das Finanzamt erstattet dir '+eur(v)+'.',[['Super',null]])});return 1}
+  case 'mailtrash':{const m=p.mail[+arg];if(!m)return 1;p.mail.splice(+arg,1);render();return 1}
+  }return 0}
+APPTIP.post='Hier landen Rechnungen, Behördenbriefe und Werbung. Bezahl Rechnungen rechtzeitig, sonst kommen Mahnungen, Inkasso und Gerichtsvollzieher. Vorsicht vor Betrug!';
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],
@@ -3206,6 +3286,7 @@ const APPS=[
 ['garage','Garage',0x6B7385,'<path d="M5 16l1.5-5a2 2 0 0 1 2-1.5h7a2 2 0 0 1 2 1.5L19 16"/><rect x="3" y="16" width="18" height="4" rx="1.5"/><circle cx="7.5" cy="20" r="1"/><circle cx="16.5" cy="20" r="1"/>'],
 ['shop','Shop',0xC2408C,'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'],
 ['erfolge','Erfolge',0x8E63D6,'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/>'],
+['post','Post',0xC9A227,'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>','linear-gradient(135deg,#F2B33D,#C9A227)'],
 ['store','App Store',0x2B9ED8,'<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 15l3-7 3 7M10 13h4"/>','linear-gradient(135deg,#3FD0A4,#0E9F7E)'],
 ['einst','Einstellungen',0x6B7385,'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>']];
 const APP=Object.fromEntries(APPS.map(a=>[a[0],a]));
@@ -3273,7 +3354,7 @@ function viewChats(){
 }
 const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>(clockOn()?clockTxt()+' · ':'')+(unl()&&n>0?'∞ Aktionen':n===1?'1 Aktion':n+' Aktionen');
-function badgeOf(id){if(id==='store')return p.storeY===p.age?0:recs().length;if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();if(id==='news')return p.newsUn||0;if(id==='erfolge')return p.newUL||0;if(id==='kalender')return openBd();return 0}
+function badgeOf(id){if(id==='post')return mailOpen();if(id==='store')return p.storeY===p.age?0:recs().length;if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();if(id==='news')return p.newsUn||0;if(id==='erfolge')return p.newUL||0;if(id==='kalender')return openBd();return 0}
 function viewHome(){
   const last=p.log.filter(e=>!e.t.startsWith('Jahresbilanz')).slice(-1)[0];
   const ring=k=>'<div class="rw"><div class="ring" style="--v:'+p.st[k]+'"><b>'+p.st[k]+'</b></div><small>'+STAT[k]+'</small></div>';
@@ -3286,7 +3367,7 @@ function viewHome(){
 }
 function viewApp(id){
   const V={
-  chats:viewChats,store:viewStore,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
+  chats:viewChats,store:viewStore,post:viewPost,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
   leben:viewLeben,
   stadt:viewStadt,
   jobs:()=>{let h='';

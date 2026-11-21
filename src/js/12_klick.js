@@ -82,7 +82,7 @@ function doLive(){const sm=p.sm;if(!sm||p.prison||!sm.ch)return;ensureSm();const
 function sponPay(S){const sm=p.sm,c=sm.ch;return Math.round(((sm.fol+(c?c.subs:0)*3)*S[3]/10)*(sm.studio.manager?1.2:1)/10)*10+200}
 function smYear(){const sm=p.sm;if(!sm)return 0;ensureSm();let inc=0;
   inc+=Math.round(sm.yv*.01);if(sm.fol>=1000)inc+=Math.round(sm.fol*.02);
-  const c=sm.ch;if(c){inc+=Math.round(c.subs*1.5);const miss=c.plan.filter(i=>!c.done.includes(i)).length;if(miss){c.streak=0;c.com=Math.max(0,c.com-8*miss);log('Klick: '+miss+' geplante(r) Stream(s) ausgefallen. Die Community ist enttäuscht.')}
+  const c=sm.ch;if(c){inc+=Math.round(c.subs*1.5/(1+c.subs/300000));const miss=c.plan.filter(i=>!c.done.includes(i)).length;if(miss){c.streak=0;c.com=Math.max(0,c.com-8*miss);log('Klick: '+miss+' geplante(r) Stream(s) ausgefallen. Die Community ist enttäuscht.')}
     if(sm.studio.mods)c.com=Math.min(100,c.com+5);c.hist.push(c.subs);if(c.hist.length>30)c.hist.shift();c.sl=streamBudget();c.done=[];c.ann=[]}
   let sp=0;sm.spon.forEach(k=>{const S=SPONS.find(x=>x[0]===k);if(!S)return;sp+=sponPay(S);if(S[4]){sm.trust=Math.max(10,sm.trust-8);if(c)c.com=Math.max(0,c.com-5)}});
   if(sm.studio.manager)sp=Math.round(sp*.85);inc+=sp;
@@ -148,7 +148,7 @@ function viewKlick(){
     if(chSub==='stats'){const sp=sm.spon.reduce((s,k)=>{const S=SPONS.find(x=>x[0]===k);return s+(S?sponPay(S):0)},0);
       h+=card('Abonnenten pro Jahr',c.hist.length>1?lineSvg(c.hist.slice(-15),110,true,'neu'):'<p class="note">Nach dem ersten Jahr siehst du hier deine Kurve.</p>')+
         card('Zuschauer pro Stream',c.vh.length?bars(c.vh)+'<p class="note">Rekord: '+kfmt(c.rec)+' Zuschauer gleichzeitig.</p>':'<p class="note">Noch keine Streams.</p>')+
-        card('Einnahmen pro Jahr (geschätzt)','<div class="mrow"><span>Abos (1,50 € pro Abo)</span><b>'+eur(c.subs*1.5)+'</b></div><div class="mrow"><span>Creator-Fonds</span><b>'+eur(sm.fol>=1000?sm.fol*.02:0)+'</b></div><div class="mrow"><span>Sponsoren</span><b>'+eur(sm.studio.manager?sp*.85:sp)+'</b></div><div class="mrow"><span>Merch</span><b>'+eur(sm.studio.merch?(sm.fol*.01+c.subs*.08)*(.5+c.com/100):0)+'</b></div><div class="mrow"><span>Spenden bisher gesamt</span><b>'+eur(c.earn)+'</b></div>');
+        card('Einnahmen pro Jahr (geschätzt)','<div class="mrow"><span>Abos (bis 1,50 € pro Abo)</span><b>'+eur(c.subs*1.5/(1+c.subs/300000))+'</b></div><div class="mrow"><span>Creator-Fonds</span><b>'+eur(sm.fol>=1000?sm.fol*.02:0)+'</b></div><div class="mrow"><span>Sponsoren</span><b>'+eur(sm.studio.manager?sp*.85:sp)+'</b></div><div class="mrow"><span>Merch</span><b>'+eur(sm.studio.merch?(sm.fol*.01+c.subs*.08)*(.5+c.com/100):0)+'</b></div><div class="mrow"><span>Spenden bisher gesamt</span><b>'+eur(c.earn)+'</b></div>');
     }
   }
   if(smTab==='biz'){const max=3+(sm.studio.manager?1:0),reach=sm.fol+(c?c.subs*3:0);

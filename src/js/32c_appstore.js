@@ -1,6 +1,6 @@
 /* ================= App Store, Altersfreigaben und Speicherplatz ================= */
 // Grund-Apps: immer installiert, erscheinen ab einem Alter
-const APPMIN={leben:0,familie:0,bildung:0,freizeit:0,kalender:0,erfolge:0,einst:0,chats:4,stadt:6,store:8,shop:8,liebe:13,jobs:13,bank:16};
+const APPMIN={post:16,leben:0,familie:0,bildung:0,freizeit:0,kalender:0,erfolge:0,einst:0,chats:4,stadt:6,store:8,shop:8,liebe:13,jobs:13,bank:16};
 // Store-Apps: [Kurzbeschreibung, ab Alter, Größe, Bewertung, Funktionen]
 const OPT={
  klick:['Social Media: Posts, Livestreams, Follower und Sponsoren.',13,'48 MB',4.6,['Eigenes Profil mit Posts','Kanal mit Livestreams und Videos','Sponsoren, Merch und Influencer-Karriere']],

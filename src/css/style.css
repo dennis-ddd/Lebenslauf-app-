@@ -613,3 +613,10 @@ small{font-size:max(12.5px,1em*.8)}
 .dirty.slim .bigd{font-size:22px}.dirty.slim small{display:block;color:var(--muted);font-weight:600}
 .ibtn{width:40px;height:40px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);font-weight:900;font-style:italic;font-family:Georgia,serif;font-size:18px;flex:none}
 .but .stars{margin:3px 0 0}.dirty.slim small{color:#CFC8DA!important}.dirty.slim .lbl{color:#FFB3B3}
+
+/* Post */
+.postsum .listseg>div b{display:block;font-weight:900;font-size:17px}.postsum .listseg>div small{display:block;color:var(--muted);font-weight:600}
+.letter{display:flex;flex-direction:column;gap:6px;border-left:6px solid #C9A227}
+.letter.st1{border-left-color:#F28C28}.letter.st2{border-left-color:#D64545}.letter.st3{border-left-color:#7A1F1F}
+.lh{display:flex;gap:12px;align-items:center}.lh small{display:block;color:var(--muted);font-weight:700;font-size:13px}.lh>div b{display:block;font-weight:900;font-size:16px}
+.lic{width:40px;height:40px;border-radius:12px;background:light-dark(#FFF4D6,#3A2E12);color:#A8851A;display:grid;place-items:center;flex:none}

@@ -23,7 +23,7 @@ function ageUp(){
       if(p.job)p.job.perf+=Math.sign(50-p.job.perf)*5}}
   const smi=smYear();if(p.job&&p.job.id==='influ')p.job.pay=smi;const BZ=bizYear();
   const azubi=p.azubi?12000:0,pocket=a>=6&&a<18?(cfg().wealth==='arm'?0:cfg().wealth==='reich'?1200:300):0;
-  const gross=sal+azubi+p.pension+smi,tax=gross+BZ.taxable>12000?Math.round((gross+BZ.taxable-12000)*.25):0;
+  const gross=sal+azubi+p.pension+smi,tax=incTax(gross+BZ.taxable);
   const wohnen=Math.round(cityF(1)*(a>=18?px$(HOMES[p.home].c+(p.home==='eltern'?1200:0))+p.owned.filter(k=>k!==p.home).reduce((t,k)=>t+px$(HOMES[k].c),0):0)),kids=p.kids.filter(k=>a-k.b<18).length*3000,
     cars=p.cars.reduce((s,c)=>s+CARS[c].c,0),pets=p.pets.reduce((s,x)=>s+PETS[x.t].c,0),zins=0;
   p.money+=gross-tax-wohnen-kids-cars-pets-zins+pocket;
@@ -36,7 +36,7 @@ function ageUp(){
    const why=mv[1]>=0?pick(['Rekordgewinn gemeldet','neuer Großauftrag','Analysten begeistert','Übernahmegerüchte']):pick(['Gewinnwarnung','Chef tritt zurück','Skandal um Produkte','schwaches Jahr']);
    p.mnews.unshift({a:p.age,t:mv[0].n+' '+(mv[1]>=0?'+':'−')+pc+' %: '+why});p.mnews=p.mnews.slice(0,5)}
   R0.inc=[['Gehalt',sal],['Ausbildungsvergütung',azubi],['Rente',p.pension],['Taschengeld',pocket],['Klick: Abos, Sponsoren, Merch & Werbung',smi],['Klick: Deals & Spenden',p.yr.social],['Dividenden',dv],['Sparzinsen',si],['Mieteinnahmen',HY.rent],['Immobilien: Mieten',PY.rent]].concat(BZ.inc,[['Casino-Gewinne',Math.max(0,p.yr.casino)]]);
-  R0.out=[['Steuern',tax],['Wohnen',wohnen],['Kinder',kids],['Autos',cars],['Haustiere',pets],['Kreditraten',BK.raten],['Personal',HY.staff],['Reparaturen',HY.repair],['Immobilien: Unterhalt & Schäden',PY.cost],['Lebensstil & Sport',LY.ls],['Behandlungen',LY.treat]].concat(BZ.out,[['Casino-Verluste',Math.max(0,-p.yr.casino)]]);
+  R0.out=[['Steuern',tax],['Wohnen',wohnen],['Kinder',kids],['Autos',cars],['Haustiere',pets],['Kreditraten',BK.raten],['Personal',HY.staff],['Reparaturen',HY.repair],['Immobilien: Unterhalt & Schäden',PY.cost],['Lebensstil',LY.ls-(LY.gym||0)],['Fitnessstudio-Abo (12 × '+eur((LY.gym||0)/12)+')',LY.gym||0],['Behandlungen',LY.treat]].concat(BZ.out,[['Casino-Verluste',Math.max(0,-p.yr.casino)]]);
   lifeX(R0);p.fin.push({a:p.age,inc:R0.inc.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])]),out:R0.out.filter(x=>x[1]>0).map(x=>[x[0],Math.round(x[1])])});if(p.fin.length>15)p.fin.shift();
   p.yr={social:0,casino:0};
   if(p.money<0){add('gl',-8);if(a>=18){log('Du bist im Minus: '+eur(p.money)+'.');if(!p.parentsGone)msg('mama','Brauchst du Hilfe mit Geld? Sag ruhig Bescheid.')}}

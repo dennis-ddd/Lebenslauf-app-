@@ -20,6 +20,7 @@ const APPS=[
 ['garage','Garage',0x6B7385,'<path d="M5 16l1.5-5a2 2 0 0 1 2-1.5h7a2 2 0 0 1 2 1.5L19 16"/><rect x="3" y="16" width="18" height="4" rx="1.5"/><circle cx="7.5" cy="20" r="1"/><circle cx="16.5" cy="20" r="1"/>'],
 ['shop','Shop',0xC2408C,'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'],
 ['erfolge','Erfolge',0x8E63D6,'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/>'],
+['post','Post',0xC9A227,'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>','linear-gradient(135deg,#F2B33D,#C9A227)'],
 ['store','App Store',0x2B9ED8,'<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 15l3-7 3 7M10 13h4"/>','linear-gradient(135deg,#3FD0A4,#0E9F7E)'],
 ['einst','Einstellungen',0x6B7385,'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>']];
 const APP=Object.fromEntries(APPS.map(a=>[a[0],a]));
@@ -87,7 +88,7 @@ function viewChats(){
 }
 const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>(clockOn()?clockTxt()+' · ':'')+(unl()&&n>0?'∞ Aktionen':n===1?'1 Aktion':n+' Aktionen');
-function badgeOf(id){if(id==='store')return p.storeY===p.age?0:recs().length;if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();if(id==='news')return p.newsUn||0;if(id==='erfolge')return p.newUL||0;if(id==='kalender')return openBd();return 0}
+function badgeOf(id){if(id==='post')return mailOpen();if(id==='store')return p.storeY===p.age?0:recs().length;if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();if(id==='news')return p.newsUn||0;if(id==='erfolge')return p.newUL||0;if(id==='kalender')return openBd();return 0}
 function viewHome(){
   const last=p.log.filter(e=>!e.t.startsWith('Jahresbilanz')).slice(-1)[0];
   const ring=k=>'<div class="rw"><div class="ring" style="--v:'+p.st[k]+'"><b>'+p.st[k]+'</b></div><small>'+STAT[k]+'</small></div>';
@@ -100,7 +101,7 @@ function viewHome(){
 }
 function viewApp(id){
   const V={
-  chats:viewChats,store:viewStore,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
+  chats:viewChats,store:viewStore,post:viewPost,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
   leben:viewLeben,
   stadt:viewStadt,
   jobs:()=>{let h='';
