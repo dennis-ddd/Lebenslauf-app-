@@ -1,7 +1,7 @@
 // Lebenslauf – Service Worker
 // Die Spielseite wird immer zuerst aus dem Netz geladen (so kommen Updates sofort an)
 // und nur offline aus dem Speicher. Bibliotheken und Schriften kommen aus dem Speicher.
-const VERSION = 'lebenslauf-v2';
+const VERSION = 'lebenslauf-v3';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', e => {
