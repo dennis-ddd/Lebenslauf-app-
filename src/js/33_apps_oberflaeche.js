@@ -61,7 +61,7 @@ function placeCard(id){
   return h+'</section>';
 }
 function viewStadt(){
-  let h='';
+  let h=cevStrip();
   if(cityMode==='list'||!G){
     h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">'+esc(cityName(p.seed))+'</h2>'+(G?'<div class="seg" style="border:2px solid var(--line)">'+['3d','2d','list'].map(m=>'<button data-a="mode" data-g="'+m+'" aria-pressed="'+(cityMode===m)+'">'+(m==='list'?'Liste':m.toUpperCase())+'</button>').join('')+'</div>':'')+'</div>'+
       (G?'':'<p class="note" style="margin:6px 0">Die 3D-Ansicht läuft auf diesem Gerät nicht, hier sind alle Orte als Liste.</p>')+
@@ -81,9 +81,9 @@ function viewChats(){
     const qa=(acts[c.id]||[['call','Anrufen']]).map(([k,l])=>btn(k==='time'?'time':k,c.id,l,'o',k==='love'?p.loveA===p.age||!!p.prison:(p.act<=0||!!p.prison))).join('');
     return '<section class="chat"><header><button class="back" data-a="chat" data-g="" aria-label="Alle Chats"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="cav" style="background:'+c.col+'">'+esc(c.n[0])+'</span><div><b>'+esc(c.n)+'</b><small>'+esc(c.sub||'')+'</small></div></header>'+
       '<div class="bubbles">'+(c.msgs.length?c.msgs.slice(-25).map(m=>'<div class="bub'+(m.me?' me':'')+'">'+esc(m.t)+'<small>Alter '+m.a+'</small></div>').join(''):'<p class="note" style="text-align:center">Noch keine Nachrichten.</p>')+'</div>'+
-      (qa?'<div class="qa">'+qa+'</div>':'')+'</section>';
+      chatExtra(c)+(qa&&!c.id.startsWith('g_')?'<div class="qa">'+qa+'</div>':'')+'</section>';
   }
-  return '<section class="card clist">'+cs.map(c=>{const l=c.msgs[c.msgs.length-1];return '<button class="crow" data-a="chat" data-g="'+c.id+'"><span class="cav" style="background:'+c.col+'">'+esc(c.n[0])+'</span><span class="ct"><b>'+esc(c.n)+'</b><small>'+(l?(l.me?'Du: ':'')+esc(l.t):esc(c.sub||''))+'</small></span>'+(c.un?'<span class="badge">'+c.un+'</span>':'')+'</button>'}).join('')+'</section>';
+  return '<section class="card clist">'+cs.map(c=>{const l=c.msgs[c.msgs.length-1];return '<button class="crow" data-a="chat" data-g="'+c.id+'"><span class="cav" style="background:'+c.col+'">'+esc(c.n[0])+'</span><span class="ct"><b>'+esc(c.n)+'</b><small>'+(l?(l.me?'Du: ':'')+esc(l.t):esc(c.sub||''))+'</small></span>'+(c.un?'<span class="badge">'+c.un+'</span>':(p.chats[c.id]&&p.chats[c.id].inv?'<span class="badge nb">Einladung</span>':''))+'</button>'}).join('')+'</section>';
 }
 const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>(clockOn()?clockTxt()+' · ':'')+(unl()&&n>0?'∞ Aktionen':n===1?'1 Aktion':n+' Aktionen');
@@ -95,8 +95,8 @@ function viewHome(){
     dayBar()+'<div class="rings">'+Object.keys(STAT).map(ring).join('')+'</div>'+
     (last?'<button class="news" data-a="goto" data-g="leben"><small>Neuigkeit · Alter '+last.a+'</small>'+esc(last.t)+'</button>':'')+
     (p.prison?'<p class="pnote">Du sitzt noch '+p.prison+' Jahr(e) im Gefängnis. Einige Apps sind gesperrt.</p>':'')+
-    '<div class="apps">'+APPS.filter(a=>appVisible(a[0])).map(([id,n,c,ic,bg])=>{const lock=p.prison&&!PRISON_APPS.includes(id),b=badgeOf(id),nw=p.appSeen&&p.appSeen[id]===0;
-      return '<button class="app'+(nw?' newapp':'')+'" data-a="goto" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div></section>';
+    '<div class="apps'+(editApps?' edit':'')+'">'+orderedApps().filter(a=>appVisible(a[0])).map(([id,n,c,ic,bg])=>{const lock=p.prison&&!PRISON_APPS.includes(id)&&!editApps,b=editApps?0:badgeOf(id),nw=!editApps&&p.appSeen&&p.appSeen[id]===0;
+      return '<button class="app'+(nw?' newapp':'')+(editApps&&swapSel===id?' pick':'')+'" data-a="'+(editApps?'appswap':'goto')+'" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div><div class="phb">'+(editApps?'<span class="note">'+(swapSel?'Tippe auf den neuen Platz':'Tippe eine App an, dann ihren neuen Platz')+'</span>'+btn('appreset',null,'Zurücksetzen','g')+btn('appedit',null,'Fertig','o'):btn('appedit',null,'Apps anordnen','g'))+'</div></section>';
 }
 function viewApp(id){
   const V={
@@ -108,6 +108,7 @@ function viewApp(id){
     if(p.job&&p.job.id==='influ')h+='<section class="card"><div class="lbl">AKTUELLER JOB</div>'+row('Influencer/in','seit '+p.job.yrs+' Jahr(en) · letztes Jahr '+eur(p.job.pay)+' aus Klick')+'<div class="btns">'+btn('goto','klick','Zu Klick','o')+btn('quit',null,'Aufhören','g')+'</div></section>';
     else if(p.job){const rk=p.job.rank||1;h+='<section class="card"><div class="lbl">DEIN JOB</div>'+row(esc(p.job.t),RANKN[rk-1]+' · seit '+p.job.yrs+' Jahr(en) · Leistung '+p.job.perf+' %','<span class="num" style="color:var(--blueText)">'+eur(p.job.pay)+'</span>')+
       '<div class="segs big4">'+[1,2,3,4].map(i=>'<i class="'+(i<=rk?'on':'')+'"></i>').join('')+'</div><p class="note" style="margin:6px 0">Rang '+rk+' von 4 · '+(rk<4?'Gute Leistung bringt Beförderungen mit 20 % mehr Gehalt.':'Ganz oben.')+'</p>'+'<div class="btns">'+btn('work',null,'Schicht (Minispiel)','o',p.act<=0||!!p.prison)+btn('quit',null,'Kündigen','g')+'</div></section>'}
+    h+=jobExtra();
     return h+card('Stellenangebote',JOBS.map(j=>{const r=canJob(j);return row(j.t+(j.part?' (Teilzeit)':''),r||(j.id==='influ'?'Einkommen aus Klick, 1,5× Reichweite':eur(j.pay)+' pro Jahr'),btn('apply',j.id,'Bewerben','o',!!r||p.act<=0||!!(p.job&&p.job.id===j.id)))}).join(''))},
   bildung:viewBildung,
   liebe:()=>{let h='';
@@ -140,7 +141,7 @@ function holdButton(b,fn){const MS=650;let t=null,st=0;
   b.addEventListener('click',e=>e.preventDefault());
 }
 function buildShell(){
-  document.getElementById('app').innerHTML='<header class="top" id="hd"></header><main id="view"></main><div id="city"><div id="cv"></div><div class="ctl"><div class="cname" id="cname"></div><div class="seg" id="cseg"></div></div>'+
+  document.getElementById('app').innerHTML='<header class="top" id="hd"></header><main id="view"></main><div id="ntf" class="ntf" role="status"></div><div id="city"><div id="cv"></div><div id="cev" class="cev"></div><div class="ctl"><div class="cname" id="cname"></div><div class="seg" id="cseg"></div></div>'+
     '<div class="rot"><button aria-label="Drehen" id="rotL"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7"/><path d="M4 4v4h4"/></svg></button><button aria-label="Zum Zuhause" id="ctr"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button></div></div>'+
     '<main id="view2"></main><div class="age"><button class="btn o big hold" id="up" aria-label="1 Jahr älter werden, gedrückt halten"><span class="fill" aria-hidden="true"></span><span class="lbl2">+ 1 Jahr älter werden<small>gedrückt halten</small></span></button></div>';
   holdButton(document.getElementById('up'),ageUp);
@@ -165,7 +166,7 @@ function render(){if(p&&p.sm)ensureSm();
   if(map){const i=html.indexOf('</div>')+6;document.getElementById('view').innerHTML=html.slice(0,i);document.getElementById('view2').innerHTML=html.slice(i)}
   else{document.getElementById('view').innerHTML=html;document.getElementById('view2').innerHTML=''}
   document.getElementById('view2').style.display=map?'flex':'none';document.getElementById('view').style.flex=map?'none':'1';
-  showCity(!!map);highlight();{const up=document.getElementById('up');if(up&&up.classList){if(p.act<=0)up.classList.add('ready');else up.classList.remove('ready')}}
+  showCity(!!map);highlight();{const bd=document.body;if(bd&&bd.classList){if(tab==='home'||tab==='stadt')bd.classList.remove('noage');else bd.classList.add('noage')}}cevMarkers();if(tab!=='home'&&editApps){editApps=false;swapSel=null}setTimeout(maybeRemind,0);{const up=document.getElementById('up');if(up&&up.classList){if(p.act<=0)up.classList.add('ready');else up.classList.remove('ready')}}
 }
 function renderStart(){
   const app=document.getElementById('app'),old=load();

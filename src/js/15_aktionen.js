@@ -50,11 +50,11 @@ function act(id,arg){
   if(!p||!p.alive)return;CUR=id;
   if(ACTS[id]){const A=ACTS[id];if(!can(id)||!useAct())return;const r=A.f();if(r===null){refundAct();toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg))return;
+  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg))return;
   switch(id){
   case 'goto':tab=arg;if(p.appSeen)p.appSeen[arg]=1;if(arg==='store')p.storeY=p.age;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
-    if(ch(.45+p.st.in/250+p.st.au/500+p.sk.charme/500)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');if(p.stats)p.stats.jobs++;p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.');break}
+    interview(j,bon=>{if(ch(.45+p.st.in/250+p.st.au/500+p.sk.charme/500+bon)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');if(p.stats)p.stats.jobs++;p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.')});break}
   case 'work':shift();break;
   case 'quit':if(!p.job)return;{const t=p.job.t;p.job=null;done('Du hast als '+t+' gekündigt.')}break;
   case 'study':if(p.edu!=='Abitur'||inSchool()||p.age<17||p.prison||p.deg)return;if(p.job&&!p.job.part)p.job=null;p.study={f:arg,left:STUDY[arg]};done('Du studierst jetzt '+arg+'.');break;
@@ -116,7 +116,7 @@ function act(id,arg){
   case 'bjstand':bjStand();break;
   case 'bjdouble':bjDouble();break;
   case 'chat':chatSel=arg||null;render();window.scrollTo(0,0);break;
-  case 'call':{if(p.prison||!useAct())return;if(p.rel&&p.rel[arg]!=null)p.rel[arg]=Math.min(100,p.rel[arg]+8);if(String(arg).startsWith('kid')){const k=p.kids[+arg.slice(3)];if(k)k.rel=Math.min(100,k.rel+6)}if(arg==='rival'&&p.rival&&p.age>=25&&ch(.1)){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}msg(arg,'Ich ruf dich gleich mal an!',true);msg(arg,pick(['Schön, dass du anrufst!','Endlich meldest du dich :)','Hab mich so gefreut, deine Stimme zu hören!']));p.chats[arg].un=0;add('gl',R(3,6));done('Ihr habt lange telefoniert.');break}
+  case 'call':{if(p.prison||!useAct())return;if(String(arg).startsWith('sib'))relUp(arg,8);if(p.rel&&p.rel[arg]!=null)p.rel[arg]=Math.min(100,p.rel[arg]+8);if(String(arg).startsWith('kid')){const k=p.kids[+arg.slice(3)];if(k)k.rel=Math.min(100,k.rel+6)}if(arg==='rival'&&p.rival&&p.age>=25&&ch(.1)){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}msg(arg,'Ich ruf dich gleich mal an!',true);msg(arg,pick(['Schön, dass du anrufst!','Endlich meldest du dich :)','Hab mich so gefreut, deine Stimme zu hören!']));p.chats[arg].un=0;add('gl',R(3,6));done('Ihr habt lange telefoniert.');break}
   case 'meet':{if(p.prison||!useAct())return;if(p.rel)p.rel.freund=Math.min(100,p.rel.freund+10);msg('freund','Lust, heute was zu machen?',true);msg('freund',pick(['Klar! Bin in 20 Minuten da.','Immer! Kino oder Pizza?','Ja!! Endlich.']));p.chats.freund.un=0;add('gl',R(5,9));done('Ein toller Tag mit '+p.friend+'.');break}
   case 'love':{if(!p.partner||p.prison||p.loveA===p.age)return;p.loveA=p.age;msg('partner',pick(['Ich denk an dich.','Hab dich lieb!','Freu mich auf heute Abend.']),true);msg('partner',pick(['Ich dich auch <3','Du bist süß.','Kann es kaum erwarten!']));p.chats.partner.un=0;p.partner.rel=Math.min(100,p.partner.rel+4);done('Du hast '+p.partner.name+' eine liebe Nachricht geschickt.');break}
   case 'smjoin':if(p.age<13||p.sm)return;smJoin();msg('freund','Du bist jetzt auf Klick? Folge dir!');done('Dein Klick-Konto '+p.sm.h+' ist online.');break;

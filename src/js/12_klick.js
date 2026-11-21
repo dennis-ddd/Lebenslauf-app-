@@ -187,7 +187,7 @@ function newLife(first,last,g,age,sb){
   if(age>=6)p.school='Grundschule';
   if(age>=10)p.school=p.st.in>=55?'Gymnasium':p.st.in>=38?'Realschule':'Hauptschule';
   if(age>=18){p.edu=p.school==='Gymnasium'?'Abitur':'Realschule';p.school=null;log('Du hast '+(p.edu==='Abitur'?'das Abitur':'den Realschulabschluss')+' in der Tasche.')}
-  tab='home';sel='home';save();render();
+  p.sibs=genSibs();tab='home';sel='home';save();render();
 }
 function grade(){return Math.min(4,1+(100-p.st.in)/30).toFixed(1).replace('.',',')}
 

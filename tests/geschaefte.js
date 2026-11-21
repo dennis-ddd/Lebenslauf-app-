@@ -10,7 +10,7 @@ for(let r=0;r<40;r++){T.newLife('A','B','w',20,true);T.applyCfg({act:0,clock:fal
   ['kiosk','pizza'].forEach(k=>{tryA('fil',k);tryA('frqual',k)});tryA('mkt',['flyer','tv','klick'][y%3]);
   (p.biz.comp||[]).slice().forEach(c=>tryA(['cpprice','cpqual','cpbuy','cprumor','cpsab','cpdruck'][R(0,5)],c.k));
   tryA('prodt','Kopfhörer');tryA('prodtier',['g','n','p'][y%3]);tryA('prodq',['b','g','t'][y%3]);T.drafts.prodName='Test '+y;tryA('prodnew');tryA('produp','0');if(y===8)tryA('prodrm','1');tryA('supply');tryA('bankfil');
-  if(y===12)tryA('frsell','club');
+  if(y===12)tryA('frsell','club');['uebersicht','laeden','firma','shop','bank'].forEach(b=>{tryA('biztab',b);try{T.viewBiz()}catch(e){errs++;console.log('V2',e.stack.split('\n').slice(0,2).join('|'))}});tryA('bizself','kiosk');
   try{T.viewBiz()}catch(e){errs++;console.log('VIEW',e.stack.split('\n').slice(0,2).join('|'))}
   while(p.q&&p.q.length){const q=p.q.shift();try{const e=T.QEV[q.id]&&T.QEV[q.id](q.d);if(e&&e.c())pick(e.o)[1]()}catch(x){errs++;console.log('Q',x.stack.split('\n').slice(0,2).join('|'))}}
   p.prison=0;try{T.ageUp()}catch(e){errs++;console.log('AGE',e.stack.split('\n').slice(0,3).join('|'))}if(!p.alive)break}

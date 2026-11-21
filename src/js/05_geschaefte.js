@@ -57,7 +57,7 @@ function bizYear(){ensureBiz();const B=p.biz,inc=[],out=[];let taxable=0;
     else bk.dep=Math.round(bk.dep*(1.06+Math.random()*.16+.015*(bk.fil||0)));const pr=Math.round(bk.dep*.01*(1+.05*(bk.fil||0)));p.money+=pr;taxable+=pr;inc.push(['Eigene Bank',pr])}
   return {inc,out,taxable};
 }
-function viewBiz(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
+function bizRaw(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
   let h='<div class="bizsum"><div><b class="up">'+eur(bizExpected())+'</b><small>erwarteter Gewinn pro Jahr</small></div><div><b>'+eur(washCap())+'</b><small>Geldwäsche pro Jahr</small></div></div>';
   if(p.dirty>0||B.fronts.length)h+='<section class="card dirty"><div class="listseg"><div><div class="lbl">SCHWARZGELD</div><b class="bigd">'+eur(p.dirty)+'</b></div>'+btn('bizhelp',null,'So funktioniert es','g')+'</div><p class="note">Am Jahresende wird es über deine Geschäfte gewaschen (15 % Gebühr). Was darüber hinausgeht, nimmt ein Mittelsmann: bis 20.000 € pro Jahr, er behält 40 %.</p></section>';
   if(minor)return h+card('','<p class="note">Geschäfte führen kannst du ab 18 Jahren.</p>');
@@ -66,13 +66,14 @@ function viewBiz(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
     '<p class="note" style="text-align:center">Danach kannst du Geschäfte kaufen, eine Firma aufbauen und an die Börse bringen, einen Onlineshop starten und später sogar eine eigene Bank gründen.</p>';
   h+='<section class="card co"><div class="fic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></div><div class="ct"><b>'+esc(B.co.name)+'</b><small>'+(B.hold?'Holding · Tech-Startup und eigene Bank freigeschaltet':'GmbH · gegründet mit '+B.co.a+' Jahren')+'</small></div>'+
     (B.hold?'<span class="chip">Holding</span>':btn('holding',null,'Holding · '+eur(HOLD_COST),'',p.money<HOLD_COST||lock))+'</section>';
-  h+=plusTop(lock);
+  h+='<!--S:mk-->'+plusTop(lock)+'<!--S:fr-->';
   // Geschäfte
   h+='<h3 class="sec">Geschäfte</h3>'+FRONTS.map(F=>{const own=B.fronts.includes(F.id),lv=flvl(F.id),dm=(B.dem&&B.dem[F.id])||[1],dl=dm[dm.length-1];
-    return '<section class="card front'+(own?' own':'')+'"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg></span><div><b>'+F.n+'</b><small>'+F.d+'</small></div></div>'+
+    return '<!--F:'+F.id+'--><section class="card front'+(own?' own':'')+'"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg></span><div><b>'+F.n+'</b><small>'+F.d+'</small></div></div>'+
       '<div class="tags"><span class="tag g">+'+eur(F.profit*(1+.5*(lv-1)))+' im Jahr</span><span class="tag">wäscht '+eur(F.wash*(1+.4*(lv-1)))+'</span><span class="tag w">Razzia '+(p.staff&&p.staff.guard?F.raid/2:F.raid)+' %</span></div>'+
       (own?'<div class="dem"><div><small>NACHFRAGE</small><b class="'+(dl>=1?'up':'down')+'">'+(dl>=1.15?'hoch':dl>=.9?'normal':'schwach')+'</b></div>'+bars(dm)+'</div><div class="lvl"><span>Ausbau '+lv+'/3</span><div class="segs">'+[1,2,3].map(i=>'<i class="'+(i<=lv?'on':'')+'"></i>').join('')+'</div>'+(lv<3?btn('upfront',F.id,'Ausbauen · '+eur(F.cost*.5*lv),'o',p.money<F.cost*.5*lv||lock):'')+'</div>':'')+
-      '<div class="fb"><b>'+(own?'Gehört dir':eur(F.cost))+'</b>'+(own?btn('sellfront',F.id,'Verkaufen · '+eur(F.cost*.7),'g',lock):btn('front',F.id,'Kaufen','o',p.money<F.cost||lock))+'</div></section>'}).join('');
+      '<div class="fb"><b>'+(own?'Gehört dir':eur(F.cost))+'</b>'+(own?btn('sellfront',F.id,'Verkaufen · '+eur(F.cost*.7),'g',lock):btn('front',F.id,'Kaufen','o',p.money<F.cost||lock))+'</div></section><!--/F-->'}).join('');
+  h+='<!--S:fi-->';
   // Firma
   h+='<h3 class="sec">Eigene Firma</h3>';const f=B.firm;
   if(f){const F=FI[f.t],sv=f.ipo&&STK.my?STK.my:null,val=f.ipo?Math.round((p.sh.my||0)*p.px.my):f.val;
@@ -86,7 +87,8 @@ function viewBiz(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
       '<p class="note" style="margin-top:8px">Einstellen und Werbung kosten je 1 Aktion. Jede Person bringt 2 % mehr Wachstum, kostet aber '+eur(empCost(f))+' im Jahr. Beim Börsengang verkaufst du 40 % an Anleger und bekommst das Geld sofort.</p></section>'}}
   else h+='<section class="card"><p class="note" style="margin-bottom:10px">Gründe eine Firma, lass sie wachsen und bring sie an die Börse.</p><input type="text" id="firmName" maxlength="28" placeholder="Name der Firma" value="'+esc(drafts.firmName||'')+'"><div class="flist">'+
     FIRMS.map(F=>'<button class="fbtn" data-a="firm" data-g="'+F.id+'"'+(p.money<F.cost||(F.hold&&!B.hold)||lock?' disabled':'')+'><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg><span>'+F.n+'</span><b>'+eur(F.cost)+'</b></button>').join('')+'</div><p class="note" style="margin-top:8px">Das Tech-Startup braucht eine Holding im Rücken. Je teurer, desto mehr Wachstum und Risiko.</p></section>';
-  h+=plusFronts(lock);
+  h+='<!--S:ch-->'+plusFronts(lock);
+  h+='<!--S:sh-->';
   // Onlineshop
   h+='<h3 class="sec">Onlineshop</h3>';const s=B.shop;
   if(s){const C=SHOPCAT[s.cat];h+='<section class="card"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+C[2]+'</svg></span><div><b>'+esc(s.name)+'</b><small>'+C[0]+' · Stufe '+s.lvl+' · Marge '+Math.round(C[1]*100)+' %</small></div></div>'+
@@ -96,6 +98,7 @@ function viewBiz(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
   else h+='<section class="card"><p class="note" style="margin-bottom:10px">Gründe einen Shop und verdiene jedes Jahr nebenbei. Technik, Marketing, Fotos und Versand machst du selbst, wenn du es kannst, oder du beauftragst Profis.</p><input type="text" id="shopName" maxlength="28" placeholder="Name deines Shops" value="'+esc(drafts.shopName||'')+'"><div class="cats">'+
     Object.keys(SHOPCAT).map(k=>'<button class="cat" data-a="shopcat" data-g="'+k+'" aria-pressed="'+(shopCat===k)+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+SHOPCAT[k][2]+'</svg>'+SHOPCAT[k][0]+'</button>').join('')+'</div><p class="note" style="margin:8px 0">Marge etwa '+Math.round(SHOPCAT[shopCat][1]*100)+' %.</p><button class="btn o big" data-a="shopfound"'+(p.money<SHOP_COST||lock?' disabled':'')+'>Gründen · '+eur(SHOP_COST)+'</button></section>';
   if(B.shop)h+=plusShop(lock);
+  h+='<!--S:bk-->';
   // Bank
   h+='<h3 class="sec">Eigene Bank</h3>';
   if(B.bank)h+='<section class="card"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></span><div><b>'+esc(B.bank.name)+'</b><small>Privatbank</small></div></div><div class="kv"><div><small>Kundengelder</small><b>'+eur(B.bank.dep)+'</b></div><div><small>Dein Anteil pro Jahr</small><b class="up">'+eur(B.bank.dep*.01*(1+.05*(B.bank.fil||0)))+'</b></div></div></section>'+plusBank(lock);

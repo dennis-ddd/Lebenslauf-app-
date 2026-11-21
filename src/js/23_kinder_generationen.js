@@ -48,7 +48,7 @@ function viewFamilie(){if(!['kinder','eltern','baum','erbe'].includes(famTab))fa
   }
   if(famTab==='eltern'){const rb=(id,n,s)=>'<div class="stat"><div class="r"><span>'+esc(n)+' <small class="note">'+s+'</small></span><span>'+p.rel[id]+' %</span></div><div class="bar"><i class="'+(p.rel[id]<30?'low':'')+'" style="width:'+p.rel[id]+'%"></i></div></div>';
     h+=card('Beziehungen',(p.parentsGone?'<p class="note">Deine Eltern sind verstorben.</p>':rb('mama','Mama','')+rb('papa','Papa',''))+(p.age>=6?rb('freund',p.friend,'beste/r Freund/in'):'')+'<p class="note" style="margin-top:6px">Anrufe, Treffen und Geburtstage halten Beziehungen warm. Ohne Kontakt kühlen sie ab.</p><div class="btns">'+btn('goto','chats','Zu den Chats','o')+btn('goto','kalender','Zum Kalender')+'</div>');
-    h+=card('Haustiere',(p.pets.length?p.pets.map(x=>row(esc(x.n),PETS[x.t].n+' · '+x.age+' Jahre')).join(''):'<p class="note">Noch kein Haustier.</p>')+actRows(['pet']))+card('Tierheim',special('adopt'));
+    h+=sibCard();h+=card('Haustiere',(p.pets.length?p.pets.map(x=>row(esc(x.n),PETS[x.t].n+' · '+x.age+' Jahre')).join(''):'<p class="note">Noch kein Haustier.</p>')+actRows(['pet']))+card('Tierheim',special('adopt'));
   }
   if(famTab==='baum'){const node=(n,s,cls)=>'<div class="tn '+(cls||'')+'"><b>'+esc(n)+'</b><small>'+esc(s)+'</small></div>';
     h+='<section class="card tree">'+(p.tree.length?p.tree.map(t=>node(t.n,'Generation '+t.gen+' · '+t.age+' Jahre · '+t.job,'anc')+'<i class="tl"></i>').join(''):'')+
@@ -65,7 +65,7 @@ function shareOf(i){const e=estate(),alive=p.kids.filter(k=>k.alive!==false).len
 function continueAs(i){const prev=p,k=prev.kids[i];if(!k)return;const ka=prev.age-k.b,share=shareOf(i),deg=k.edu;
   const tree=(prev.tree||[]).concat([{n:prev.first+' '+prev.last,gen:prev.gen||1,age:prev.age,job:prev.pension?'Rentner/in':status(),nw:Math.round(netWorth())}]);
   const lastN=prev.last,sb=prev.sb;newLife(k.n,lastN,k.g,Math.max(0,ka),sb);p.cfg=prev.cfg;p.act=actBase();p.clock=DAYSTART;ensureLife();
-  p.gen=(prev.gen||1)+1;p.tree=tree;if(prev.apps){p.apps=Object.assign({},prev.apps);p.appSeen={};APPS.forEach(a=>{if(appVisible(a[0]))p.appSeen[a[0]]=1})}p.money+=share;
+  p.gen=(prev.gen||1)+1;p.tree=tree;p.sibs=prev.kids.filter((x,j)=>j!==i&&x.alive!==false).map(x=>({n:x.n,g:x.g,d:k.b-x.b,rel:clamp(x.rel,20,90),job:x.job||null,mar:!!x.mar}));if(prev.apps){p.apps=Object.assign({},prev.apps);p.appSeen={};APPS.forEach(a=>{if(appVisible(a[0]))p.appSeen[a[0]]=1})}p.money+=share;
   if(prev.biz&&prev.biz.co&&prev.will!=='stiftung'&&(prev.will==='gleich'||prev.will==='kid'+i)){const bv=(prev.biz.fronts||[]).reduce((s,k)=>s+FR[k].cost,0)+(prev.biz.firm&&!prev.biz.firm.ipo?prev.biz.firm.val:0);p.biz=prev.biz;p.dirty=prev.dirty||0;p.money=Math.max(0,p.money-Math.min(share,bv));log('Du übernimmst das Familienunternehmen '+prev.biz.co.name+'.');mile('Familienunternehmen übernommen','star')}p.st.in=k.st.in;p.st.ge=Math.min(100,k.st.ge);p.st.gl=clamp(50+Math.round(k.rel/3),0,100);
   if(ka>=18){p.edu=deg==='keine'?(k.st.in>=55?'Abitur':'Realschule'):deg;p.school=null}
   p.parentsGone=!prev.partner;p.pa=ka+R(25,35);if(prev.rival&&ka>=6){p.rival=null}

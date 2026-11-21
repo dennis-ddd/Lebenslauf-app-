@@ -8,6 +8,8 @@ function contacts(){const c=[];
   if(p.partner)c.push({id:'partner',n:p.partner.name,col:'#C2408C',sub:p.partner.mar?'verheiratet':'Beziehung'});
   if(p.job)c.push({id:'chef',n:'Chef/in',col:'#6B7385',sub:p.job.t});
   if(p.rival&&O.rival&&p.age>=6)c.push({id:'rival',n:p.rival.n,col:'#D64545',sub:p.rival.friend?'Freund/in (früher Rivale)':'Rival/in'});
+  (p.sibs||[]).forEach((s,i)=>{if(sibAge(s)>=6&&p.age>=6)c.push({id:'sib'+i,n:s.n,col:'#8E63D6',sub:(s.g==='w'?'Schwester':'Bruder')})});
+  Object.keys(GROUPS).forEach(g=>{if(GROUPS[g][2]())c.push({id:g,n:GROUPS[g][0],col:GROUPS[g][1],sub:'Gruppe'})});
   p.kids.forEach((k,i)=>{if(p.age-k.b>=10)c.push({id:'kid'+i,n:k.n,col:'#F08A24',sub:'dein Kind'})});
   return c.map(x=>Object.assign(x,{msgs:(p.chats[x.id]||{}).msgs||[],un:(p.chats[x.id]||{}).un||0}));
 }

@@ -42,7 +42,7 @@ function bizPlusYear(R0){const B=p.biz;if(!B||!B.co)return;ensurePlus();
     log('Konkurrenz! '+n+' macht direkt neben '+(k==='shop'?'deinem Onlineshop':'deinem '+FR[k].n)+' auf.');news(n+' fordert '+(k==='shop'?B.shop.name:FR[k].n)+' heraus','lokal')}
   // Mitarbeiter-Ereignisse
   const units=B.fronts.concat(B.shop?['shop']:[]);if(units.length&&ch(.12))p.q.push({id:'bizstaff',d:{k:pick(units),t:pick(['streik','star','weg'])}});
-  if(B.mkt&&B.mkt.y<p.age-1)B.mkt=null}
+  if(B.mkt&&B.mkt.y<p.age-1)B.mkt=null;B.ph=(B.ph||[]).concat([bizExpected()]).slice(-15)}
 const uName=k=>k==='shop'?p.biz.shop.name:FR[k].n;
 QEV.bizstaff=d=>{const B=p.biz;if(!B||!(d.k==='shop'?B.shop:B.fronts.includes(d.k)))return null;const n=uName(d.k);
   if(d.t==='streik')return E('Streik!','Das Team von '+n+' streikt für mehr Lohn.',()=>true,[['Lohn erhöhen ('+eur(px$(8000))+')',()=>(p.money-=px$(8000),B.stars[d.k]=Math.min(5,bstars(d.k)+.3),'Die Stimmung ist super. Der Service auch.')],['Hart bleiben',()=>(B.stars[d.k]=Math.max(1,bstars(d.k)-.6),p.money-=px$(3000),'Zwei Wochen zu. Die Kundschaft ist sauer.')]]);
@@ -51,18 +51,18 @@ QEV.bizstaff=d=>{const B=p.biz;if(!B||!(d.k==='shop'?B.shop:B.fronts.includes(d.
 /* Ansichten */
 function plusTop(lock){const B=p.biz;ensurePlus();const m=mktOn();let h='';
   if(B.comp.length)h+='<h3 class="sec">Konkurrenz</h3>'+B.comp.map(c=>{const F=c.k==='shop'?null:FR[c.k],buy=c.k==='shop'?px$(40000):Math.round(F.cost*.8),q=c.k==='shop'?px$(8000):Math.round(F.profit*.6),cr=crimPast();
-    return '<section class="card comp"><div class="fh"><span class="fic sm" style="background:linear-gradient(135deg,#D64545,#7A1F1F)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></span><div><b>'+esc(c.n)+'</b><small>gegen '+esc(uName(c.k))+' · −'+Math.round(c.str*100)+' % Umsatz</small></div></div>'+
+    return '<!--K:'+c.k+'--><section class="card comp"><div class="fh"><span class="fic sm" style="background:linear-gradient(135deg,#D64545,#7A1F1F)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></span><div><b>'+esc(c.n)+'</b><small>gegen '+esc(uName(c.k))+' · −'+Math.round(c.str*100)+' % Umsatz</small></div></div>'+
       '<div class="cpg">'+btn('cpprice',c.k,'Preiskampf · '+eur(px$(10000)),'',lock||p.money<px$(10000))+btn('cpqual',c.k,'Qualität · '+eur(q),'',lock||p.money<q)+btn('cpbuy',c.k,'Aufkaufen · '+eur(buy),'o',lock||p.money<buy)+btn('cprumor',c.k,'Gerüchte streuen','g',lock)+'</div>'+
-      (cr?'<div class="cpdark"><small>Deine Vergangenheit öffnet andere Wege</small><div class="cpg">'+btn('cpsab',c.k,'Sabotage','g',lock||p.act<=0)+btn('cpdruck',c.k,p.gang?'Die Gang schicken':'Einschüchtern','g',lock||p.act<=0)+'</div></div>':'')+'</section>'}).join('');
-  h+='<h3 class="sec">Marketing</h3><section class="card">'+(m?'<div class="listseg"><b>'+MKT[m.k][0]+' läuft</b><span class="chip">+'+Math.round(MKT[m.k][2]*100)+' % Umsatz</span></div><p class="note">Wirkt bis zum nächsten Jahreswechsel auf alle Geschäfte und den Shop.</p>':
+      (cr?'<div class="cpdark"><small>Deine Vergangenheit öffnet andere Wege</small><div class="cpg">'+btn('cpsab',c.k,'Sabotage','g',lock||p.act<=0)+btn('cpdruck',c.k,p.gang?'Die Gang schicken':'Einschüchtern','g',lock||p.act<=0)+'</div></div>':'')+'</section><!--/K-->'}).join('');
+  h+='<!--MKT--><h3 class="sec">Marketing</h3><section class="card">'+(m?'<div class="listseg"><b>'+MKT[m.k][0]+' läuft</b><span class="chip">+'+Math.round(MKT[m.k][2]*100)+' % Umsatz</span></div><p class="note">Wirkt bis zum nächsten Jahreswechsel auf alle Geschäfte und den Shop.</p>':
     '<p class="note" style="margin-bottom:8px">Eine Kampagne pro Jahr steigert den Umsatz aller Geschäfte und des Shops. Bewertungen steigen leicht.</p>'+Object.keys(MKT).map(k=>row(MKT[k][0],'+'+Math.round(MKT[k][2]*100)+' % Umsatz für ein Jahr',btn('mkt',k,eur(px$(MKT[k][1])),'o',lock||p.money<px$(MKT[k][1])))).join(''))+'</section>';
   return h}
 function plusFronts(lock){const B=p.biz;ensurePlus();if(!B.fronts.length)return '';
   return '<h3 class="sec">Filialen und Ketten</h3>'+B.fronts.map(k=>{const F=FR[k],fil=B.fil[k]||0,fr=franchise(k),sell=Math.round(F.cost*(1+.3*(flvl(k)-1))*(1+.6*fil)*(.8+.1*bstars(k)));
-    return '<section class="card chain"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg></span><div><b>'+F.n+(fil?' · Kette':'')+'</b><small>'+(1+fil)+' Standort(e)'+(fr?' · Franchise':'')+'</small></div>'+starHtml(bstars(k))+'</div>'+
+    return '<!--C:'+k+'--><section class="card chain"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg></span><div><b>'+F.n+(fil?' · Kette':'')+'</b><small>'+(1+fil)+' Standort(e)'+(fr?' · Franchise':'')+'</small></div>'+starHtml(bstars(k))+'</div>'+
       '<div class="locs">'+Array.from({length:1+fil},(_,i)=>'<span>'+esc(i?cityName(p.seed+i*7919):cityName(p.seed))+'</span>').join('')+'</div>'+
       '<div class="kv"><div><small>Gewinn pro Jahr (geschätzt)</small><b class="up">'+eur(F.profit*(1+.5*(flvl(k)-1))*bizMul(k))+'</b></div><div><small>'+(fr?'Franchise-Gebühren':'Ab 5 Standorten')+'</small><b>'+(fr?eur(F.profit*.45*fr):'Franchise')+'</b></div></div>'+
-      '<div class="btns">'+(fil<9?btn('fil',k,'Filiale eröffnen · '+eur(filCost(k)),'o',lock||p.money<filCost(k)):'<span class="chip">Maximal 10 Standorte</span>')+btn('frqual',k,B.qy[k]===p.age?'Qualität verbessert':'Qualität · '+eur(Math.round(F.profit*.5)),'',lock||B.qy[k]===p.age||p.money<F.profit*.5)+btn('frsell',k,'Alles verkaufen · '+eur(sell),'g',lock)+'</div></section>'}).join('')}
+      '<div class="btns">'+(fil<9?btn('fil',k,'Filiale eröffnen · '+eur(filCost(k)),'o',lock||p.money<filCost(k)):'<span class="chip">Maximal 10 Standorte</span>')+btn('frqual',k,B.qy[k]===p.age?'Qualität verbessert':'Qualität · '+eur(Math.round(F.profit*.5)),'',lock||B.qy[k]===p.age||p.money<F.profit*.5)+btn('frsell',k,'Alles verkaufen · '+eur(sell),'g',lock)+'</div></section><!--/C-->'}).join('')}
 function plusShop(lock){const s=p.biz.shop;ensurePlus();const T=PRODT[s.cat];if(!prodT||!T.includes(prodT))prodT=T[0];
   let h='<h3 class="sec">Eigene Produkte · '+s.prods.length+' von '+PROD_MAX+'</h3>';
   h+=s.prods.map((x,i)=>'<section class="card prod"><div class="listseg"><div><b>'+esc(x.n)+'</b><small>'+esc(x.t)+' · '+TIER[x.tier][0]+(x.hit?' · '+x.hit+'× Verkaufsschlager':'')+'</small></div>'+starHtml(x.st)+'</div>'+

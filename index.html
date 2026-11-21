@@ -589,6 +589,46 @@ small{font-size:max(12.5px,1em*.8)}
 .gate{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:22px 18px}
 .ic.big{width:84px;height:84px;border-radius:24px;display:grid;place-items:center;color:#fff}.ic.big .i{width:42px;height:42px}
 .gate .ul2{text-align:left;align-self:stretch}.gate .stars{margin:0}
+
+/* Leben+ */
+.noage .age{display:none}.noage #view2,.noage main{padding-bottom:max(24px,env(safe-area-inset-bottom))}
+.ntf{position:fixed;left:10px;right:10px;top:max(10px,env(safe-area-inset-top));z-index:60;display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:22px;background:rgba(22,20,28,.94);color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.35);transform:translateY(-140%);transition:transform .45s cubic-bezier(.2,1.2,.4,1);cursor:pointer;backdrop-filter:blur(8px)}
+.ntf.show{transform:none}.nic{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#FF8A3D,#FF4D6D);display:grid;place-items:center;flex:none}
+.nt small{display:block;font-size:12px;font-weight:800;color:#CFC8DA}.nt b{font-weight:800;font-size:15px;line-height:1.3}
+.apps.edit .app .ic{animation:jig .3s ease-in-out infinite alternate}.apps.edit .app:nth-child(2n) .ic{animation-delay:.15s}
+@keyframes jig{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+.app.pick .ic{outline:3px solid #FFD166;outline-offset:3px;animation:none!important;transform:scale(1.08)}
+.phb{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:12px}.phb .note{color:#D6D1DF;width:100%;text-align:center}
+.phb .btn.g{background:rgba(255,255,255,.08);color:#F3F0F7;border-color:rgba(255,255,255,.18)}
+.replies{display:flex;flex-direction:column;gap:6px;padding:8px 0}
+.rp{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:8px 12px;text-align:left;font-weight:800}.rp small{display:block;font-weight:600;color:var(--muted)}
+.inv{margin:8px 0;padding:12px;border-radius:18px;background:light-dark(#FFF4E8,#2A2018);border:2px solid light-dark(#FFD9B8,#5A3A20)}.inv small{font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#C2551F;font-size:12px}.inv b{display:block;font-weight:900;margin:2px 0 6px}
+.hob .fh{align-items:center}.hob .bar{margin:10px 0}
+.cev{position:absolute;inset:0;pointer-events:none;z-index:3}
+.cevm{position:absolute;pointer-events:auto;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:3px solid #fff;background:linear-gradient(135deg,#FF8A3D,#FF4D6D);color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(0,0,0,.3);animation:cevp 1.6s ease-in-out infinite}
+.cevm .i{width:22px;height:22px}@keyframes cevp{0%,100%{box-shadow:0 0 0 0 rgba(255,77,109,.6),0 6px 16px rgba(0,0,0,.3)}50%{box-shadow:0 0 0 12px rgba(255,77,109,0),0 6px 16px rgba(0,0,0,.3)}}
+.cevs .lbl{font-size:12px;font-weight:900;letter-spacing:.1em;color:#C2551F}
+.cevl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:8px 0}
+.cevb{display:flex;align-items:center;gap:8px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:8px 10px;text-align:left;font-weight:800;min-height:52px}
+.cevi{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#FF8A3D,#FF4D6D);color:#fff;display:grid;place-items:center;flex:none}.cevi .i{width:18px;height:18px}
+
+/* Geschäfte-Ansicht */
+.bizhead{display:flex;flex-direction:column;gap:12px;color:#fff;background:radial-gradient(120% 140% at 100% 0%,rgba(255,122,61,.45),transparent 55%),radial-gradient(90% 120% at 0% 100%,rgba(14,159,126,.35),transparent 60%),linear-gradient(135deg,#16141C,#2A2236)}
+.bh1{display:flex;align-items:center;gap:12px}.bh1 .fic{background:rgba(255,255,255,.12)}.bht{flex:1;min-width:0}.bht b{display:block;font-size:19px;font-weight:900}.bht small{color:#CFC8DA;font-weight:700}
+.bizhead .chip{background:rgba(255,255,255,.14);color:#fff}.bizhead .btn{background:rgba(255,255,255,.14);color:#fff}
+.bkpi{display:grid;grid-template-columns:1fr 1fr;gap:10px}.bkpi div{background:rgba(255,255,255,.08);border-radius:16px;padding:10px 12px}.bkpi small{display:block;color:#CFC8DA;font-weight:700;font-size:13px}.bkpi b{font-size:21px;font-weight:900}.bkpi .up{color:#6EE7C0}
+.bph small{display:block;color:#CFC8DA;font-weight:700;font-size:12px;margin-top:2px}
+.bchips{display:flex;flex-wrap:wrap;gap:6px}.bchip{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:6px 12px;font-weight:800;font-size:13px}
+.bchip.warn{background:#D64545;border-color:#D64545}.bchip.ok{background:#0E9F7E;border-color:#0E9F7E}.bchip.dark{background:#000;border-color:#000}
+.btabs button{font-size:14px;padding:0 4px}
+.burows{display:flex;flex-direction:column;gap:2px;padding:6px 10px}
+.burow{display:flex;align-items:center;gap:10px;border:0;background:none;text-align:left;color:var(--ink);padding:10px 4px;border-top:1px solid var(--line);width:100%}.burows .burow:first-child{border-top:0}
+.burow.big{border:0;padding:14px}.but{flex:1;min-width:0}.but b{display:block;font-weight:900}.but small{display:block;color:var(--muted);font-weight:600;font-size:13px}
+.burow>b{font-weight:900;white-space:nowrap}.burow .stars{margin-left:0}.chev{color:var(--muted);flex:none}
+.fsel{display:flex;flex-direction:column;gap:12px;padding:10px;border-radius:26px;background:var(--soft)}
+.dirty.slim .bigd{font-size:22px}.dirty.slim small{display:block;color:var(--muted);font-weight:600}
+.ibtn{width:40px;height:40px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);font-weight:900;font-style:italic;font-family:Georgia,serif;font-size:18px;flex:none}
+.but .stars{margin:3px 0 0}.dirty.slim small{color:#CFC8DA!important}.dirty.slim .lbl{color:#FFB3B3}
 </style>
 </head>
 <body>
@@ -729,6 +769,8 @@ function contacts(){const c=[];
   if(p.partner)c.push({id:'partner',n:p.partner.name,col:'#C2408C',sub:p.partner.mar?'verheiratet':'Beziehung'});
   if(p.job)c.push({id:'chef',n:'Chef/in',col:'#6B7385',sub:p.job.t});
   if(p.rival&&O.rival&&p.age>=6)c.push({id:'rival',n:p.rival.n,col:'#D64545',sub:p.rival.friend?'Freund/in (früher Rivale)':'Rival/in'});
+  (p.sibs||[]).forEach((s,i)=>{if(sibAge(s)>=6&&p.age>=6)c.push({id:'sib'+i,n:s.n,col:'#8E63D6',sub:(s.g==='w'?'Schwester':'Bruder')})});
+  Object.keys(GROUPS).forEach(g=>{if(GROUPS[g][2]())c.push({id:g,n:GROUPS[g][0],col:GROUPS[g][1],sub:'Gruppe'})});
   p.kids.forEach((k,i)=>{if(p.age-k.b>=10)c.push({id:'kid'+i,n:k.n,col:'#F08A24',sub:'dein Kind'})});
   return c.map(x=>Object.assign(x,{msgs:(p.chats[x.id]||{}).msgs||[],un:(p.chats[x.id]||{}).un||0}));
 }
@@ -849,7 +891,7 @@ function bizYear(){ensureBiz();const B=p.biz,inc=[],out=[];let taxable=0;
     else bk.dep=Math.round(bk.dep*(1.06+Math.random()*.16+.015*(bk.fil||0)));const pr=Math.round(bk.dep*.01*(1+.05*(bk.fil||0)));p.money+=pr;taxable+=pr;inc.push(['Eigene Bank',pr])}
   return {inc,out,taxable};
 }
-function viewBiz(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
+function bizRaw(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
   let h='<div class="bizsum"><div><b class="up">'+eur(bizExpected())+'</b><small>erwarteter Gewinn pro Jahr</small></div><div><b>'+eur(washCap())+'</b><small>Geldwäsche pro Jahr</small></div></div>';
   if(p.dirty>0||B.fronts.length)h+='<section class="card dirty"><div class="listseg"><div><div class="lbl">SCHWARZGELD</div><b class="bigd">'+eur(p.dirty)+'</b></div>'+btn('bizhelp',null,'So funktioniert es','g')+'</div><p class="note">Am Jahresende wird es über deine Geschäfte gewaschen (15 % Gebühr). Was darüber hinausgeht, nimmt ein Mittelsmann: bis 20.000 € pro Jahr, er behält 40 %.</p></section>';
   if(minor)return h+card('','<p class="note">Geschäfte führen kannst du ab 18 Jahren.</p>');
@@ -858,13 +900,14 @@ function viewBiz(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
     '<p class="note" style="text-align:center">Danach kannst du Geschäfte kaufen, eine Firma aufbauen und an die Börse bringen, einen Onlineshop starten und später sogar eine eigene Bank gründen.</p>';
   h+='<section class="card co"><div class="fic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></div><div class="ct"><b>'+esc(B.co.name)+'</b><small>'+(B.hold?'Holding · Tech-Startup und eigene Bank freigeschaltet':'GmbH · gegründet mit '+B.co.a+' Jahren')+'</small></div>'+
     (B.hold?'<span class="chip">Holding</span>':btn('holding',null,'Holding · '+eur(HOLD_COST),'',p.money<HOLD_COST||lock))+'</section>';
-  h+=plusTop(lock);
+  h+='<!--S:mk-->'+plusTop(lock)+'<!--S:fr-->';
   // Geschäfte
   h+='<h3 class="sec">Geschäfte</h3>'+FRONTS.map(F=>{const own=B.fronts.includes(F.id),lv=flvl(F.id),dm=(B.dem&&B.dem[F.id])||[1],dl=dm[dm.length-1];
-    return '<section class="card front'+(own?' own':'')+'"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg></span><div><b>'+F.n+'</b><small>'+F.d+'</small></div></div>'+
+    return '<!--F:'+F.id+'--><section class="card front'+(own?' own':'')+'"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg></span><div><b>'+F.n+'</b><small>'+F.d+'</small></div></div>'+
       '<div class="tags"><span class="tag g">+'+eur(F.profit*(1+.5*(lv-1)))+' im Jahr</span><span class="tag">wäscht '+eur(F.wash*(1+.4*(lv-1)))+'</span><span class="tag w">Razzia '+(p.staff&&p.staff.guard?F.raid/2:F.raid)+' %</span></div>'+
       (own?'<div class="dem"><div><small>NACHFRAGE</small><b class="'+(dl>=1?'up':'down')+'">'+(dl>=1.15?'hoch':dl>=.9?'normal':'schwach')+'</b></div>'+bars(dm)+'</div><div class="lvl"><span>Ausbau '+lv+'/3</span><div class="segs">'+[1,2,3].map(i=>'<i class="'+(i<=lv?'on':'')+'"></i>').join('')+'</div>'+(lv<3?btn('upfront',F.id,'Ausbauen · '+eur(F.cost*.5*lv),'o',p.money<F.cost*.5*lv||lock):'')+'</div>':'')+
-      '<div class="fb"><b>'+(own?'Gehört dir':eur(F.cost))+'</b>'+(own?btn('sellfront',F.id,'Verkaufen · '+eur(F.cost*.7),'g',lock):btn('front',F.id,'Kaufen','o',p.money<F.cost||lock))+'</div></section>'}).join('');
+      '<div class="fb"><b>'+(own?'Gehört dir':eur(F.cost))+'</b>'+(own?btn('sellfront',F.id,'Verkaufen · '+eur(F.cost*.7),'g',lock):btn('front',F.id,'Kaufen','o',p.money<F.cost||lock))+'</div></section><!--/F-->'}).join('');
+  h+='<!--S:fi-->';
   // Firma
   h+='<h3 class="sec">Eigene Firma</h3>';const f=B.firm;
   if(f){const F=FI[f.t],sv=f.ipo&&STK.my?STK.my:null,val=f.ipo?Math.round((p.sh.my||0)*p.px.my):f.val;
@@ -878,7 +921,8 @@ function viewBiz(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
       '<p class="note" style="margin-top:8px">Einstellen und Werbung kosten je 1 Aktion. Jede Person bringt 2 % mehr Wachstum, kostet aber '+eur(empCost(f))+' im Jahr. Beim Börsengang verkaufst du 40 % an Anleger und bekommst das Geld sofort.</p></section>'}}
   else h+='<section class="card"><p class="note" style="margin-bottom:10px">Gründe eine Firma, lass sie wachsen und bring sie an die Börse.</p><input type="text" id="firmName" maxlength="28" placeholder="Name der Firma" value="'+esc(drafts.firmName||'')+'"><div class="flist">'+
     FIRMS.map(F=>'<button class="fbtn" data-a="firm" data-g="'+F.id+'"'+(p.money<F.cost||(F.hold&&!B.hold)||lock?' disabled':'')+'><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg><span>'+F.n+'</span><b>'+eur(F.cost)+'</b></button>').join('')+'</div><p class="note" style="margin-top:8px">Das Tech-Startup braucht eine Holding im Rücken. Je teurer, desto mehr Wachstum und Risiko.</p></section>';
-  h+=plusFronts(lock);
+  h+='<!--S:ch-->'+plusFronts(lock);
+  h+='<!--S:sh-->';
   // Onlineshop
   h+='<h3 class="sec">Onlineshop</h3>';const s=B.shop;
   if(s){const C=SHOPCAT[s.cat];h+='<section class="card"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+C[2]+'</svg></span><div><b>'+esc(s.name)+'</b><small>'+C[0]+' · Stufe '+s.lvl+' · Marge '+Math.round(C[1]*100)+' %</small></div></div>'+
@@ -888,6 +932,7 @@ function viewBiz(){ensureBiz();const B=p.biz,minor=p.age<18,lock=!!p.prison;
   else h+='<section class="card"><p class="note" style="margin-bottom:10px">Gründe einen Shop und verdiene jedes Jahr nebenbei. Technik, Marketing, Fotos und Versand machst du selbst, wenn du es kannst, oder du beauftragst Profis.</p><input type="text" id="shopName" maxlength="28" placeholder="Name deines Shops" value="'+esc(drafts.shopName||'')+'"><div class="cats">'+
     Object.keys(SHOPCAT).map(k=>'<button class="cat" data-a="shopcat" data-g="'+k+'" aria-pressed="'+(shopCat===k)+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+SHOPCAT[k][2]+'</svg>'+SHOPCAT[k][0]+'</button>').join('')+'</div><p class="note" style="margin:8px 0">Marge etwa '+Math.round(SHOPCAT[shopCat][1]*100)+' %.</p><button class="btn o big" data-a="shopfound"'+(p.money<SHOP_COST||lock?' disabled':'')+'>Gründen · '+eur(SHOP_COST)+'</button></section>';
   if(B.shop)h+=plusShop(lock);
+  h+='<!--S:bk-->';
   // Bank
   h+='<h3 class="sec">Eigene Bank</h3>';
   if(B.bank)h+='<section class="card"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></span><div><b>'+esc(B.bank.name)+'</b><small>Privatbank</small></div></div><div class="kv"><div><small>Kundengelder</small><b>'+eur(B.bank.dep)+'</b></div><div><small>Dein Anteil pro Jahr</small><b class="up">'+eur(B.bank.dep*.01*(1+.05*(B.bank.fil||0)))+'</b></div></div></section>'+plusBank(lock);
@@ -1233,7 +1278,8 @@ function lifeYear(){const out={ls:0,treat:0,risk:0},a=p.age;
   return out;
 }
 function viewFreizeit(){ensureEcon();const lock=!!p.prison;
-  let h='<div class="seg full ft">'+[['aktiv','Aktiv'],['sport','Sport'],['gesund','Gesundheit'],['shop','Shoppen']].map(([k,l])=>'<button data-a="ftab" data-g="'+k+'" aria-pressed="'+(fTab===k)+'">'+l+'</button>').join('')+'</div>';
+  let h='<div class="seg full ft">'+[['aktiv','Aktiv'],['hobby','Hobbys'],['sport','Sport'],['gesund','Gesundheit'],['shop','Shoppen']].map(([k,l])=>'<button data-a="ftab" data-g="'+k+'" aria-pressed="'+(fTab===k)+'">'+l+'</button>').join('')+'</div>';
+  if(fTab==='hobby')return h+viewHobby(lock);
   if(lock&&fTab!=='sport')return h+card('','<p class="note">Im Gefängnis kannst du nur trainieren und lesen.</p>')+card('',actRows(['sport','lesen']));
   if(fTab==='aktiv'){const S=season();
     h+='<section class="card event"><div class="lbl">HEUTE IN DER STADT</div><h2 class="h">'+S.n+'</h2><p class="note">'+S.d+'</p>'+S.a.map(([k,n,c,d])=>row(n,(c?eur(px$(c))+' · ':'')+d,btn('event',k,once('ev_'+k)?'Erledigt':'Los','o',once('ev_'+k)||p.money<px$(c)))).join('')+'</section>';
@@ -1616,7 +1662,7 @@ function newLife(first,last,g,age,sb){
   if(age>=6)p.school='Grundschule';
   if(age>=10)p.school=p.st.in>=55?'Gymnasium':p.st.in>=38?'Realschule':'Hauptschule';
   if(age>=18){p.edu=p.school==='Gymnasium'?'Abitur':'Realschule';p.school=null;log('Du hast '+(p.edu==='Abitur'?'das Abitur':'den Realschulabschluss')+' in der Tasche.')}
-  tab='home';sel='home';save();render();
+  p.sibs=genSibs();tab='home';sel='home';save();render();
 }
 function grade(){return Math.min(4,1+(100-p.st.in)/30).toFixed(1).replace('.',',')}
 
@@ -1667,7 +1713,7 @@ function ageUp(){
   // Beziehungen, Tiere, Nachrichten
   if(p.partner){p.partner.rel+=R(-6,3);if(p.partner.rel<12){log(p.partner.name+' hat dich verlassen.');p.partner=null;add('gl',-12)}else if(p.partner.rel<30)msg('partner','Wir müssen reden.')}
   p.pets=p.pets.filter(x=>{x.age++;if(x.age>=PETS[x.t].life&&ch(.5)){log('Dein '+PETS[x.t].n+' '+x.n+' ist gestorben.');add('gl',-10);return false}return true});
-  if(!p.parentsGone&&a+p.pa>=86&&ch(.35)){p.parentsGone=true;log('Deine Eltern sind in hohem Alter verstorben.');add('gl',-15)}
+  if(!p.parentsGone&&a+p.pa>=86&&ch(.35)){p.parentsGone=true;log('Deine Eltern sind in hohem Alter verstorben.');parentInherit();add('gl',-15)}
   if(a>=8&&!p.parentsGone)msg('mama','Alles Gute zum '+a+'. Geburtstag, mein Schatz!');
   if(a>=8&&ch(.7))msg('freund',pick(['Happy Birthday!! Party?','Alles Gute, alte Socke!','Noch ein Jahr älter, haha. Alles Gute!']));
   if(ch(.4)){const who=pick(['mama','papa','freund'].filter(k=>k==='freund'?a>=6:!p.parentsGone));if(who)msg(who,pick(CHAT_SMALL[who]))}
@@ -1795,11 +1841,11 @@ function act(id,arg){
   if(!p||!p.alive)return;CUR=id;
   if(ACTS[id]){const A=ACTS[id];if(!can(id)||!useAct())return;const r=A.f();if(r===null){refundAct();toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg))return;
+  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg))return;
   switch(id){
   case 'goto':tab=arg;if(p.appSeen)p.appSeen[arg]=1;if(arg==='store')p.storeY=p.age;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
-    if(ch(.45+p.st.in/250+p.st.au/500+p.sk.charme/500)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');if(p.stats)p.stats.jobs++;p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.');break}
+    interview(j,bon=>{if(ch(.45+p.st.in/250+p.st.au/500+p.sk.charme/500+bon)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');if(p.stats)p.stats.jobs++;p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.')});break}
   case 'work':shift();break;
   case 'quit':if(!p.job)return;{const t=p.job.t;p.job=null;done('Du hast als '+t+' gekündigt.')}break;
   case 'study':if(p.edu!=='Abitur'||inSchool()||p.age<17||p.prison||p.deg)return;if(p.job&&!p.job.part)p.job=null;p.study={f:arg,left:STUDY[arg]};done('Du studierst jetzt '+arg+'.');break;
@@ -1861,7 +1907,7 @@ function act(id,arg){
   case 'bjstand':bjStand();break;
   case 'bjdouble':bjDouble();break;
   case 'chat':chatSel=arg||null;render();window.scrollTo(0,0);break;
-  case 'call':{if(p.prison||!useAct())return;if(p.rel&&p.rel[arg]!=null)p.rel[arg]=Math.min(100,p.rel[arg]+8);if(String(arg).startsWith('kid')){const k=p.kids[+arg.slice(3)];if(k)k.rel=Math.min(100,k.rel+6)}if(arg==='rival'&&p.rival&&p.age>=25&&ch(.1)){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}msg(arg,'Ich ruf dich gleich mal an!',true);msg(arg,pick(['Schön, dass du anrufst!','Endlich meldest du dich :)','Hab mich so gefreut, deine Stimme zu hören!']));p.chats[arg].un=0;add('gl',R(3,6));done('Ihr habt lange telefoniert.');break}
+  case 'call':{if(p.prison||!useAct())return;if(String(arg).startsWith('sib'))relUp(arg,8);if(p.rel&&p.rel[arg]!=null)p.rel[arg]=Math.min(100,p.rel[arg]+8);if(String(arg).startsWith('kid')){const k=p.kids[+arg.slice(3)];if(k)k.rel=Math.min(100,k.rel+6)}if(arg==='rival'&&p.rival&&p.age>=25&&ch(.1)){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}msg(arg,'Ich ruf dich gleich mal an!',true);msg(arg,pick(['Schön, dass du anrufst!','Endlich meldest du dich :)','Hab mich so gefreut, deine Stimme zu hören!']));p.chats[arg].un=0;add('gl',R(3,6));done('Ihr habt lange telefoniert.');break}
   case 'meet':{if(p.prison||!useAct())return;if(p.rel)p.rel.freund=Math.min(100,p.rel.freund+10);msg('freund','Lust, heute was zu machen?',true);msg('freund',pick(['Klar! Bin in 20 Minuten da.','Immer! Kino oder Pizza?','Ja!! Endlich.']));p.chats.freund.un=0;add('gl',R(5,9));done('Ein toller Tag mit '+p.friend+'.');break}
   case 'love':{if(!p.partner||p.prison||p.loveA===p.age)return;p.loveA=p.age;msg('partner',pick(['Ich denk an dich.','Hab dich lieb!','Freu mich auf heute Abend.']),true);msg('partner',pick(['Ich dich auch <3','Du bist süß.','Kann es kaum erwarten!']));p.chats.partner.un=0;p.partner.rel=Math.min(100,p.partner.rel+4);done('Du hast '+p.partner.name+' eine liebe Nachricht geschickt.');break}
   case 'smjoin':if(p.age<13||p.sm)return;smJoin();msg('freund','Du bist jetzt auf Klick? Folge dir!');done('Dein Klick-Konto '+p.sm.h+' ist online.');break;
@@ -2328,7 +2374,7 @@ function viewFamilie(){if(!['kinder','eltern','baum','erbe'].includes(famTab))fa
   }
   if(famTab==='eltern'){const rb=(id,n,s)=>'<div class="stat"><div class="r"><span>'+esc(n)+' <small class="note">'+s+'</small></span><span>'+p.rel[id]+' %</span></div><div class="bar"><i class="'+(p.rel[id]<30?'low':'')+'" style="width:'+p.rel[id]+'%"></i></div></div>';
     h+=card('Beziehungen',(p.parentsGone?'<p class="note">Deine Eltern sind verstorben.</p>':rb('mama','Mama','')+rb('papa','Papa',''))+(p.age>=6?rb('freund',p.friend,'beste/r Freund/in'):'')+'<p class="note" style="margin-top:6px">Anrufe, Treffen und Geburtstage halten Beziehungen warm. Ohne Kontakt kühlen sie ab.</p><div class="btns">'+btn('goto','chats','Zu den Chats','o')+btn('goto','kalender','Zum Kalender')+'</div>');
-    h+=card('Haustiere',(p.pets.length?p.pets.map(x=>row(esc(x.n),PETS[x.t].n+' · '+x.age+' Jahre')).join(''):'<p class="note">Noch kein Haustier.</p>')+actRows(['pet']))+card('Tierheim',special('adopt'));
+    h+=sibCard();h+=card('Haustiere',(p.pets.length?p.pets.map(x=>row(esc(x.n),PETS[x.t].n+' · '+x.age+' Jahre')).join(''):'<p class="note">Noch kein Haustier.</p>')+actRows(['pet']))+card('Tierheim',special('adopt'));
   }
   if(famTab==='baum'){const node=(n,s,cls)=>'<div class="tn '+(cls||'')+'"><b>'+esc(n)+'</b><small>'+esc(s)+'</small></div>';
     h+='<section class="card tree">'+(p.tree.length?p.tree.map(t=>node(t.n,'Generation '+t.gen+' · '+t.age+' Jahre · '+t.job,'anc')+'<i class="tl"></i>').join(''):'')+
@@ -2345,7 +2391,7 @@ function shareOf(i){const e=estate(),alive=p.kids.filter(k=>k.alive!==false).len
 function continueAs(i){const prev=p,k=prev.kids[i];if(!k)return;const ka=prev.age-k.b,share=shareOf(i),deg=k.edu;
   const tree=(prev.tree||[]).concat([{n:prev.first+' '+prev.last,gen:prev.gen||1,age:prev.age,job:prev.pension?'Rentner/in':status(),nw:Math.round(netWorth())}]);
   const lastN=prev.last,sb=prev.sb;newLife(k.n,lastN,k.g,Math.max(0,ka),sb);p.cfg=prev.cfg;p.act=actBase();p.clock=DAYSTART;ensureLife();
-  p.gen=(prev.gen||1)+1;p.tree=tree;if(prev.apps){p.apps=Object.assign({},prev.apps);p.appSeen={};APPS.forEach(a=>{if(appVisible(a[0]))p.appSeen[a[0]]=1})}p.money+=share;
+  p.gen=(prev.gen||1)+1;p.tree=tree;p.sibs=prev.kids.filter((x,j)=>j!==i&&x.alive!==false).map(x=>({n:x.n,g:x.g,d:k.b-x.b,rel:clamp(x.rel,20,90),job:x.job||null,mar:!!x.mar}));if(prev.apps){p.apps=Object.assign({},prev.apps);p.appSeen={};APPS.forEach(a=>{if(appVisible(a[0]))p.appSeen[a[0]]=1})}p.money+=share;
   if(prev.biz&&prev.biz.co&&prev.will!=='stiftung'&&(prev.will==='gleich'||prev.will==='kid'+i)){const bv=(prev.biz.fronts||[]).reduce((s,k)=>s+FR[k].cost,0)+(prev.biz.firm&&!prev.biz.firm.ipo?prev.biz.firm.val:0);p.biz=prev.biz;p.dirty=prev.dirty||0;p.money=Math.max(0,p.money-Math.min(share,bv));log('Du übernimmst das Familienunternehmen '+prev.biz.co.name+'.');mile('Familienunternehmen übernommen','star')}p.st.in=k.st.in;p.st.ge=Math.min(100,k.st.ge);p.st.gl=clamp(50+Math.round(k.rel/3),0,100);
   if(ka>=18){p.edu=deg==='keine'?(k.st.in>=55?'Abitur':'Realschule'):deg;p.school=null}
   p.parentsGone=!prev.partner;p.pa=ka+R(25,35);if(prev.rival&&ka>=6){p.rival=null}
@@ -2482,7 +2528,7 @@ function movePick(){dialog('Wohin soll es gehen?','Umzug kostet '+eur(px$(2500))
 
 /* ================= Jahreswechsel ================= */
 function lifeX(R0){ensureLife();
-  worldYear(R0);bizPlusYear(R0);appYear(R0);calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
+  worldYear(R0);bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
   ['mama','papa'].forEach(k=>p.rel[k]=Math.max(0,p.rel[k]-2));p.rel.freund=Math.max(0,p.rel.freund-3);
   if(p.age>=8&&p.rel.freund<12){log('Du und '+p.friend+' habt euch aus den Augen verloren.');p.friend=pick(FN.concat(MN).filter(x=>x!==p.friend));p.rel.freund=45;p.chats.freund={msgs:[],un:0};msg('freund','Hi! Wir kennen uns vom Sport. Lust, mal was zu machen?')}
   p.lernN=0;p.skipN=0;if(p.trust&&p.age>=18){p.money+=p.trust;R0.inc.push(['Treuhandfonds der Familie',p.trust]);log('Du bekommst deinen Treuhandfonds: '+eur(p.trust)+'.');p.trust=0}
@@ -2637,6 +2683,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+ {v:'2.9',big:true,t:'Lebendiger Alltag',neu:['Geschäfte neu sortiert: Kopfkarte mit Gewinn, Firmenwert und Hinweisen, dazu 5 Reiter','Chats: Antworten auswählen, Gruppenchats für Familie, Klasse und Kollegen, Einladungen annehmen oder absagen','Jobs: Vorstellungsgespräch, dein Team mit Namen, Kaffeepause, Homeoffice-Tag, Firmenfeier','Hobbys mit 5 Stufen, Wettbewerben und Nebeneinkünften','Geschwister, Pflege der Eltern und Erbe der Eltern','Apps auf dem Handy selbst anordnen','Abschlussprüfung mit 5 Fragen nach Schule, Ausbildung und Studium','Die Stadt lebt: anklickbare Ereignisse, teils passend zu deinem Job','Erinnerungen von oben: Arzt, Sport, Geburtstage, Termine'],mod:['„+1 Jahr“ erscheint nur noch auf dem Handy und in der Stadt']},
  {v:'2.8',big:true,t:'Der App Store',neu:['App Store: Klick, Nachrichten, Börse, Geschäfte, Casino, Karriere, Wohnen, Garage und Straße lädst du dir, wenn du sie willst','Apps wachsen mit deinem Alter: Als Kind siehst du nur wenige, neue Apps landen mit „Neu“-Markierung auf dem Handy','Speicherplatz je nach Handy: 2, 4, 7 oder 9 Store-Apps','Empfehlungen im Store passend zu deinem Leben','Börse Pro mit Kursalarmen','Fahrschule im App Store bei der Garage'],mod:['Apps, die du schon benutzt hast, sind automatisch installiert','Gelöschte Apps behalten ihre Daten']},
  {v:'2.7',big:true,t:'Unternehmer-Update',neu:['Filialen für alle Geschäfte, ab 5 Standorten Franchise mit Lizenzgebühren','Eigene Produkte im Onlineshop (bis zu 4) mit Preisstufe, Qualität und Bewertungen','Bankfilialen: mehr Kundengelder, mehr Gewinn','Marketing-Kampagnen von Flyern bis TV-Spot','Konkurrenz mit Preiskampf, Aufkauf, Qualität oder, mit krimineller Vergangenheit, Sabotage und Einschüchterung','Kundenbewertungen mit Sternen und Mitarbeiter-Ereignisse','Geschäfte verkaufen oder an dein Kind vererben','Eigene Produktion als Lieferkette'],mod:['Immobilien-Ausbau braucht echte Bauzeit: während der Bauarbeiten weniger Miete, die neue Miete gilt erst ab dem Jahr danach','Der Code ist jetzt in 35 Module aufgeteilt']},
  {v:'2.6',big:true,t:'Mehr Leben, mehr Hilfe',neu:['Tutorial für Einsteiger, abwählbar beim Start und in den Einstellungen','Tipps beim ersten Öffnen jeder App, einzeln wegklickbar oder ganz abschaltbar','33 neue Ereignisse für alle Lebensphasen, viele mit drei Wahlmöglichkeiten','Spielablauf jetzt auch im laufenden Spiel änderbar (Einstellungen)'],mod:['Ereignisse wiederholen sich deutlich seltener','Mehr Textvarianten bei Lesen, Sport, Joggen, Feiern, Meditieren und Lernen','Größere, kontrastreichere Schrift für bessere Lesbarkeit']},
@@ -2787,7 +2834,7 @@ function bizPlusYear(R0){const B=p.biz;if(!B||!B.co)return;ensurePlus();
     log('Konkurrenz! '+n+' macht direkt neben '+(k==='shop'?'deinem Onlineshop':'deinem '+FR[k].n)+' auf.');news(n+' fordert '+(k==='shop'?B.shop.name:FR[k].n)+' heraus','lokal')}
   // Mitarbeiter-Ereignisse
   const units=B.fronts.concat(B.shop?['shop']:[]);if(units.length&&ch(.12))p.q.push({id:'bizstaff',d:{k:pick(units),t:pick(['streik','star','weg'])}});
-  if(B.mkt&&B.mkt.y<p.age-1)B.mkt=null}
+  if(B.mkt&&B.mkt.y<p.age-1)B.mkt=null;B.ph=(B.ph||[]).concat([bizExpected()]).slice(-15)}
 const uName=k=>k==='shop'?p.biz.shop.name:FR[k].n;
 QEV.bizstaff=d=>{const B=p.biz;if(!B||!(d.k==='shop'?B.shop:B.fronts.includes(d.k)))return null;const n=uName(d.k);
   if(d.t==='streik')return E('Streik!','Das Team von '+n+' streikt für mehr Lohn.',()=>true,[['Lohn erhöhen ('+eur(px$(8000))+')',()=>(p.money-=px$(8000),B.stars[d.k]=Math.min(5,bstars(d.k)+.3),'Die Stimmung ist super. Der Service auch.')],['Hart bleiben',()=>(B.stars[d.k]=Math.max(1,bstars(d.k)-.6),p.money-=px$(3000),'Zwei Wochen zu. Die Kundschaft ist sauer.')]]);
@@ -2796,18 +2843,18 @@ QEV.bizstaff=d=>{const B=p.biz;if(!B||!(d.k==='shop'?B.shop:B.fronts.includes(d.
 /* Ansichten */
 function plusTop(lock){const B=p.biz;ensurePlus();const m=mktOn();let h='';
   if(B.comp.length)h+='<h3 class="sec">Konkurrenz</h3>'+B.comp.map(c=>{const F=c.k==='shop'?null:FR[c.k],buy=c.k==='shop'?px$(40000):Math.round(F.cost*.8),q=c.k==='shop'?px$(8000):Math.round(F.profit*.6),cr=crimPast();
-    return '<section class="card comp"><div class="fh"><span class="fic sm" style="background:linear-gradient(135deg,#D64545,#7A1F1F)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></span><div><b>'+esc(c.n)+'</b><small>gegen '+esc(uName(c.k))+' · −'+Math.round(c.str*100)+' % Umsatz</small></div></div>'+
+    return '<!--K:'+c.k+'--><section class="card comp"><div class="fh"><span class="fic sm" style="background:linear-gradient(135deg,#D64545,#7A1F1F)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></span><div><b>'+esc(c.n)+'</b><small>gegen '+esc(uName(c.k))+' · −'+Math.round(c.str*100)+' % Umsatz</small></div></div>'+
       '<div class="cpg">'+btn('cpprice',c.k,'Preiskampf · '+eur(px$(10000)),'',lock||p.money<px$(10000))+btn('cpqual',c.k,'Qualität · '+eur(q),'',lock||p.money<q)+btn('cpbuy',c.k,'Aufkaufen · '+eur(buy),'o',lock||p.money<buy)+btn('cprumor',c.k,'Gerüchte streuen','g',lock)+'</div>'+
-      (cr?'<div class="cpdark"><small>Deine Vergangenheit öffnet andere Wege</small><div class="cpg">'+btn('cpsab',c.k,'Sabotage','g',lock||p.act<=0)+btn('cpdruck',c.k,p.gang?'Die Gang schicken':'Einschüchtern','g',lock||p.act<=0)+'</div></div>':'')+'</section>'}).join('');
-  h+='<h3 class="sec">Marketing</h3><section class="card">'+(m?'<div class="listseg"><b>'+MKT[m.k][0]+' läuft</b><span class="chip">+'+Math.round(MKT[m.k][2]*100)+' % Umsatz</span></div><p class="note">Wirkt bis zum nächsten Jahreswechsel auf alle Geschäfte und den Shop.</p>':
+      (cr?'<div class="cpdark"><small>Deine Vergangenheit öffnet andere Wege</small><div class="cpg">'+btn('cpsab',c.k,'Sabotage','g',lock||p.act<=0)+btn('cpdruck',c.k,p.gang?'Die Gang schicken':'Einschüchtern','g',lock||p.act<=0)+'</div></div>':'')+'</section><!--/K-->'}).join('');
+  h+='<!--MKT--><h3 class="sec">Marketing</h3><section class="card">'+(m?'<div class="listseg"><b>'+MKT[m.k][0]+' läuft</b><span class="chip">+'+Math.round(MKT[m.k][2]*100)+' % Umsatz</span></div><p class="note">Wirkt bis zum nächsten Jahreswechsel auf alle Geschäfte und den Shop.</p>':
     '<p class="note" style="margin-bottom:8px">Eine Kampagne pro Jahr steigert den Umsatz aller Geschäfte und des Shops. Bewertungen steigen leicht.</p>'+Object.keys(MKT).map(k=>row(MKT[k][0],'+'+Math.round(MKT[k][2]*100)+' % Umsatz für ein Jahr',btn('mkt',k,eur(px$(MKT[k][1])),'o',lock||p.money<px$(MKT[k][1])))).join(''))+'</section>';
   return h}
 function plusFronts(lock){const B=p.biz;ensurePlus();if(!B.fronts.length)return '';
   return '<h3 class="sec">Filialen und Ketten</h3>'+B.fronts.map(k=>{const F=FR[k],fil=B.fil[k]||0,fr=franchise(k),sell=Math.round(F.cost*(1+.3*(flvl(k)-1))*(1+.6*fil)*(.8+.1*bstars(k)));
-    return '<section class="card chain"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg></span><div><b>'+F.n+(fil?' · Kette':'')+'</b><small>'+(1+fil)+' Standort(e)'+(fr?' · Franchise':'')+'</small></div>'+starHtml(bstars(k))+'</div>'+
+    return '<!--C:'+k+'--><section class="card chain"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg></span><div><b>'+F.n+(fil?' · Kette':'')+'</b><small>'+(1+fil)+' Standort(e)'+(fr?' · Franchise':'')+'</small></div>'+starHtml(bstars(k))+'</div>'+
       '<div class="locs">'+Array.from({length:1+fil},(_,i)=>'<span>'+esc(i?cityName(p.seed+i*7919):cityName(p.seed))+'</span>').join('')+'</div>'+
       '<div class="kv"><div><small>Gewinn pro Jahr (geschätzt)</small><b class="up">'+eur(F.profit*(1+.5*(flvl(k)-1))*bizMul(k))+'</b></div><div><small>'+(fr?'Franchise-Gebühren':'Ab 5 Standorten')+'</small><b>'+(fr?eur(F.profit*.45*fr):'Franchise')+'</b></div></div>'+
-      '<div class="btns">'+(fil<9?btn('fil',k,'Filiale eröffnen · '+eur(filCost(k)),'o',lock||p.money<filCost(k)):'<span class="chip">Maximal 10 Standorte</span>')+btn('frqual',k,B.qy[k]===p.age?'Qualität verbessert':'Qualität · '+eur(Math.round(F.profit*.5)),'',lock||B.qy[k]===p.age||p.money<F.profit*.5)+btn('frsell',k,'Alles verkaufen · '+eur(sell),'g',lock)+'</div></section>'}).join('')}
+      '<div class="btns">'+(fil<9?btn('fil',k,'Filiale eröffnen · '+eur(filCost(k)),'o',lock||p.money<filCost(k)):'<span class="chip">Maximal 10 Standorte</span>')+btn('frqual',k,B.qy[k]===p.age?'Qualität verbessert':'Qualität · '+eur(Math.round(F.profit*.5)),'',lock||B.qy[k]===p.age||p.money<F.profit*.5)+btn('frsell',k,'Alles verkaufen · '+eur(sell),'g',lock)+'</div></section><!--/C-->'}).join('')}
 function plusShop(lock){const s=p.biz.shop;ensurePlus();const T=PRODT[s.cat];if(!prodT||!T.includes(prodT))prodT=T[0];
   let h='<h3 class="sec">Eigene Produkte · '+s.prods.length+' von '+PROD_MAX+'</h3>';
   h+=s.prods.map((x,i)=>'<section class="card prod"><div class="listseg"><div><b>'+esc(x.n)+'</b><small>'+esc(x.t)+' · '+TIER[x.tier][0]+(x.hit?' · '+x.hit+'× Verkaufsschlager':'')+'</small></div>'+starHtml(x.st)+'</div>'+
@@ -2916,6 +2963,227 @@ function act9(id,arg){switch(id){
   }return 0}
 TUT.splice(TUT.length-1,0,['Der App Store','Viele Apps lädst du dir erst, wenn du sie brauchst: Klick, Börse, Geschäfte, Casino und mehr. Manche gibt es erst ab einem bestimmten Alter. Bessere Handys haben mehr Speicher.','<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 15l3-7 3 7M10 13h4"/>']);
 APPTIP.store='Hier lädst du zusätzliche Apps. Grund-Apps belegen keinen Speicher, Store-Apps schon. Gelöschte Apps behalten ihre Daten.';
+/* ================= Leben+: Chats, Jobs, Hobbys, Geschwister, Handy, Erinnerungen, Prüfungen, Stadt ================= */
+function spendTime(m){if(!clockOn())return true;if(p.clock+m>DAYEND){toast('Dafür ist es zu spät. Es ist schon '+clockTxt()+'.');return false}p.clock+=m;if(p.clock>=DAYEND-10)p.act=0;return true}
+
+/* ---------- Chats: Antworten, Gruppen, Einladungen ---------- */
+const REPLY={lieb:['Danke dir, hab dich lieb!','Das ist so lieb von dir!','Du bist die/der Beste.','Freu mich total, von dir zu hören!'],kurz:['Ok.','Jo.','Klingt gut.','Mal sehen.'],frech:['Lass mich in Ruhe.','Muss das jetzt sein?','Kein Bock.','Später vielleicht.']};
+const INVITES={freund:[['Kino heute Abend?','kino'],['Kommst du mit zum Konzert?','konzert'],['Zocken bei mir?','zocken'],['Lust auf einen Spieleabend?','spiele']],mama:[['Kommst du Sonntag zum Essen?','essen']],papa:[['Hilfst du mir am Samstag beim Umzug von Oma?','hilfe']],
+ partner:[['Wollen wir heute schick essen gehen?','dinner']],g_job:[['Feierabendbier heute?','bier']],g_klasse:[['Party bei Jonas am Freitag!','party']],kid:[['Grillen bei uns am Wochenende?','grill']]};
+const GROUPS={g_fam:['Familie','#E5527A',()=>!p.parentsGone||(p.sibs||[]).length>0],g_klasse:['Klasse '+'','#3BB273',()=>!!p.school&&p.age>=10],g_job:['Kollegen','#6B7385',()=>!!(p.job&&!['influ','pol'].includes(p.job.id))]};
+const GMSG={g_fam:[['Mama','Wer bringt am Sonntag den Nachtisch mit?'],['Papa','Ich hab ein neues Grillrezept.'],['Mama','Schaut mal, die Katze vom Nachbarn!'],['Papa','Wer hat meinen Akkuschrauber?']],
+ g_klasse:[['Lena','Hat jemand die Mathe-Hausaufgaben?'],['Jonas','Morgen fällt Sport aus!!'],['Mia','Wer kommt mit ins Freibad?'],['Tim','Ich hab den Test komplett verhauen']],
+ g_job:[['Sabine','Wer hat meinen Joghurt aus dem Kühlschrank genommen?'],['Murat','Meeting um 9 ist verschoben.'],['Chefin','Gute Arbeit diese Woche, Team!'],['Jan','Kuchen in der Küche!']]};
+function relUp(id,n){if(id==='partner'&&p.partner)p.partner.rel=clamp(p.partner.rel+n,0,100);else if(p.rel&&p.rel[id]!=null)p.rel[id]=clamp(p.rel[id]+n,0,100);
+  else if(String(id).startsWith('kid')){const k=p.kids[+id.slice(3)];if(k)k.rel=clamp(k.rel+n,0,100)}else if(String(id).startsWith('sib')){const s=(p.sibs||[])[+id.slice(3)];if(s)s.rel=clamp(s.rel+n,0,100)}}
+function chatsYear(){const cs=contacts().map(c=>c.id);Object.keys(p.chats).forEach(k=>{const c=p.chats[k];if(c.inv&&c.inv.y<p.age)c.inv=null});
+  Object.keys(GROUPS).forEach(g=>{if(GROUPS[g][2]()&&ch(.6)){const [n,t]=pick(GMSG[g]);msg(g,n+': '+t)}});
+  cs.forEach(id=>{const key=id.startsWith('kid')?'kid':id;const L=INVITES[key];if(!L||!ch(.3))return;if(key==='kid'&&p.age-p.kids[+id.slice(3)].b<20)return;const [t,k]=pick(L);msg(id,t);p.chats[id].inv={t,k,y:p.age}});
+  cs.forEach(id=>{const c=p.chats[id];if(c&&c.msgs.length&&!c.msgs[c.msgs.length-1].me&&!id.startsWith('g_'))c.pend=true})}
+const _msg0=msg;msg=function(id,t,me){_msg0(id,t,me);const c=p.chats[id];if(c)c.pend=!me};
+function chatExtra(c){const C=p.chats[c.id]||{};let h='';
+  if(C.inv)h+='<div class="inv"><small>Einladung</small><b>'+esc(C.inv.t)+'</b><div class="btns">'+btn('invyes',c.id,'Zusagen · '+(clockOn()?'2 Std.':'1 Aktion'),'o',p.act<=0||!!p.prison)+btn('invno',c.id,'Absagen','g')+'</div></div>';
+  else if(C.pend&&!c.id.startsWith('g_')&&c.id!=='chef')h+='<div class="replies">'+[['lieb','Lieb antworten'],['kurz','Kurz antworten'],['frech','Genervt antworten']].map(([k,l])=>'<button class="rp" data-a="reply" data-g="'+c.id+':'+k+'">'+l+'<small>„'+esc(REPLY[k][0])+'“</small></button>').join('')+'</div>';
+  else if(C.pend&&c.id.startsWith('g_'))h+='<div class="replies">'+btn('greply',c.id,'Mitreden','o')+'</div>';
+  return h}
+
+/* ---------- Jobs: Kollegen, Homeoffice, Bewerbungsgespräch, Firmenfeier ---------- */
+const OFFICE=['buero','info','bankkfm','architekt','berater','jura','lehrer'];
+function colleagues(){if(!p.job||['influ','pol','sport'].includes(p.job.id))return [];if(!p.job.col){const r=rng(p.seed%9973+p.job.id.length*31+p.age);p.job.col=[0,1,2].map(i=>({n:FN.concat(MN)[Math.floor(r()*(FN.length+MN.length))],rel:50+Math.floor(r()*30)}))}return p.job.col}
+function jobExtra(){if(!p.job)return '';const C=colleagues();let h='';
+  if(C.length)h+='<section class="card"><h2 class="h">Dein Team</h2>'+C.map((c,i)=>'<div class="stat"><div class="r"><span>'+esc(c.n)+'</span><span>'+c.rel+' %</span></div><div class="bar"><i style="width:'+c.rel+'%"></i></div></div>').join('')+
+    '<div class="btns">'+btn('colkaffee',null,'Kaffeepause mit dem Team','',p.colY===p.age||!!p.prison)+(OFFICE.includes(p.job.id)?btn('homeoffice',null,p.hoY===p.age?'Homeoffice genutzt':'Homeoffice-Tag','o',p.hoY===p.age||!!p.prison):'')+'</div>'+
+    '<p class="note" style="margin-top:6px">Ein gutes Verhältnis zum Team steigert deine Leistung. '+(OFFICE.includes(p.job.id)?'Ein Homeoffice-Tag pro Jahr spart den Arbeitsweg: '+(clockOn()?'2 Stunden mehr Zeit.':'eine Aktion mehr.'):'')+'</p></section>';
+  return h}
+const INTERVIEW=[['Warum sollten wir gerade Sie nehmen?','Ich bringe Erfahrung mit und lerne schnell dazu.','Weil ich das Geld brauche.','Keine Ahnung, sagen Sie es mir.'],['Was ist Ihre größte Schwäche?','Ich bin manchmal zu ungeduldig, arbeite aber daran.','Ich habe keine.','Ich komme oft zu spät.'],
+ ['Wo sehen Sie sich in fünf Jahren?','In einer verantwortungsvollen Rolle hier im Unternehmen.','Auf Ihrem Stuhl.','Im Urlaub.'],['Wie gehen Sie mit Stress um?','Ich plane gut und bleibe ruhig.','Ich werde laut.','Ich melde mich krank.'],
+ ['Warum wollen Sie wechseln?','Ich suche eine neue Herausforderung.','Mein Chef ist ein Idiot.','Weiß nicht genau.']];
+function interview(j,go){if(O.mini==='skip'||j.part)return go(0);const q=pick(INTERVIEW);
+  dialog('Vorstellungsgespräch: '+j.t,q[0],shuffle([[q[1],()=>go(.15)],[q[2],()=>go(-.12)],[q[3],()=>go(-.2)]]).concat([['Ohne Gespräch (Zufall)',()=>go(0)]]))}
+EVENTS.push(
+ E('Firmenfeier','Die Weihnachtsfeier deiner Firma steht an. Es gibt Freigetränke.',()=>!!p.job&&!['influ','pol','sport'].includes(p.job.id)&&p.age>=18,[['Ausgelassen feiern',()=>ch(.6)?(add('gl',8),(colleagues()).forEach(c=>c.rel=Math.min(100,c.rel+8)),'Du tanzt mit der Chefin. Alle lieben dich.'):(p.job.perf-=10,add('gl',-4),'Du erzählst dem Chef, was du wirklich von ihm hältst. Ups.')],['Kurz vorbeischauen',()=>(colleagues().forEach(c=>c.rel=Math.min(100,c.rel+3)),'Höflich, freundlich, früh zu Hause.')],['Nicht hingehen',()=>(colleagues().forEach(c=>c.rel=Math.max(0,c.rel-5)),'Das Team hat dich vermisst. Ein bisschen.')]]),
+ E('Ärger im Team','Ein Kollege nimmt sich immer die Lorbeeren für deine Arbeit.',()=>!!p.job&&colleagues().length>0&&p.age>=18,[['Ansprechen',()=>ch(.6)?(p.job.perf+=8,'Er entschuldigt sich. Ab jetzt läuft es fair.'):(colleagues()[0].rel=Math.max(0,colleagues()[0].rel-15),'Er streitet alles ab. Die Stimmung ist frostig.')],['Bei der Chefin melden',()=>(p.job.perf+=5,colleagues().forEach(c=>c.rel=Math.max(0,c.rel-5)),'Die Chefin weiß jetzt Bescheid. Das Team findet dich petzig.')],['Hinnehmen',()=>(add('gl',-4),'Du ärgerst dich still.')]]));
+
+/* ---------- Hobbys ---------- */
+const HOB={gitarre:['Gitarre','<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/>','in','Gitarrenunterricht geben'],kochen:['Kochen','<path d="M6 13h12v6a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><path d="M8 13V9a4 4 0 0 1 8 0v4"/>','ge','Catering für Feiern'],
+ schach:['Schach','<path d="M9 21h6M10 17h4l1-6H9zM12 3v3M10 5h4"/>','in','Schachkurse für Kinder'],malen:['Malen','<path d="M12 3a9 9 0 1 0 0 18c1 0 2-1 1.5-2s.5-2 1.5-2h2a4 4 0 0 0 4-4 9 9 0 0 0-9-10z"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7" r="1"/>','au','Bilder verkaufen'],
+ garten:['Gärtnern','<path d="M12 21V11M12 11c-4 0-6-3-6-7 4 0 6 3 6 7zM12 13c3 0 5-2 5-5-3 0-5 2-5 5z"/>','ge','Gemüse auf dem Markt verkaufen']};
+const HLV=['Anfänger/in','Fortgeschritten','Gut','Sehr gut','Meister/in'];
+const hlvl=k=>Math.min(5,Math.floor(((p.hob||{})[k]||0)/20)+1);
+function viewHobby(lock){p.hob=p.hob||{};let h='<section class="card"><h2 class="h">Hobbys</h2><p class="note">Übung macht den Meister. Ab Stufe 2 kannst du einmal im Jahr an einem Wettbewerb teilnehmen, ab Stufe 4 verdienst du nebenbei Geld.</p></section>';
+  h+=Object.keys(HOB).map(k=>{const H=HOB[k],xp=p.hob[k]||0,l=hlvl(k),prog=l>=5?100:(xp%20)/20*100;
+    return '<section class="card hob"><div class="fh"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+H[1]+'</svg></span><div><b>'+H[0]+'</b><small>Stufe '+l+' · '+HLV[l-1]+(l>=4?' · '+H[3]:'')+'</small></div></div>'+
+      '<div class="bar"><i style="width:'+prog+'%;background:#8E63D6"></i></div><div class="btns">'+btn('hobby',k,'Üben · '+(clockOn()?'1,5 Std.':'1 Aktion'),'o',p.act<=0||lock||p.age<6)+(l>=2?btn('hobcomp',k,p.hcY&&p.hcY[k]===p.age?'Wettbewerb erledigt':'Wettbewerb','',lock||(p.hcY&&p.hcY[k]===p.age)):'')+'</div></section>'}).join('');
+  return h}
+function hobbyYear(R0){if(!p.hob)return;let inc=0;Object.keys(p.hob).forEach(k=>{if(hlvl(k)>=4)inc+=Math.round(px$(R(1500,4000))*(hlvl(k)-3))});if(inc){p.money+=inc;R0.inc.push(['Hobbys: Nebeneinkünfte',inc])}}
+
+/* ---------- Geschwister und Pflege der Eltern ---------- */
+function genSibs(){const L=[];const n=ch(.55)?(ch(.3)?2:1):0;for(let i=0;i<n;i++){const g=ch(.5)?'w':'m';let nm;do{nm=pick(g==='m'?MN:FN)}while(nm===p.first||L.some(x=>x.n===nm));L.push({n:nm,g,d:pick([-6,-4,-3,-2,2,3,4,5]),rel:R(55,80),job:null,mar:false})}return L}
+const sibAge=s=>p.age+s.d;
+function sibYear(){(p.sibs||[]).forEach((s,i)=>{const a=sibAge(s);if(a<0)return;s.rel=clamp(s.rel-1,0,100);
+  if(a>=20&&!s.job&&ch(.4))s.job=pick(['Krankenpfleger/in','Ingenieur/in','Verkäufer/in','Lehrer/in','Polizist/in','Grafiker/in','Koch/Köchin']);
+  if(a>=24&&a<=40&&!s.mar&&ch(.12)){s.mar=true;p.q.push({id:'sibwed',d:i})}
+  if(a>=5&&p.age>=5&&p.age<=16&&ch(.15))p.q.push({id:'sibfight',d:i});
+  if(a>=22&&ch(.05))p.q.push({id:'sibhelp',d:i});if(ch(.2))msg('sib'+i,pick(['Na, Kleines/Großes?','Weißt du noch, früher?','Mama nervt mal wieder, oder?','Wann sehen wir uns?']))});
+  const pa=p.age+p.pa;if(!p.parentsGone&&pa>=78&&p.age>=18){if(!p.care&&(p.careAsk==null||p.age-p.careAsk>=3)){p.careAsk=p.age;p.q.push({id:'care'})}
+    if(p.care==='heim'){const c=px$(18000);p.money-=c;return c}if(p.care==='selbst'){add('gl',-3);p.rel.mama=Math.min(100,p.rel.mama+4);p.rel.papa=Math.min(100,p.rel.papa+4);addRuf(1)}}
+  if(p.parentsGone&&p.care){p.care=null}
+  return 0}
+Object.assign(QEV,{
+ sibfight:i=>{const s=(p.sibs||[])[i];if(!s)return null;return E('Streit mit '+s.n,s.n+' hat dein Lieblingsspielzeug kaputt gemacht.',()=>true,[['Petzen',()=>(s.rel-=6,'Mama schimpft mit '+s.n+'. Du grinst.')],['Verzeihen',()=>(s.rel=Math.min(100,s.rel+6),add('gl',2),'Ihr baut zusammen eine Höhle aus Decken.')],['Rache!',()=>(s.rel-=10,add('gl',3),'Seine/ihre Lieblingssocken sind jetzt rosa.')]])},
+ sibwed:i=>{const s=(p.sibs||[])[i];if(!s)return null;return E('Hochzeit von '+s.n,s.n+' heiratet und will, dass du eine Rede hältst.',()=>true,[['Rede halten',()=>ch(.6+(p.sk.charme||0)/250)?(s.rel=Math.min(100,s.rel+12),add('gl',8),'Alle weinen vor Rührung.'):(s.rel-=4,'Die Geschichte von früher war vielleicht doch zu peinlich.')],['Nur feiern',()=>(s.rel=Math.min(100,s.rel+4),add('gl',5),'Ein wunderschönes Fest.')]])},
+ sibhelp:i=>{const s=(p.sibs||[])[i];if(!s)return null;const a=px$(R(2,10)*1000);return E(s.n+' braucht Hilfe',s.n+' steckt in Geldnot und fragt nach '+eur(a)+'.',()=>true,[['Helfen',()=>p.money<a?'Du hast selbst nicht genug.':(p.money-=a,s.rel=Math.min(100,s.rel+15),'Ihr seid euch so nah wie lange nicht.')],['Ablehnen',()=>(s.rel-=12,s.n+' ist enttäuscht.')]])},
+ care:()=>E('Deine Eltern werden alt','Mama und Papa schaffen den Alltag nicht mehr allein. Wie kümmerst du dich?',()=>!p.parentsGone,[['Selbst pflegen',()=>(p.care='selbst',add('gl',-4),addRuf(5),'Du kümmerst dich selbst. Anstrengend, aber sie sind dir unendlich dankbar.')],['Pflegeheim (18.000 € im Jahr)',()=>(p.care='heim','Ein gutes Heim mit freundlichem Personal. Du besuchst sie oft.')],
+   ...((p.sibs||[]).length?[['Geschwister bitten',()=>{const s=p.sibs.reduce((a,b)=>a.rel>b.rel?a:b);if(s.rel>=55){p.care='sib';return s.n+' übernimmt die Pflege. Du hilfst, wo du kannst.'}s.rel-=10;p.care='heim';return s.n+' weigert sich. Es wird doch das Pflegeheim.'}]]:[])])});
+function parentInherit(){if(p.inhDone)return;p.inhDone=true;const n=1+(p.sibs||[]).length,tot=R(4,30)*10000,share=Math.round(tot/n);p.money+=share;log('Erbe deiner Eltern: '+eur(share)+(n>1?' (geteilt mit '+(n-1)+' Geschwister)':'')+'.');
+  if(n>1&&p.sibs.some(s=>s.rel<35))p.q.push({id:'erbstreit'})}
+QEV.erbstreit=()=>E('Streit ums Erbe','Deine Geschwister finden, dass du zu viel geerbt hast.',()=>true,[['Etwas abgeben (10.000 €)',()=>(p.money-=10000,p.sibs.forEach(s=>s.rel=Math.min(100,s.rel+15)),'Frieden in der Familie. Unbezahlbar.')],['Hart bleiben',()=>(p.sibs.forEach(s=>s.rel=Math.max(0,s.rel-20)),'Ihr redet nicht mehr miteinander.')]]);
+function sibCard(){const S=p.sibs||[];if(!S.length)return card('Geschwister','<p class="note">Du bist Einzelkind.</p>');
+  return card('Geschwister',S.map((s,i)=>{const a=sibAge(s);return a<0?row(s.n,'kommt in '+(-a)+' Jahr(en) zur Welt'):'<div class="stat"><div class="r"><span>'+esc(s.n)+' <small class="note">'+a+' Jahre'+(s.job?' · '+esc(s.job):'')+(s.mar?' · verheiratet':'')+'</small></span><span>'+s.rel+' %</span></div><div class="bar"><i class="'+(s.rel<30?'low':'')+'" style="width:'+s.rel+'%"></i></div></div><div class="btns" style="margin:4px 0 8px">'+btn('call','sib'+i,'Anrufen','',p.act<=0||!!p.prison||p.age<6)+'</div>'}).join(''))+
+  (!p.parentsGone&&p.age+p.pa>=78?card('Pflege der Eltern','<p class="note">'+({selbst:'Du pflegst deine Eltern selbst.',heim:'Deine Eltern leben in einem Pflegeheim ('+eur(px$(18000))+' im Jahr).',sib:'Deine Geschwister kümmern sich um die Pflege.'}[p.care]||'Noch nicht geregelt.')+'</p>'):'')}
+
+/* ---------- Handy: Apps verschieben ---------- */
+let editApps=false,swapSel=null;
+function appOrder(){const ids=APPS.map(a=>a[0]);const o=(O.order||[]).filter(x=>ids.includes(x));ids.forEach(x=>{if(!o.includes(x))o.push(x)});return o}
+function orderedApps(){const o=appOrder();return APPS.slice().sort((a,b)=>o.indexOf(a[0])-o.indexOf(b[0]))}
+
+/* ---------- Erinnerungen von oben ---------- */
+function notify(t,goApp,sub){let n=document.getElementById('ntf');if(!n||!n.classList)return;n.innerHTML='<span class="nic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21h4"/></svg></span><span class="nt"><small>Erinnerung · jetzt</small><b>'+esc(t)+'</b></span>';
+  n.dataset.g=goApp||'';n.dataset.s=sub||'';n.classList.add('show');sfx('msg');vib(30);clearTimeout(notify.t);notify.t=setTimeout(()=>n.classList.remove('show'),5200)}
+function reminders(){const L=[],a=p.age;
+  if(a>=10&&p.st.ge<60&&(p.lastArzt==null||a-p.lastArzt>=2))L.push(['arzt','Du warst lange nicht beim Arzt. Ein Check-up tut dir gut.','freizeit','gesund']);
+  if(a>=10&&(p.lastSport==null||a-p.lastSport>=2))L.push(['sport','Zeit für Sport! Dein Körper wird es dir danken.','freizeit','sport']);
+  const ob=people().filter(([id])=>p.grat[id]!==a);if(a>=10&&ob.length)L.push(['bd','Geburtstag: '+ob[0][1]+'. Nicht vergessen zu gratulieren!','kalender']);
+  const t=(p.terms||[]).find(x=>!x.done);if(t&&TERM[t.k])L.push(['term','Termin im Kalender: '+TERM[t.k][0]+'.','kalender']);
+  if(p.money<0)L.push(['geld','Dein Konto ist im Minus. Schau mal in die Bank-App.','bank']);
+  if(p.st.gl<30)L.push(['gl','Du wirkst niedergeschlagen. Unternimm etwas Schönes!','freizeit','aktiv']);
+  return L.filter(r=>!(p.remS&&p.remS[r[0]]===a))}
+function maybeRemind(){if(!p||!p.alive||tab!=='home'||document.getElementById('modal').classList.contains('on'))return;if(O.rem===false)return;p.remS=p.remS||{};
+  const n=Object.values(p.remS).filter(v=>v===p.age).length;if(n>=2)return;const now=Date.now();if(maybeRemind.t&&now-maybeRemind.t<25000)return;const r=reminders()[0];if(!r)return;maybeRemind.t=now;p.remS[r[0]]=p.age;setTimeout(()=>notify(r[1],r[2],r[3]),900)}
+
+/* ---------- Abschlussprüfungen ---------- */
+const EXQ={
+ schule:[['Was ist 3/4 von 80?','60','40','75'],['Welches Wort ist ein Verb?','laufen','schnell','Haus'],['Wie heißt die Hauptstadt von Frankreich?','Paris','Lyon','Marseille'],['Was ist 12 × 12?','144','124','132'],['Was ist das Gegenteil von „mutig“?','feige','stark','laut'],['Wie viele Grad hat ein rechter Winkel?','90','45','180'],['Welches Gas brauchen wir zum Atmen?','Sauerstoff','Helium','Stickstoff'],['„I go“ in der Vergangenheit heißt …','I went','I goed','I gone']],
+ abitur:[['Was ist die Ableitung von x²?','2x','x','2x²'],['Wer schrieb „Die Leiden des jungen Werthers“?','Goethe','Schiller','Fontane'],['Was bedeutet DNA?','Desoxyribonukleinsäure','Daten-Netz-Analyse','Doppel-Nukleo-Amin'],['In welchem Jahr endete der Zweite Weltkrieg?','1945','1939','1949'],['Was ist die Hauptstadt von Kanada?','Ottawa','Toronto','Montreal'],['Welches Organ produziert Insulin?','Bauchspeicheldrüse','Leber','Niere'],['Was ist log₁₀(1000)?','3','10','100'],['Was beschreibt die Gewaltenteilung?','Legislative, Exekutive, Judikative','Bund, Land, Kommune','Polizei, Armee, Gericht']],
+ aus:[['Was gehört auf eine Rechnung?','Umsatzsteuer und Datum','Lieblingsfarbe','Wetterbericht'],['Wie lange dauert die Probezeit in der Ausbildung höchstens?','4 Monate','1 Jahr','2 Wochen'],['Wer ist für Arbeitsschutz verantwortlich?','Der Arbeitgeber','Nur die Azubis','Die Kundschaft'],['Was ist Brutto?','Lohn vor Abzügen','Lohn nach Abzügen','Trinkgeld'],['Was macht ein Betriebsrat?','Vertritt die Beschäftigten','Leitet die Firma','Prüft die Steuern'],['Was ist ein Skonto?','Rabatt bei schneller Zahlung','Eine Mahnung','Ein Kredit']],
+ Informatik:[['Was ist ein Algorithmus?','Eine Schritt-für-Schritt-Anleitung','Ein Computervirus','Eine Programmiersprache'],['Wie viele Bits hat ein Byte?','8','4','16'],['Was bedeutet „Bug“?','Ein Programmfehler','Ein schneller Prozessor','Ein Kabel'],['Welche Zahl ist 1010 im Binärsystem?','10','12','8'],['Was speichert eine Datenbank?','Daten in Tabellen','Strom','Nur Bilder'],['Was ist HTML?','Auszeichnungssprache für Webseiten','Ein Betriebssystem','Ein Virenscanner']],
+ Lehramt:[['Was ist Didaktik?','Die Lehre vom Unterrichten','Ein Schulfach','Ein Notensystem'],['Was hilft bei Lärm in der Klasse am meisten?','Klare Regeln und Rituale','Lauter schreien','Alle nach Hause schicken'],['Was bedeutet Inklusion?','Gemeinsames Lernen aller Kinder','Nachsitzen','Frontalunterricht'],['Wer entwickelte die Montessori-Pädagogik?','Maria Montessori','Rudolf Steiner','Jean Piaget'],['Was ist eine Lernzielkontrolle?','Ein Test, ob Ziele erreicht wurden','Ein Elterngespräch','Ein Ausflug']],
+ Architektur:[['Was ist ein Grundriss?','Waagerechter Schnitt durch ein Gebäude','Die Fassade','Ein Dachtyp'],['Welcher Baustoff ist am druckfestesten?','Beton','Holz','Glas'],['Was ist der Bauhaus-Stil bekannt für?','Schlichte, funktionale Formen','Viele Verzierungen','Fachwerk'],['Was bedeutet Maßstab 1:100?','1 cm sind 1 m','1 m sind 1 cm','1 cm sind 100 m'],['Wofür steht Statik?','Lehre vom Gleichgewicht der Kräfte','Elektrik','Farbenlehre']],
+ Jura:[['Ab wann ist man in Deutschland voll geschäftsfähig?','Mit 18','Mit 16','Mit 21'],['Was regelt das BGB?','Bürgerliches Recht','Strafrecht','Verkehrsregeln'],['Was ist ein Vertrag?','Zwei übereinstimmende Willenserklärungen','Eine Rechnung','Ein Urteil'],['Wer ist das höchste deutsche Gericht?','Bundesverfassungsgericht','Amtsgericht','Landgericht'],['Was bedeutet „in dubio pro reo“?','Im Zweifel für den Angeklagten','Gleiches Recht für alle','Strafe muss sein']],
+ Medizin:[['Wie viele Kammern hat das Herz?','4','2','3'],['Welche Blutgruppe ist Universalspender?','0 negativ','AB positiv','A positiv'],['Was misst der Blutdruck?','Druck in den Arterien','Zucker im Blut','Puls in der Lunge'],['Wo sitzt das Kleinhirn?','Hinterkopf','Stirn','Hals'],['Was hilft bei Herzstillstand zuerst?','Herzdruckmassage','Wasser trinken','Hochlegen der Beine'],['Welches Vitamin bildet die Haut mit Sonnenlicht?','Vitamin D','Vitamin C','Vitamin A']],
+ BWL:[['Was ist Umsatz?','Verkaufserlöse','Gewinn nach Steuern','Kosten'],['Was ist eine Bilanz?','Gegenüberstellung von Vermögen und Kapital','Ein Werbeplan','Eine Steuererklärung'],['Was bedeutet Marketing-Mix (4P)?','Product, Price, Place, Promotion','Plan, Profit, People, Power','Preis, Personal, Post, Planung'],['Was ist ein Break-even-Point?','Ab hier macht man Gewinn','Die Insolvenz','Der höchste Umsatz'],['Was ist Liquidität?','Zahlungsfähigkeit','Beliebtheit','Lagerbestand']]};
+function examYear(){const now={edu:p.edu,aus:!!p.aus,deg:p.deg};const pv=p.exPrev;p.exPrev=now;if(!pv)return;
+  if(now.edu!==pv.edu&&now.edu&&now.edu!=='keine')p.q.unshift({id:'exam5',d:now.edu==='Abitur'?'abitur':'schule'});
+  if(now.aus&&!pv.aus)p.q.unshift({id:'exam5',d:'aus'});if(now.deg&&now.deg!==pv.deg)p.q.unshift({id:'exam5',d:now.deg})}
+const EXN={schule:'Schulabschluss',abitur:'Abitur',aus:'Ausbildung'};
+QEV.exam5=k=>E('Abschlussprüfung: '+(EXN[k]||'Studium '+k),'Fünf Fragen entscheiden über deine Abschlussnote. Bereit?',()=>true,[['Prüfung starten',()=>{setTimeout(()=>finalExam(k),40);return 'Stift raus, Handy weg. Los geht es!'}],['Einfach durchmogeln',()=>{let s=0;for(let i=0;i<5;i++)if(ch(.35+p.st.in/200))s++;examResult(k,s,true);return 'Du hast die Prüfung irgendwie hinter dich gebracht ('+s+' von 5).'}]]);
+function finalExam(k){const B=(EXQ[k]||QZ).slice();shuffle(B);const qs=B.slice(0,5);let i=0,s=0;
+  const step=()=>{if(i>=5){examResult(k,s,false);const n=examNote(s);save();render();dialog('Prüfung bestanden'+(s>=4?'!':''),s+' von 5 richtig. Deine Note: '+fmtN(n)+'.',[['Super',null]]);if(s>=4)sfx('win');return}
+    const q=qs[i];i++;dialog('Frage '+i+' von 5',q[0],shuffle([[q[1],()=>{s++;sfx('coin');step()}],[q[2],()=>{sfx('bad');step()}],[q[3],()=>{sfx('bad');step()}]]))};step()}
+const examNote=s=>[4.3,3.7,3.0,2.3,1.7,1.0][s];
+function examResult(k,s,auto){const n=examNote(s);p.exN=p.exN||{};p.exN[k]=n;add('in',s);add('gl',(s-2)*2);mile((EXN[k]||'Studium '+k)+': Note '+fmtN(n),'star');log('Abschlussprüfung '+(EXN[k]||k)+(auto?' (durchgemogelt)':'')+': '+s+' von 5 richtig, Note '+fmtN(n)+'.');
+  if(s===5&&!p.parentsGone)msg('mama','Eine 1,0?! Ich sag es der ganzen Familie!');if(k===p.deg)p.dnote=n}
+
+/* ---------- Stadt: anklickbare Ereignisse ---------- */
+const CEV={katze:['Katze im Baum','Eine Katze sitzt fest. Schaffst du es hoch?','<path d="M5 20c0-6 3-9 7-9s7 3 7 9"/><path d="M8 11L6 5l4 3h4l4-3-2 6"/>'],tourist:['Tourist sucht den Weg','Ein Paar aus Japan sucht das Museum.','<circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/>'],
+ geld:['Geldschein auf dem Boden','Da liegt ein Schein im Rinnstein.','<rect x="3" y="7" width="18" height="10" rx="2"/><circle cx="12" cy="12" r="2"/>'],dieb:['Taschendieb!','Jemand reißt einer Frau die Tasche weg!','<path d="M6 8h12l-1 12H7z"/><path d="M9 8a3 3 0 0 1 6 0"/>'],
+ flash:['Flashmob','Auf dem Marktplatz tanzen plötzlich hundert Leute.','<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/>'],markt:['Glücksrad am Markt','Einmal drehen kostet nichts.','<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/>'],
+ umfrage:['Straßenumfrage','Das Lokalfernsehen stellt eine Quizfrage.','<rect x="3" y="6" width="14" height="12" rx="2"/><path d="M17 10l4-2v8l-4-2"/>'],unfall:['Fahrradunfall','Ein Radfahrer ist gestürzt und blutet am Knie.','<circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17l4-7h5l3 7"/>'],
+ verfolgung:['Verfolgungsjagd','Ein Verdächtiger rennt davon. Du bist im Dienst!','<path d="M13 4l-3 7h4l-3 9"/>'],notfall:['Medizinischer Notfall','Jemand bricht auf der Straße zusammen.','<path d="M12 5v14M5 12h14"/>'],foodtruck:['Foodtruck-Ansturm','Dein Foodtruck-Stand: Die Schlange ist riesig!','<rect x="2" y="7" width="15" height="10" rx="2"/><path d="M17 10h3l2 3v4h-5"/>'],
+ lieferung:['Eilige Lieferung','Ein Paket muss sofort an die richtige Adresse.','<path d="M3 7l9-4 9 4v10l-9 4-9-4z"/>'],schueler:['Schüler/in in der Stadt','Ein Kind aus deiner Klasse fragt dich etwas.','<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c2 2 10 2 12 0v-5"/>'],fans:['Fans erkennen dich!','„Bist du nicht …?“ Eine Gruppe will ein Selfie.','<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/>'],
+ panne:['Autopanne','Ein Auto steht mit Warnblinker am Rand.','<path d="M3 13l2-5h14l2 5v5H3z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>'],buerger:['Bürgergespräch','Leute erkennen dich und haben Fragen zur Politik.','<path d="M4 21h16M6 21V10M18 21V10M3 10l9-6 9 6z"/>']};
+const JOBCEV={polizei:'verfolgung',arzt:'notfall',pflege:'notfall',koch:'foodtruck',kellner:'foodtruck',cafe:'foodtruck',paket:'lieferung',zeitung:'lieferung',lager:'lieferung',lehrer:'schueler',influ:'fans',mecha:'panne',pol:'buerger'};
+function cityEvents(){if(p.cevY!==p.age){p.cevY=p.age;const g=shuffle(['katze','tourist','geld','dieb','flash','markt','umfrage','unfall']).slice(0,3);const j=p.job&&JOBCEV[p.job.id];if(j)g.push(j);else if(p.sm&&p.sm.fol>=20000)g.push('fans');
+    p.cev=g.map(k=>({k,x:R(8,82),y:R(22,68)}))}return p.age>=6?p.cev||[]:[]}
+function cevStrip(){const L=cityEvents();if(!L.length)return '';return '<section class="card cevs"><div class="lbl">GERADE IN DER STADT</div><div class="cevl">'+L.map((e,i)=>'<button class="cevb" data-a="cityev" data-g="'+i+'"'+(p.prison?' disabled':'')+'><span class="cevi"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+CEV[e.k][2]+'</svg></span><b>'+CEV[e.k][0]+'</b></button>').join('')+'</div><p class="note">Kostet keine Aktion, nur etwas Zeit. Auf der Karte pulsieren die Orte.</p></section>'}
+function cevMarkers(){const el=document.getElementById('cev');if(!el)return;el.innerHTML=tab==='stadt'&&!p.prison?cityEvents().map((e,i)=>'<button class="cevm" data-a="cityev" data-g="'+i+'" style="left:'+e.x+'%;top:'+e.y+'%" aria-label="'+CEV[e.k][0]+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+CEV[e.k][2]+'</svg></button>').join(''):''}
+function runCityEv(i){const L=p.cev||[],e=L[i];if(!e||p.prison)return;if(!spendTime(30))return;L.splice(i,1);const k=e.k,T=CEV[k][0];
+  const fin=t=>{log(T+': '+t);checkAch();save();render();dialog(T,t,[['Weiter',null]])};
+  const ques=(bankArr,ok,bad)=>{const q=pick(bankArr);dialog(T,q[0],shuffle([[q[1],()=>{sfx('coin');fin(ok())}],[q[2],()=>{sfx('bad');fin(bad())}],[q[3],()=>{sfx('bad');fin(bad())}]]))};
+  switch(k){
+  case 'katze':return mgStart('reakt',1,T,s=>fin(s?(add('gl',5),addRuf(2),'Du kletterst hoch und rettest die Katze. Die Besitzerin umarmt dich.'):(add('ge',-2),'Du rutschst ab. Die Feuerwehr erledigt das. Die Katze guckt dich spöttisch an.')),p.sk.form);
+  case 'tourist':return dialog(T,CEV[k][1],[['Hinbringen',()=>{p.money+=10;addRuf(2);add('gl',3);fin('Sie bedanken sich überschwänglich und schenken dir 10 € und ein Foto.')}],['Den Weg erklären',()=>fin(ch(.6)?'Sie finden es. Hoffentlich.':'Du hast „links“ gesagt und „rechts“ gemeint. Ups.')],['Weitergehen',()=>fin('Du hast es eilig.')]]);
+  case 'geld':{const v=pick([5,10,20,50]);return dialog(T,'Es sind '+v+' €. Was tust du?',[['Einstecken',()=>{p.money+=v;addRuf(-1);fin('Glückstag! '+v+' € mehr.')}],['Zum Fundbüro',()=>{addRuf(2);fin('Das Fundbüro bedankt sich. Ehrlichkeit zahlt sich aus. Irgendwann.')}]])}
+  case 'dieb':return mgStart('reakt',2,T,s=>fin(s>=2?(addRuf(8),p.money+=100,add('gl',6),news(p.first+' '+p.last+' stoppt Taschendieb','lokal'),'Du stellst ihm ein Bein! Die Frau gibt dir 100 € Finderlohn.'):s?(addRuf(3),'Du erwischst die Tasche, der Dieb entkommt.'):'Zu langsam. Der Dieb ist weg.'),p.sk.form);
+  case 'flash':return dialog(T,CEV[k][1],[['Mittanzen',()=>{add('gl',6);if(p.sm)smGain(R(100,1500));fin('Du tanzt mit. Irgendwer filmt alles, und du bist im Video.')}],['Zuschauen',()=>{add('gl',2);fin('Beeindruckend!')}]]);
+  case 'markt':{const w=pick([0,0,5,10,25,50,200]);p.money+=w;return fin(w?'Das Rad bleibt bei '+w+' € stehen!':'Niete. Aber ein Lolli zum Trost.')}
+  case 'umfrage':return ques(QZ,()=>{p.money+=50;add('gl',4);return 'Richtig! 50 € und du bist heute Abend im Fernsehen.'},()=>{add('gl',-2);return 'Falsch. Und das im Fernsehen …'});
+  case 'unfall':return ques(DG.concat([['Ein Knie blutet stark.','Druckverband anlegen','Pusten','Nichts tun']]),()=>{addRuf(5);add('gl',3);return 'Du hilfst richtig. Der Radfahrer bedankt sich.'},()=>'Der Krankenwagen übernimmt. Gut, dass er schnell da war.');
+  case 'verfolgung':return mgStart('reakt',3,T,s=>fin(s>=2?(p.job&&(p.job.perf=Math.min(100,p.job.perf+12)),addRuf(4),news('Polizist/in '+p.last+' fasst Flüchtigen','lokal'),'Festnahme! Dein Revier ist stolz.'):'Er entwischt um die Ecke. Beim nächsten Mal.'),p.sk.form);
+  case 'notfall':return ques(DG,()=>{if(p.job)p.job.perf=Math.min(100,p.job.perf+10);addRuf(6);return 'Deine Erstversorgung rettet ein Leben!'},()=>'Die Notärztin übernimmt. Du warst nah dran.');
+  case 'foodtruck':return mgStart('wechsel',3,T,s=>{const v=s*80;p.money+=v;fin(s+' von 3 Kunden richtig bedient: '+eur(v)+' Trinkgeld.')});
+  case 'lieferung':return mgStart('sort',2,T,s=>{const v=s*40;p.money+=v;if(p.job)p.job.perf=Math.min(100,p.job.perf+s*4);fin(s?'Pünktlich zugestellt: '+eur(v)+' Bonus.':'Falsche Adresse. Der Kunde ist sauer.')});
+  case 'schueler':return ques(QZ,()=>{addRuf(3);return 'Du erklärst es super. Das Kind strahlt.'},()=>'Du musst passen. Peinlich als Lehrkraft.');
+  case 'fans':return dialog(T,CEV[k][1],[['Selfie machen',()=>{smGain(R(300,3000));add('gl',5);fin('Das Selfie geht durch Klick. Neue Follower!')}],['Weitergehen',()=>fin('Du bist inkognito unterwegs.')]]);
+  case 'panne':return ques(AU,()=>{p.money+=150;return 'Problem erkannt und behoben. 150 € auf die Hand.'},()=>'Du findest den Fehler nicht. Der Pannendienst kommt.');
+  case 'buerger':return dialog(T,CEV[k][1],[['Zuhören und antworten',()=>{if(p.pol)p.pol.pop=Math.min(100,p.pol.pop+4);addRuf(2);fin('Die Leute fühlen sich ernst genommen. Beliebtheit +4.')}],['Keine Zeit',()=>{if(p.pol)p.pol.pop=Math.max(0,p.pol.pop-2);fin('„Typisch Politik“, murmelt jemand.')}]]);
+  }}
+
+/* ---------- Aktionen ---------- */
+function act10(id,arg){const lock=!!p.prison;switch(id){
+  case 'reply':{const [cid,k]=arg.split(':');const C=p.chats[cid];if(!C||!C.pend)return 1;msg(cid,pick(REPLY[k]),true);C.pend=false;relUp(cid,k==='lieb'?5:k==='kurz'?1:-6);if(k==='frech'&&cid==='rival')addRuf(-1);render();return 1}
+  case 'greply':{const C=p.chats[arg];if(!C)return 1;msg(arg,pick(['Haha, genau!','Bin dabei!','Wer bringt was mit?','Ich auch!']),true);C.pend=false;add('gl',1);if(arg==='g_job')colleagues().forEach(c=>c.rel=Math.min(100,c.rel+2));render();return 1}
+  case 'invyes':{const C=p.chats[arg];if(!C||!C.inv||lock)return 1;CUR='meet';if(!useAct())return 1;const t=C.inv.t;C.inv=null;relUp(arg,10);add('gl',R(4,8));if(arg==='g_job')colleagues().forEach(c=>c.rel=Math.min(100,c.rel+6));msg(arg,'Bin dabei!',true);done('Zugesagt: '+t+' Es wurde ein richtig schöner Abend.');return 1}
+  case 'invno':{const C=p.chats[arg];if(!C||!C.inv)return 1;C.inv=null;relUp(arg,-4);msg(arg,'Sorry, heute kann ich nicht.',true);render();return 1}
+  case 'colkaffee':{if(p.colY===p.age||lock)return 1;if(!spendTime(30))return 1;p.colY=p.age;colleagues().forEach(c=>c.rel=Math.min(100,c.rel+R(4,9)));if(p.job)p.job.perf=Math.min(100,p.job.perf+3);done('Kaffee, Klatsch und Kekse. Das Team mag dich.');return 1}
+  case 'homeoffice':{if(p.hoY===p.age||lock||!p.job)return 1;p.hoY=p.age;if(clockOn())p.clock=Math.max(DAYSTART,p.clock-120);else if(!unl())p.act++;if(p.act<=0)p.act=1;done('Homeoffice-Tag: Jogginghose, kein Stau. '+(clockOn()?'Du gewinnst 2 Stunden.':'Eine Aktion mehr.'));return 1}
+  case 'hobby':{const H=HOB[arg];if(!H||lock||p.age<6)return 1;CUR='hobby';if(!useAct())return 1;p.hob=p.hob||{};const l0=hlvl(arg);p.hob[arg]=Math.min(100,(p.hob[arg]||0)+R(6,12)+Math.round(p.st.in/25));add('gl',R(2,4));add(H[2],1);const l1=hlvl(arg);
+    if(l1>l0){mile(H[0]+': '+HLV[l1-1],'star');sfx('win')}done(H[0]+' geübt.'+(l1>l0?' Neue Stufe: '+HLV[l1-1]+'!':''));return 1}
+  case 'hobcomp':{const H=HOB[arg];if(!H||lock)return 1;p.hcY=p.hcY||{};if(p.hcY[arg]===p.age)return 1;if(!spendTime(120))return 1;p.hcY[arg]=p.age;const l=hlvl(arg),place=clamp(6-l-R(0,2)+R(0,2),1,8);
+    if(place<=3){const w=[0,1000,400,150][place]*(l>=4?3:1);p.money+=w;add('gl',8);if(place===1){mile('Wettbewerb gewonnen: '+H[0],'star');news(p.first+' '+p.last+' gewinnt '+H[0]+'-Wettbewerb','lokal')}done('Wettbewerb '+H[0]+': Platz '+place+'! '+eur(w)+' Preisgeld.')}else done('Wettbewerb '+H[0]+': Platz '+place+'. Dabei sein ist alles.');return 1}
+  case 'appedit':editApps=!editApps;swapSel=null;render();return 1;
+  case 'appswap':{if(!editApps)return 1;if(swapSel==null){swapSel=arg;render();return 1}if(swapSel===arg){swapSel=null;render();return 1}const o=appOrder(),a=o.indexOf(swapSel),b=o.indexOf(arg);if(a>=0&&b>=0){o[a]=arg;o[b]=swapSel}O.order=o;saveO();swapSel=null;sfx('tap');render();return 1}
+  case 'appreset':O.order=null;saveO();swapSel=null;render();return 1;
+  case 'cityev':runCityEv(+arg);return 1;
+  case 'remgo':return 1;
+  }return 0}
+document.addEventListener('click',e=>{const n=e.target.closest&&e.target.closest('#ntf');if(!n||!p||!p.alive)return;n.classList.remove('show');const g=n.dataset.g;if(!g)return;if(g==='freizeit'&&n.dataset.s)fTab=n.dataset.s;tab=g;if(p.appSeen)p.appSeen[g]=1;render();window.scrollTo(0,0)});
+DUR.hobby=90;
+['sport','jog'].forEach(k=>{const f0=ACTS[k].f;ACTS[k].f=()=>{p.lastSport=p.age;return f0()}});
+{const f0=ACTS.arzt.f;ACTS.arzt.f=()=>{p.lastArzt=p.age;return f0()}}
+APPTIP.stadt='Deine Stadt lebt: Pulsierende Punkte auf der Karte und die Liste „Gerade in der Stadt“ zeigen, wo etwas los ist. Tippe drauf! Je nach Job passiert Besonderes.';
+/* ================= Geschäfte: aufgeräumte Ansicht mit Kopfkarte und Reitern ================= */
+let bizTab='uebersicht',bizSelF=null,bizBuy=false;
+const BTABS=[['uebersicht','Übersicht'],['laeden','Läden'],['firma','Firma'],['shop','Shop'],['bank','Bank']];
+function bizValue(){const B=p.biz;if(!B)return 0;let v=B.fronts.reduce((s,k)=>s+FR[k].cost*(1+.3*(flvl(k)-1))*(1+.6*((B.fil||{})[k]||0)),0);
+  if(B.firm)v+=B.firm.ipo?Math.round((p.sh.my||0)*(p.px.my||0)):B.firm.val;if(B.shop)v+=B.shop.lvl*5000+(B.shop.prods||[]).length*8000+(B.shop.sup?SUPPLY_COST:0);if(B.bank)v+=Math.round(B.bank.dep*.05);return Math.round(v)}
+function viewBiz(){const raw=bizRaw(),B=p.biz,lock=!!p.prison;if(p.age<18||!B.co)return raw;ensurePlus();
+  const seg=k=>{const a=raw.split('<!--S:'+k+'-->');return a.length>1?a[1].split('<!--S:')[0]:''};
+  const grab=(s,t)=>{const o={};s.replace(new RegExp('<!--'+t+':(\\w+)-->([\\s\\S]*?)<!--\\/'+t+'-->','g'),(m,k,v)=>{o[k]=v;return ''});return o};
+  const mk=seg('mk'),comps=grab(mk,'K'),mkt=(mk.split('<!--MKT-->')[1]||''),fronts=grab(seg('fr'),'F'),chains=grab(seg('ch'),'C');
+  const m=mktOn(),nc=B.comp.length;
+  let h='<section class="card bizhead"><div class="bh1"><span class="fic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></span><div class="bht"><b>'+esc(B.co.name)+'</b><small>'+(B.hold?'Holding':'GmbH')+' · '+(B.fronts.length+(B.firm?1:0)+(B.shop?1:0)+(B.bank?1:0))+' Unternehmen</small></div>'+
+    (B.hold?'<span class="chip">Holding</span>':btn('holding',null,'Holding · '+eur(HOLD_COST),'',p.money<HOLD_COST||lock))+'</div>'+
+    '<div class="bkpi"><div><small>Gewinn pro Jahr</small><b class="up">'+eur(bizExpected())+'</b></div><div><small>Firmenwert</small><b>'+eur(bizValue())+'</b></div></div>'+
+    ((B.ph||[]).length>1?'<div class="bph">'+bars(B.ph.slice(-10))+'<small>Gewinn der letzten Jahre</small></div>':'')+
+    '<div class="bchips">'+(nc?'<button class="bchip warn" data-a="biztab" data-g="uebersicht">'+nc+' Konkurrent'+(nc>1?'en':'')+'</button>':'')+(m?'<button class="bchip ok" data-a="biztab" data-g="uebersicht">'+MKT[m.k][0]+' läuft</button>':'<button class="bchip" data-a="biztab" data-g="uebersicht">Kein Marketing</button>')+
+      (p.dirty>0?'<button class="bchip dark" data-a="biztab" data-g="uebersicht">Schwarzgeld '+eur(p.dirty)+'</button>':'')+(B.shop&&(B.shop.prods||[]).length?'<button class="bchip" data-a="biztab" data-g="shop">'+B.shop.prods.length+' Produkte</button>':'')+'</div></section>';
+  h+='<div class="seg full btabs">'+BTABS.map(([k,l])=>'<button data-a="biztab" data-g="'+k+'" aria-pressed="'+(bizTab===k)+'">'+l+'</button>').join('')+'</div>';
+  if(bizTab==='uebersicht'){
+    if(p.dirty>0||B.fronts.length)h+='<section class="card dirty slim"><div class="listseg"><div><div class="lbl">SCHWARZGELD</div><b class="bigd">'+eur(p.dirty)+'</b><small>Wäsche bis '+eur(washCap())+' pro Jahr</small></div><button class="ibtn" data-a="bizhelp" aria-label="So funktioniert Schwarzgeld">i</button></div></section>';
+    const rows=B.fronts.map(k=>['bizself',k,FR[k].ic,FR[k].n,(1+((B.fil||{})[k]||0))+' Standort(e)',Math.round(FR[k].profit*(1+.5*(flvl(k)-1))*bizMul(k)),bstars(k)]);
+    if(B.firm)rows.push(['biztab','firma',FI[B.firm.t].ic,B.firm.name,FI[B.firm.t].n+(B.firm.ipo?' · an der Börse':''),B.firm.ipo?0:firmProfit(),null]);
+    if(B.shop)rows.push(['biztab','shop',SHOPCAT[B.shop.cat][2],B.shop.name,'Onlineshop · '+(B.shop.prods||[]).length+' Produkte',shopProfit(),bstars('shop')]);
+    if(B.bank)rows.push(['biztab','bank','<path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/>',B.bank.name,(1+(B.bank.fil||0))+' Standort(e)',Math.round(B.bank.dep*.01*(1+.05*(B.bank.fil||0))),null]);
+    h+='<h3 class="sec">Deine Unternehmen</h3>'+(rows.length?'<section class="card burows">'+rows.map(r=>'<button class="burow" data-a="'+r[0]+'" data-g="'+r[1]+'"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+r[2]+'</svg></span><span class="but"><b>'+esc(r[3])+'</b><small>'+esc(r[4])+'</small>'+(r[6]!=null?starHtml(r[6]):'')+'</span><b class="'+(r[5]>=0?'up':'down')+'">'+eur(r[5])+'</b></button>').join('')+'</section>':
+      '<section class="card"><p class="note">Noch kein Geschäft. Kauf einen Laden, gründe eine Firma oder einen Onlineshop.</p><div class="btns">'+btn('biztab','laeden','Laden kaufen','o')+btn('biztab','firma','Firma gründen')+btn('biztab','shop','Shop starten')+'</div></section>');
+    if(nc)h+='<h3 class="sec">Konkurrenz</h3>'+Object.values(comps).join('');
+    h+=mkt}
+  if(bizTab==='laeden'){const own=B.fronts.slice();
+    if(own.length){h+='<h3 class="sec">Deine Läden</h3>'+own.map(k=>{const F=FR[k];if(bizSelF===k)return '<div class="fsel">'+(fronts[k]||'')+(comps[k]||'')+(chains[k]||'')+'<button class="btn g" data-a="bizself" data-g="">Einklappen</button></div>';
+      return '<section class="card burows"><button class="burow" data-a="bizself" data-g="'+k+'"><span class="fic sm"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+F.ic+'</svg></span><span class="but"><b>'+F.n+'</b><small>Ausbau '+flvl(k)+'/3 · '+(1+((B.fil||{})[k]||0))+' Standort(e)'+(compOf(k)?' · Konkurrenz!':'')+'</small>'+starHtml(bstars(k))+'</span><svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></section>'}).join('')}
+    const rest=FRONTS.filter(F=>!B.fronts.includes(F.id));
+    if(rest.length){if(own.length)h+='<button class="btn g newl" data-a="bizbuy">'+(bizBuy?'Angebote ausblenden':'Neuen Laden kaufen ('+rest.length+' Angebote)')+'</button>';else h+='<h3 class="sec">Laden kaufen</h3>';
+      if(bizBuy||!own.length)h+=rest.map(F=>fronts[F.id]||'').join('')}}
+  if(bizTab==='firma')h+=seg('fi');
+  if(bizTab==='shop')h+=seg('sh');
+  if(bizTab==='bank')h+=seg('bk');
+  return h}
+function act11(id,arg){switch(id){
+  case 'biztab':bizTab=arg;bizSelF=null;render();window.scrollTo(0,0);return 1;
+  case 'bizself':bizSelF=arg||null;bizTab='laeden';render();return 1;
+  case 'bizbuy':bizBuy=!bizBuy;render();return 1;
+  }return 0}
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],
@@ -2979,7 +3247,7 @@ function placeCard(id){
   return h+'</section>';
 }
 function viewStadt(){
-  let h='';
+  let h=cevStrip();
   if(cityMode==='list'||!G){
     h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">'+esc(cityName(p.seed))+'</h2>'+(G?'<div class="seg" style="border:2px solid var(--line)">'+['3d','2d','list'].map(m=>'<button data-a="mode" data-g="'+m+'" aria-pressed="'+(cityMode===m)+'">'+(m==='list'?'Liste':m.toUpperCase())+'</button>').join('')+'</div>':'')+'</div>'+
       (G?'':'<p class="note" style="margin:6px 0">Die 3D-Ansicht läuft auf diesem Gerät nicht, hier sind alle Orte als Liste.</p>')+
@@ -2999,9 +3267,9 @@ function viewChats(){
     const qa=(acts[c.id]||[['call','Anrufen']]).map(([k,l])=>btn(k==='time'?'time':k,c.id,l,'o',k==='love'?p.loveA===p.age||!!p.prison:(p.act<=0||!!p.prison))).join('');
     return '<section class="chat"><header><button class="back" data-a="chat" data-g="" aria-label="Alle Chats"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="cav" style="background:'+c.col+'">'+esc(c.n[0])+'</span><div><b>'+esc(c.n)+'</b><small>'+esc(c.sub||'')+'</small></div></header>'+
       '<div class="bubbles">'+(c.msgs.length?c.msgs.slice(-25).map(m=>'<div class="bub'+(m.me?' me':'')+'">'+esc(m.t)+'<small>Alter '+m.a+'</small></div>').join(''):'<p class="note" style="text-align:center">Noch keine Nachrichten.</p>')+'</div>'+
-      (qa?'<div class="qa">'+qa+'</div>':'')+'</section>';
+      chatExtra(c)+(qa&&!c.id.startsWith('g_')?'<div class="qa">'+qa+'</div>':'')+'</section>';
   }
-  return '<section class="card clist">'+cs.map(c=>{const l=c.msgs[c.msgs.length-1];return '<button class="crow" data-a="chat" data-g="'+c.id+'"><span class="cav" style="background:'+c.col+'">'+esc(c.n[0])+'</span><span class="ct"><b>'+esc(c.n)+'</b><small>'+(l?(l.me?'Du: ':'')+esc(l.t):esc(c.sub||''))+'</small></span>'+(c.un?'<span class="badge">'+c.un+'</span>':'')+'</button>'}).join('')+'</section>';
+  return '<section class="card clist">'+cs.map(c=>{const l=c.msgs[c.msgs.length-1];return '<button class="crow" data-a="chat" data-g="'+c.id+'"><span class="cav" style="background:'+c.col+'">'+esc(c.n[0])+'</span><span class="ct"><b>'+esc(c.n)+'</b><small>'+(l?(l.me?'Du: ':'')+esc(l.t):esc(c.sub||''))+'</small></span>'+(c.un?'<span class="badge">'+c.un+'</span>':(p.chats[c.id]&&p.chats[c.id].inv?'<span class="badge nb">Einladung</span>':''))+'</button>'}).join('')+'</section>';
 }
 const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>(clockOn()?clockTxt()+' · ':'')+(unl()&&n>0?'∞ Aktionen':n===1?'1 Aktion':n+' Aktionen');
@@ -3013,8 +3281,8 @@ function viewHome(){
     dayBar()+'<div class="rings">'+Object.keys(STAT).map(ring).join('')+'</div>'+
     (last?'<button class="news" data-a="goto" data-g="leben"><small>Neuigkeit · Alter '+last.a+'</small>'+esc(last.t)+'</button>':'')+
     (p.prison?'<p class="pnote">Du sitzt noch '+p.prison+' Jahr(e) im Gefängnis. Einige Apps sind gesperrt.</p>':'')+
-    '<div class="apps">'+APPS.filter(a=>appVisible(a[0])).map(([id,n,c,ic,bg])=>{const lock=p.prison&&!PRISON_APPS.includes(id),b=badgeOf(id),nw=p.appSeen&&p.appSeen[id]===0;
-      return '<button class="app'+(nw?' newapp':'')+'" data-a="goto" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div></section>';
+    '<div class="apps'+(editApps?' edit':'')+'">'+orderedApps().filter(a=>appVisible(a[0])).map(([id,n,c,ic,bg])=>{const lock=p.prison&&!PRISON_APPS.includes(id)&&!editApps,b=editApps?0:badgeOf(id),nw=!editApps&&p.appSeen&&p.appSeen[id]===0;
+      return '<button class="app'+(nw?' newapp':'')+(editApps&&swapSel===id?' pick':'')+'" data-a="'+(editApps?'appswap':'goto')+'" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div><div class="phb">'+(editApps?'<span class="note">'+(swapSel?'Tippe auf den neuen Platz':'Tippe eine App an, dann ihren neuen Platz')+'</span>'+btn('appreset',null,'Zurücksetzen','g')+btn('appedit',null,'Fertig','o'):btn('appedit',null,'Apps anordnen','g'))+'</div></section>';
 }
 function viewApp(id){
   const V={
@@ -3026,6 +3294,7 @@ function viewApp(id){
     if(p.job&&p.job.id==='influ')h+='<section class="card"><div class="lbl">AKTUELLER JOB</div>'+row('Influencer/in','seit '+p.job.yrs+' Jahr(en) · letztes Jahr '+eur(p.job.pay)+' aus Klick')+'<div class="btns">'+btn('goto','klick','Zu Klick','o')+btn('quit',null,'Aufhören','g')+'</div></section>';
     else if(p.job){const rk=p.job.rank||1;h+='<section class="card"><div class="lbl">DEIN JOB</div>'+row(esc(p.job.t),RANKN[rk-1]+' · seit '+p.job.yrs+' Jahr(en) · Leistung '+p.job.perf+' %','<span class="num" style="color:var(--blueText)">'+eur(p.job.pay)+'</span>')+
       '<div class="segs big4">'+[1,2,3,4].map(i=>'<i class="'+(i<=rk?'on':'')+'"></i>').join('')+'</div><p class="note" style="margin:6px 0">Rang '+rk+' von 4 · '+(rk<4?'Gute Leistung bringt Beförderungen mit 20 % mehr Gehalt.':'Ganz oben.')+'</p>'+'<div class="btns">'+btn('work',null,'Schicht (Minispiel)','o',p.act<=0||!!p.prison)+btn('quit',null,'Kündigen','g')+'</div></section>'}
+    h+=jobExtra();
     return h+card('Stellenangebote',JOBS.map(j=>{const r=canJob(j);return row(j.t+(j.part?' (Teilzeit)':''),r||(j.id==='influ'?'Einkommen aus Klick, 1,5× Reichweite':eur(j.pay)+' pro Jahr'),btn('apply',j.id,'Bewerben','o',!!r||p.act<=0||!!(p.job&&p.job.id===j.id)))}).join(''))},
   bildung:viewBildung,
   liebe:()=>{let h='';
@@ -3058,7 +3327,7 @@ function holdButton(b,fn){const MS=650;let t=null,st=0;
   b.addEventListener('click',e=>e.preventDefault());
 }
 function buildShell(){
-  document.getElementById('app').innerHTML='<header class="top" id="hd"></header><main id="view"></main><div id="city"><div id="cv"></div><div class="ctl"><div class="cname" id="cname"></div><div class="seg" id="cseg"></div></div>'+
+  document.getElementById('app').innerHTML='<header class="top" id="hd"></header><main id="view"></main><div id="ntf" class="ntf" role="status"></div><div id="city"><div id="cv"></div><div id="cev" class="cev"></div><div class="ctl"><div class="cname" id="cname"></div><div class="seg" id="cseg"></div></div>'+
     '<div class="rot"><button aria-label="Drehen" id="rotL"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7"/><path d="M4 4v4h4"/></svg></button><button aria-label="Zum Zuhause" id="ctr"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button></div></div>'+
     '<main id="view2"></main><div class="age"><button class="btn o big hold" id="up" aria-label="1 Jahr älter werden, gedrückt halten"><span class="fill" aria-hidden="true"></span><span class="lbl2">+ 1 Jahr älter werden<small>gedrückt halten</small></span></button></div>';
   holdButton(document.getElementById('up'),ageUp);
@@ -3083,7 +3352,7 @@ function render(){if(p&&p.sm)ensureSm();
   if(map){const i=html.indexOf('</div>')+6;document.getElementById('view').innerHTML=html.slice(0,i);document.getElementById('view2').innerHTML=html.slice(i)}
   else{document.getElementById('view').innerHTML=html;document.getElementById('view2').innerHTML=''}
   document.getElementById('view2').style.display=map?'flex':'none';document.getElementById('view').style.flex=map?'none':'1';
-  showCity(!!map);highlight();{const up=document.getElementById('up');if(up&&up.classList){if(p.act<=0)up.classList.add('ready');else up.classList.remove('ready')}}
+  showCity(!!map);highlight();{const bd=document.body;if(bd&&bd.classList){if(tab==='home'||tab==='stadt')bd.classList.remove('noage');else bd.classList.add('noage')}}cevMarkers();if(tab!=='home'&&editApps){editApps=false;swapSel=null}setTimeout(maybeRemind,0);{const up=document.getElementById('up');if(up&&up.classList){if(p.act<=0)up.classList.add('ready');else up.classList.remove('ready')}}
 }
 function renderStart(){
   const app=document.getElementById('app'),old=load();

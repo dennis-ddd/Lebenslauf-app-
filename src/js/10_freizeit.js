@@ -58,7 +58,8 @@ function lifeYear(){const out={ls:0,treat:0,risk:0},a=p.age;
   return out;
 }
 function viewFreizeit(){ensureEcon();const lock=!!p.prison;
-  let h='<div class="seg full ft">'+[['aktiv','Aktiv'],['sport','Sport'],['gesund','Gesundheit'],['shop','Shoppen']].map(([k,l])=>'<button data-a="ftab" data-g="'+k+'" aria-pressed="'+(fTab===k)+'">'+l+'</button>').join('')+'</div>';
+  let h='<div class="seg full ft">'+[['aktiv','Aktiv'],['hobby','Hobbys'],['sport','Sport'],['gesund','Gesundheit'],['shop','Shoppen']].map(([k,l])=>'<button data-a="ftab" data-g="'+k+'" aria-pressed="'+(fTab===k)+'">'+l+'</button>').join('')+'</div>';
+  if(fTab==='hobby')return h+viewHobby(lock);
   if(lock&&fTab!=='sport')return h+card('','<p class="note">Im Gefängnis kannst du nur trainieren und lesen.</p>')+card('',actRows(['sport','lesen']));
   if(fTab==='aktiv'){const S=season();
     h+='<section class="card event"><div class="lbl">HEUTE IN DER STADT</div><h2 class="h">'+S.n+'</h2><p class="note">'+S.d+'</p>'+S.a.map(([k,n,c,d])=>row(n,(c?eur(px$(c))+' · ':'')+d,btn('event',k,once('ev_'+k)?'Erledigt':'Los','o',once('ev_'+k)||p.money<px$(c)))).join('')+'</section>';

@@ -45,7 +45,7 @@ function ageUp(){
   // Beziehungen, Tiere, Nachrichten
   if(p.partner){p.partner.rel+=R(-6,3);if(p.partner.rel<12){log(p.partner.name+' hat dich verlassen.');p.partner=null;add('gl',-12)}else if(p.partner.rel<30)msg('partner','Wir müssen reden.')}
   p.pets=p.pets.filter(x=>{x.age++;if(x.age>=PETS[x.t].life&&ch(.5)){log('Dein '+PETS[x.t].n+' '+x.n+' ist gestorben.');add('gl',-10);return false}return true});
-  if(!p.parentsGone&&a+p.pa>=86&&ch(.35)){p.parentsGone=true;log('Deine Eltern sind in hohem Alter verstorben.');add('gl',-15)}
+  if(!p.parentsGone&&a+p.pa>=86&&ch(.35)){p.parentsGone=true;log('Deine Eltern sind in hohem Alter verstorben.');parentInherit();add('gl',-15)}
   if(a>=8&&!p.parentsGone)msg('mama','Alles Gute zum '+a+'. Geburtstag, mein Schatz!');
   if(a>=8&&ch(.7))msg('freund',pick(['Happy Birthday!! Party?','Alles Gute, alte Socke!','Noch ein Jahr älter, haha. Alles Gute!']));
   if(ch(.4)){const who=pick(['mama','papa','freund'].filter(k=>k==='freund'?a>=6:!p.parentsGone));if(who)msg(who,pick(CHAT_SMALL[who]))}
