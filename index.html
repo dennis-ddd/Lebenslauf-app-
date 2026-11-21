@@ -636,6 +636,14 @@ small{font-size:max(12.5px,1em*.8)}
 .letter.st1{border-left-color:#F28C28}.letter.st2{border-left-color:#D64545}.letter.st3{border-left-color:#7A1F1F}
 .lh{display:flex;gap:12px;align-items:center}.lh small{display:block;color:var(--muted);font-weight:700;font-size:13px}.lh>div b{display:block;font-weight:900;font-size:16px}
 .lic{width:40px;height:40px;border-radius:12px;background:light-dark(#FFF4D6,#3A2E12);color:#A8851A;display:grid;place-items:center;flex:none}
+/* v3.1 */
+.cevm{left:0;top:0;will-change:transform}
+body.placeopen #city{height:34vh;min-height:220px}
+.back.pill{display:inline-flex;align-items:center;gap:4px;width:auto;padding:0 14px 0 8px;height:38px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:900;font-size:14px;border:0;flex:none}
+.back.pill .i{width:18px;height:18px}
+.xbtn{margin-left:auto;width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);font-size:22px;font-weight:900;line-height:1;display:grid;place-items:center;flex:none}
+.listseg:has(.xbtn) .chip{order:3}
+.jvah{background:light-dark(#F1EEF6,#24212C);border-color:light-dark(#D9D2E6,#3C3648)}.jvah b{display:block;font-size:18px;font-weight:900}.jvah small{display:block;color:var(--muted);font-weight:700;margin:4px 0 8px}
 </style>
 </head>
 <body>
@@ -711,7 +719,7 @@ const PLACES=[
 {id:'hafen',n:'Hafen',c:0x7FA6B8,h:3,a:['race']},{id:'makler',n:'Immobilienbüro',c:0xE3B48A,h:7,a:['homesui','bizui']},
 {id:'reise',n:'Reisebüro',c:0x7FD1C9,h:4,a:['urlaub']},{id:'kiosk',n:'Kiosk',c:0xF4B678,h:2.5,a:['lotto','tasche']},
 {id:'villa',n:'Villenviertel',c:0xEDE3D0,h:5,a:['einbruch']},{id:'netcafe',n:'Internetcafé',c:0x90A4C8,h:4,a:['hack']},
-{id:'polizei',n:'Polizei & Gericht',c:0xA9B6CC,h:8,a:['record']},{id:'casino',n:'Casino Goldküste',c:0xD4AF37,h:9,a:['casinoui']},{id:'jva',n:'Gefängnis',c:0x8A8F99,h:6,a:['sport','lesen']}];
+{id:'polizei',n:'Polizei & Gericht',c:0xA9B6CC,h:8,a:['record']},{id:'casino',n:'Casino Goldküste',c:0xD4AF37,h:9,a:['casinoui']},{id:'jva',n:'Gefängnis',c:0x8A8F99,h:6,a:[]}];
 const PL=Object.fromEntries(PLACES.map(x=>[x.id,x]));
 const hex=c=>'#'+c.toString(16).padStart(6,'0');
 
@@ -727,7 +735,8 @@ function ach(k){if(p.ach[k])return;p.ach[k]=1;if(MILE_ACH.includes(k))mile(ACH[k
 function inSchool(){return !!(p.school||p.study||p.azubi)}
 function stockVal(){return STOCKS.reduce((s,x)=>s+(p.sh[x.id]||0)*p.px[x.id],0)}
 function checkAch(){checkGoals();checkUnlocks();if(p.money>=100000)ach('reich');if(netWorth()>=1e6)ach('mio');if(stockVal()>=10000)ach('aktien');if(p.age>=80)ach('achtzig');if(p.age>=100)ach('hundert')}
-function cityName(seed){const r=rng(seed+7);const A=['Neu','Alt','Ober','Nieder','Nord','Süd','West','Ost','Groß','Klein'],B=['hafen','burg','stadt','felde','dorf','brück','heim','au','berg','wald'];return A[Math.floor(r()*10)]+B[Math.floor(r()*10)]}
+const CITYA=['Neu','Alt','Ober','Nieder','Nord','Süd','West','Ost','Groß','Klein'],CITYB=['hafen','burg','stadt','felde','dorf','brück','heim','au','berg','wald'];
+function cityName(seed){const r=rng(seed+7);return CITYA[Math.floor(r()*CITYA.length)]+CITYB[Math.floor(r()*CITYB.length)]}
 
 /* ---------- Avatar ---------- */
 const STAGES=[0,6,14,18,21,30,50,80],STAGE_N=['Baby','Kind','Teenager','Volljährig','Anfang 20','Mitten im Leben','Best Ager','Senior/in'];
@@ -1848,9 +1857,9 @@ function act(id,arg){
   if(!p||!p.alive)return;CUR=id;
   if(ACTS[id]){const A=ACTS[id];if(!can(id)||!useAct())return;const r=A.f();if(r===null){refundAct();toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg)||act12(id,arg))return;
+  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg)||act12(id,arg)||act13(id,arg))return;
   switch(id){
-  case 'goto':tab=arg;if(p.appSeen)p.appSeen[arg]=1;if(arg==='store')p.storeY=p.age;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
+  case 'goto':tab=arg;if(arg==='stadt')sel=null;if(p.appSeen)p.appSeen[arg]=1;if(arg==='store')p.storeY=p.age;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
     interview(j,bon=>{if(ch(.45+p.st.in/250+p.st.au/500+p.sk.charme/500+bon)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');if(p.stats)p.stats.jobs++;p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.')});break}
   case 'work':shift();break;
@@ -1926,7 +1935,7 @@ function act(id,arg){
     if(ok==='1'){if(p.prison)return;p.money+=d.pay;p.yr.social+=d.pay;sm.trust=Math.max(10,sm.trust-8);sm.dyr++;let t='Deal mit '+d.b+': +'+eur(d.pay)+'.';
       if(sm.dyr>2){smGain(-sm.fol*.05);t+=' Deine Fans finden, dass es zu viel Werbung wird.'}done(t)}
     else{sm.trust=Math.min(100,sm.trust+2);done('Du hast '+d.b+' abgesagt. Deine Fans mögen das.')}break}
-  case 'sel':selectPlace(arg);break;
+  case 'sel':selectPlace(arg);if(cityMode==='list'||!G)setTimeout(()=>{const x=document.querySelector('.xbtn');if(x&&x.scrollIntoView)x.closest('section').scrollIntoView({behavior:'smooth',block:'start'})},60);break;
   }
 }
 
@@ -2015,7 +2024,7 @@ function loop(t){
   const k=(Math.cos(t/1000/120*2*Math.PI)+1)/2,sky=new THREE.Color(0x2E3A63).lerp(new THREE.Color(0xBFD9F2),k);G.scene.background.copy(sky);G.scene.fog.color.copy(sky);G.hemi.intensity=.42+.38*k;G.sun.intensity=.25+.55*k;
   if(G.goal){G.tgt.lerp(G.goal,.08);if(G.tgt.distanceTo(G.goal)<.05)G.goal=null}
   const elGoal=cityMode==='2d'?1.5:.85;G.el+=(elGoal-G.el)*.1;
-  updCam();G.r.render(G.scene,G.cam);
+  updCam();G.r.render(G.scene,G.cam);cevProject();
 }
 function bindPointers(el){
   el.style.touchAction='none';
@@ -2170,7 +2179,7 @@ function viewEinst(){const t=phoneTier();
   let h='<section class="card"><h2 class="h">Dein Handy</h2>'+row(PHONES[t][0]+(phoneOld()?' (alt)':''),PHONES[t][1]+(phoneOld()?' Der Akku hält kaum noch einen Tag.':''),t<3?btn('goto','shop','Upgrade','o',p.age<10):'<span class="chip">Top</span>')+'</section>';
   h+='<section class="card"><h2 class="h">Hintergrund</h2><div class="walls">'+WALLS.map((w,i)=>'<button class="wall" data-a="wall" data-g="'+i+'" aria-pressed="'+(O.wall===i)+'" aria-label="'+w[0]+'" style="background:'+w[1]+'"'+(wallUsable(i)?'':' disabled')+'>'+(wallUsable(i)?'':'<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>')+'</button>').join('')+'</div><p class="note" style="margin-top:8px">Bessere Handys schalten mehr Hintergründe frei, besondere gibt es in der Sammlung (App Erfolge).</p></section>';
   if(p)h+=cfgCard();h+='<section class="card"><h2 class="h">Design</h2><div class="seg full">'+[['auto','Automatisch'],['light','Hell'],['dark','Dunkel']].map(([k,l])=>'<button data-a="theme" data-g="'+k+'" aria-pressed="'+(O.theme===k)+'">'+l+'</button>').join('')+'</div></section>';
-  h+='<section class="card tgs">'+tog('snd',O.snd,'Töne','Kleine Klänge bei Geld, Erfolgen, Geburtstagen')+tog('vib',O.vib,'Vibration','Kurzes Brummen bei wichtigen Momenten')+tog('rival',O.rival,'Rivale','Eine Person aus deiner Schulzeit fordert dich ein Leben lang heraus')+'</section>';
+  h+='<section class="card tgs">'+tog('snd',O.snd,'Töne','Kleine Klänge bei Geld, Erfolgen, Geburtstagen')+tog('vib',O.vib,'Vibration','Kurzes Brummen bei wichtigen Momenten')+tog('rival',O.rival,'Rivale','Eine Person aus deiner Schulzeit fordert dich ein Leben lang heraus')+tog2('fstog',O.fs!==false,'Vollbild beim Start','Blendet die Leiste unten aus. Chrome zeigt dabei einmal kurz einen Hinweis.')+'</section>';
   h+='<section class="card"><h2 class="h">Minispiele bei der Arbeit</h2><div class="seg full">'+[['ask','Fragen'],['play','Immer spielen'],['skip','Überspringen']].map(([k,l])=>'<button data-a="mini" data-g="'+k+'" aria-pressed="'+(O.mini===k)+'">'+l+'</button>').join('')+'</div><p class="note" style="margin-top:6px">Beim Überspringen wird das Ergebnis aus deinen Werten berechnet.</p></section>';
   return h}
 const NCAT={welt:['Welt','#2B59C3'],lokal:['Lokal','#2FA88F'],kultur:['Kultur','#8E63D6'],boerse:['Börse','#158A7A'],promi:['Promis','#E5407A'],gross:['Eilmeldung','#D64545'],rival:['Leute','#F08A24']};
@@ -2181,9 +2190,9 @@ function viewNews(){p.newsUn=0;const W=WORLD[p.world.ph];
     h+='<article class="nw'+(n.cat==='gross'?' brk':'')+'"><span class="nc" style="background:'+c[1]+'">'+c[0]+'</span><b>'+esc(n.t)+'</b>'+(n.x?'<small>'+esc(n.x)+'</small>':'')+'</article>'});
   return h}
 function viewKal(){let h='';const bds=people().map(([id,n])=>({id,n,d:bdOf(id)})).sort((x,y)=>x.d[1]-y.d[1]||x.d[0]-y.d[0]);
-  const items=bds.map(b=>({m:b.d[1],d:b.d[0],h:'<div class="kal'+(p.grat[b.id]===p.age?' done':'')+'"><span class="kd"><b>'+b.d[0]+'</b><small>'+MON[b.d[1]].slice(0,3)+'</small></span><div class="kt"><b>Geburtstag: '+esc(b.n)+'</b><small>'+(p.grat[b.id]===p.age?'Gratuliert':'Nicht vergessen! Sonst ist jemand enttäuscht.')+'</small></div>'+(p.grat[b.id]===p.age?'<span class="chip">Erledigt</span>':btn('grat',b.id,'Gratulieren','o',p.age<6||!!p.prison&&b.id!=='mama'&&b.id!=='papa'))+'</div>'}))
-   .concat(p.terms.map((t,i)=>{const T=TERM[t.k];if(!T)return null;return {m:t.m,d:t.d,h:'<div class="kal term'+(t.done?' done':'')+'"><span class="kd"><b>'+t.d+'</b><small>'+MON[t.m].slice(0,3)+'</small></span><div class="kt"><b>'+T[0]+'</b><small>'+(t.done?'Erledigt':T[1]+(T[4]?' · verpassen hat Folgen':''))+'</small></div>'+(t.done?'<span class="chip">Erledigt</span>':btn('term',i,'Hingehen','',!!p.prison))+'</div>'}}).filter(Boolean)).sort((x,y)=>x.m-y.m||x.d-y.d);
-  h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Dein Jahr mit '+p.age+'</h2><span class="chip">'+openBd()+' offen</span></div><p class="note" style="margin:4px 0 8px">Gratulieren und Termine kosten keine Aktion. Vergessene Geburtstage und Termine haben Folgen.</p>'+(items.length?items.map(x=>x.h).join(''):'<p class="note">Keine Termine.</p>')+'</section>';
+  const items=bds.map(b=>({m:b.d[1],d:b.d[0],h:'<div class="kal'+(p.grat[b.id]===p.age?' done':'')+'"><span class="kd"><b>'+b.d[0]+'</b><small>'+MON[b.d[1]].slice(0,3)+'</small></span><div class="kt"><b>Geburtstag: '+esc(b.n)+'</b><small>'+(p.grat[b.id]===p.age?'Gratuliert':'Nicht vergessen! Sonst ist jemand enttäuscht.')+'</small></div>'+(p.grat[b.id]===p.age?'<span class="chip">Erledigt</span>':btn('grat',b.id,relOf(b.id)<30?'Gratulieren · 1 Aktion':'Gratulieren','o',p.age<6||!!p.prison&&b.id!=='mama'&&b.id!=='papa'))+'</div>'}))
+   .concat(p.terms.map((t,i)=>{const T=TERM[t.k];if(!T)return null;return {m:t.m,d:t.d,h:'<div class="kal term'+(t.done?' done':'')+'"><span class="kd"><b>'+t.d+'</b><small>'+MON[t.m].slice(0,3)+'</small></span><div class="kt"><b>'+T[0]+'</b><small>'+(t.done?'Erledigt':T[1]+(HEALTHT.includes(t.k)?' · '+((p.hv||0)>=6?'keine Aktion (Stammpatient/in)':'1 Aktion, wird mit jedem Besuch günstiger'):'')+(T[4]?' · verpassen hat Folgen':''))+'</small></div>'+(t.done?'<span class="chip">Erledigt</span>':btn('term',i,'Hingehen','',!!p.prison))+'</div>'}}).filter(Boolean)).sort((x,y)=>x.m-y.m||x.d-y.d);
+  h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Dein Jahr mit '+p.age+'</h2><span class="chip">'+openBd()+' offen</span></div><p class="note" style="margin:4px 0 8px">Gratulieren kostet keine Aktion, außer die Beziehung ist schlecht. Arzttermine kosten anfangs eine Aktion, als Stammpatient/in (ab 6 Besuchen) keine mehr. Vergessenes hat Folgen.</p>'+(items.length?items.map(x=>x.h).join(''):'<p class="note">Keine Termine.</p>')+'</section>';
   const up=[];if(p.school)up.push(['Schulabschluss',(p.school==='Gymnasium'?18:p.school==='Hauptschule'?15:16)+(p.rep||0)-p.age+' Jahr(e)']);if(p.study)up.push(['Studienabschluss '+p.study.f,p.study.left+' Jahr(e)']);if(p.azubi)up.push(['Ausbildungsende',p.azubi.left+' Jahr(e)']);
   if(p.pol&&p.pol.next)up.push(['Nächste Wahl ('+POLO[Math.min(POLO.length-1,p.pol.lvl+1)][0]+')',Math.max(0,p.pol.next-p.age)+' Jahr(e)']);if(p.job&&!p.pension&&p.age<67&&p.job.id!=='influ')up.push(['Rente',67-p.age+' Jahre']);
   if(p.sm&&p.sm.ch&&p.sm.ch.plan.length)up.push(['Plan-Streams',p.sm.ch.plan.map(i=>SLOTS[i][0]+':00').join(', ')]);
@@ -2360,7 +2369,7 @@ const QEV={
  rebel:i=>{const k=p.kids[i];if(!k)return null;return E(k.n+' rebelliert',k.n+' kommt nachts um drei nach Hause und knallt die Tür.',()=>true,[['Hausarrest',()=>(k.rel-=10,k.st.in=Math.min(100,k.st.in+2),'Zwei Wochen Hausarrest. Eisige Stimmung.')],['In Ruhe reden',()=>(k.rel=Math.min(100,k.rel+8),'Ihr redet lange. '+k.n+' weint ein bisschen. Danach ist es besser.')],['Ignorieren',()=>(k.rel-=3,'Du tust so, als hättest du nichts gehört.')]])},
  kidmoney:i=>{const k=p.kids[i];if(!k)return null;const a=px$(R(3,15)*1000);return E(k.n+' braucht Geld',k.n+' fragt, ob du mit '+eur(a)+' aushelfen kannst. '+pick(['Die Waschmaschine ist kaputt.','Die Miete ist gestiegen.','Ein Kurs für den Job.','Für die Hochzeit.']),()=>true,[['Geben',()=>p.money<a?'Du hast gerade selbst nicht genug Geld.':(p.money-=a,k.rel=Math.min(100,k.rel+15),add('gl',3),'Du hilfst gern. '+k.n+' ist dir sehr dankbar.')],['Nein',()=>(k.rel-=12,k.n+' ist enttäuscht.')]])},
  label:()=>E('Ein Plattenvertrag!','Ein Label hat dich spielen sehen und will einen Vertrag. 10.000 € Vorschuss.',()=>true,[['Unterschreiben',()=>{p.mus.label=true;p.money+=10000;add('gl',10);mile('Plattenvertrag','star');news('Label nimmt '+p.mus.band+' unter Vertrag','kultur');return 'Du bist jetzt bei einem echten Label!'}],['Lieber unabhängig',()=>(add('gl',2),'Du machst weiter auf eigene Faust.')]]),
- transfer:d=>E('Transferangebot','Ein Spitzenverein will dich holen. Gehalt: '+eur(d)+' im Jahr.',()=>!!(p.job&&p.job.id==='sport'),[['Wechseln',()=>{p.job.pay=d;p.spo.lvl=Math.max(p.spo.lvl,3);p.spo.club=pick(['FC Nordstern','Union Hafenstadt','SV Weißblau','Eintracht Südpark']);mile('Wechsel zu '+p.spo.club,'star');news(p.first+' '+p.last+' wechselt zu '+p.spo.club,'kultur');return 'Neuer Verein: '+p.spo.club+'!'}],['Bleiben',()=>(p.spo.fans=Math.round(p.spo.fans*1.1),'Die Fans lieben dich für deine Treue.')]])};
+ transfer:d=>E('Transferangebot','Ein Spitzenverein will dich holen. Gehalt: '+eur(d)+' im Jahr.',()=>!!(p.job&&p.job.id==='sport'),[['Wechseln',()=>{p.job.pay=d;p.spo.lvl=Math.max(p.spo.lvl,3);p.spo.club=pick(PROCLUBS);mile('Wechsel zu '+p.spo.club,'star');news(p.first+' '+p.last+' wechselt zu '+p.spo.club,'kultur');return 'Neuer Verein: '+p.spo.club+'!'}],['Bleiben',()=>(p.spo.fans=Math.round(p.spo.fans*1.1),'Die Fans lieben dich für deine Treue.')]])};
 function nextEvent(){
   const i=p.later.findIndex(l=>l.a<=p.age&&LATER[l.id]&&LATER[l.id].ev);if(i>=0){const l=p.later.splice(i,1)[0];const e=LATER[l.id].f(l.d);if(e&&e.c())return e}
   while(p.q.length){const q=p.q.shift();const e=QEV[q.id]&&QEV[q.id](q.d);if(e&&e.c())return e}
@@ -2535,7 +2544,7 @@ function movePick(){dialog('Wohin soll es gehen?','Umzug kostet '+eur(px$(2500))
 
 /* ================= Jahreswechsel ================= */
 function lifeX(R0){ensureLife();
-  worldYear(R0);bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);{const net=R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0)-((R0.out.find(x=>x[0]==='Steuern')||[0,0])[1]);costYear(R0,net)}mailYear();examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
+  worldYear(R0);jvaYear();bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);{const net=R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0)-((R0.out.find(x=>x[0]==='Steuern')||[0,0])[1]);costYear(R0,net)}mailYear();examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
   ['mama','papa'].forEach(k=>p.rel[k]=Math.max(0,p.rel[k]-2));p.rel.freund=Math.max(0,p.rel.freund-3);
   if(p.age>=8&&p.rel.freund<12){log('Du und '+p.friend+' habt euch aus den Augen verloren.');p.friend=pick(FN.concat(MN).filter(x=>x!==p.friend));p.rel.freund=45;p.chats.freund={msgs:[],un:0};msg('freund','Hi! Wir kennen uns vom Sport. Lust, mal was zu machen?')}
   p.lernN=0;p.skipN=0;if(p.trust&&p.age>=18){p.money+=p.trust;R0.inc.push(['Treuhandfonds der Familie',p.trust]);log('Du bekommst deinen Treuhandfonds: '+eur(p.trust)+'.');p.trust=0}
@@ -2550,11 +2559,11 @@ function act5(id,arg){const lock=!!p.prison;
   case 'theme':O.theme=arg;saveO();render();return 1;
   case 'wall':if(wallUsable(+arg)){O.wall=+arg;saveO();render()}return 1;
   case 'mini':O.mini=arg;saveO();render();return 1;
-  case 'grat':{if(p.grat[arg]===p.age||p.age<6||!people().some(x=>x[0]===arg))return 1;p.grat[arg]=p.age;const nm=(people().find(x=>x[0]===arg)||[0,''])[1];
+  case 'grat':{if(p.grat[arg]===p.age||p.age<6||!people().some(x=>x[0]===arg))return 1;if(relOf(arg)<30){CUR='grat';if(!useAct())return 1}p.grat[arg]=p.age;const nm=(people().find(x=>x[0]===arg)||[0,''])[1];
     if(arg==='partner'&&p.partner)p.partner.rel=Math.min(100,p.partner.rel+5);else if(p.rel[arg]!=null)p.rel[arg]=Math.min(100,p.rel[arg]+6);else if(arg.startsWith('kid')){const k=p.kids[+arg.slice(3)];if(k)k.rel=Math.min(100,k.rel+6)}
     if(arg!=='rival'){msg(arg,'Alles Gute zum Geburtstag!',true);msg(arg,pick(['Danke!! Du hast dran gedacht <3','Wie lieb von dir, danke!','Danke dir! Feiern wir bald zusammen?']))}else{msg('rival','Alles Gute. Ehrlich.',true);msg('rival','… Danke. Hätte ich nicht gedacht.');if(ch(.2)&&p.age>=25){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}}
     done('Du hast '+nm+' gratuliert.');return 1}
-  case 'term':{const t=p.terms[+arg];if(!t||t.done||lock)return 1;t.done=true;done(TERM[t.k][3]());return 1}
+  case 'term':{const t=p.terms[+arg];if(!t||t.done||lock)return 1;if(HEALTHT.includes(t.k)){const hv=p.hv||0;if(hv>=6){if(!spendTime(30))return 1}else{CUR='arzt';if(!useAct())return 1}p.hv=hv+1}t.done=true;done(TERM[t.k][3]());return 1}
   case 'famtab':famTab=arg;render();return 1;
   case 'kidtime':{const k=p.kids[+arg];if(!k||lock||!useAct())return 1;k.rel=Math.min(100,k.rel+R(8,14));k.ts=Math.min(100,k.ts+2);add('gl',R(3,6));done(pick(['Ein Nachmittag im Zoo mit ','Pizza und Filmabend mit ','Fußball im Park mit ','Zusammen gebacken mit '])+k.n+'.');return 1}
   case 'kidfd':{const [i,f]=arg.split(':'),k=p.kids[+i];if(!k)return 1;k.fd[f]=!k.fd[f];render();return 1}
@@ -2571,9 +2580,9 @@ function act5(id,arg){const lock=!!p.prison;
   case 'sp_game':{const s=p.spo;if(!s||s.done||s.inj>0||lock)return 1;mgStart('reakt',3,'Spieltag',(sc,auto)=>{s.done=true;s.sk=Math.min(100,s.sk+sc);s.fans+=Math.round((sc+1)*(10+s.sk*(s.lvl+1)*3));const pro=p.job&&p.job.id==='sport',b=pro?sc*Math.round(p.job.pay/50):0;p.money+=b;
     const t=['Niederlage.','Unentschieden.','Knapper Sieg!','Kantersieg, du warst überragend!'][sc]+(b?' Siegprämie '+eur(b)+'.':'')+(auto?' (simuliert)':'');log('Spieltag: '+t);if(sc===3){add('gl',5);if(s.lvl>=3)news(p.first+' '+p.last+' schießt '+(s.club)+' zum Sieg','kultur')}save();render();dialog('Abpfiff',t,[['Weiter',null]])},s.sk);return 1}
   case 'sp_trial':{const s=p.spo;if(!s||p.age<16||p.age>26||s.trY===p.age||lock||!useAct())return 1;s.trY=p.age;
-    if(s.sk>=55&&ch(.4+(s.sk-55)/60)){s.lvl=2;s.club=pick(['SC Nordhafen','Borussia Weststadt','FC Altbrück','TuS Südfelde']);if(p.job)log('Du hörst als '+p.job.t+' auf.');p.study=null;p.job={id:'sport',t:'Profi ('+SPORTS[s.s]+')',pay:px$(45000+Math.round(s.sk*600)),part:false,yrs:0,perf:50};ach('job');mile('Profivertrag bei '+s.club,'star');news(p.first+' '+p.last+' unterschreibt bei '+s.club,'kultur');done('Profivertrag beim '+s.club+'!')}
+    if(s.sk>=55&&ch(.4+(s.sk-55)/60)){s.lvl=2;s.club=pick(PROCLUBS);if(p.job)log('Du hörst als '+p.job.t+' auf.');p.study=null;p.job={id:'sport',t:'Profi ('+SPORTS[s.s]+')',pay:px$(45000+Math.round(s.sk*600)),part:false,yrs:0,perf:50};ach('job');mile('Profivertrag bei '+s.club,'star');news(p.first+' '+p.last+' unterschreibt bei '+s.club,'kultur');done('Profivertrag beim '+s.club+'!')}
     else if(s.sk>=35&&s.lvl<1){s.lvl=1;done('Für die Profis reicht es noch nicht, aber du spielst jetzt in der Amateurliga.')}else done('Der Trainer schüttelt den Kopf. Weiter trainieren!');return 1}
-  case 'mu_band':if(p.mus||p.age<13||lock)return 1;p.mus={band:pick(['Die ','The ',''])+pick(['Nachtfalter','Hafenlichter','Blauen Stunden','Kometen','Neonherzen','Sturmvögel']),sk:R(10,30),fans:R(5,30),songs:[],label:false,hits:0};done('Deine Band „'+p.mus.band+'“ ist gegründet!');return 1;
+  case 'mu_band':if(p.mus||p.age<13||lock)return 1;p.mus={band:pick(BANDN),sk:R(10,30),fans:R(5,30),songs:[],label:false,hits:0};done('Deine Band „'+p.mus.band+'“ ist gegründet!');return 1;
   case 'mu_prac':if(!p.mus||lock||!useAct())return 1;p.mus.sk=Math.min(100,p.mus.sk+R(3,7));p.mus.act=true;done('Stundenlang geübt. Können: '+Math.round(p.mus.sk)+'.');return 1;
   case 'mu_song':{const m=p.mus;if(!m||lock||!useAct())return 1;const q=clamp((m.sk*.6+p.st.in*.2+R(0,30))/100,0,1),t=pick(SONGW)+(ch(.3)?' ('+pick(['Remix','Akustik','Live'])+')':'');m.songs.push({t,q,rel:false});m.act=true;if(m.songs.length>20)m.songs.shift();done('Neuer Song: „'+t+'“. '+(q>=.8?'Das könnte ein Hit werden!':q>=.5?'Ganz ordentlich.':'Naja, Übung macht den Meister.'));return 1}
   case 'mu_gig':{const m=p.mus;if(!m||!m.songs.length||p.age<14||lock||!useAct())return 1;const best=Math.max(...m.songs.map(x=>x.q)),nf=Math.round((20+m.fans*.06)*(.5+best)*(.8+Math.random()*.4)),pay=Math.round(50+m.fans*.15);m.fans+=nf;p.money+=pay;m.act=true;if(p.sm)smGain(nf*.3);add('gl',R(3,6));sfx('coin');done('Konzert gespielt: +'+kfmt(nf)+' Fans, '+eur(pay)+' Gage.');return 1}
@@ -2596,6 +2605,7 @@ function act5(id,arg){const lock=!!p.prison;
     if(ch(.15)){p.money-=1000;p.wanted=Math.min(5,(p.wanted||0)+1);done('Hehlerei aufgeflogen! Ware weg, 1.000 € Strafe.');return 1}p.items.push(arg);if(arg.startsWith('handy'))p.phoneY=p.age;Object.keys(S.e).forEach(k=>add(k,S.e[k]));done(B[1]+' für '+eur(c)+'. Frag nicht, woher.');return 1}
   case 'ga_wash':{if(!p.dirty||lock)return 1;const v=Math.round(p.dirty*.55);p.money+=v;p.dirty=0;done('Der Hehler gibt dir '+eur(v)+' sauberes Geld.');return 1}
   case 'ga_leave':{if(!p.gang)return 1;const n=p.gang.n;p.gang=null;addRuf(5);if(ch(.3)){add('ge',-15);done('Die '+n+' lassen dich nicht einfach gehen. Du landest im Krankenhaus, aber du bist raus.')}else done('Du bist raus bei den '+n+'.');return 1}
+  case 'desel':sel=null;render();return 1;
   case 'movepick':if(!lock)movePick();return 1;
   }return 0}
 
@@ -2677,12 +2687,13 @@ const bigOn=()=>cfg().big!==false;
 function dayBar(){if(!clockOn())return '';const f=clamp(((p.clock||DAYSTART)-DAYSTART)/(DAYEND-DAYSTART)*100,0,100);return '<div class="dayb'+(p.act<=0?' over':'')+'"><span>07:00</span><div><i style="width:'+f.toFixed(1)+'%"></i></div><span>03:00</span></div>'}
 let CUR='',LASTM=0;
 function useAct(){
-  if(p.act<=0){toast(clockOn()&&p.clock>=DAYEND-10?'Es ist 3 Uhr nachts. Zeit zu schlafen: Werde ein Jahr älter.':'Keine Aktionen mehr in diesem Jahr. Werde ein Jahr älter.');return false}
-  const m=clockOn()?(DUR[CUR]||60):0;
+  const free=!!(FREEA[CUR]&&FREEA[CUR]());
+  if(p.act<=0&&!(free&&clockOn()&&p.clock<DAYEND-10)){toast(clockOn()&&p.clock>=DAYEND-10?'Es ist 3 Uhr nachts. Zeit zu schlafen: Werde ein Jahr älter.':'Keine Aktionen mehr in diesem Jahr. Werde ein Jahr älter.');return false}
+  const m=clockOn()?durOf(CUR):0;
   if(clockOn()&&p.clock+m>DAYEND){toast('Dafür reicht die Zeit nicht mehr ('+durTxt(m)+'). Es ist schon '+clockTxt()+'.');return false}
-  if(!unl())p.act--;LASTM=m;
+  if(!unl()&&!free)p.act--;LASTM=m;
   if(clockOn()){p.clock+=m;if(p.clock>=DAYEND-10){p.act=0;setTimeout(()=>toast('Es ist '+clockTxt()+'. Der Tag ist vorbei. Halte den Knopf, um ein Jahr älter zu werden.'),2700)}}
-  return true}
+  if(!free)setTimeout(actWarn,700);return true}
 function refundAct(){if(!unl())p.act++;if(clockOn()){p.clock-=LASTM;if(p.act<=0&&p.clock<DAYEND-10)p.act=1}}
 function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealth:f.wealth};p.act=actBase();p.clock=DAYSTART;
   if(!p.sb){if(f.wealth==='arm')p.money=0;if(f.wealth==='reich'){if(p.age>=18){p.money+=40000;log('Deine Familie ist wohlhabend: 40.000 € Startkapital.')}else p.trust=40000}}
@@ -2690,6 +2701,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+ {v:'3.1',big:false,t:'Gefängnis und Feinschliff',neu:['Gefängnis-App für Insassen: Hofgang, Bibliothek, Werkstatt, Schulabschluss, Anti-Gewalt-Training, Besuch, Berufung und Ausbruch','Neuer Beruf Justizvollzugsbeamter/in mit Zellenkontrolle','Gute Führung bringt eine frühere Entlassung','Hinweis, wenn nur noch wenige Aktionen übrig sind','Namen für Personen, Läden, Gebäude, Bands und Vereine lassen sich in inhalte/namen.txt ändern'],mod:['Zurück bringt dich dorthin, wo du warst, zum Beispiel in die Chat-Liste','Stadt-Ereignisse sitzen jetzt auf echten Gebäuden','Gebäude-Karte ist größer und zeigt alle Optionen, mit Schließen-Knopf','Deutlicher „Handy“-Knopf zum Zurückgehen','Gratulieren und Einladungen kosten nur noch eine Aktion, wenn die Beziehung schlecht ist','Arzttermine werden mit jedem Besuch kürzer und ab dem 6. Besuch kostenlos','Vollbild nur noch einmal pro Start, in den Einstellungen abschaltbar']},
  {v:'3.0',big:true,t:'Das echte Leben kostet',neu:['Post-App ab 16: Rechnungen, Steuererklärung, Behördenbriefe, Betrugsversuche und Briefe von Oma','Wer Rechnungen ignoriert, bekommt Mahnung, Inkasso und am Ende den Gerichtsvollzieher','Lebenshaltungskosten ab 18: Essen, Kleidung, Handyvertrag, Strom und Internet, Versicherungen, Bus und Bahn, Konsum und Urlaub','Grundsteuer auf alle Immobilien, ab der 4. Immobilie eine zusätzliche Abgabe'],mod:['Einkommensteuer in Stufen: 0, 25, 38 und 45 %','Fitnessstudio kostet jetzt monatlich statt einmalig','Ab 25 verlangen die Eltern Kostgeld, wenn du noch zu Hause wohnst','Wer viel Geld hat, gibt auch mehr aus']},
  {v:'2.9',big:true,t:'Lebendiger Alltag',neu:['Geschäfte neu sortiert: Kopfkarte mit Gewinn, Firmenwert und Hinweisen, dazu 5 Reiter','Chats: Antworten auswählen, Gruppenchats für Familie, Klasse und Kollegen, Einladungen annehmen oder absagen','Jobs: Vorstellungsgespräch, dein Team mit Namen, Kaffeepause, Homeoffice-Tag, Firmenfeier','Hobbys mit 5 Stufen, Wettbewerben und Nebeneinkünften','Geschwister, Pflege der Eltern und Erbe der Eltern','Apps auf dem Handy selbst anordnen','Abschlussprüfung mit 5 Fragen nach Schule, Ausbildung und Studium','Die Stadt lebt: anklickbare Ereignisse, teils passend zu deinem Job','Erinnerungen von oben: Arzt, Sport, Geburtstage, Termine'],mod:['„+1 Jahr“ erscheint nur noch auf dem Handy und in der Stadt']},
  {v:'2.8',big:true,t:'Der App Store',neu:['App Store: Klick, Nachrichten, Börse, Geschäfte, Casino, Karriere, Wohnen, Garage und Straße lädst du dir, wenn du sie willst','Apps wachsen mit deinem Alter: Als Kind siehst du nur wenige, neue Apps landen mit „Neu“-Markierung auf dem Handy','Speicherplatz je nach Handy: 2, 4, 7 oder 9 Store-Apps','Empfehlungen im Store passend zu deinem Leben','Börse Pro mit Kursalarmen','Fahrschule im App Store bei der Garage'],mod:['Apps, die du schon benutzt hast, sind automatisch installiert','Gelöschte Apps behalten ihre Daten']},
@@ -2929,7 +2941,7 @@ let dlId=null,storeSel=null;
 const appInst=id=>!OPT[id]||!!(p.apps&&p.apps[id]);
 const appCount=()=>Object.keys(OPT).filter(k=>p.apps&&p.apps[k]).length;
 const appCap=()=>STORE_CAP[phoneTier()];
-function appVisible(id){if(OPT[id])return appInst(id)&&p.age>=OPT[id][1]-0;return p.age>=(APPMIN[id]||0)}
+function appVisible(id){if(id==='jva')return jvaUse();if(OPT[id])return appInst(id)&&p.age>=OPT[id][1]-0;return p.age>=(APPMIN[id]||0)}
 function ensureApps(){if(p.apps)return;p.apps={};p.appSeen={};
   const B=p.biz||{},used={klick:!!p.sm,news:(p.news||[]).length>0,boerse:p.sh&&Object.keys(p.sh).some(k=>p.sh[k]>0),geschaefte:!!B.co,casino:!!(p.casino&&(p.casino.won||p.casino.lost)),
    wege:!!(p.spo||p.mus||p.pol||p.gang),wohnen:(p.props||[]).length>0||(p.owned||[]).length>0||(p.home&&p.home!=='eltern'),garage:(p.cars||[]).length>0,strasse:(p.crimes||0)>0};
@@ -2990,7 +3002,7 @@ function chatsYear(){const cs=contacts().map(c=>c.id);Object.keys(p.chats).forEa
   cs.forEach(id=>{const c=p.chats[id];if(c&&c.msgs.length&&!c.msgs[c.msgs.length-1].me&&!id.startsWith('g_'))c.pend=true})}
 const _msg0=msg;msg=function(id,t,me){_msg0(id,t,me);const c=p.chats[id];if(c)c.pend=!me};
 function chatExtra(c){const C=p.chats[c.id]||{};let h='';
-  if(C.inv)h+='<div class="inv"><small>Einladung</small><b>'+esc(C.inv.t)+'</b><div class="btns">'+btn('invyes',c.id,'Zusagen · '+(clockOn()?'2 Std.':'1 Aktion'),'o',p.act<=0||!!p.prison)+btn('invno',c.id,'Absagen','g')+'</div></div>';
+  if(C.inv)h+='<div class="inv"><small>Einladung</small><b>'+esc(C.inv.t)+'</b><div class="btns">'+btn('invyes',c.id,'Zusagen · '+(relOf(c.id)<30?'1 Aktion':clockOn()?'2 Std., keine Aktion':'keine Aktion'),'o',(relOf(c.id)<30&&p.act<=0)||!!p.prison)+btn('invno',c.id,'Absagen','g')+'</div></div>';
   else if(C.pend&&!c.id.startsWith('g_')&&c.id!=='chef')h+='<div class="replies">'+[['lieb','Lieb antworten'],['kurz','Kurz antworten'],['frech','Genervt antworten']].map(([k,l])=>'<button class="rp" data-a="reply" data-g="'+c.id+':'+k+'">'+l+'<small>„'+esc(REPLY[k][0])+'“</small></button>').join('')+'</div>';
   else if(C.pend&&c.id.startsWith('g_'))h+='<div class="replies">'+btn('greply',c.id,'Mitreden','o')+'</div>';
   return h}
@@ -3104,7 +3116,6 @@ const JOBCEV={polizei:'verfolgung',arzt:'notfall',pflege:'notfall',koch:'foodtru
 function cityEvents(){if(p.cevY!==p.age){p.cevY=p.age;const g=shuffle(['katze','tourist','geld','dieb','flash','markt','umfrage','unfall']).slice(0,3);const j=p.job&&JOBCEV[p.job.id];if(j)g.push(j);else if(p.sm&&p.sm.fol>=20000)g.push('fans');
     p.cev=g.map(k=>({k,x:R(8,82),y:R(22,68)}))}return p.age>=6?p.cev||[]:[]}
 function cevStrip(){const L=cityEvents();if(!L.length)return '';return '<section class="card cevs"><div class="lbl">GERADE IN DER STADT</div><div class="cevl">'+L.map((e,i)=>'<button class="cevb" data-a="cityev" data-g="'+i+'"'+(p.prison?' disabled':'')+'><span class="cevi"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+CEV[e.k][2]+'</svg></span><b>'+CEV[e.k][0]+'</b></button>').join('')+'</div><p class="note">Kostet keine Aktion, nur etwas Zeit. Auf der Karte pulsieren die Orte.</p></section>'}
-function cevMarkers(){const el=document.getElementById('cev');if(!el)return;el.innerHTML=tab==='stadt'&&!p.prison?cityEvents().map((e,i)=>'<button class="cevm" data-a="cityev" data-g="'+i+'" style="left:'+e.x+'%;top:'+e.y+'%" aria-label="'+CEV[e.k][0]+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+CEV[e.k][2]+'</svg></button>').join(''):''}
 function runCityEv(i){const L=p.cev||[],e=L[i];if(!e||p.prison)return;if(!spendTime(30))return;L.splice(i,1);const k=e.k,T=CEV[k][0];
   const fin=t=>{log(T+': '+t);checkAch();save();render();dialog(T,t,[['Weiter',null]])};
   const ques=(bankArr,ok,bad)=>{const q=pick(bankArr);dialog(T,q[0],shuffle([[q[1],()=>{sfx('coin');fin(ok())}],[q[2],()=>{sfx('bad');fin(bad())}],[q[3],()=>{sfx('bad');fin(bad())}]]))};
@@ -3131,7 +3142,7 @@ function runCityEv(i){const L=p.cev||[],e=L[i];if(!e||p.prison)return;if(!spendT
 function act10(id,arg){const lock=!!p.prison;switch(id){
   case 'reply':{const [cid,k]=arg.split(':');const C=p.chats[cid];if(!C||!C.pend)return 1;msg(cid,pick(REPLY[k]),true);C.pend=false;relUp(cid,k==='lieb'?5:k==='kurz'?1:-6);if(k==='frech'&&cid==='rival')addRuf(-1);render();return 1}
   case 'greply':{const C=p.chats[arg];if(!C)return 1;msg(arg,pick(['Haha, genau!','Bin dabei!','Wer bringt was mit?','Ich auch!']),true);C.pend=false;add('gl',1);if(arg==='g_job')colleagues().forEach(c=>c.rel=Math.min(100,c.rel+2));render();return 1}
-  case 'invyes':{const C=p.chats[arg];if(!C||!C.inv||lock)return 1;CUR='meet';if(!useAct())return 1;const t=C.inv.t;C.inv=null;relUp(arg,10);add('gl',R(4,8));if(arg==='g_job')colleagues().forEach(c=>c.rel=Math.min(100,c.rel+6));msg(arg,'Bin dabei!',true);done('Zugesagt: '+t+' Es wurde ein richtig schöner Abend.');return 1}
+  case 'invyes':{const C=p.chats[arg];if(!C||!C.inv||lock)return 1;CUR='meet';if(relOf(arg)<30?!useAct():!spendTime(120))return 1;const t=C.inv.t;C.inv=null;relUp(arg,10);add('gl',R(4,8));if(arg==='g_job')colleagues().forEach(c=>c.rel=Math.min(100,c.rel+6));msg(arg,'Bin dabei!',true);done('Zugesagt: '+t+' Es wurde ein richtig schöner Abend.');return 1}
   case 'invno':{const C=p.chats[arg];if(!C||!C.inv)return 1;C.inv=null;relUp(arg,-4);msg(arg,'Sorry, heute kann ich nicht.',true);render();return 1}
   case 'colkaffee':{if(p.colY===p.age||lock)return 1;if(!spendTime(30))return 1;p.colY=p.age;colleagues().forEach(c=>c.rel=Math.min(100,c.rel+R(4,9)));if(p.job)p.job.perf=Math.min(100,p.job.perf+3);done('Kaffee, Klatsch und Kekse. Das Team mag dich.');return 1}
   case 'homeoffice':{if(p.hoY===p.age||lock||!p.job)return 1;p.hoY=p.age;if(clockOn())p.clock=Math.max(DAYSTART,p.clock-120);else if(!unl())p.act++;if(p.act<=0)p.act=1;done('Homeoffice-Tag: Jogginghose, kein Stau. '+(clockOn()?'Du gewinnst 2 Stunden.':'Eine Aktion mehr.'));return 1}
@@ -3264,6 +3275,78 @@ function act12(id,arg){const lock=!!p.prison;if(id.startsWith('mail')){if(lock)r
   case 'mailtrash':{const m=p.mail[+arg];if(!m)return 1;p.mail.splice(+arg,1);render();return 1}
   }return 0}
 APPTIP.post='Hier landen Rechnungen, Behördenbriefe und Werbung. Bezahl Rechnungen rechtzeitig, sonst kommen Mahnungen, Inkasso und Gerichtsvollzieher. Vorsicht vor Betrug!';
+/* ================= Korrekturen und Gefängnis ================= */
+/* ---------- Aktionen: Hinweise, kostenlose Aktionen, Arzt wird günstiger ---------- */
+const FREEA={arzt:()=>(p.hv||0)>=6};
+const durOf=id=>id==='arzt'?((p.hv||0)>=6?30:(p.hv||0)>=3?45:90):(DUR[id]||60);
+function actWarn(){if(unl()||!p||!p.alive)return;if(p.act===2)notify('Nur noch 2 Aktionen in diesem Jahr. Plane gut!','');else if(p.act===1)notify('Achtung: Das ist deine letzte Aktion in diesem Jahr.','');
+  else if(p.act===0)notify(clockOn()&&p.clock>=DAYEND-10?'Es ist 3 Uhr nachts. Zeit für ein neues Jahr: Halte „+1 Jahr“ gedrückt.':'Alle Aktionen verbraucht. Kostenlose Dinge gehen noch, sonst „+1 Jahr“ gedrückt halten.','home')}
+{const {f}=ACTS.arzt;ACTS.arzt.f=()=>{p.hv=(p.hv||0)+1;return f()}}
+
+/* ---------- Gefängnis: nur für Insassen und Wärter ---------- */
+JOBS.push({id:'waerter',t:'Justizvollzugsbeamter/in',pay:36000,min:20,edu:1});JOBMG.waerter='streit';
+const JVA={
+ hof:['Hofgang und Training','Form und Gesundheit +',90,()=>{p.sk.form=Math.min(100,p.sk.form+4);add('ge',2);add('gl',2);return pick(['Klimmzüge an der Hofmauer.','Du drehst 50 Runden im Hof.','Liegestütze, bis die Arme brennen.'])}],
+ bib:['Bibliothek','Intelligenz +',60,()=>{add('in',R(3,5));return pick(['Du liest einen dicken Roman.','Ein Buch über Wirtschaft. Interessant!','Du lernst Spanisch aus einem alten Lehrbuch.'])}],
+ werk:['Arbeit in der Werkstatt','etwas Geld und gute Führung',240,()=>{const v=px$(R(200,450));p.money+=v;p.good=(p.good||0)+1;return 'Du baust Möbel in der Werkstatt und verdienst '+eur(v)+'.'}],
+ schule:['Schulabschluss nachholen','Bildung, wenn du noch keinen Abschluss hast',180,()=>{if(RANK[p.edu]>=1)return 'Du hast schon einen Abschluss. Du hilfst anderen beim Lernen.';p.jvEdu=(p.jvEdu||0)+1;add('in',3);if(p.jvEdu>=2){p.edu=RANK[p.edu]>=.5?'Realschule':'Hauptschule';p.jvEdu=0;mile('Abschluss im Gefängnis: '+p.edu,'star');return 'Geschafft! Du hast den Abschluss ('+p.edu+') nachgeholt.'}return 'Ein Jahr Unterricht. Noch eins, dann hast du den Abschluss.'}],
+ therapie:['Anti-Gewalt-Training','Ruf +, gute Führung',120,()=>{addRuf(5);add('gl',2);p.good=(p.good||0)+1;return 'Du lernst, mit Wut umzugehen. Die Leitung ist beeindruckt.'}],
+ besuch:['Besuch empfangen','Familie und Partner',60,()=>{if(p.partner)p.partner.rel=Math.min(100,p.partner.rel+8);if(!p.parentsGone){p.rel.mama=Math.min(100,p.rel.mama+6)}add('gl',6);return p.partner?p.partner.name+' besucht dich. Ihr haltet Händchen durch die Scheibe.':!p.parentsGone?'Mama kommt mit Kuchen. Er wird am Eingang kontrolliert.':'Niemand kommt. Ein Pfarrer leistet dir Gesellschaft.'}],
+ kontakte:['Kontakte knüpfen','Fähigkeiten im Untergrund, Ruf −',90,()=>{addRuf(-4);const k=pick(['schloss','hack','kampf']);p.sk[k]=Math.min(100,(p.sk[k]||0)+5);if(p.gang)p.gang.rep+=4;return 'Ein alter Hase zeigt dir ein paar Tricks.'}],
+ tausch:['Tauschhandel','Zigaretten gegen Gefälligkeiten',30,()=>ch(.6)?(p.money+=R(20,120),'Ein guter Deal. Du hast jetzt Kaffee und ein bisschen Geld.'):(add('ge',-4),p.good=Math.max(0,(p.good||0)-1),'Der Deal fliegt auf. Eine Woche Einzelzelle.')],
+ anwalt:['Berufung einlegen','3.000 € Anwalt, Chance auf weniger Haft',120,()=>{const c=px$(3000);if(p.money<c)return 'Du kannst dir den Anwalt nicht leisten.';p.money-=c;if(p.prison>1&&ch(.35)){p.prison--;return 'Die Berufung hat Erfolg: ein Jahr weniger Haft!'}return 'Die Berufung wird abgelehnt.'}],
+ flucht:['Ausbruch versuchen','Sehr riskant',180,()=>{if(ch(.12+(p.sk.schloss||0)/400)){p.prison=0;p.wanted=5;addRuf(-10);mile('Ausbruch aus dem Gefängnis','star');news('Ausbruch aus der JVA '+cityName(p.seed)+'!','gross');return 'Du bist draußen! Aber jetzt sucht dich die ganze Stadt.'}p.prison+=2;p.good=0;add('gl',-8);return 'Erwischt am Zaun. Zwei Jahre mehr.'}]};
+const jvaUse=()=>!!p.prison||!!(p.job&&p.job.id==='waerter');
+function viewJva(){if(!jvaUse())return card('','<p class="note">Hier kommst du nur als Insasse oder als Justizvollzugsbeamter/in hinein.</p>'+(p.age>=20?'<div class="btns">'+btn('goto','jobs','Jobs ansehen','')+'</div>':''));
+  if(!p.prison)return '<section class="card jvah"><b>Dienst in der JVA</b><small>Du arbeitest als Justizvollzugsbeamter/in.</small></section>'+card('Dienst',special('work')+row('Zellenkontrolle','Einmal im Jahr · Minispiel',p.jvK===p.age?'<span class="chip">Erledigt</span>':btn('jvkontrolle',null,'Kontrolle','o'))+row('Gespräch mit einem Häftling','Gute Führung fördern',btn('jvgespr',null,'Reden','',p.act<=0)));
+  let h='<section class="card jvah"><b>Noch '+p.prison+' Jahr(e) Haft</b><small>Gute Führung: '+(p.good||0)+' von 3. Mit 3 Punkten wirst du ein Jahr früher entlassen.</small><div class="bar"><i style="width:'+Math.min(100,(p.good||0)/3*100)+'%;background:#0E9F7E"></i></div></section>';
+  h+='<section class="card">'+Object.keys(JVA).map(k=>{const J=JVA[k];return row(J[0],J[1]+(clockOn()?' · '+durTxt(J[2]):''),btn('jva',k,k==='flucht'?'Wagen':'Los',k==='flucht'?'g':'o',p.act<=0))}).join('')+'</section>';
+  return h}
+function jvaYear(){if(p.prison&&(p.good||0)>=3&&p.prison>1){p.prison--;p.good=0;log('Gute Führung: Du wirst ein Jahr früher entlassen.')}}
+
+/* ---------- Gratulieren, Einladungen und Gesundheitstermine ---------- */
+const relOf=id=>id==='partner'&&p.partner?p.partner.rel:p.rel&&p.rel[id]!=null?p.rel[id]:String(id).startsWith('kid')?((p.kids[+id.slice(3)]||{}).rel??60):String(id).startsWith('sib')?(((p.sibs||[])[+id.slice(3)]||{}).rel??60):id==='rival'?20:60;
+const HEALTHT=['arzt','zahn','blut'];
+
+/* ---------- Vollbild-Hinweis ---------- */
+/* Der Wechsel ins Vollbild passiert jetzt nur noch einmal pro Start (siehe shell.html) und lässt sich abschalten. */
+
+/* ---------- Aktionen ---------- */
+function act13(id,arg){switch(id){
+  case 'jva':{const J=JVA[arg];if(!J||!p.prison)return 1;CUR='jva_'+arg;DUR[CUR]=J[2];if(!useAct())return 1;done(J[3]());return 1}
+  case 'jvkontrolle':{if(!p.job||p.job.id!=='waerter'||p.jvK===p.age)return 1;p.jvK=p.age;mgStart('streit',3,'Zellenkontrolle',s=>{p.job.perf=Math.min(100,p.job.perf+s*5);const t='Zellenkontrolle: '+['Nichts gefunden, aber Ärger mit den Häftlingen.','Ein verstecktes Handy entdeckt.','Zwei Schmuggelverstecke ausgehoben!','Perfekte Kontrolle. Die Leitung lobt dich.'][s];log(t);save();render();dialog('Kontrolle',t,[['OK',null]])});return 1}
+  case 'jvgespr':{if(!p.job||p.job.id!=='waerter')return 1;CUR='jvgespr';if(!useAct())return 1;addRuf(2);p.job.perf=Math.min(100,p.job.perf+3);done(pick(['Ein Häftling erzählt dir seine Geschichte. Du hörst zu.','Du schlichtest einen Streit, bevor er eskaliert.']));return 1}
+  case 'fstog':O.fs=O.fs===false;saveO();toast(O.fs===false?'Vollbild beim Start ist aus.':'Vollbild beim Start ist an.');render();return 1;
+  }return 0}
+
+/* ---------- Zurück-Navigation (auch die Zurück-Geste des Handys) ---------- */
+let navKey='',navPop=false;
+function navSync(){const k=tab+'|'+(chatSel||'')+'|'+(tab==='stadt'?sel||'':'');if(k!==navKey){if(navKey&&!navPop)try{history.pushState({k},'')}catch(e){}navKey=k}navPop=false}
+if(window.addEventListener)window.addEventListener('popstate',()=>{if(!p||!p.alive)return;navPop=true;
+  if(document.getElementById('modal').classList.contains('on')){document.getElementById('modal').classList.remove('on')}
+  else if(tab==='chats'&&chatSel)chatSel=null;else if(tab==='stadt'&&sel)sel=null;else if(tab!=='home')tab='home';render()});
+
+/* ---------- Stadt-Ereignisse sitzen auf echten Gebäuden ---------- */
+function cevMarkers(){const el=document.getElementById('cev');if(!el)return;const show=tab==='stadt'&&!p.prison&&G&&G.L&&cityMode!=='list';
+  const L=show?cityEvents():[];if(show){const cells=G.L.cells;L.forEach((e,i)=>{if(e.ci==null||!cells[e.ci]){const used=L.map(x=>x.ci);let free=cells.map((c,j)=>j).filter(j=>!cells[j].place&&!used.includes(j));if(!free.length)free=cells.map((c,j)=>j).filter(j=>!used.includes(j));e.ci=free.length?pick(free):0}})}
+  const html=L.map((e,i)=>'<button class="cevm" data-a="cityev" data-g="'+i+'" data-ci="'+e.ci+'" aria-label="'+CEV[e.k][0]+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+CEV[e.k][2]+'</svg></button>').join('');
+  if(el.dataset.h!==html){el.innerHTML=html;el.dataset.h=html}cevProject()}
+const _cv={};
+function cevProject(){const el=document.getElementById('cev');if(!el||!G||!G.L||!el.children||!el.children.length||typeof THREE==='undefined')return;const w=el.clientWidth,h=el.clientHeight;
+  for(const b of el.children){const c=G.L.cells[+b.dataset.ci];if(!c)continue;const v=(_cv.v=_cv.v||new THREE.Vector3()).set(c.x,(c.top||Math.max(2,...c.lots.map(l=>l.h)))+3,c.z).project(G.cam);
+    const x=(v.x+1)/2*w,y=(1-v.y)/2*h,vis=v.z<1&&x>-30&&x<w+30&&y>-30&&y<h+30;b.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)';b.style.display=vis?'grid':'none'}}
+
+/* ---------- Namen aus inhalte/namen.txt (bearbeitbar) ---------- */
+const BANDN=['Die Nachtfalter','Hafenlichter','Die Blauen Stunden','The Kometen','Neonherzen','Sturmvögel'];
+const PROCLUBS=['SC Nordhafen','Borussia Weststadt','FC Altbrück','TuS Südfelde','FC Nordstern','Union Hafenstadt','SV Weißblau','Eintracht Südpark'];
+function applyNames(txt){const S={};let cur=null;txt.split(/\r?\n/).forEach(l=>{l=l.trim();if(!l||l.startsWith('#'))return;const m=l.match(/^\[(.+)\]$/);if(m){cur=m[1].trim().toLowerCase();S[cur]=[];return}if(cur)S[cur].push(l)});
+  const set=(arr,key)=>{const L=S[key];if(L&&L.length){arr.length=0;L.forEach(x=>arr.push(x))}};
+  set(FN,'vornamen weiblich');set(MN,'vornamen männlich');set(LN,'nachnamen');set(CITYA,'ortsnamen anfang');set(CITYB,'ortsnamen ende');set(BANDN,'bandnamen');set(SONGW,'songtitel');
+  set(COMPN,'konkurrenten');set(GANGS,'gangs');set(PROCLUBS,'profivereine');set(RTAUNT,'sprüche des rivalen');
+  (S['gebäude in der stadt']||[]).forEach(l=>{const [k,v]=l.split('=').map(x=>x.trim());if(PL[k]&&v)PL[k].n=v});
+  (S['läden']||[]).forEach(l=>{const [k,v]=l.split('=').map(x=>x.trim());if(FR[k]&&v)FR[k].n=v});
+  (S['parteien']||[]).forEach((l,i)=>{const [n,d]=l.split('|').map(x=>x.trim());if(PARTIES[i]&&n){PARTIES[i][0]=n;if(d)PARTIES[i][2]=d}})}
+try{if(typeof fetch==='function'&&location&&location.protocol.startsWith('http'))fetch('inhalte/namen.txt',{cache:'no-cache'}).then(r=>r.ok?r.text():'').then(t=>{if(t){applyNames(t);if(p)render();else if(typeof renderStart==='function'&&document.getElementById('app'))renderStart()}}).catch(()=>{})}catch(e){}
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],
@@ -3287,10 +3370,11 @@ const APPS=[
 ['shop','Shop',0xC2408C,'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'],
 ['erfolge','Erfolge',0x8E63D6,'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/>'],
 ['post','Post',0xC9A227,'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>','linear-gradient(135deg,#F2B33D,#C9A227)'],
+['jva','Gefängnis',0x6B7385,'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 3v18M15 3v18M4 12h16"/>','linear-gradient(135deg,#8A8F99,#3A3F4B)'],
 ['store','App Store',0x2B9ED8,'<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 15l3-7 3 7M10 13h4"/>','linear-gradient(135deg,#3FD0A4,#0E9F7E)'],
 ['einst','Einstellungen',0x6B7385,'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>']];
 const APP=Object.fromEntries(APPS.map(a=>[a[0],a]));
-const PRISON_APPS=['news','kalender','einst','chats','klick','leben','freizeit','bank','boerse','erfolge','stadt'];
+const PRISON_APPS=['jva','news','kalender','einst','chats','klick','leben','freizeit','bank','boerse','erfolge','stadt'];
 const btn=(id,arg,label,cls,dis)=>'<button class="btn sm '+(cls||'')+'" data-a="'+id+'"'+(arg!=null?' data-g="'+esc(arg)+'"':'')+(dis?' disabled':'')+'>'+label+'</button>';
 const row=(t,s,right)=>'<div class="row"><div class="t"><b>'+t+'</b>'+(s?'<small>'+s+'</small>':'')+'</div>'+(right||'')+'</div>';
 const card=(title,body)=>'<section class="card">'+(title?'<h2 class="h">'+title+'</h2>':'')+body+'</section>';
@@ -3323,18 +3407,20 @@ function special(a){
 }
 function placeCard(id){
   const P=PL[id];let h='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">'+P.n+'</h2><span class="chip">'+akt(p.act)+'</span></div>';
+  h=h.replace('</h2>','</h2><button class="xbtn" data-a="desel" aria-label="Schließen">×</button>');
+  if(id==='jva')return h+'</section>'+viewJva();
   if(p.prison&&id!=='jva')return h+'<p class="note" style="margin-top:8px">Du sitzt im Gefängnis und kommst hier nicht hin. Noch '+p.prison+' Jahr(e).</p></section>';
   P.a.forEach(a=>{h+=ACTS[a]?actRows([a]):special(a)});
   return h+'</section>';
 }
 function viewStadt(){
-  let h=cevStrip();
+  const big=sel&&cityMode!=='list'&&G;let h=(big?placeCard(sel):'')+cevStrip();
   if(cityMode==='list'||!G){
     h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">'+esc(cityName(p.seed))+'</h2>'+(G?'<div class="seg" style="border:2px solid var(--line)">'+['3d','2d','list'].map(m=>'<button data-a="mode" data-g="'+m+'" aria-pressed="'+(cityMode===m)+'">'+(m==='list'?'Liste':m.toUpperCase())+'</button>').join('')+'</div>':'')+'</div>'+
       (G?'':'<p class="note" style="margin:6px 0">Die 3D-Ansicht läuft auf diesem Gerät nicht, hier sind alle Orte als Liste.</p>')+
       '<div class="plist" style="margin-top:10px">'+PLACES.map(x=>'<button class="pl" data-a="sel" data-g="'+x.id+'" aria-pressed="'+(sel===x.id)+'"><i style="background:'+hex(x.c)+'"></i>'+x.n+'</button>').join('')+'</div></section>';
   }
-  h+=sel?placeCard(sel):card('','<p class="note">Tippe auf ein Gebäude mit Namensschild.</p>');
+  h+=sel?(big?'':placeCard(sel)):card('','<p class="note">Tippe auf ein Gebäude mit Namensschild.</p>');
   h+=card('Deine Stadt',row(esc(cityName(p.seed)),CITYT[p.city||'mittel'][0]+' · Gehalt ×'+String(cityF(0)).replace('.',',')+' · Mieten ×'+String(cityF(1)).replace('.',','))+'<p class="note">'+CITYT[p.city||'mittel'][3]+'</p>');
   h+='<button class="btn g" data-a="newcity"'+(p.prison?' disabled':'')+'>In eine neue Stadt ziehen</button>';
   return h;
@@ -3367,7 +3453,7 @@ function viewHome(){
 }
 function viewApp(id){
   const V={
-  chats:viewChats,store:viewStore,post:viewPost,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
+  chats:viewChats,store:viewStore,jva:viewJva,post:viewPost,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
   leben:viewLeben,
   stadt:viewStadt,
   jobs:()=>{let h='';
@@ -3393,7 +3479,7 @@ function viewApp(id){
   shop:()=>card('Einkaufszentrum',special('shop'))+card('',actRows(['klau'])),
   erfolge:()=>'<div class="seg full">'+[['erfolge','Erfolge'],['samml','Sammlung'+(p.newUL?' ('+p.newUL+')':'')]].map(([k,l])=>'<button data-a="etab" data-g="'+k+'" aria-pressed="'+(eTab===k)+'">'+l+'</button>').join('')+'</div>'+(eTab==='samml'?viewSamml():card('Erfolge','<div class="ach">'+Object.keys(ACH).map(k=>'<span class="'+(p.ach[k]?'on':'')+'">'+ACH[k]+'</span>').join('')+'</div><p class="note" style="margin-top:8px">In diesem Leben: '+Object.keys(p.ach).length+' · In allen Leben: '+Object.keys(globalAch).length+' von '+Object.keys(ACH).length+'.</p>'))};
   const A=APP[id];
-  return '<div class="appbar"><button class="back" data-a="goto" data-g="home" aria-label="Zurück zum Handy"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="ic" style="background:'+(A[4]||hex(A[2]))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+A[3]+'</svg></span><h2>'+A[1]+'</h2><span class="chip" style="margin-left:auto">'+akt(p.act)+'</span></div>'+
+  return '<div class="appbar">'+(tab==='chats'&&chatSel?'<button class="back pill" data-a="chat" data-g="" aria-label="Zurück zu den Chats"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Chats</span></button>':'<button class="back pill" data-a="goto" data-g="home" aria-label="Zurück zum Handy"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Handy</span></button>')+'<span class="ic" style="background:'+(A[4]||hex(A[2]))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+A[3]+'</svg></span><h2>'+A[1]+'</h2><span class="chip" style="margin-left:auto">'+akt(p.act)+'</span></div>'+
     (p.prison&&!PRISON_APPS.includes(id)?card('','<p class="note">Im Gefängnis nicht verfügbar.</p>'):((OPT[id]&&(!appInst(id)||appLock(id)))||(!OPT[id]&&!appVisible(id))?appGate(id):tipCard(id)+V[id]()));
 }
 function holdButton(b,fn){const MS=650;let t=null,st=0;
@@ -3433,7 +3519,7 @@ function render(){if(p&&p.sm)ensureSm();
   if(map){const i=html.indexOf('</div>')+6;document.getElementById('view').innerHTML=html.slice(0,i);document.getElementById('view2').innerHTML=html.slice(i)}
   else{document.getElementById('view').innerHTML=html;document.getElementById('view2').innerHTML=''}
   document.getElementById('view2').style.display=map?'flex':'none';document.getElementById('view').style.flex=map?'none':'1';
-  showCity(!!map);highlight();{const bd=document.body;if(bd&&bd.classList){if(tab==='home'||tab==='stadt')bd.classList.remove('noage');else bd.classList.add('noage')}}cevMarkers();if(tab!=='home'&&editApps){editApps=false;swapSel=null}setTimeout(maybeRemind,0);{const up=document.getElementById('up');if(up&&up.classList){if(p.act<=0)up.classList.add('ready');else up.classList.remove('ready')}}
+  showCity(!!map);highlight();{const bd=document.body;if(bd&&bd.classList){if(tab==='stadt'&&sel&&cityMode!=='list'&&G)bd.classList.add('placeopen');else bd.classList.remove('placeopen')}}navSync();{const bd=document.body;if(bd&&bd.classList){if(tab==='home'||tab==='stadt')bd.classList.remove('noage');else bd.classList.add('noage')}}cevMarkers();if(tab!=='home'&&editApps){editApps=false;swapSel=null}setTimeout(maybeRemind,0);{const up=document.getElementById('up');if(up&&up.classList){if(p.act<=0)up.classList.add('ready');else up.classList.remove('ready')}}
 }
 function renderStart(){
   const app=document.getElementById('app'),old=load();
@@ -3490,9 +3576,10 @@ render();
 }
 </script>
 <script>
-(function(){const inFrame=window.top!==window;let last=0;const fs=()=>{if(inFrame||document.fullscreenElement||!document.documentElement.requestFullscreen)return;
-  const n=Date.now();if(n-last<1500)return;last=n;document.documentElement.requestFullscreen({navigationUI:'hide'}).catch(()=>{})};
-  document.addEventListener('pointerup',fs);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')last=0});})();
+(function(){const inFrame=window.top!==window;let done=false;let opt={};try{opt=JSON.parse(localStorage.getItem('lebenslauf-opts')||'{}')}catch(e){}
+  const fs=()=>{if(done||inFrame||opt.fs===false||document.fullscreenElement||!document.documentElement.requestFullscreen)return;
+  if(matchMedia('(display-mode: fullscreen)').matches){done=true;return}done=true;document.documentElement.requestFullscreen({navigationUI:'hide'}).catch(()=>{})};
+  document.addEventListener('pointerup',fs);})();
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
     navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(reg=>{

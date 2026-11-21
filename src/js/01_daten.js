@@ -54,7 +54,7 @@ const PLACES=[
 {id:'hafen',n:'Hafen',c:0x7FA6B8,h:3,a:['race']},{id:'makler',n:'Immobilienbüro',c:0xE3B48A,h:7,a:['homesui','bizui']},
 {id:'reise',n:'Reisebüro',c:0x7FD1C9,h:4,a:['urlaub']},{id:'kiosk',n:'Kiosk',c:0xF4B678,h:2.5,a:['lotto','tasche']},
 {id:'villa',n:'Villenviertel',c:0xEDE3D0,h:5,a:['einbruch']},{id:'netcafe',n:'Internetcafé',c:0x90A4C8,h:4,a:['hack']},
-{id:'polizei',n:'Polizei & Gericht',c:0xA9B6CC,h:8,a:['record']},{id:'casino',n:'Casino Goldküste',c:0xD4AF37,h:9,a:['casinoui']},{id:'jva',n:'Gefängnis',c:0x8A8F99,h:6,a:['sport','lesen']}];
+{id:'polizei',n:'Polizei & Gericht',c:0xA9B6CC,h:8,a:['record']},{id:'casino',n:'Casino Goldküste',c:0xD4AF37,h:9,a:['casinoui']},{id:'jva',n:'Gefängnis',c:0x8A8F99,h:6,a:[]}];
 const PL=Object.fromEntries(PLACES.map(x=>[x.id,x]));
 const hex=c=>'#'+c.toString(16).padStart(6,'0');
 
@@ -70,5 +70,6 @@ function ach(k){if(p.ach[k])return;p.ach[k]=1;if(MILE_ACH.includes(k))mile(ACH[k
 function inSchool(){return !!(p.school||p.study||p.azubi)}
 function stockVal(){return STOCKS.reduce((s,x)=>s+(p.sh[x.id]||0)*p.px[x.id],0)}
 function checkAch(){checkGoals();checkUnlocks();if(p.money>=100000)ach('reich');if(netWorth()>=1e6)ach('mio');if(stockVal()>=10000)ach('aktien');if(p.age>=80)ach('achtzig');if(p.age>=100)ach('hundert')}
-function cityName(seed){const r=rng(seed+7);const A=['Neu','Alt','Ober','Nieder','Nord','Süd','West','Ost','Groß','Klein'],B=['hafen','burg','stadt','felde','dorf','brück','heim','au','berg','wald'];return A[Math.floor(r()*10)]+B[Math.floor(r()*10)]}
+const CITYA=['Neu','Alt','Ober','Nieder','Nord','Süd','West','Ost','Groß','Klein'],CITYB=['hafen','burg','stadt','felde','dorf','brück','heim','au','berg','wald'];
+function cityName(seed){const r=rng(seed+7);return CITYA[Math.floor(r()*CITYA.length)]+CITYB[Math.floor(r()*CITYB.length)]}
 

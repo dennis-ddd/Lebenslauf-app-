@@ -36,3 +36,7 @@ tests/            automatische Tests (siehe tests/README.md)
 ```
 
 Nach jeder Änderung: `python3 build.py`, dann die Tests laufen lassen.
+
+## Namen bearbeiten
+
+Alle Namen im Spiel (Vornamen, Nachnamen, Städte, Läden, Gebäude, Gangs, Parteien, Bands, Songs, Konkurrenten, Profivereine, Sprüche des Rivalen) stehen in `inhalte/namen.txt`. Datei auf GitHub öffnen, auf den Stift tippen, ändern, speichern. Die App lädt die Datei beim Start; fehlt ein Abschnitt, nimmt sie die eingebauten Namen.

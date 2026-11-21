@@ -23,9 +23,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>@@JS@@</script>
 <script>
-(function(){const inFrame=window.top!==window;let last=0;const fs=()=>{if(inFrame||document.fullscreenElement||!document.documentElement.requestFullscreen)return;
-  const n=Date.now();if(n-last<1500)return;last=n;document.documentElement.requestFullscreen({navigationUI:'hide'}).catch(()=>{})};
-  document.addEventListener('pointerup',fs);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')last=0});})();
+(function(){const inFrame=window.top!==window;let done=false;let opt={};try{opt=JSON.parse(localStorage.getItem('lebenslauf-opts')||'{}')}catch(e){}
+  const fs=()=>{if(done||inFrame||opt.fs===false||document.fullscreenElement||!document.documentElement.requestFullscreen)return;
+  if(matchMedia('(display-mode: fullscreen)').matches){done=true;return}done=true;document.documentElement.requestFullscreen({navigationUI:'hide'}).catch(()=>{})};
+  document.addEventListener('pointerup',fs);})();
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
     navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(reg=>{

@@ -12,3 +12,6 @@ node tests/spielweisen.js 50   # 5 Spielweisen × 50 Leben, Auswertung in tests/
 ```
 
 Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
+
+- `korrekturen.js`: Gefängnis, Wärter, Arzt-Rabatt, Namen-Lader, Stadt-Marker
+- `namen_export.js`: schreibt die eingebauten Namen neu nach `inhalte/namen.txt` (überschreibt!)

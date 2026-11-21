@@ -1,0 +1,164 @@
+# ==========================================================
+#  Lebenslauf – alle Namen zum Bearbeiten
+# ==========================================================
+#  So funktioniert es:
+#  - Jede Zeile ist ein Name. Leere Zeilen werden ignoriert.
+#  - Zeilen mit # am Anfang sind Kommentare.
+#  - Die Überschriften in [eckigen Klammern] nicht umbenennen.
+#  - Lässt du einen Abschnitt leer, nimmt das Spiel die eingebauten Namen.
+#  - Änderungen wirken nach dem nächsten Öffnen der App.
+
+[Vornamen weiblich]
+Lena
+Mia
+Emma
+Hannah
+Sophie
+Lea
+Anna
+Marie
+Lina
+Clara
+
+[Vornamen männlich]
+Jonas
+Paul
+Leon
+Finn
+Elias
+Noah
+Ben
+Luca
+Felix
+Tim
+
+[Nachnamen]
+Krüger
+Müller
+Schmidt
+Wagner
+Becker
+Hoffmann
+Schulz
+Koch
+Richter
+Wolf
+
+[Ortsnamen Anfang]
+# Stadtnamen entstehen aus Anfang + Ende, z. B. Neu + hafen = Neuhafen
+Neu
+Alt
+Ober
+Nieder
+Nord
+Süd
+West
+Ost
+Groß
+Klein
+
+[Ortsnamen Ende]
+hafen
+burg
+stadt
+felde
+dorf
+brück
+heim
+au
+berg
+wald
+
+[Läden]
+# Kennung = Name. Die Kennung links nicht ändern, nur den Namen rechts.
+kiosk = Kiosk an der Ecke
+wasch = Waschsalon Sauberfix
+pizza = Pizzeria Bella Notte
+shisha = Shisha-Lounge Wolke 7
+werkstatt = Autowerkstatt Hafenblick
+club = Nachtclub Neonlicht
+
+[Gebäude in der Stadt]
+# Kennung = Name. Nur den Namen rechts ändern.
+home = Zuhause
+schule = Schule
+uni = Universität
+bschule = Berufsschule
+jobcenter = Jobcenter
+buero = Büropark
+klinik = Klinikum
+fitness = Fitnessstudio
+park = Stadtpark
+club = Club Nachtfalter
+bank = Hansebank
+boerse = Börse
+mall = Einkaufszentrum
+tierheim = Tierheim
+autohaus = Autohaus
+hafen = Hafen
+makler = Immobilienbüro
+reise = Reisebüro
+kiosk = Kiosk
+villa = Villenviertel
+netcafe = Internetcafé
+polizei = Polizei & Gericht
+casino = Casino Goldküste
+jva = Gefängnis
+
+[Gangs]
+Hafenwölfe
+Nachtfalken
+Die Schatten
+Rote Kobras
+
+[Parteien]
+# Name | Beschreibung (Reihenfolge und Anzahl bitte gleich lassen)
+Bürgerbündnis | Ordnung, Wirtschaft, Sicherheit
+Zukunftsliste | Klima, Bildung, Digitales
+Soziale Mitte | Gerechtigkeit, Wohnen, Rente
+
+[Bandnamen]
+Die Nachtfalter
+Hafenlichter
+Die Blauen Stunden
+The Kometen
+Neonherzen
+Sturmvögel
+
+[Songtitel]
+Mitternacht
+Hafenlicht
+Kein Zurück
+Sommerregen
+Neonherz
+Leise
+Sturm
+Für immer jung
+Kopfkino
+Goldstaub
+Zuhause
+Funken
+
+[Konkurrenten]
+Billig-Ketten-Konkurrenz
+Ein hipper Neuer
+Ein Großkonzern
+Ein Familienbetrieb
+Ein Discounter
+
+[Profivereine]
+SC Nordhafen
+Borussia Weststadt
+FC Altbrück
+TuS Südfelde
+FC Nordstern
+Union Hafenstadt
+SV Weißblau
+Eintracht Südpark
+
+[Sprüche des Rivalen]
+Na, immer noch nichts aus dir geworden? ;)
+Hab gerade ein neues Auto gekauft. Und du so?
+Hab gehört, du bist auch noch da. Witzig.
+Ich bin schon wieder befördert worden. Läuft bei mir.
+Mein Leben ist einfach besser. Sorry, not sorry.

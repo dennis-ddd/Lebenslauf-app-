@@ -21,10 +21,11 @@ const APPS=[
 ['shop','Shop',0xC2408C,'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'],
 ['erfolge','Erfolge',0x8E63D6,'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/>'],
 ['post','Post',0xC9A227,'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>','linear-gradient(135deg,#F2B33D,#C9A227)'],
+['jva','Gefängnis',0x6B7385,'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 3v18M15 3v18M4 12h16"/>','linear-gradient(135deg,#8A8F99,#3A3F4B)'],
 ['store','App Store',0x2B9ED8,'<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 15l3-7 3 7M10 13h4"/>','linear-gradient(135deg,#3FD0A4,#0E9F7E)'],
 ['einst','Einstellungen',0x6B7385,'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>']];
 const APP=Object.fromEntries(APPS.map(a=>[a[0],a]));
-const PRISON_APPS=['news','kalender','einst','chats','klick','leben','freizeit','bank','boerse','erfolge','stadt'];
+const PRISON_APPS=['jva','news','kalender','einst','chats','klick','leben','freizeit','bank','boerse','erfolge','stadt'];
 const btn=(id,arg,label,cls,dis)=>'<button class="btn sm '+(cls||'')+'" data-a="'+id+'"'+(arg!=null?' data-g="'+esc(arg)+'"':'')+(dis?' disabled':'')+'>'+label+'</button>';
 const row=(t,s,right)=>'<div class="row"><div class="t"><b>'+t+'</b>'+(s?'<small>'+s+'</small>':'')+'</div>'+(right||'')+'</div>';
 const card=(title,body)=>'<section class="card">'+(title?'<h2 class="h">'+title+'</h2>':'')+body+'</section>';
@@ -57,18 +58,20 @@ function special(a){
 }
 function placeCard(id){
   const P=PL[id];let h='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">'+P.n+'</h2><span class="chip">'+akt(p.act)+'</span></div>';
+  h=h.replace('</h2>','</h2><button class="xbtn" data-a="desel" aria-label="Schließen">×</button>');
+  if(id==='jva')return h+'</section>'+viewJva();
   if(p.prison&&id!=='jva')return h+'<p class="note" style="margin-top:8px">Du sitzt im Gefängnis und kommst hier nicht hin. Noch '+p.prison+' Jahr(e).</p></section>';
   P.a.forEach(a=>{h+=ACTS[a]?actRows([a]):special(a)});
   return h+'</section>';
 }
 function viewStadt(){
-  let h=cevStrip();
+  const big=sel&&cityMode!=='list'&&G;let h=(big?placeCard(sel):'')+cevStrip();
   if(cityMode==='list'||!G){
     h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">'+esc(cityName(p.seed))+'</h2>'+(G?'<div class="seg" style="border:2px solid var(--line)">'+['3d','2d','list'].map(m=>'<button data-a="mode" data-g="'+m+'" aria-pressed="'+(cityMode===m)+'">'+(m==='list'?'Liste':m.toUpperCase())+'</button>').join('')+'</div>':'')+'</div>'+
       (G?'':'<p class="note" style="margin:6px 0">Die 3D-Ansicht läuft auf diesem Gerät nicht, hier sind alle Orte als Liste.</p>')+
       '<div class="plist" style="margin-top:10px">'+PLACES.map(x=>'<button class="pl" data-a="sel" data-g="'+x.id+'" aria-pressed="'+(sel===x.id)+'"><i style="background:'+hex(x.c)+'"></i>'+x.n+'</button>').join('')+'</div></section>';
   }
-  h+=sel?placeCard(sel):card('','<p class="note">Tippe auf ein Gebäude mit Namensschild.</p>');
+  h+=sel?(big?'':placeCard(sel)):card('','<p class="note">Tippe auf ein Gebäude mit Namensschild.</p>');
   h+=card('Deine Stadt',row(esc(cityName(p.seed)),CITYT[p.city||'mittel'][0]+' · Gehalt ×'+String(cityF(0)).replace('.',',')+' · Mieten ×'+String(cityF(1)).replace('.',','))+'<p class="note">'+CITYT[p.city||'mittel'][3]+'</p>');
   h+='<button class="btn g" data-a="newcity"'+(p.prison?' disabled':'')+'>In eine neue Stadt ziehen</button>';
   return h;
@@ -101,7 +104,7 @@ function viewHome(){
 }
 function viewApp(id){
   const V={
-  chats:viewChats,store:viewStore,post:viewPost,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
+  chats:viewChats,store:viewStore,jva:viewJva,post:viewPost,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
   leben:viewLeben,
   stadt:viewStadt,
   jobs:()=>{let h='';
@@ -127,7 +130,7 @@ function viewApp(id){
   shop:()=>card('Einkaufszentrum',special('shop'))+card('',actRows(['klau'])),
   erfolge:()=>'<div class="seg full">'+[['erfolge','Erfolge'],['samml','Sammlung'+(p.newUL?' ('+p.newUL+')':'')]].map(([k,l])=>'<button data-a="etab" data-g="'+k+'" aria-pressed="'+(eTab===k)+'">'+l+'</button>').join('')+'</div>'+(eTab==='samml'?viewSamml():card('Erfolge','<div class="ach">'+Object.keys(ACH).map(k=>'<span class="'+(p.ach[k]?'on':'')+'">'+ACH[k]+'</span>').join('')+'</div><p class="note" style="margin-top:8px">In diesem Leben: '+Object.keys(p.ach).length+' · In allen Leben: '+Object.keys(globalAch).length+' von '+Object.keys(ACH).length+'.</p>'))};
   const A=APP[id];
-  return '<div class="appbar"><button class="back" data-a="goto" data-g="home" aria-label="Zurück zum Handy"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="ic" style="background:'+(A[4]||hex(A[2]))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+A[3]+'</svg></span><h2>'+A[1]+'</h2><span class="chip" style="margin-left:auto">'+akt(p.act)+'</span></div>'+
+  return '<div class="appbar">'+(tab==='chats'&&chatSel?'<button class="back pill" data-a="chat" data-g="" aria-label="Zurück zu den Chats"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Chats</span></button>':'<button class="back pill" data-a="goto" data-g="home" aria-label="Zurück zum Handy"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Handy</span></button>')+'<span class="ic" style="background:'+(A[4]||hex(A[2]))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+A[3]+'</svg></span><h2>'+A[1]+'</h2><span class="chip" style="margin-left:auto">'+akt(p.act)+'</span></div>'+
     (p.prison&&!PRISON_APPS.includes(id)?card('','<p class="note">Im Gefängnis nicht verfügbar.</p>'):((OPT[id]&&(!appInst(id)||appLock(id)))||(!OPT[id]&&!appVisible(id))?appGate(id):tipCard(id)+V[id]()));
 }
 function holdButton(b,fn){const MS=650;let t=null,st=0;
@@ -167,7 +170,7 @@ function render(){if(p&&p.sm)ensureSm();
   if(map){const i=html.indexOf('</div>')+6;document.getElementById('view').innerHTML=html.slice(0,i);document.getElementById('view2').innerHTML=html.slice(i)}
   else{document.getElementById('view').innerHTML=html;document.getElementById('view2').innerHTML=''}
   document.getElementById('view2').style.display=map?'flex':'none';document.getElementById('view').style.flex=map?'none':'1';
-  showCity(!!map);highlight();{const bd=document.body;if(bd&&bd.classList){if(tab==='home'||tab==='stadt')bd.classList.remove('noage');else bd.classList.add('noage')}}cevMarkers();if(tab!=='home'&&editApps){editApps=false;swapSel=null}setTimeout(maybeRemind,0);{const up=document.getElementById('up');if(up&&up.classList){if(p.act<=0)up.classList.add('ready');else up.classList.remove('ready')}}
+  showCity(!!map);highlight();{const bd=document.body;if(bd&&bd.classList){if(tab==='stadt'&&sel&&cityMode!=='list'&&G)bd.classList.add('placeopen');else bd.classList.remove('placeopen')}}navSync();{const bd=document.body;if(bd&&bd.classList){if(tab==='home'||tab==='stadt')bd.classList.remove('noage');else bd.classList.add('noage')}}cevMarkers();if(tab!=='home'&&editApps){editApps=false;swapSel=null}setTimeout(maybeRemind,0);{const up=document.getElementById('up');if(up&&up.classList){if(p.act<=0)up.classList.add('ready');else up.classList.remove('ready')}}
 }
 function renderStart(){
   const app=document.getElementById('app'),old=load();

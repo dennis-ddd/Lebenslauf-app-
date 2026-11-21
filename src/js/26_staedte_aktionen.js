@@ -9,7 +9,7 @@ function movePick(){dialog('Wohin soll es gehen?','Umzug kostet '+eur(px$(2500))
 
 /* ================= Jahreswechsel ================= */
 function lifeX(R0){ensureLife();
-  worldYear(R0);bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);{const net=R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0)-((R0.out.find(x=>x[0]==='Steuern')||[0,0])[1]);costYear(R0,net)}mailYear();examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
+  worldYear(R0);jvaYear();bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);{const net=R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0)-((R0.out.find(x=>x[0]==='Steuern')||[0,0])[1]);costYear(R0,net)}mailYear();examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
   ['mama','papa'].forEach(k=>p.rel[k]=Math.max(0,p.rel[k]-2));p.rel.freund=Math.max(0,p.rel.freund-3);
   if(p.age>=8&&p.rel.freund<12){log('Du und '+p.friend+' habt euch aus den Augen verloren.');p.friend=pick(FN.concat(MN).filter(x=>x!==p.friend));p.rel.freund=45;p.chats.freund={msgs:[],un:0};msg('freund','Hi! Wir kennen uns vom Sport. Lust, mal was zu machen?')}
   p.lernN=0;p.skipN=0;if(p.trust&&p.age>=18){p.money+=p.trust;R0.inc.push(['Treuhandfonds der Familie',p.trust]);log('Du bekommst deinen Treuhandfonds: '+eur(p.trust)+'.');p.trust=0}
@@ -24,11 +24,11 @@ function act5(id,arg){const lock=!!p.prison;
   case 'theme':O.theme=arg;saveO();render();return 1;
   case 'wall':if(wallUsable(+arg)){O.wall=+arg;saveO();render()}return 1;
   case 'mini':O.mini=arg;saveO();render();return 1;
-  case 'grat':{if(p.grat[arg]===p.age||p.age<6||!people().some(x=>x[0]===arg))return 1;p.grat[arg]=p.age;const nm=(people().find(x=>x[0]===arg)||[0,''])[1];
+  case 'grat':{if(p.grat[arg]===p.age||p.age<6||!people().some(x=>x[0]===arg))return 1;if(relOf(arg)<30){CUR='grat';if(!useAct())return 1}p.grat[arg]=p.age;const nm=(people().find(x=>x[0]===arg)||[0,''])[1];
     if(arg==='partner'&&p.partner)p.partner.rel=Math.min(100,p.partner.rel+5);else if(p.rel[arg]!=null)p.rel[arg]=Math.min(100,p.rel[arg]+6);else if(arg.startsWith('kid')){const k=p.kids[+arg.slice(3)];if(k)k.rel=Math.min(100,k.rel+6)}
     if(arg!=='rival'){msg(arg,'Alles Gute zum Geburtstag!',true);msg(arg,pick(['Danke!! Du hast dran gedacht <3','Wie lieb von dir, danke!','Danke dir! Feiern wir bald zusammen?']))}else{msg('rival','Alles Gute. Ehrlich.',true);msg('rival','… Danke. Hätte ich nicht gedacht.');if(ch(.2)&&p.age>=25){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}}
     done('Du hast '+nm+' gratuliert.');return 1}
-  case 'term':{const t=p.terms[+arg];if(!t||t.done||lock)return 1;t.done=true;done(TERM[t.k][3]());return 1}
+  case 'term':{const t=p.terms[+arg];if(!t||t.done||lock)return 1;if(HEALTHT.includes(t.k)){const hv=p.hv||0;if(hv>=6){if(!spendTime(30))return 1}else{CUR='arzt';if(!useAct())return 1}p.hv=hv+1}t.done=true;done(TERM[t.k][3]());return 1}
   case 'famtab':famTab=arg;render();return 1;
   case 'kidtime':{const k=p.kids[+arg];if(!k||lock||!useAct())return 1;k.rel=Math.min(100,k.rel+R(8,14));k.ts=Math.min(100,k.ts+2);add('gl',R(3,6));done(pick(['Ein Nachmittag im Zoo mit ','Pizza und Filmabend mit ','Fußball im Park mit ','Zusammen gebacken mit '])+k.n+'.');return 1}
   case 'kidfd':{const [i,f]=arg.split(':'),k=p.kids[+i];if(!k)return 1;k.fd[f]=!k.fd[f];render();return 1}
@@ -45,9 +45,9 @@ function act5(id,arg){const lock=!!p.prison;
   case 'sp_game':{const s=p.spo;if(!s||s.done||s.inj>0||lock)return 1;mgStart('reakt',3,'Spieltag',(sc,auto)=>{s.done=true;s.sk=Math.min(100,s.sk+sc);s.fans+=Math.round((sc+1)*(10+s.sk*(s.lvl+1)*3));const pro=p.job&&p.job.id==='sport',b=pro?sc*Math.round(p.job.pay/50):0;p.money+=b;
     const t=['Niederlage.','Unentschieden.','Knapper Sieg!','Kantersieg, du warst überragend!'][sc]+(b?' Siegprämie '+eur(b)+'.':'')+(auto?' (simuliert)':'');log('Spieltag: '+t);if(sc===3){add('gl',5);if(s.lvl>=3)news(p.first+' '+p.last+' schießt '+(s.club)+' zum Sieg','kultur')}save();render();dialog('Abpfiff',t,[['Weiter',null]])},s.sk);return 1}
   case 'sp_trial':{const s=p.spo;if(!s||p.age<16||p.age>26||s.trY===p.age||lock||!useAct())return 1;s.trY=p.age;
-    if(s.sk>=55&&ch(.4+(s.sk-55)/60)){s.lvl=2;s.club=pick(['SC Nordhafen','Borussia Weststadt','FC Altbrück','TuS Südfelde']);if(p.job)log('Du hörst als '+p.job.t+' auf.');p.study=null;p.job={id:'sport',t:'Profi ('+SPORTS[s.s]+')',pay:px$(45000+Math.round(s.sk*600)),part:false,yrs:0,perf:50};ach('job');mile('Profivertrag bei '+s.club,'star');news(p.first+' '+p.last+' unterschreibt bei '+s.club,'kultur');done('Profivertrag beim '+s.club+'!')}
+    if(s.sk>=55&&ch(.4+(s.sk-55)/60)){s.lvl=2;s.club=pick(PROCLUBS);if(p.job)log('Du hörst als '+p.job.t+' auf.');p.study=null;p.job={id:'sport',t:'Profi ('+SPORTS[s.s]+')',pay:px$(45000+Math.round(s.sk*600)),part:false,yrs:0,perf:50};ach('job');mile('Profivertrag bei '+s.club,'star');news(p.first+' '+p.last+' unterschreibt bei '+s.club,'kultur');done('Profivertrag beim '+s.club+'!')}
     else if(s.sk>=35&&s.lvl<1){s.lvl=1;done('Für die Profis reicht es noch nicht, aber du spielst jetzt in der Amateurliga.')}else done('Der Trainer schüttelt den Kopf. Weiter trainieren!');return 1}
-  case 'mu_band':if(p.mus||p.age<13||lock)return 1;p.mus={band:pick(['Die ','The ',''])+pick(['Nachtfalter','Hafenlichter','Blauen Stunden','Kometen','Neonherzen','Sturmvögel']),sk:R(10,30),fans:R(5,30),songs:[],label:false,hits:0};done('Deine Band „'+p.mus.band+'“ ist gegründet!');return 1;
+  case 'mu_band':if(p.mus||p.age<13||lock)return 1;p.mus={band:pick(BANDN),sk:R(10,30),fans:R(5,30),songs:[],label:false,hits:0};done('Deine Band „'+p.mus.band+'“ ist gegründet!');return 1;
   case 'mu_prac':if(!p.mus||lock||!useAct())return 1;p.mus.sk=Math.min(100,p.mus.sk+R(3,7));p.mus.act=true;done('Stundenlang geübt. Können: '+Math.round(p.mus.sk)+'.');return 1;
   case 'mu_song':{const m=p.mus;if(!m||lock||!useAct())return 1;const q=clamp((m.sk*.6+p.st.in*.2+R(0,30))/100,0,1),t=pick(SONGW)+(ch(.3)?' ('+pick(['Remix','Akustik','Live'])+')':'');m.songs.push({t,q,rel:false});m.act=true;if(m.songs.length>20)m.songs.shift();done('Neuer Song: „'+t+'“. '+(q>=.8?'Das könnte ein Hit werden!':q>=.5?'Ganz ordentlich.':'Naja, Übung macht den Meister.'));return 1}
   case 'mu_gig':{const m=p.mus;if(!m||!m.songs.length||p.age<14||lock||!useAct())return 1;const best=Math.max(...m.songs.map(x=>x.q)),nf=Math.round((20+m.fans*.06)*(.5+best)*(.8+Math.random()*.4)),pay=Math.round(50+m.fans*.15);m.fans+=nf;p.money+=pay;m.act=true;if(p.sm)smGain(nf*.3);add('gl',R(3,6));sfx('coin');done('Konzert gespielt: +'+kfmt(nf)+' Fans, '+eur(pay)+' Gage.');return 1}
@@ -70,6 +70,7 @@ function act5(id,arg){const lock=!!p.prison;
     if(ch(.15)){p.money-=1000;p.wanted=Math.min(5,(p.wanted||0)+1);done('Hehlerei aufgeflogen! Ware weg, 1.000 € Strafe.');return 1}p.items.push(arg);if(arg.startsWith('handy'))p.phoneY=p.age;Object.keys(S.e).forEach(k=>add(k,S.e[k]));done(B[1]+' für '+eur(c)+'. Frag nicht, woher.');return 1}
   case 'ga_wash':{if(!p.dirty||lock)return 1;const v=Math.round(p.dirty*.55);p.money+=v;p.dirty=0;done('Der Hehler gibt dir '+eur(v)+' sauberes Geld.');return 1}
   case 'ga_leave':{if(!p.gang)return 1;const n=p.gang.n;p.gang=null;addRuf(5);if(ch(.3)){add('ge',-15);done('Die '+n+' lassen dich nicht einfach gehen. Du landest im Krankenhaus, aber du bist raus.')}else done('Du bist raus bei den '+n+'.');return 1}
+  case 'desel':sel=null;render();return 1;
   case 'movepick':if(!lock)movePick();return 1;
   }return 0}
 

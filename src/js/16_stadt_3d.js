@@ -83,7 +83,7 @@ function loop(t){
   const k=(Math.cos(t/1000/120*2*Math.PI)+1)/2,sky=new THREE.Color(0x2E3A63).lerp(new THREE.Color(0xBFD9F2),k);G.scene.background.copy(sky);G.scene.fog.color.copy(sky);G.hemi.intensity=.42+.38*k;G.sun.intensity=.25+.55*k;
   if(G.goal){G.tgt.lerp(G.goal,.08);if(G.tgt.distanceTo(G.goal)<.05)G.goal=null}
   const elGoal=cityMode==='2d'?1.5:.85;G.el+=(elGoal-G.el)*.1;
-  updCam();G.r.render(G.scene,G.cam);
+  updCam();G.r.render(G.scene,G.cam);cevProject();
 }
 function bindPointers(el){
   el.style.touchAction='none';

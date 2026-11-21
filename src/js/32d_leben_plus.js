@@ -17,7 +17,7 @@ function chatsYear(){const cs=contacts().map(c=>c.id);Object.keys(p.chats).forEa
   cs.forEach(id=>{const c=p.chats[id];if(c&&c.msgs.length&&!c.msgs[c.msgs.length-1].me&&!id.startsWith('g_'))c.pend=true})}
 const _msg0=msg;msg=function(id,t,me){_msg0(id,t,me);const c=p.chats[id];if(c)c.pend=!me};
 function chatExtra(c){const C=p.chats[c.id]||{};let h='';
-  if(C.inv)h+='<div class="inv"><small>Einladung</small><b>'+esc(C.inv.t)+'</b><div class="btns">'+btn('invyes',c.id,'Zusagen · '+(clockOn()?'2 Std.':'1 Aktion'),'o',p.act<=0||!!p.prison)+btn('invno',c.id,'Absagen','g')+'</div></div>';
+  if(C.inv)h+='<div class="inv"><small>Einladung</small><b>'+esc(C.inv.t)+'</b><div class="btns">'+btn('invyes',c.id,'Zusagen · '+(relOf(c.id)<30?'1 Aktion':clockOn()?'2 Std., keine Aktion':'keine Aktion'),'o',(relOf(c.id)<30&&p.act<=0)||!!p.prison)+btn('invno',c.id,'Absagen','g')+'</div></div>';
   else if(C.pend&&!c.id.startsWith('g_')&&c.id!=='chef')h+='<div class="replies">'+[['lieb','Lieb antworten'],['kurz','Kurz antworten'],['frech','Genervt antworten']].map(([k,l])=>'<button class="rp" data-a="reply" data-g="'+c.id+':'+k+'">'+l+'<small>„'+esc(REPLY[k][0])+'“</small></button>').join('')+'</div>';
   else if(C.pend&&c.id.startsWith('g_'))h+='<div class="replies">'+btn('greply',c.id,'Mitreden','o')+'</div>';
   return h}
@@ -131,7 +131,6 @@ const JOBCEV={polizei:'verfolgung',arzt:'notfall',pflege:'notfall',koch:'foodtru
 function cityEvents(){if(p.cevY!==p.age){p.cevY=p.age;const g=shuffle(['katze','tourist','geld','dieb','flash','markt','umfrage','unfall']).slice(0,3);const j=p.job&&JOBCEV[p.job.id];if(j)g.push(j);else if(p.sm&&p.sm.fol>=20000)g.push('fans');
     p.cev=g.map(k=>({k,x:R(8,82),y:R(22,68)}))}return p.age>=6?p.cev||[]:[]}
 function cevStrip(){const L=cityEvents();if(!L.length)return '';return '<section class="card cevs"><div class="lbl">GERADE IN DER STADT</div><div class="cevl">'+L.map((e,i)=>'<button class="cevb" data-a="cityev" data-g="'+i+'"'+(p.prison?' disabled':'')+'><span class="cevi"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+CEV[e.k][2]+'</svg></span><b>'+CEV[e.k][0]+'</b></button>').join('')+'</div><p class="note">Kostet keine Aktion, nur etwas Zeit. Auf der Karte pulsieren die Orte.</p></section>'}
-function cevMarkers(){const el=document.getElementById('cev');if(!el)return;el.innerHTML=tab==='stadt'&&!p.prison?cityEvents().map((e,i)=>'<button class="cevm" data-a="cityev" data-g="'+i+'" style="left:'+e.x+'%;top:'+e.y+'%" aria-label="'+CEV[e.k][0]+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+CEV[e.k][2]+'</svg></button>').join(''):''}
 function runCityEv(i){const L=p.cev||[],e=L[i];if(!e||p.prison)return;if(!spendTime(30))return;L.splice(i,1);const k=e.k,T=CEV[k][0];
   const fin=t=>{log(T+': '+t);checkAch();save();render();dialog(T,t,[['Weiter',null]])};
   const ques=(bankArr,ok,bad)=>{const q=pick(bankArr);dialog(T,q[0],shuffle([[q[1],()=>{sfx('coin');fin(ok())}],[q[2],()=>{sfx('bad');fin(bad())}],[q[3],()=>{sfx('bad');fin(bad())}]]))};
@@ -158,7 +157,7 @@ function runCityEv(i){const L=p.cev||[],e=L[i];if(!e||p.prison)return;if(!spendT
 function act10(id,arg){const lock=!!p.prison;switch(id){
   case 'reply':{const [cid,k]=arg.split(':');const C=p.chats[cid];if(!C||!C.pend)return 1;msg(cid,pick(REPLY[k]),true);C.pend=false;relUp(cid,k==='lieb'?5:k==='kurz'?1:-6);if(k==='frech'&&cid==='rival')addRuf(-1);render();return 1}
   case 'greply':{const C=p.chats[arg];if(!C)return 1;msg(arg,pick(['Haha, genau!','Bin dabei!','Wer bringt was mit?','Ich auch!']),true);C.pend=false;add('gl',1);if(arg==='g_job')colleagues().forEach(c=>c.rel=Math.min(100,c.rel+2));render();return 1}
-  case 'invyes':{const C=p.chats[arg];if(!C||!C.inv||lock)return 1;CUR='meet';if(!useAct())return 1;const t=C.inv.t;C.inv=null;relUp(arg,10);add('gl',R(4,8));if(arg==='g_job')colleagues().forEach(c=>c.rel=Math.min(100,c.rel+6));msg(arg,'Bin dabei!',true);done('Zugesagt: '+t+' Es wurde ein richtig schöner Abend.');return 1}
+  case 'invyes':{const C=p.chats[arg];if(!C||!C.inv||lock)return 1;CUR='meet';if(relOf(arg)<30?!useAct():!spendTime(120))return 1;const t=C.inv.t;C.inv=null;relUp(arg,10);add('gl',R(4,8));if(arg==='g_job')colleagues().forEach(c=>c.rel=Math.min(100,c.rel+6));msg(arg,'Bin dabei!',true);done('Zugesagt: '+t+' Es wurde ein richtig schöner Abend.');return 1}
   case 'invno':{const C=p.chats[arg];if(!C||!C.inv)return 1;C.inv=null;relUp(arg,-4);msg(arg,'Sorry, heute kann ich nicht.',true);render();return 1}
   case 'colkaffee':{if(p.colY===p.age||lock)return 1;if(!spendTime(30))return 1;p.colY=p.age;colleagues().forEach(c=>c.rel=Math.min(100,c.rel+R(4,9)));if(p.job)p.job.perf=Math.min(100,p.job.perf+3);done('Kaffee, Klatsch und Kekse. Das Team mag dich.');return 1}
   case 'homeoffice':{if(p.hoY===p.age||lock||!p.job)return 1;p.hoY=p.age;if(clockOn())p.clock=Math.max(DAYSTART,p.clock-120);else if(!unl())p.act++;if(p.act<=0)p.act=1;done('Homeoffice-Tag: Jogginghose, kein Stau. '+(clockOn()?'Du gewinnst 2 Stunden.':'Eine Aktion mehr.'));return 1}

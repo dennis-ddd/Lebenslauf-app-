@@ -14,12 +14,13 @@ const bigOn=()=>cfg().big!==false;
 function dayBar(){if(!clockOn())return '';const f=clamp(((p.clock||DAYSTART)-DAYSTART)/(DAYEND-DAYSTART)*100,0,100);return '<div class="dayb'+(p.act<=0?' over':'')+'"><span>07:00</span><div><i style="width:'+f.toFixed(1)+'%"></i></div><span>03:00</span></div>'}
 let CUR='',LASTM=0;
 function useAct(){
-  if(p.act<=0){toast(clockOn()&&p.clock>=DAYEND-10?'Es ist 3 Uhr nachts. Zeit zu schlafen: Werde ein Jahr älter.':'Keine Aktionen mehr in diesem Jahr. Werde ein Jahr älter.');return false}
-  const m=clockOn()?(DUR[CUR]||60):0;
+  const free=!!(FREEA[CUR]&&FREEA[CUR]());
+  if(p.act<=0&&!(free&&clockOn()&&p.clock<DAYEND-10)){toast(clockOn()&&p.clock>=DAYEND-10?'Es ist 3 Uhr nachts. Zeit zu schlafen: Werde ein Jahr älter.':'Keine Aktionen mehr in diesem Jahr. Werde ein Jahr älter.');return false}
+  const m=clockOn()?durOf(CUR):0;
   if(clockOn()&&p.clock+m>DAYEND){toast('Dafür reicht die Zeit nicht mehr ('+durTxt(m)+'). Es ist schon '+clockTxt()+'.');return false}
-  if(!unl())p.act--;LASTM=m;
+  if(!unl()&&!free)p.act--;LASTM=m;
   if(clockOn()){p.clock+=m;if(p.clock>=DAYEND-10){p.act=0;setTimeout(()=>toast('Es ist '+clockTxt()+'. Der Tag ist vorbei. Halte den Knopf, um ein Jahr älter zu werden.'),2700)}}
-  return true}
+  if(!free)setTimeout(actWarn,700);return true}
 function refundAct(){if(!unl())p.act++;if(clockOn()){p.clock-=LASTM;if(p.act<=0&&p.clock<DAYEND-10)p.act=1}}
 function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealth:f.wealth};p.act=actBase();p.clock=DAYSTART;
   if(!p.sb){if(f.wealth==='arm')p.money=0;if(f.wealth==='reich'){if(p.age>=18){p.money+=40000;log('Deine Familie ist wohlhabend: 40.000 € Startkapital.')}else p.trust=40000}}

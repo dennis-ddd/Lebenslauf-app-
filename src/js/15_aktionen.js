@@ -50,9 +50,9 @@ function act(id,arg){
   if(!p||!p.alive)return;CUR=id;
   if(ACTS[id]){const A=ACTS[id];if(!can(id)||!useAct())return;const r=A.f();if(r===null){refundAct();toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg)||act12(id,arg))return;
+  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg)||act12(id,arg)||act13(id,arg))return;
   switch(id){
-  case 'goto':tab=arg;if(p.appSeen)p.appSeen[arg]=1;if(arg==='store')p.storeY=p.age;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
+  case 'goto':tab=arg;if(arg==='stadt')sel=null;if(p.appSeen)p.appSeen[arg]=1;if(arg==='store')p.storeY=p.age;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
     interview(j,bon=>{if(ch(.45+p.st.in/250+p.st.au/500+p.sk.charme/500+bon)){p.job={id:j.id,t:j.t,pay:j.pay,part:!!j.part,yrs:0,perf:50};add('gl',6);ach('job');if(p.stats)p.stats.jobs++;p.chats.chef={msgs:[],un:0};if(j.id==='influ')msg('freund','Du bist jetzt hauptberuflich Influencer/in?! Wie cool ist das denn!');else msg('chef','Willkommen im Team! Morgen um 8 geht es los.');done('Du bist jetzt '+j.t+'.')}else done('Absage als '+j.t+'. Versuch es nochmal.')});break}
   case 'work':shift();break;
@@ -128,7 +128,7 @@ function act(id,arg){
     if(ok==='1'){if(p.prison)return;p.money+=d.pay;p.yr.social+=d.pay;sm.trust=Math.max(10,sm.trust-8);sm.dyr++;let t='Deal mit '+d.b+': +'+eur(d.pay)+'.';
       if(sm.dyr>2){smGain(-sm.fol*.05);t+=' Deine Fans finden, dass es zu viel Werbung wird.'}done(t)}
     else{sm.trust=Math.min(100,sm.trust+2);done('Du hast '+d.b+' abgesagt. Deine Fans mögen das.')}break}
-  case 'sel':selectPlace(arg);break;
+  case 'sel':selectPlace(arg);if(cityMode==='list'||!G)setTimeout(()=>{const x=document.querySelector('.xbtn');if(x&&x.scrollIntoView)x.closest('section').scrollIntoView({behavior:'smooth',block:'start'})},60);break;
   }
 }
 

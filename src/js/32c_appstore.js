@@ -18,7 +18,7 @@ let dlId=null,storeSel=null;
 const appInst=id=>!OPT[id]||!!(p.apps&&p.apps[id]);
 const appCount=()=>Object.keys(OPT).filter(k=>p.apps&&p.apps[k]).length;
 const appCap=()=>STORE_CAP[phoneTier()];
-function appVisible(id){if(OPT[id])return appInst(id)&&p.age>=OPT[id][1]-0;return p.age>=(APPMIN[id]||0)}
+function appVisible(id){if(id==='jva')return jvaUse();if(OPT[id])return appInst(id)&&p.age>=OPT[id][1]-0;return p.age>=(APPMIN[id]||0)}
 function ensureApps(){if(p.apps)return;p.apps={};p.appSeen={};
   const B=p.biz||{},used={klick:!!p.sm,news:(p.news||[]).length>0,boerse:p.sh&&Object.keys(p.sh).some(k=>p.sh[k]>0),geschaefte:!!B.co,casino:!!(p.casino&&(p.casino.won||p.casino.lost)),
    wege:!!(p.spo||p.mus||p.pol||p.gang),wohnen:(p.props||[]).length>0||(p.owned||[]).length>0||(p.home&&p.home!=='eltern'),garage:(p.cars||[]).length>0,strasse:(p.crimes||0)>0};
