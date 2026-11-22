@@ -1,7 +1,22 @@
 /* ================= Korrekturen und Gefängnis ================= */
 /* ---------- Aktionen: Hinweise, kostenlose Aktionen, Arzt wird günstiger ---------- */
-const FREEA={arzt:()=>(p.hv||0)>=6};
-const durOf=id=>id==='arzt'?((p.hv||0)>=6?30:(p.hv||0)>=3?45:90):(DUR[id]||60);
+/* Gesundheits-Punkte: Wie schnell und günstig ein Arzttermin ist, hängt von Besuchen, Ernährung, Sport und Lebensstil ab */
+const HDIET={ausgewogen:2,vegetarisch:2,vegan:2,mediterran:2,eiweiss:1,fast:-2};
+function hParts(){const L=[],f=p.sk.form||0,dk=p.staff&&p.staff.koch?'mediterran':p.ls.diet;
+  L.push(['Arztbesuche ('+Math.min(p.hv||0,4)+' von 4)',Math.min(p.hv||0,4)]);
+  const d=HDIET[dk]||0;L.push(['Ernährung: '+DIET[dk].n,d]);
+  L.push(['Fitness: '+f,f>=70?2:f>=45?1:f<20?-1:0]);
+  if(p.ls.vors==='jahr')L.push(['Jährlicher Check-up',1]);
+  if(p.habit&&p.habit.rauchen)L.push(['Rauchen',-2]);
+  if(Object.keys(p.ill||{}).some(k=>p.ill[k]))L.push(['Aktuell krank',-1]);
+  if(p.age>=70)L.push(['Alter 70+',-1]);
+  return L}
+const hFit=()=>hParts().reduce((s,x)=>s+x[1],0);
+const hLevel=()=>{const s=hFit();return s>=7?2:s>=4?1:0};
+const FREEA={arzt:()=>hLevel()===2};
+const durOf=id=>id==='arzt'?[90,45,30][hLevel()]:(DUR[id]||60);
+function hInfo(){const lv=hLevel(),s=hFit();return card('Gesundheits-Punkte: '+s,'<p class="muted">'+['Arzttermine dauern 90 Minuten und kosten 1 Aktion. Ab 4 Punkten geht es schneller.','Arzttermine dauern 45 Minuten und kosten 1 Aktion. Ab 7 Punkten sind sie kostenlos.','Arzttermine dauern 30 Minuten und kosten keine Aktion.'][lv]+'</p>'+
+  hParts().map(x=>'<div class="row"><span class="t">'+x[0]+'</span><b>'+(x[1]>0?'+':'')+x[1]+'</b></div>').join('')+'<p class="muted">Gesund essen, Sport und regelmäßige Arztbesuche bringen Punkte. Rauchen und Fast Food kosten welche.</p>')}
 function actWarn(){if(unl()||!p||!p.alive)return;if(p.act===2)notify('Nur noch 2 Aktionen in diesem Jahr. Plane gut!','');else if(p.act===1)notify('Achtung: Das ist deine letzte Aktion in diesem Jahr.','');
   else if(p.act===0)notify(clockOn()&&p.clock>=DAYEND-10?'Es ist 3 Uhr nachts. Zeit für ein neues Jahr: Halte „+1 Jahr“ gedrückt.':'Alle Aktionen verbraucht. Kostenlose Dinge gehen noch, sonst „+1 Jahr“ gedrückt halten.','home')}
 {const {f}=ACTS.arzt;ACTS.arzt.f=()=>{p.hv=(p.hv||0)+1;return f()}}

@@ -80,7 +80,7 @@ function viewFreizeit(){ensureEcon();const lock=!!p.prison;
     h+=card('Dein Befinden',ill.length?ill.map(k=>{const I=ILLS[k],T=TREAT[I.cure];return row(I.n,p.ill[k].y<0?'früh erkannt':'seit '+p.ill[k].y+' Jahr(en)',btn('treat',I.cure,T[0]+' · '+eur(px$(T[1])),'o',p.money<px$(T[1])||once('tr_'+I.cure)))}).join(''):'<p class="note">Dir fehlt gerade nichts. Gesundheit '+p.st.ge+' %.</p>');
     const opt=(key,obj,cur,lab)=>Object.keys(obj).map(k=>{const o=obj[k],n=Array.isArray(o)?o[0]:o.n,d=Array.isArray(o)?(o.length>3?o[2]:o[1]):o.d,c=Array.isArray(o)?(typeof o[1]==='number'?o[1]:0):o.c;
       return '<div class="opt2'+(cur===k?' on':'')+'"><div><b>'+n+'</b><small>'+(c?eur(px$(c))+' im Jahr · ':'')+d+'</small></div>'+(cur===k?'<span class="chip">Gewählt</span>':btn(key,k,'Wählen','g'))+'</div>'}).join('');
-    h+=card('Vorsorge',opt('vors',VORS,p.ls.vors))+card('Wenn du krank wirst',opt('krank',KRANK,p.ls.krank))+card('Ernährung'+(p.staff.koch?' (dein Koch kocht mediterran)':''),opt('diet',DIET,p.ls.diet));
+    h+=hInfo()+card('Vorsorge',opt('vors',VORS,p.ls.vors))+card('Wenn du krank wirst',opt('krank',KRANK,p.ls.krank))+card('Ernährung'+(p.staff.koch?' (dein Koch kocht mediterran)':''),opt('diet',DIET,p.ls.diet));
     h+=card('Praxis und Klinik','<p class="note" style="margin-bottom:4px">Jede Behandlung einmal pro Jahr, ohne Aktion.</p>'+Object.keys(TREAT).map(k=>{const T=TREAT[k];return row(T[0],eur(px$(T[1]))+' · '+T[2],btn('treat',k,once('tr_'+k)?'Erledigt':'Termin','o',once('tr_'+k)||p.money<px$(T[1])||(T[4]&&p.age<T[4])))}).join(''));
   }
   if(fTab==='shop'){const st=stil();

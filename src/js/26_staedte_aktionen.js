@@ -28,7 +28,7 @@ function act5(id,arg){const lock=!!p.prison;
     if(arg==='partner'&&p.partner)p.partner.rel=Math.min(100,p.partner.rel+5);else if(p.rel[arg]!=null)p.rel[arg]=Math.min(100,p.rel[arg]+6);else if(arg.startsWith('kid')){const k=p.kids[+arg.slice(3)];if(k)k.rel=Math.min(100,k.rel+6)}
     if(arg!=='rival'){msg(arg,'Alles Gute zum Geburtstag!',true);msg(arg,pick(['Danke!! Du hast dran gedacht <3','Wie lieb von dir, danke!','Danke dir! Feiern wir bald zusammen?']))}else{msg('rival','Alles Gute. Ehrlich.',true);msg('rival','… Danke. Hätte ich nicht gedacht.');if(ch(.2)&&p.age>=25){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}}
     done('Du hast '+nm+' gratuliert.');return 1}
-  case 'term':{const t=p.terms[+arg];if(!t||t.done||lock)return 1;if(HEALTHT.includes(t.k)){const hv=p.hv||0;if(hv>=6){if(!spendTime(30))return 1}else{CUR='arzt';if(!useAct())return 1}p.hv=hv+1}t.done=true;done(TERM[t.k][3]());return 1}
+  case 'term':{const t=p.terms[+arg];if(!t||t.done||lock)return 1;if(HEALTHT.includes(t.k)){const hv=p.hv||0;CUR='arzt';if(!useAct())return 1;p.hv=hv+1}t.done=true;done(TERM[t.k][3]());return 1}
   case 'famtab':famTab=arg;render();return 1;
   case 'kidtime':{const k=p.kids[+arg];if(!k||lock||!useAct())return 1;k.rel=Math.min(100,k.rel+R(8,14));k.ts=Math.min(100,k.ts+2);add('gl',R(3,6));done(pick(['Ein Nachmittag im Zoo mit ','Pizza und Filmabend mit ','Fußball im Park mit ','Zusammen gebacken mit '])+k.n+'.');return 1}
   case 'kidfd':{const [i,f]=arg.split(':'),k=p.kids[+i];if(!k)return 1;k.fd[f]=!k.fd[f];render();return 1}

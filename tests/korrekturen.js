@@ -5,7 +5,7 @@ const els={};function el(id){return els[id]||(els[id]={id,innerHTML:'',style:{},
 global.document={getElementById:el,addEventListener(){},createElement:()=>({getContext:()=>null}),querySelector:()=>null,body:el('body')};global.window={scrollTo(){}};global.localStorage={getItem:()=>null,setItem(){},removeItem(){}};
 const fs=require('fs'),path=require('path');
 let src=(s=>s.split('<script>')[1].split('</script>')[0])(fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8')).trim();
-src=src.replace(/^\{/,'').replace(/\}\s*$/,'')+';global.T={applyCfg,newLife,act,get p(){return p},viewJva,jvaYear,applyNames,FN,PROCLUBS,FR,PARTIES,setTab:v=>tab=v,render,viewStadt,setG:v=>G=v,cevMarkers,cityEvents,setMode:v=>cityMode=v};';eval(src);
+src=src.replace(/^\{/,'').replace(/\}\s*$/,'')+';global.T={applyCfg,newLife,act,get p(){return p},viewJva,jvaYear,applyNames,FN,PROCLUBS,FR,PARTIES,setTab:v=>tab=v,render,viewStadt,setG:v=>G=v,cevMarkers,cityEvents,setMode:v=>cityMode=v,durOf};';eval(src);
 let errs=0;const ok=(n,c)=>{if(!c){errs++;console.log('FEHLER',n)}};
 const close=()=>el('modal').classList.remove('on');
 // Insasse
@@ -19,7 +19,9 @@ T.newLife('A','B','w',30,false);T.applyCfg({act:6,clock:false,ev:'normal',big:fa
 ok('kein zutritt',T.viewJva().includes('nur als Insasse'));const a0=p.act;T.act('jva','hof');ok('ausserhalb nichts',p.act===a0);
 p.job={id:'waerter',t:'x',pay:36000,perf:50,yrs:0};ok('waerter',T.viewJva().includes('Dienst'));
 // Arzt wird günstiger
-p.hv=6;p.act=3;T.act('arzt');close();ok('arzt kostenlos ab 6',p.act===3);
+p.hv=6;p.ls.diet='fast';p.sk.form=10;p.act=3;T.act('arzt');close();ok('ungesund kostet trotz Besuchen',p.act===2);
+p.hv=6;p.ls.diet='mediterran';p.sk.form=75;p.act=3;T.act('arzt');close();ok('gesund und Stammpatient kostenlos',p.act===3);
+p.hv=0;p.ls.diet='vegan';p.sk.form=80;p.ls.vors='jahr';ok('gesund ohne Besuche: 45 Min',T.durOf('arzt')===45);
 // Namen-Lader
 T.applyNames('# test\n[Vornamen weiblich]\nZoe\nIda\n[Läden]\n'+Object.keys(T.FR)[0]+' = Testladen\n[Profivereine]\nFC Test\n[Parteien]\nNeue Partei | Alles neu');
 ok('namen',T.FN.join()==='Zoe,Ida'&&T.PROCLUBS[0]==='FC Test'&&T.FR[Object.keys(T.FR)[0]].n==='Testladen'&&T.PARTIES[0][0]==='Neue Partei');
