@@ -164,3 +164,12 @@ body.fs1 #app{zoom:1.1}body.fs2 #app{zoom:1.22}
 body.lessmotion *,body.lessmotion *::before,body.lessmotion *::after{animation:none!important;transition:none!important}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 .appbar{flex-wrap:wrap;row-gap:6px}.appbar h2{min-width:72px}
+/* Wischen zwischen Handy und Stadt */
+html,body{overscroll-behavior-y:none}
+.pgrab{display:flex;flex-direction:column;align-items:center;gap:3px;margin:0 auto 6px;background:none;border:0;color:var(--muted);font:inherit;font-size:12px;font-weight:800;cursor:pointer;padding:4px 16px}
+.pgrab i{display:block;width:44px;height:5px;border-radius:99px;background:rgba(255,255,255,.35);transition:width .2s,background .2s}
+.pgrab.ready i{width:70px;background:#F2994A}.pgrab.ready span{color:#F2994A}
+.cgrab{position:fixed;left:50%;bottom:calc(max(14px,env(safe-area-inset-bottom)) + 80px);transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:6px;padding:9px 18px 9px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(28,16,56,.85);color:#fff;font:inherit;font-weight:900;font-size:14px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 10px 26px -8px rgba(0,0,0,.7);cursor:pointer;touch-action:none}
+.cgrab .si{width:20px;height:20px}.cgrab.ready{background:linear-gradient(100deg,#F2994A,#E8467C 55%,#7B4BE0)}
+:root:not([data-theme=aurora]) .pgrab i{background:var(--line)}
+:root:not([data-theme=aurora]) .cgrab{background:var(--ink);color:var(--bg)}
