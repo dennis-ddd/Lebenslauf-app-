@@ -192,3 +192,13 @@ html,body{overscroll-behavior-y:none}
 :root .seg.full.ft,:root .seg.full.wt,:root .seg.full.lt,:root[data-theme=aurora] .seg.full.ft,:root[data-theme=aurora] .seg.full.wt,:root[data-theme=aurora] .seg.full.lt{position:sticky;top:0;z-index:5;background:rgba(24,14,46,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 :root:not([data-theme=aurora]) .seg.full.ft{background:var(--card)}
 .row .t small{display:block}
+/* Chats übersichtlich */
+.bday-sep{text-align:center;font-size:11.5px;font-weight:900;color:var(--muted);margin:10px 0 4px;letter-spacing:.04em;text-transform:uppercase}
+.bubbles .older{display:block;margin:0 auto 6px;background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--ink);font:inherit;font-weight:800;font-size:13px;padding:6px 14px;border-radius:999px;cursor:pointer}
+.chat .npcc{margin-top:12px}
+/* Kalender */
+.calnew input[type=text]{width:100%;box-sizing:border-box;margin:6px 0 8px}.calrow{display:flex;gap:8px;margin-bottom:8px}.calrow select{flex:1;min-height:42px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--ink);font:inherit;font-weight:700;padding:0 10px}
+.calrow select option{color:#111}.calrep{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:10px}.calrep input{width:20px;height:20px}
+.kmon{margin:14px 0 4px;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#F6C453}.kmon:first-of-type{margin-top:8px}
+.kal.own .kt b{color:#9FF2E6}.kdel{background:none;border:0;color:var(--muted);font-size:20px;font-weight:900;padding:0 4px;cursor:pointer}
+.calrep{justify-content:flex-start;text-align:left}.calrep input[type=checkbox]{width:22px;height:22px;flex:none;margin:0;accent-color:#13B3A6}.calnew .btn{margin-top:2px}
