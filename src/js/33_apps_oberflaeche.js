@@ -19,6 +19,7 @@ const APPS=[
 ['wohnen','Wohnen',0xF08A24,'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'],
 ['garage','Garage',0x6B7385,'<path d="M5 16l1.5-5a2 2 0 0 1 2-1.5h7a2 2 0 0 1 2 1.5L19 16"/><rect x="3" y="16" width="18" height="4" rx="1.5"/><circle cx="7.5" cy="20" r="1"/><circle cx="16.5" cy="20" r="1"/>'],
 ['shop','Shop',0xC2408C,'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'],
+['tagebuch','Tagebuch',0xC0703E,'<path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3v18M10 8h5M10 12h5"/>'],
 ['erfolge','Erfolge',0x8E63D6,'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/>'],
 ['post','Post',0xC9A227,'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>','linear-gradient(135deg,#F2B33D,#C9A227)'],
 ['jva','Gefängnis',0x6B7385,'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 3v18M15 3v18M4 12h16"/>','linear-gradient(135deg,#8A8F99,#3A3F4B)'],
@@ -103,7 +104,7 @@ function viewHome(){
       return '<button class="app'+(nw?' newapp':'')+(editApps&&swapSel===id?' pick':'')+'" data-a="'+(editApps?'appswap':'goto')+'" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div><div class="phb">'+(editApps?'<span class="note">'+(swapSel?'Tippe auf den neuen Platz':'App lange drücken und ziehen, oder antippen und dann den neuen Platz')+'</span>'+btn('appreset',null,'Zurücksetzen','g')+btn('appedit',null,'Fertig','o'):btn('appedit',null,'Apps anordnen','g')+'<span class="note">Tipp: App lange drücken und ziehen</span>')+'</div></section>';
 }
 function viewApp(id){
-  const V={
+  const V={tagebuch:viewDiary,
   chats:viewChats,store:viewStore,jva:viewJva,post:viewPost,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
   leben:viewLeben,
   stadt:viewStadt,
@@ -186,14 +187,14 @@ function renderStart(){
   const has=!!(old&&old.alive&&old.st),home=has&&!form.neu;
   const contC=has?'<section class="card contc"><div class="cc1"><span class="cav2">'+avatarSvg(old.age,76,old)+'</span><div class="cc2"><small>Dein Spielstand</small><b>'+esc(old.first+' '+old.last)+'</b><span>'+old.age+' Jahre'+(old.job?' · '+esc(old.job.t):'')+'</span><span>'+eur(old.money)+(old.gen>1?' · Generation '+old.gen:'')+'</span></div></div><button class="btn o big" id="cont">Weiterspielen</button></section>':'';
   const homeA=home&&O.theme==='aurora'?'<div class="start s2 home2"><div class="h2t">Lebenslauf</div><div class="h2av">'+avatarSvg(old.age,150,old)+'</div>'+
-    '<section class="h2card"><b>'+esc(old.first+' '+old.last)+' · '+old.age+'</b><span>'+(old.job?esc(old.job.t):old.age<18?'Schüler/in':'Ohne Job')+' in '+esc(cityName(old.seed))+'</span>'+
+    '<section class="h2card"><b>'+esc(old.first+' '+old.last)+' · '+old.age+'</b><span>'+(old.job?esc(old.job.t):old.age<18?'Schüler/in':'Ohne Job')+' in '+esc(old.cityN&&old.cityNS===old.seed?old.cityN:cityName(old.seed))+'</span>'+
     '<div class="rings h2r">'+Object.keys(STAT).map(k=>'<div class="rw"><div class="ring" style="--v:'+old.st[k]+'"><b>'+old.st[k]+'</b></div><small>'+STAT[k]+'</small></div>').join('')+'</div>'+'<div class="h2st"><div><b>'+eur(old.money)+'</b><small>Vermögen</small></div><div><b>'+((old.kids||[]).length)+'</b><small>Kinder</small></div><div><b>'+(old.gen||1)+'. Gen.</b><small>Familie</small></div></div></section>'+
     '<div class="h2go"><button class="btn o big" id="cont">Weiterspielen</button><button class="btn g newl" id="neu">Neues Leben beginnen</button></div></div>':'';
   if(homeA){app.innerHTML=homeA;}else
   app.innerHTML='<div class="start s2">'+'<section class="hero"><div class="hav">'+avatarSvg(ag,112,P)+'</div><div class="ht"><small>LEBENSSIMULATOR</small><h1>Lebenslauf</h1><p>Ein ganzes Leben in einer neuen Stadt. Jede Entscheidung zählt.</p></div><div class="hchips"><span>Karriere</span><span>Liebe</span><span>Familie</span><span>Börse</span><span>Klick</span><span>Generationen</span></div></section>'+
     
     (home?contC+'<button class="btn g newl" id="neu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Neues Leben beginnen</button>':
-    (has?'<button class="backs" id="back"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Zurück zum Spielstand</button>':'')+'<section class="card sc"><div class="sh"><span class="sn">1</span><h2>Wer bist du?</h2><button class="dice" id="dice" aria-label="Zufälliger Name">'+dice+'</button></div><div class="nm"><label>Vorname<input type="text" id="fn" maxlength="20" value="'+esc(form.fn)+'"></label><label>Nachname<input type="text" id="ln" maxlength="20" value="'+esc(form.ln)+'"></label></div>'+
+    (has?'<button class="backs" id="back"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Zurück zum Spielstand</button>':'')+'<section class="card sc"><div class="sh"><span class="sn">1</span><h2>Wer bist du?</h2><button class="dice" id="dice" aria-label="Zufälliger Name">'+dice+'</button></div><div class="nm"><label>Vorname<input type="text" id="fn" maxlength="20" value="'+esc(form.fn)+'"></label><label>Nachname<input type="text" id="ln" maxlength="20" value="'+esc(form.ln)+'"></label></div><label class="cityf">Deine Stadt <small>(leer = zufälliger Name)</small><input type="text" id="cn" maxlength="22" placeholder="z. B. Sonnenhafen" value="'+esc(form.cn||'')+'"></label>'+
       '<div class="grid3">'+[['w','Weiblich'],['m','Männlich'],['d','Divers']].map(([k,n])=>'<button class="sch" data-gs="'+k+'" aria-pressed="'+(form.g===k)+'"><b>'+n+'</b></button>').join('')+'</div></section>'+
     '<section class="card sc"><div class="sh"><span class="sn">2</span><h2>Wann startest du?</h2></div><div class="ages">'+ages.map(([a,n,s])=>'<button class="sch big2" data-as="'+a+'" aria-pressed="'+(form.a===a)+'"><b>'+n+'</b><small>'+s+'</small></button>').join('')+'</div></section>'+
     '<section class="card sc"><div class="sh"><span class="sn">3</span><h2>Spielablauf</h2></div>'+
@@ -209,14 +210,14 @@ function renderStart(){
     '<p class="note" style="text-align:center">Version '+APPVER+' · Spielstand bleibt auf diesem Gerät</p></div>';
   if(home){document.getElementById('neu').onclick=()=>{form.neu=true;renderStart();window.scrollTo(0,0)};const c=document.getElementById('cont');c.onclick=()=>{p=old;tab='home';sel='home';render()};if(!renderStart.shown){renderStart.shown=true;setTimeout(showUpdates,400)}return}
   {const bk=document.getElementById('back');if(bk)bk.onclick=()=>{form.neu=false;renderStart();window.scrollTo(0,0)}}
-  const keep=()=>{form.fn=document.getElementById('fn').value;form.ln=document.getElementById('ln').value};
+  const keep=()=>{form.fn=document.getElementById('fn').value;form.ln=document.getElementById('ln').value;const c=document.getElementById('cn');if(c)form.cn=c.value};
   const re=()=>{keep();renderStart()};
   app.querySelectorAll('[data-gs]').forEach(b=>b.onclick=()=>{form.g=b.dataset.gs;re()});
   app.querySelectorAll('[data-as]').forEach(b=>b.onclick=()=>{form.a=+b.dataset.as;re()});
   app.querySelectorAll('[data-sk]').forEach(b=>b.onclick=()=>{const v=b.dataset.sv;form[b.dataset.sk]=isNaN(+v)?v:+v;re()});
   app.querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{form[b.dataset.st]=!form[b.dataset.st];re()});
   document.getElementById('dice').onclick=()=>{form.fn=pick(form.g==='m'?MN:form.g==='w'?FN:FN.concat(MN));form.ln=pick(LN);form.skin=R(0,4);form.hair=R(0,5);renderStart()};
-  const start=(fn,ln,g,a)=>{form.neu=false;O.tut=!!form.tut;O.rival=!!form.riv;O.mini=form.mini;saveO();newLife(fn,ln,g,a,!!form.sb);applyCfg(form);if(form.tut)setTimeout(()=>showTut(0),350);if(p.skin!=null&&form.skin!=null){p.skin=form.skin;p.hair=form.hair;save();render()}};
+  const start=(fn,ln,g,a)=>{form.neu=false;O.tut=!!form.tut;O.rival=!!form.riv;O.mini=form.mini;saveO();newLife(fn,ln,g,a,!!form.sb);applyCfg(form);if((form.cn||'').trim()){p.cityN=form.cn.trim().slice(0,22);p.cityNS=p.seed;save()}if(form.tut)setTimeout(()=>showTut(0),350);if(p.skin!=null&&form.skin!=null){p.skin=form.skin;p.hair=form.hair;save();render()}};
   document.getElementById('go').onclick=()=>{keep();start((form.fn||'').trim()||'Lena',(form.ln||'').trim()||'Krüger',form.g,form.a)};
   document.getElementById('rnd').onclick=()=>{const g=pick(['w','m']);form.skin=null;start(pick(g==='m'?MN:FN),pick(LN),g,pick([0,6,13,18]))};
   const c=document.getElementById('cont');if(c)c.onclick=()=>{p=old;tab='home';sel='home';render()};

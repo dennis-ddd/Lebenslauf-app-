@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Lebenslauf">
 <title>Lebenslauf – Lebenssimulator</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800;900&display=swap">
 <style>
 /* VOICE: freundlich, verspielt, klar – ein Handyspiel
    IDEA: ein Lebenslauf in einer Spielzeugstadt, die bei jedem Leben neu entsteht
@@ -795,6 +795,62 @@ body.appdrag{touch-action:none;overflow:hidden}
 :root[data-theme=aurora] .cname .i{width:16px;height:16px;color:#F0457E}
 :root[data-theme=aurora] #cseg{border-radius:999px;padding:3px}
 :root[data-theme=aurora] #cseg button{min-height:32px;min-width:0;padding:0 11px;font-size:13px;border-radius:999px}
+
+/* ===== v4.2: Schrift, Bühne, Effekte, Lesbarkeit ===== */
+@property --v{syntax:'<number>';inherits:false;initial-value:0}
+.ring{transition:--v .9s cubic-bezier(.3,.8,.3,1)}
+h1,h2,h3,.h,.appbar h2,.h2t,.dlg h2,.start h1,.splt,.fxyear b,.n{font-family:'Fredoka',ui-rounded,'SF Pro Rounded','Nunito',system-ui,sans-serif;letter-spacing:0}
+:root[data-theme=aurora]{--muted:#D3CBE6;--glass:rgba(30,18,58,.52);--gline:rgba(255,255,255,.15)}
+:root[data-theme=aurora] .card,:root[data-theme=aurora] .cont{background:var(--glass)}
+/* App-Akzent */
+:root[data-theme=aurora] #view .card{border-top:2px solid color-mix(in srgb,var(--acc,#13B3A6) 75%,transparent)}
+:root[data-theme=aurora] #view .card>h2.h::before,:root[data-theme=aurora] #view .card>h2::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc,#13B3A6);margin-right:8px;vertical-align:middle;box-shadow:0 0 10px var(--acc,#13B3A6)}
+:root[data-theme=aurora] .appbar h2{color:color-mix(in srgb,var(--acc,#fff) 35%,#fff)}
+/* Symbole */
+.si{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-3px}
+.ic-c{display:inline-flex;align-items:center;gap:3px;padding:1px 7px 1px 5px;border-radius:999px;background:rgba(255,255,255,.14);font-size:.92em;font-weight:800;white-space:nowrap}
+.ic-s{display:inline-flex;align-items:center;gap:1px;margin-right:6px;font-weight:900;white-space:nowrap}.ic-s.up{color:var(--good)}.ic-s.dn{color:var(--bad)}.ic-s .si{width:15px;height:15px}
+p.note.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}p.note.clamp.open{display:block}
+.morebtn{background:none;border:0;padding:2px 0 6px;color:var(--blueText);font-weight:800;font-size:13px;cursor:pointer}
+/* Ereignis-Bühne */
+.dlg.stage{padding:0;overflow:hidden}
+.dlg.stage .scene{height:130px;position:relative;overflow:hidden}.dlg.stage .scene svg{width:100%;height:100%;display:block}
+.dlg.stage .scene::after{content:"";position:absolute;inset:auto 0 0 0;height:40px;background:linear-gradient(transparent,rgba(30,18,56,.95))}
+.dlg.stage .sbody{padding:4px 18px 18px}
+.dlg.stage h2{margin:0 0 6px;font-size:22px}.dlg.stage .sbody>p{margin:0 0 14px;line-height:1.5;font-size:16px}
+.ocards{display:flex;flex-direction:column;gap:9px}
+.ocard{display:flex;align-items:center;gap:12px;text-align:left;width:100%;padding:13px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:inherit;font:inherit;cursor:pointer;transition:transform .12s,background .12s}
+.ocard:active{transform:scale(.98);background:rgba(255,255,255,.16)}
+.ocard .si{width:24px;height:24px;padding:7px;box-sizing:content-box;border-radius:12px;background:linear-gradient(135deg,#7B4BE0,#13B3A6);color:#fff;stroke-width:2.2}
+.ocard span{display:flex;flex-direction:column;gap:1px}.ocard b{font-size:16px;font-weight:800}.ocard small{font-size:12.5px;font-weight:700;color:var(--muted)}
+.dlg.stage.res .ocard{justify-content:center;background:var(--au-go,linear-gradient(90deg,#F2994A,#E8467C));border:0}.dlg.stage.res .ocard .si{display:none}
+:root:not([data-theme=aurora]) .dlg.stage .scene::after{background:linear-gradient(transparent,var(--card))}
+:root:not([data-theme=aurora]) .ocard{background:var(--soft);border-color:var(--line)}
+/* Effekte */
+.fxcoin{position:fixed;z-index:80;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF1B0,#F6C453 45%,#C98A12);box-shadow:0 0 10px rgba(246,196,83,.7);pointer-events:none}
+.fxconf{position:fixed;top:-10px;z-index:79;width:8px;height:14px;border-radius:2px;pointer-events:none}
+.fxyear{position:fixed;inset:0;z-index:78;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;pointer-events:none;background:radial-gradient(60% 40% at 50% 50%,rgba(123,75,224,.55),rgba(10,5,22,.25));color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.fxyear b{font-size:110px;line-height:1;font-weight:700;background:linear-gradient(90deg,#FFD2A8,#fff,#9FF2E6);-webkit-background-clip:text;background-clip:text;color:transparent}.fxyear span{font-size:20px;font-weight:800}
+#hd .m.pop b{animation:pop .35s}@keyframes pop{50%{transform:scale(1.18);color:#F6C453}}
+/* Ladebildschirm */
+#splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:30px;background:radial-gradient(110% 60% at 0% 0%,#6E30AA,transparent 62%),radial-gradient(80% 45% at 100% 30%,rgba(15,163,163,.8),transparent 62%),radial-gradient(90% 50% at 25% 100%,rgba(242,153,74,.75),transparent 60%),#150C27;color:#fff;transition:opacity .45s}
+#splash.out{opacity:0}.spl{text-align:center;max-width:340px}.splt{font-size:44px;font-weight:700;background:linear-gradient(90deg,#FFD2A8,#fff 45%,#9FF2E6);-webkit-background-clip:text;background-clip:text;color:transparent;animation:float 4s ease-in-out infinite}
+.spl p{font-size:20px;line-height:1.45;font-weight:700;margin:22px 0 28px}.spl small{opacity:.7;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:12px}
+/* Werte, Tagebuch, Stadtname */
+.vals .vsum{font-size:17px;margin:2px 0 10px}.vals .vsum b{color:#F6C453}
+.vrow{display:grid;grid-template-columns:96px 1fr 96px;align-items:center;gap:8px;font-size:12.5px;font-weight:800;color:var(--muted);margin:7px 0}.vrow span:last-child{text-align:right}
+.vbar{position:relative;height:8px;border-radius:99px;background:linear-gradient(90deg,rgba(232,70,124,.5),rgba(255,255,255,.15) 50%,rgba(19,179,166,.6))}
+.vbar i{position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(123,75,224,.6);transition:left .6s}
+.diary article{padding:12px 0;border-top:1px solid var(--line)}.diary article:first-of-type{border-top:0}
+.diary h3{margin:0 0 4px;font-size:15px;color:#F6C453}.diary p{margin:0;line-height:1.55;font-size:15.5px;font-family:Georgia,'Iowan Old Style',serif}.diary .dn{margin-top:6px;font-style:italic;color:var(--muted)}
+#dnote{width:100%;box-sizing:border-box;border-radius:14px;padding:10px 12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink);font:inherit;font-size:15px;resize:vertical}
+.cityf{display:block;margin-top:10px;font-weight:800}.cityf small{color:var(--muted);font-weight:600}.cityf input{display:block;width:100%;box-sizing:border-box;margin-top:4px}
+.cityren{display:flex;gap:8px}.cityren input{flex:1;min-width:0}
+/* Schriftgröße und weniger Bewegung */
+body.fs1 #app{zoom:1.1}body.fs2 #app{zoom:1.22}
+body.lessmotion *,body.lessmotion *::before,body.lessmotion *::after{animation:none!important;transition:none!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.appbar{flex-wrap:wrap;row-gap:6px}.appbar h2{min-width:72px}
 </style>
 </head>
 <body>
@@ -2008,7 +2064,7 @@ function act(id,arg){
   if(!p||!p.alive)return;CUR=id;
   if(ACTS[id]){const A=ACTS[id];if(!can(id)||!useAct())return;const r=A.f();if(r===null){refundAct();toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg)||act12(id,arg)||act13(id,arg)||act14(id,arg)||act15(id,arg))return;
+  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg)||act12(id,arg)||act13(id,arg)||act14(id,arg)||act15(id,arg)||act16(id,arg)||act17(id,arg))return;
   switch(id){
   case 'goto':tab=arg;if(arg==='stadt')sel=null;if(p.appSeen)p.appSeen[arg]=1;if(arg==='store')p.storeY=p.age;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
@@ -2866,6 +2922,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+ {v:'4.2',big:true,t:'Dein Leben, deine Geschichte',neu:['Eigener Stadtname beim Start, änderbar in den Einstellungen','Tagebuch-App: Deine Figur schreibt jedes Jahr einen Eintrag, du kannst eigene Notizen ergänzen','Werte und Moral: Deine Entscheidungen zeigen, was für ein Mensch du bist','Ehrliche Lebensfragen, zum Beispiel ob du mit deinem Job glücklich bist','Ereignisse als Bühne mit Bild und großen Antwortkarten','Münzen, Konfetti zum Geburtstag und Ringe, die sich füllen','Ladebildschirm mit Lebensweisheit','Darstellung: größere Schrift und weniger Bewegung einstellbar'],mod:['Ruhigeres Design: Kosten und Wirkungen als Symbole, lange Erklärungen eingeklappt','Jede App hat ihren eigenen Farbakzent','Neue runde Schrift für Überschriften','Besserer Kontrast auf Glas-Karten']},
  {v:'4.1',big:true,t:'Deine Ausbildung zählt',neu:['Gerichts-Minispiel: Nachbarn, Vermieter oder die Staatsanwaltschaft vor Gericht. Mit Jura ohne Anwaltskosten und mit besseren Chancen','Medizin: Gesundheits-Punkte, Notfälle in der Nachbarschaft, Krankheiten in der Familie früher erkennen','Informatik: eigene App programmieren, Hackerangriffe selbst abwehren','Architektur: Ausbauten 25 % günstiger und schneller','Lehramt: klügere Kinder, Nachhilfe ohne Aktionspunkte, ehemalige Schüler','Mechatronik, Koch/Köchin, Pflege, Friseur/in, Bank- und Bürokaufleute, Polizei und Pilot/in mit eigenen Vorteilen','Bildungs-App: Übersicht, was dir deine Ausbildung bringt'],mod:['Ausbildungsberufe zählen nach 2 Jahren im Job als gelernt']},
  {v:'4.0',big:true,t:'Aurora: neues Design und lebendige Nachbarschaft',neu:['Neues Aurora-Design: Lichtverlauf aus Violett, Türkis und Orange, Glas-Karten, farbige Statusringe, glänzende App-Symbole','Neue Startseite mit großem Avatar, Profilkarte und Weiterspielen-Knopf','Stadt bei Nacht: Fenster leuchten, Laternen brennen, Tag und Nacht folgen der Spieluhr','Karten-Pins mit Namen und Personen, die gerade dort sind','Apps lange drücken und ziehen, um sie zu verschieben','Nachbarn mit Persönlichkeit: Grillfeste, Lärm, Pakete, Freundschaften und Anzeigen','Wohnungsprobleme: Mieterhöhung, Schimmel, Nebenkosten-Nachzahlung','Erbstreit: Wer im Testament übergangen wird, fordert den Pflichtteil, auch in der nächsten Generation','Wirtschaftsprognosen und spürbare Folgen für Jobs, Geschäfte und Mieten','Figuren mit Persönlichkeit, Zielen, Geheimnissen und Gedächtnis'],mod:['Chats zeigen echte Gesichter','Das klassische Design gibt es weiter unter Einstellungen → Design']},
  {v:'3.1',big:false,t:'Gefängnis und Feinschliff',neu:['Gefängnis-App für Insassen: Hofgang, Bibliothek, Werkstatt, Schulabschluss, Anti-Gewalt-Training, Besuch, Berufung und Ausbruch','Neuer Beruf Justizvollzugsbeamter/in mit Zellenkontrolle','Gute Führung bringt eine frühere Entlassung','Hinweis, wenn nur noch wenige Aktionen übrig sind','Namen für Personen, Läden, Gebäude, Bands und Vereine lassen sich in inhalte/namen.txt ändern'],mod:['Zurück bringt dich dorthin, wo du warst, zum Beispiel in die Chat-Liste','Stadt-Ereignisse sitzen jetzt auf echten Gebäuden','Gebäude-Karte ist größer und zeigt alle Optionen, mit Schließen-Knopf','Deutlicher „Handy“-Knopf zum Zurückgehen','Gratulieren und Einladungen kosten nur noch eine Aktion, wenn die Beziehung schlecht ist','Arzttermine hängen von Gesundheits-Punkten ab: Arztbesuche, gesunde Ernährung, Sport und Check-ups machen sie kürzer und ab 7 Punkten kostenlos, Rauchen und Fast Food machen sie teurer','Vollbild nur noch einmal pro Start, in den Einstellungen abschaltbar']},
@@ -3090,7 +3147,7 @@ function act8(id,arg){const B=p.biz;if(!B)return 0;ensurePlus();const lock=!!p.p
   }return 0}
 /* ================= App Store, Altersfreigaben und Speicherplatz ================= */
 // Grund-Apps: immer installiert, erscheinen ab einem Alter
-const APPMIN={post:16,leben:0,familie:0,bildung:0,freizeit:0,kalender:0,erfolge:0,einst:0,chats:4,stadt:6,store:8,shop:8,liebe:13,jobs:13,bank:16};
+const APPMIN={tagebuch:6,post:16,leben:0,familie:0,bildung:0,freizeit:0,kalender:0,erfolge:0,einst:0,chats:4,stadt:6,store:8,shop:8,liebe:13,jobs:13,bank:16};
 // Store-Apps: [Kurzbeschreibung, ab Alter, Größe, Bewertung, Funktionen]
 const OPT={
  klick:['Social Media: Posts, Livestreams, Follower und Sponsoren.',13,'48 MB',4.6,['Eigenes Profil mit Posts','Kanal mit Livestreams und Videos','Sponsoren, Merch und Influencer-Karriere']],
@@ -3919,6 +3976,161 @@ function perkCard(){if(!p||p.age<14)return '';const lock=!!p.prison;
   return '<section class="card perks"><h2 class="h">Das bringt dir deine Ausbildung</h2>'+(on.length?on.map(P=>'<div class="pk on"><b>'+P[1]+' <span class="chip">aktiv</span></b><ul>'+P[3].map(x=>'<li>'+x+'</li>').join('')+'</ul>'+(acts[P[0]]?'<div class="btns">'+acts[P[0]]+'</div>':'')+(P[0]==='Informatik'&&p.myApp?'<small class="note">„'+esc(p.myApp.n)+'“ · Version '+p.myApp.v+' · '+kfmt(p.myApp.dl)+' Downloads</small>':'')+'</div>').join(''):'<p class="note">Noch nichts freigeschaltet. Jedes Studium und jede Ausbildung bringt dir Vorteile im Alltag.</p>')+
     '<details class="pkmore"><summary>Alle Vorteile ansehen</summary>'+off.map(P=>'<div class="pk"><b>'+P[1]+'</b><small>'+P[4]+'</small><ul>'+P[3].map(x=>'<li>'+x+'</li>').join('')+'</ul></div>').join('')+'</details></section>'}
 {const _vb=viewBildung;viewBildung=function(){return _vb()+perkCard()}}
+/* ================= Persönlich: eigene Stadt, Tagebuch, Werte, Lebensfragen ================= */
+
+/* ---------- Eigener Stadtname ---------- */
+{const _cn=cityName;cityName=s=>(p&&p.cityN&&p.cityNS===s)?p.cityN:_cn(s)}
+{const _ca=continueAs;continueAs=function(i){const cn=p&&p.cityN,cs=p&&p.cityNS;const r=_ca(i);if(p&&cn&&!p.cityN){p.cityN=cn;p.cityNS=cs;save()}return r}}
+{const _ve=viewEinst;viewEinst=function(){const h=_ve();if(!p||!p.alive)return h;
+  return h+'<section class="card"><h2 class="h">Deine Stadt</h2><p class="note">Gib deiner Heimatstadt einen eigenen Namen. Leer lassen für den zufälligen Namen.</p><div class="cityren"><input type="text" id="cren" maxlength="22" value="'+esc(p.cityN&&p.cityNS===p.seed?p.cityN:'')+'" placeholder="'+esc(cityName(p.seed))+'">'+btn('cityren',null,'Speichern','o')+'</div></section>'}}
+
+/* ---------- Werte und Moral ---------- */
+const VALS=[['e','Ehrlichkeit','ehrlich','gerissen'],['h','Herz','hilfsbereit','auf sich bedacht'],['f','Familie','familiär','unabhängig'],['r','Risiko','risikofreudig','vorsichtig'],['a','Ehrgeiz','ehrgeizig','gelassen']];
+const VALRX=[['e',1,/ehrlich|entschuldig|zugeben|gestehen|wahrheit|zurückgeben|beichten|offen ansprechen/i],['e',-1,/lüg|ausrede|abstreiten|bestech|betr[üu]g|schummel|verschweig|klau|stehl|fälsch|leugn/i],
+ ['h',1,/helfen|hilf|spende|aushelf|unterstütz|tröst|da sein|retten|erste hilfe|verzeih|kuchen|mitnehmen|für sich behalten|zuhören|pflegen/i],['h',-1,/ignorier|keine zeit|abwimmel|weitererzähl|auslach|belächel|tür zumachen|kontern|wütend/i],
+ ['f',1,/familie|kinder|eltern|mama|papa|oma|opa|geschwister|versöhn|hochzeit|heiraten|ja!|ich auch/i],['f',-1,/trennung|noch nicht|nicht bereit|absagen|weiter schweigen|auszieh/i],
+ ['r',1,/investier|wette|riskier|ausbruch|flucht|alles setzen|hart auftreten|gericht|klagen|einsatz|anwalt|bestech|annehmen/i],['r',-1,/abwarten|vorsichtig|später|lieber nicht|ablehnen|sicher|ein andermal|zahlen$/i],
+ ['a',1,/überstunden|karriere|beförder|lernen|bewerb|weiterbild|checkliste|ehrgeiz|vorstand/i],['a',-1,/pause|ausruh|normal weiter|kündig|bleiben/i]];
+function valAdd(k,v){p.vals=p.vals||{e:0,h:0,f:0,r:0,a:0};p.vals[k]=clamp((p.vals[k]||0)+v,-50,50)}
+function valFromLabel(l){VALRX.forEach(([k,v,rx])=>{if(rx.test(l))valAdd(k,v*2)})}
+const VALACT={klau:[['e',-2],['r',1]],tasche:[['e',-2],['r',1]],einbruch:[['e',-3],['r',2]],bankraub:[['e',-4],['r',3]],hack:[['e',-2],['r',1]],race:[['r',2]],lotto:[['r',1]],
+  kidstime:[['f',2]],lernen:[['a',2]],work:[['a',1]],medi:[['a',-1]],nbkuchen:[['h',2]],nbbeschw:[['h',-1]],nachhilfe:[['h',1],['a',1]],call:[['f',1]],grat:[['f',1],['h',1]],invyes:[['f',1]],invno:[['f',-1]]};
+{const _act=act;act=function(id,arg){const r=_act(id,arg);try{if(p&&VALACT[id])VALACT[id].forEach(([k,v])=>valAdd(k,v))}catch(e){}return r}}
+function valWords(){const V=p.vals||{};return VALS.map(([k,n,pos,neg])=>[k,V[k]||0,pos,neg]).filter(x=>Math.abs(x[1])>=6).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1])).slice(0,3).map(x=>x[1]>0?x[2]:x[3])}
+function valCard(title){const V=p.vals||{},w=valWords();
+  return '<section class="card vals"><h2 class="h">'+(title||'Was für ein Mensch du bist')+'</h2><p class="vsum">'+(w.length?w.map(x=>'<b>'+x+'</b>').join(' · '):'Noch nicht klar. Deine Entscheidungen formen deinen Charakter.')+'</p>'+
+    VALS.map(([k,n,pos,neg])=>{const v=V[k]||0,x=50+v;return '<div class="vrow"><span>'+neg+'</span><div class="vbar"><i style="left:'+x+'%"></i></div><span>'+pos+'</span></div>'}).join('')+'</section>'}
+{const _vd=viewDeath;viewDeath=function(){const h=_vd();try{const i=h.lastIndexOf('</section>');return i>0?h.slice(0,i+10)+valCard('Was für ein Mensch du warst')+h.slice(i+10):h+valCard('Was für ein Mensch du warst')}catch(e){return h}}}
+
+/* ---------- Ehrliche Lebensfragen ---------- */
+const LQ=[
+ [()=>!!p.job&&p.age>=18,'Bist du glücklich mit deinem Job?',()=>[['Ja, ich mag, was ich tue',()=>(add('gl',3),valAdd('a',2),'Das ist mehr wert als jedes Gehalt.')],['Es geht so',()=>'Nicht schlecht, nicht gut. Vielleicht ändert sich das noch.'],
+   ['Nein, ich will etwas anderes',()=>(add('gl',-2),valAdd('r',2),setTimeout(()=>{if(p&&p.alive){tab='jobs';render()}},700),'Du schaust dir neue Stellen an. Mutig.')]]],
+ [()=>p.age>=20,'Hast du genug Zeit für die Menschen, die du liebst?',()=>[['Ja',()=>(add('gl',2),valAdd('f',1),'Schön. Das ist nicht selbstverständlich.')],
+   ['Zu wenig',()=>{valAdd('f',3);const id=p.partner?'partner':!p.parentsGone?'mama':'freund';relUp(id,6);return 'Du greifst sofort zum Handy und rufst an. Es tut gut, die Stimme zu hören.'}]]],
+ [()=>p.age>=10,'Wofür bist du dieses Jahr dankbar?',()=>[['Meine Gesundheit',()=>(add('gl',3),'Gesund sein ist das größte Geschenk.')],['Meine Familie',()=>(add('gl',3),valAdd('f',2),'Familie ist ein Zuhause, das man mitnimmt.')],
+   ['Meine Freunde',()=>(add('gl',3),valAdd('h',1),relUp('freund',3),'Gute Freunde sind die Familie, die man sich aussucht.')],['Was ich erreicht habe',()=>(add('gl',3),valAdd('a',2),'Du darfst stolz auf dich sein.')]]],
+ [()=>p.age>=35,'Wenn du nochmal 18 wärst: Was würdest du anders machen?',()=>[['Mehr wagen',()=>(valAdd('r',3),add('gl',1),'Vielleicht ist es dafür nie zu spät.')],['Mehr lernen',()=>(valAdd('a',3),add('in',1),'Du meldest dich spontan für einen Kurs an.')],
+   ['Mehr Zeit mit Familie',()=>(valAdd('f',3),'Dann fang heute damit an.')],['Nichts. Es ist gut so',()=>(add('gl',5),'Ein seltenes, schönes Gefühl.')]]],
+ [()=>p.age>=16,'Bist du stolz auf den Menschen, der du bist?',()=>[['Ja',()=>(add('gl',4),'Das merkt man dir an.')],
+   ['Nicht ganz',()=>((p.vals&&p.vals.e<-10)?(valAdd('e',4),'Du nimmst dir vor, ehrlicher zu sein. Ein Anfang.'):(add('in',1),'Niemand ist perfekt. Du arbeitest an dir.'))]]],
+ [()=>p.age>=18,'Was ist dir wichtiger: Geld oder Zeit?',()=>[['Geld',()=>(valAdd('a',3),p.prio='geld','Sicherheit ist dir wichtig. Verständlich.')],['Zeit',()=>(valAdd('f',2),add('gl',3),p.prio='zeit','Die Zeit kommt nicht zurück. Geld schon.')]]],
+ [()=>p.age>=12&&p.age<=16&&!p.dream,'Was willst du später mal werden?',()=>[['Ärztin oder Arzt',()=>(p.dream='arzt','Menschen helfen. Ein großer Traum.')],['Etwas mit Computern',()=>(p.dream='it','Die Zukunft gehört dir.')],
+   ['Berühmt werden',()=>(p.dream='star','Bühne, Licht, Applaus!')],['Eigene Firma',()=>(p.dream='chef','Selbst der Chef sein. Warum nicht?')]]]];
+const DREAMJOB={arzt:['arzt'],it:['info'],chef:[]};
+QEV.lfrage=i=>{const q=LQ[i];if(!q||!q[0]())return null;return E('Eine ehrliche Frage',q[1],()=>true,q[2]())};
+function lqYear(){if(p.prison||p.age<10||!ch(.33))return;const L=LQ.map((q,i)=>i).filter(i=>{const y=(p.lqY||{})[i];return LQ[i][0]()&&(y==null||p.age-y>=6)});if(!L.length)return;const i=pick(L);p.lqY=p.lqY||{};p.lqY[i]=p.age;p.q.push({id:'lfrage',d:i})}
+function dreamCheck(){if(!p.dream||p.dreamDone)return;const j=p.job&&p.job.id;const ok=p.dream==='chef'?!!(p.biz&&(p.biz.fronts||[]).length):p.dream==='star'?(p.fol||0)>=100000||(p.mus&&p.mus.fame>=60):!!j&&(DREAMJOB[p.dream]||[]).includes(j);
+  if(ok){p.dreamDone=1;add('gl',12);log('Kindheitstraum erfüllt! Schon mit '+(p.dreamA||14)+' wusstest du, was du willst.');try{mile('Kindheitstraum erfüllt','star')}catch(e){}}}
+
+/* ---------- Tagebuch ---------- */
+const fp=t=>String(t).replace(/\bDu hast\b/g,'Ich habe').replace(/\bdu hast\b/g,'ich habe').replace(/\bDu bist\b/g,'Ich bin').replace(/\bdu bist\b/g,'ich bin').replace(/\bDu\b/g,'Ich').replace(/\bdu\b/g,'ich')
+  .replace(/\bDein(e|en|em|er|es)?\b/g,'Mein$1').replace(/\bdein(e|en|em|er|es)?\b/g,'mein$1').replace(/\bdich\b/g,'mich').replace(/\bdir\b/g,'mir').replace(/\bIch wirst\b/g,'Ich werde').replace(/\bich wirst\b/g,'ich werde').replace(/\bIch kannst\b/g,'Ich kann').replace(/\bich kannst\b/g,'ich kann').replace(/\b(Ich|ich) musst\b/g,'$1 muss').replace(/\b(Ich|ich) bekommst\b/g,'$1 bekomme').replace(/\b(Ich|ich) verdienst\b/g,'$1 verdiene');
+const MOOD=[[80,['Was für ein Jahr! Ich bin einfach glücklich.','Ich könnte die ganze Welt umarmen.']],[60,['Alles in allem ein gutes Jahr.','Ich bin zufrieden.']],[40,['Ein Jahr mit Höhen und Tiefen.','Es war okay. Nicht mehr, nicht weniger.']],[0,['Es war ein schweres Jahr.','Ich hoffe, das nächste wird besser.']]];
+function diaryWrite(a0){const L=p.log.filter(l=>l.a===a0||l.a===a0+1).map(l=>l.t).filter(t=>t&&t.length>18&&!/^(Gericht: )?\+|Geburtstag|Aktion/.test(t));
+  const pickL=L.slice(-12).sort((a,b)=>b.length-a.length).slice(0,4);const m=MOOD.find(x=>p.st.gl>=x[0])[1];
+  const txt=(a0<6?'':pick(m)+' ')+(pickL.length?pickL.map(fp).join(' '):'Ein ruhiges Jahr ohne große Ereignisse.');
+  p.diary=p.diary||[];p.diary.push({a:a0,t:txt});if(p.diary.length>130)p.diary.shift()}
+{const _au=ageUp;ageUp=function(){const a0=p&&p.age;const r=_au.apply(this,arguments);try{if(p&&p.alive&&p.age>a0){diaryWrite(a0);dreamCheck()}}catch(e){}return r}}
+function viewDiary(){p.dnotes=p.dnotes||{};const D=(p.diary||[]).slice().reverse();
+  return valCard()+'<section class="card"><h2 class="h">Notiz für dieses Jahr</h2><textarea id="dnote" maxlength="400" rows="3" placeholder="Was beschäftigt dich gerade? Nur du siehst das.">'+esc(p.dnotes[p.age]||'')+'</textarea><div class="btns">'+btn('dnote',null,'Speichern','o')+'</div></section>'+
+    '<section class="card diary"><h2 class="h">Mein Tagebuch</h2>'+(D.length?D.map(e=>'<article><h3>Mit '+e.a+'</h3><p>'+esc(e.t)+'</p>'+(p.dnotes[e.a]?'<p class="dn">„'+esc(p.dnotes[e.a])+'“</p>':'')+'</article>').join(''):'<p class="note">Am Ende jedes Jahres schreibt '+esc(p.first)+' hier einen Eintrag.</p>')+'</section>'}
+function act16(id,arg){switch(id){
+  case 'dnote':{const t=document.getElementById('dnote');if(!t)return 1;p.dnotes=p.dnotes||{};const v=t.value.trim();if(v)p.dnotes[p.age]=v.slice(0,400);else delete p.dnotes[p.age];save();toast('Gespeichert.');return 1}
+  case 'cityren':{const t=document.getElementById('cren');if(!t)return 1;const v=t.value.trim().slice(0,22);if(v){p.cityN=v;p.cityNS=p.seed}else{p.cityN=null}save();toast('Deine Stadt heißt jetzt '+cityName(p.seed)+'.');render();return 1}
+}return 0}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{lqYear()}catch(e){}}}
+/* ================= Effekte, Ereignis-Bühne, ruhigeres Design, Ladebildschirm, Lesbarkeit ================= */
+const noDom=()=>typeof requestAnimationFrame==='undefined'||!document.body||!document.body.appendChild||typeof innerWidth==='undefined';
+const lessMotion=()=>noDom()||O.lessM||(typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+const SVGI={coin:'<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M14.5 9.5a3 3 0 1 0 0 5M8.5 11h5M8.5 13h5"/></svg>',
+ clock:'<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>',
+ heart:'<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z"/></svg>',
+ smile:'<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 14a4 4 0 0 0 6 0M9.5 10h.01M14.5 10h.01"/></svg>',
+ brain:'<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5a3 3 0 0 0-3 3 3 3 0 0 0-1 5 3 3 0 0 0 4 4V5zM15 5a3 3 0 0 1 3 3 3 3 0 0 1 1 5 3 3 0 0 1-4 4V5z"/></svg>',
+ spark:'<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>',
+ scale:'<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M7 20h10M5 8h14M5 8l-3 6h6zM19 8l-3 6h6z"/></svg>',
+ star:'<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.5 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>',
+ bolt:'<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg>',
+ arrow:'<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>'};
+
+/* ---------- Ereignisse als Bühne ---------- */
+const SCN=(sky,body)=>'<svg viewBox="0 0 360 130" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+sky[0]+'"/><stop offset="1" stop-color="'+sky[1]+'"/></linearGradient></defs><rect width="360" height="130" fill="url(#sk)"/>'+body+'</svg>';
+const WIN=(x,y,c,r)=>{let s='';for(let i=0;i<c;i++)for(let j=0;j<r;j++)s+='<rect x="'+(x+i*9)+'" y="'+(y+j*11)+'" width="5" height="6" rx="1" fill="'+((i*7+j*3)%4?'#FFD08A':'#5B4C8A')+'"/>';return s};
+const SCENES={
+ stadt:SCN(['#2A1650','#7B4BE0'],'<circle cx="300" cy="28" r="12" fill="#FFF3D6"/><circle cx="305" cy="24" r="11" fill="#3A2266"/>'+[[10,60,40],[55,40,34],[95,70,30],[130,30,44],[180,55,36],[222,45,40],[268,65,34],[305,50,50]].map(([x,y,w])=>'<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+(130-y)+'" fill="#2B1C4F"/>'+WIN(x+5,y+8,Math.floor(w/9),Math.floor((120-y)/11))).join('')+'<rect y="118" width="360" height="12" fill="#1B1236"/>'),
+ haus:SCN(['#3B2370','#C2617E'],'<rect x="60" y="20" width="240" height="110" fill="#4A3378"/>'+[90,170,250].map(x=>'<rect x="'+(x-18)+'" y="62" width="36" height="58" rx="3" fill="#2B1C4F"/><circle cx="'+(x+10)+'" cy="92" r="2.5" fill="#FFD08A"/><rect x="'+(x-10)+'" y="40" width="20" height="10" rx="2" fill="#FFD08A" opacity=".8"/>').join('')+'<rect y="120" width="360" height="10" fill="#22163F"/><circle cx="180" cy="28" r="6" fill="#FFE2A6"/><path d="M150 120l30-92 30 92z" fill="#FFE2A6" opacity=".12"/>'),
+ klinik:SCN(['#1D4E6B','#5CC8D6'],'<rect x="90" y="30" width="180" height="100" rx="4" fill="#EEF6FA"/>'+WIN(105,48,16,6).replace(/#FFD08A/g,'#9FD8E8').replace(/#5B4C8A/g,'#BCE3EE')+'<rect x="160" y="8" width="40" height="40" rx="8" fill="#fff"/><path d="M180 16v24M168 28h24" stroke="#E8467C" stroke-width="8"/><rect x="20" y="96" width="62" height="28" rx="6" fill="#fff"/><rect x="62" y="102" width="20" height="12" fill="#9FD8E8"/><circle cx="34" cy="125" r="6" fill="#333"/><circle cx="70" cy="125" r="6" fill="#333"/><path d="M40 104h10M45 99v10" stroke="#E8467C" stroke-width="3"/>'),
+ gericht:SCN(['#2C1F4A','#8C6A3E'],'<path d="M80 50L180 14l100 36z" fill="#E9DFC8"/><rect x="80" y="50" width="200" height="8" fill="#D8CCB0"/>'+[95,135,175,215,255].map(x=>'<rect x="'+x+'" y="58" width="12" height="58" fill="#E9DFC8"/>').join('')+'<rect x="70" y="116" width="220" height="14" fill="#D8CCB0"/><g transform="translate(180 32)" stroke="#8C6A3E" stroke-width="2" fill="none"><path d="M0-10v18M-14-6h28M-14-6l-6 10h12zM14-6l-6 10h12z"/></g>'),
+ schule:SCN(['#356B9E','#F2C46B'],'<rect x="70" y="40" width="220" height="90" fill="#E07A5F"/><path d="M60 42l120-30 120 30z" fill="#B65A43"/>'+WIN(84,56,22,5).replace(/#5B4C8A/g,'#C9E4F2').replace(/#FFD08A/g,'#EAF4FA')+'<circle cx="180" cy="30" r="8" fill="#fff"/><path d="M180 25v5l3 2" stroke="#333" stroke-width="1.5" fill="none"/><rect x="166" y="100" width="28" height="30" fill="#6B3A2C"/><path d="M320 130V50" stroke="#ccc" stroke-width="2"/><path d="M320 52h22v14h-22z" fill="#13B3A6"/>'),
+ buero:SCN(['#1E2A4A','#4E7AC7'],'<rect x="40" y="20" width="90" height="110" fill="#2E3C66"/>'+WIN(48,30,9,9).replace(/#FFD08A/g,'#A8C8FF')+'<rect x="150" y="45" width="70" height="85" fill="#34477A"/>'+WIN(156,55,7,7).replace(/#FFD08A/g,'#A8C8FF')+'<rect x="240" y="30" width="80" height="100" fill="#2A3760"/>'+WIN(246,40,8,8).replace(/#FFD08A/g,'#A8C8FF')),
+ liebe:SCN(['#5B2A86','#F2994A'],'<circle cx="180" cy="120" r="46" fill="#FFC27A" opacity=".9"/><path d="M150 70s-22-14-22-30a12 12 0 0 1 22-6 12 12 0 0 1 22 6c0 16-22 30-22 30z" fill="#FF6B8E"/><path d="M212 82s-16-10-16-22a9 9 0 0 1 16-4 9 9 0 0 1 16 4c0 12-16 22-16 22z" fill="#FF9FB6"/><rect y="118" width="360" height="12" fill="#3A1C4F"/>'),
+ geld:SCN(['#123B33','#13B3A6'],'<path d="M20 110L80 90l50 10 60-40 50 14 70-50" stroke="#C6FF9D" stroke-width="4" fill="none"/>'+[[70,112],[100,108],[260,104],[290,110],[320,106]].map(([x,y])=>'<ellipse cx="'+x+'" cy="'+y+'" rx="14" ry="5" fill="#F6C453"/><ellipse cx="'+x+'" cy="'+(y-5)+'" rx="14" ry="5" fill="#FFD978"/>').join('')),
+ reise:SCN(['#2E7FE0','#9FE1F5'],'<circle cx="300" cy="32" r="16" fill="#FFE27A"/><g fill="#fff" opacity=".9"><ellipse cx="80" cy="40" rx="30" ry="10"/><ellipse cx="100" cy="34" rx="20" ry="10"/><ellipse cx="230" cy="80" rx="34" ry="10"/></g><path d="M120 76l60-8 40-18 8 4-24 22 34 4 8-6 6 2-8 12-60 6-12 10-8-2 6-12z" fill="#fff"/>'),
+ heim:SCN(['#4B2A7A','#F2994A'],'<path d="M110 70l70-50 70 50v60H110z" fill="#F4E9DA"/><path d="M98 72l82-60 82 60" stroke="#B65A43" stroke-width="10" fill="none"/><rect x="166" y="92" width="28" height="38" fill="#8C5A3C"/><rect x="128" y="82" width="26" height="22" fill="#FFD08A"/><rect x="206" y="82" width="26" height="22" fill="#FFD08A"/><path d="M219 88s-6-4-6-8a3 3 0 0 1 6-2 3 3 0 0 1 6 2c0 4-6 8-6 8z" fill="#E8467C"/><rect y="124" width="360" height="6" fill="#3A1C4F"/>')};
+const SCNRX=[['gericht',/gericht|anzeige|polizei|anwalt|klage|erbe|testament|pflichtteil|verhaft|knast|gefängnis|strafe/i],['klinik',/arzt|krank|notfall|klinik|kranken|gesund|unfall|schimmel|diagnose|operation/i],
+ ['haus',/nachbar|treppen|paket|party nebenan|grill|hausordnung|beschwerde/i],['schule',/schule|prüfung|lehrer|klasse|zeugnis|uni|studium|abschluss/i],['liebe',/liebe|date|heirat|hochzeit|partner|kuss|verliebt|antrag|affäre/i],
+ ['buero',/job|chef|büro|kolleg|firma|beförder|kündig|gehalt|vorstand|bewerb/i],['geld',/geld|bank|aktie|börse|wirtschaft|steuer|miete|nebenkosten|investi|lotto|erbe|kredit|prognose/i],
+ ['reise',/reise|urlaub|flug|triebwerk|auswander|ausland/i],['heim',/familie|kind|baby|mama|papa|eltern|geburtstag|oma|opa|geschwister|bruder|schwester/i]];
+const sceneOf=e=>{const s=(e.t||'')+' '+(typeof e.x==='function'?'':e.x||'');const m=SCNRX.find(x=>x[1].test(s));return m?m[0]:'stadt'};
+function optMeta(l){const ic=/⚖/.test(l)?'scale':/★/.test(l)?'star':/€/.test(l)?'coin':/helf|hilf|unterstütz|tröst|verzeih|kuchen|danke|umarm|für sie|für ihn|da sein/i.test(l)?'heart':/std|min\.|warten|später|ein andermal/i.test(l)?'clock':/riskier|ausbruch|flucht|hart|wagen|wette|klauen|bestech/i.test(l)?'bolt':'arrow';
+  const hint=/⚖|★/.test(l)?'Dein Wissen hilft':/€/.test(l)?'Kostet Geld':ic==='heart'?'Gut für Beziehungen':ic==='bolt'?'Riskant':/ignorier|keine zeit|abwimmel|weitererzähl|polizei rufen|kontern|belächel|absagen/i.test(l)?'Kann jemanden kränken':'';
+  return [ic,hint]}
+function stageDialog(sc,h,t,opts,cls){const d=document.getElementById('dlg');d.className='dlg stage'+(cls?' '+cls:'');
+  d.innerHTML='<div class="scene">'+(SCENES[sc]||SCENES.stadt)+'</div><div class="sbody"><h2>'+esc(h)+'</h2><p>'+esc(t)+'</p><div class="ocards">'+opts.map((o,i)=>{const m=optMeta(o[0]);
+    return '<button class="ocard" data-o="'+i+'">'+SVGI[m[0]]+'<span><b>'+esc(o[0].replace(/^[⚖★]\s*/,''))+'</b>'+(m[1]?'<small>'+m[1]+'</small>':'')+'</span></button>'}).join('')+'</div></div>';
+  const md=document.getElementById('modal');md.classList.add('on');
+  d.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{md.classList.remove('on');const f=opts[+b.dataset.o][1];if(f)f()});try{d.querySelector('button').focus()}catch(e){}}
+showEvent0=function(e){p.evSeen=p.evSeen||{};p.evSeen[e.t]=(p.evSeen[e.t]||0)+1;const t=typeof e.x==='function'?e.x():e.x,sc=sceneOf(e);
+  stageDialog(sc,e.t,t,e.o.map(([l,f])=>[l,()=>{try{valFromLabel(l)}catch(_){}const r=f();log(r);checkAch();save();render();stageDialog(sc,'Ergebnis',r,[['Weiter',null]],'res')}]))};
+
+/* ---------- Münzen, Konfetti, Jahreswechsel, Ringe ---------- */
+let FX={money:null,rings:{}};
+function coinBurst(n){if(lessMotion())return;const m=document.querySelector('#hd .m');if(!m)return;const r=m.getBoundingClientRect(),cx=innerWidth/2,cy=innerHeight*.45;
+  for(let i=0;i<n;i++){const c=document.createElement('div');c.className='fxcoin';c.style.left=cx+'px';c.style.top=cy+'px';document.body.appendChild(c);
+    const dx=(Math.random()-.5)*120,dy=-40-Math.random()*60,tx=r.left+r.width/2,ty=r.top+r.height/2;
+    c.animate([{transform:'translate(-50%,-50%) scale(.6)',opacity:0},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) scale(1)',opacity:1,offset:.35},{transform:'translate(calc(-50% + '+(tx-cx)+'px),calc(-50% + '+(ty-cy)+'px)) scale(.5)',opacity:.9}],{duration:900+i*60,easing:'cubic-bezier(.3,.7,.4,1)'}).onfinish=()=>c.remove()}
+  setTimeout(()=>{m.classList.add('pop');setTimeout(()=>m.classList.remove('pop'),350)},900)}
+function countUp(el,from,to){if(lessMotion()||!el)return;const t0=performance.now(),D=700;const f=now=>{const k=Math.min(1,(now-t0)/D),v=Math.round(from+(to-from)*(1-Math.pow(1-k,3)));el.textContent=eur(v);if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+function confetti(){if(lessMotion())return;const cols=['#F2994A','#E8467C','#7B4BE0','#13B3A6','#F6C453','#FFFFFF'];
+  for(let i=0;i<70;i++){const c=document.createElement('div');c.className='fxconf';c.style.background=cols[i%cols.length];c.style.left=(Math.random()*100)+'vw';document.body.appendChild(c);
+    const x=(Math.random()-.5)*160,rot=Math.random()*720;c.animate([{transform:'translate(0,-20px) rotate(0)',opacity:1},{transform:'translate('+x+'px,'+(innerHeight*.9)+'px) rotate('+rot+'deg)',opacity:.2}],{duration:1600+Math.random()*1200,delay:Math.random()*300,easing:'cubic-bezier(.2,.6,.4,1)'}).onfinish=()=>c.remove()}}
+function yearFlash(a){if(lessMotion())return;const o=document.createElement('div');o.className='fxyear';o.innerHTML='<b>'+a+'</b><span>'+(a===18?'Volljährig!':a%10===0?'Ein runder Geburtstag!':'Happy Birthday, '+esc(p.first)+'!')+'</span>';document.body.appendChild(o);
+  o.animate([{opacity:0,transform:'scale(.9)'},{opacity:1,transform:'scale(1)',offset:.2},{opacity:1,offset:.7},{opacity:0,transform:'scale(1.04)'}],{duration:1300,easing:'ease-out'}).onfinish=()=>o.remove()}
+{const _au=ageUp;ageUp=function(){const a0=p&&p.age;const r=_au.apply(this,arguments);if(p&&p.alive&&p.age>a0){yearFlash(p.age);setTimeout(confetti,150)}return r}}
+function postFx(){if(!p||!p.alive)return;
+  // Geld: Münzen und Hochzählen
+  const mb=document.querySelector('#hd .m b');if(FX.money!=null&&mb&&p.money!==FX.money){if(p.money-FX.money>=50)coinBurst(Math.min(10,3+Math.floor(Math.log10(p.money-FX.money))));countUp(mb,FX.money,p.money)}FX.money=p.money;
+  // Ringe füllen sich
+  if(!lessMotion())document.querySelectorAll('.ring').forEach((r,i)=>{const k=tab+i,v=parseFloat(r.style.getPropertyValue('--v'))||0,pv=FX.rings[k];FX.rings[k]=v;const from=pv==null?0:pv;if(from===v)return;
+    r.style.setProperty('--v',from);const lb=r.querySelector('b');requestAnimationFrame(()=>requestAnimationFrame(()=>{r.style.setProperty('--v',v)}));if(lb&&pv!=null)lb.animate([{transform:'scale(1.25)'},{transform:'scale(1)'}],{duration:500})});
+  // App-Farbe als Akzent
+  const A=APPS.find(a=>a[0]===tab);document.body.style.setProperty('--acc',A?'#'+A[2].toString(16).padStart(6,'0'):'#13B3A6');
+  applyLook();calmUI()}
+/* ---------- Weniger Text, mehr Symbole ---------- */
+const STATI=[[/Glück/,'smile'],[/Gesundheit/,'heart'],[/Intelligenz|Klugheit/,'brain'],[/Aussehen/,'spark']];
+function calmUI(){const v=document.getElementById('view');if(!v)return;
+  v.querySelectorAll('button.btn:not([data-ic])').forEach(b=>{b.dataset.ic=1;const h=b.innerHTML;if(h.includes('<svg'))return;
+    let n=h.replace(/\s*·?\s*\(?([\d.]+(?:,\d+)?\s?(?:k|Mio\.)?\s?€)\)?/,(m,x)=>' <span class="ic-c">'+SVGI.coin+x.replace(/\s?€/,'')+'</span>').replace(/\s*·\s*(\d+(?:,\d)?\s?(?:Std\.|Min\.))/,(m,x)=>' <span class="ic-c">'+SVGI.clock+x+'</span>');if(n!==h)b.innerHTML=n});
+  v.querySelectorAll('.row .t small:not([data-ic])').forEach(s=>{s.dataset.ic=1;const h=s.innerHTML;if(h.includes('<'))return;
+    let n=h;STATI.forEach(([rx,ic])=>{n=n.replace(new RegExp('('+rx.source+')\\s*([+\\-−]{1,3})','g'),(m,w,sg)=>'<span class="ic-s '+(sg[0]==='+'?'up':'dn')+'" title="'+w+'">'+SVGI[ic]+sg+'</span>')});
+    n=n.replace(/·\s*(\d+(?:,\d)?\s?(?:Std\.|Min\.))/,(m,x)=>'<span class="ic-c">'+SVGI.clock+x+'</span>');if(n!==h)s.innerHTML=n});
+  v.querySelectorAll('p.note:not([data-cl])').forEach(n=>{n.dataset.cl=1;if(n.textContent.length<170||n.closest('.dlg'))return;n.classList.add('clamp');const b=document.createElement('button');b.className='morebtn';b.type='button';b.textContent='Mehr anzeigen';
+    b.onclick=ev=>{ev.stopPropagation();const o=n.classList.toggle('open');b.textContent=o?'Weniger':'Mehr anzeigen'};n.after(b)})}
+{const _r=render;render=function(){const r=_r.apply(this,arguments);try{postFx()}catch(e){}return r}}
+
+/* ---------- Darstellung: Schriftgröße, weniger Bewegung, Ladebildschirm ---------- */
+function applyLook(){const b=document.body;if(!b||!b.classList)return;b.classList.toggle('fs1',O.fsz===1);b.classList.toggle('fs2',O.fsz===2);b.classList.toggle('lessmotion',!!lessMotion())}
+{const _ve=viewEinst;viewEinst=function(){return _ve()+'<section class="card tgs"><h2 class="h">Darstellung</h2><div class="seg full fsz">'+[['0','Normal'],['1','Groß'],['2','Sehr groß']].map(([k,l])=>'<button data-a="fsz" data-g="'+k+'" aria-pressed="'+((O.fsz||0)===+k)+'">'+l+'</button>').join('')+'</div>'+
+  tog('lessM',!!O.lessM,'Weniger Bewegung','Keine Münzen, kein Konfetti, keine Animationen')+tog('noSplash',!!O.noSplash,'Ladebildschirm aus','Ohne Lebensweisheit direkt ins Spiel')+'</section>'}}
+function act17(id,arg){if(id==='fsz'){O.fsz=+arg;saveO();applyLook();render();return 1}if(id==='opt'&&arg==='lessM'){setTimeout(applyLook,0)}return 0}
+const WISE=['Das Leben ist kein Rennen. Genieße die Strecke.','Kleine Schritte sind auch Schritte.','Wer nie etwas wagt, erlebt auch nichts.','Zeit mit Menschen, die man liebt, ist nie verschwendet.','Fehler sind Beweise, dass du es versuchst.',
+ 'Glück ist das Einzige, das sich verdoppelt, wenn man es teilt.','Morgen ist ein neuer Tag.','Man bereut selten, was man getan hat. Eher, was man nicht getan hat.','Ein guter Nachbar ist mehr wert als ein ferner Freund.','Geld kann man verdienen. Zeit nicht.',
+ 'Jeder Tag ist eine neue Seite im Tagebuch.','Freundschaft ist eine Pflanze, die man gießen muss.','Auch der längste Weg beginnt mit dem ersten Schritt.','Sei die Person, die du als Kind gebraucht hättest.','Mut ist, Angst zu haben und es trotzdem zu tun.'];
+function splash(){if(O.noSplash||!document.body||document.getElementById('splash'))return;const s=document.createElement('div');s.id='splash';
+  s.innerHTML='<div class="spl"><div class="splt">Lebenslauf</div><p>„'+pick(WISE)+'“</p><small>Tippen zum Starten</small></div>';document.body.appendChild(s);
+  const go=()=>{if(!s.parentNode)return;s.classList.add('out');setTimeout(()=>s.remove(),lessMotion()?0:450)};s.onclick=go;setTimeout(go,lessMotion()?900:2400)}
+try{applyLook();if(typeof window!=='undefined'&&window.addEventListener&&document.readyState!=null)splash()}catch(e){}
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],
@@ -3940,6 +4152,7 @@ const APPS=[
 ['wohnen','Wohnen',0xF08A24,'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'],
 ['garage','Garage',0x6B7385,'<path d="M5 16l1.5-5a2 2 0 0 1 2-1.5h7a2 2 0 0 1 2 1.5L19 16"/><rect x="3" y="16" width="18" height="4" rx="1.5"/><circle cx="7.5" cy="20" r="1"/><circle cx="16.5" cy="20" r="1"/>'],
 ['shop','Shop',0xC2408C,'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'],
+['tagebuch','Tagebuch',0xC0703E,'<path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3v18M10 8h5M10 12h5"/>'],
 ['erfolge','Erfolge',0x8E63D6,'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/>'],
 ['post','Post',0xC9A227,'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>','linear-gradient(135deg,#F2B33D,#C9A227)'],
 ['jva','Gefängnis',0x6B7385,'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 3v18M15 3v18M4 12h16"/>','linear-gradient(135deg,#8A8F99,#3A3F4B)'],
@@ -4024,7 +4237,7 @@ function viewHome(){
       return '<button class="app'+(nw?' newapp':'')+(editApps&&swapSel===id?' pick':'')+'" data-a="'+(editApps?'appswap':'goto')+'" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div><div class="phb">'+(editApps?'<span class="note">'+(swapSel?'Tippe auf den neuen Platz':'App lange drücken und ziehen, oder antippen und dann den neuen Platz')+'</span>'+btn('appreset',null,'Zurücksetzen','g')+btn('appedit',null,'Fertig','o'):btn('appedit',null,'Apps anordnen','g')+'<span class="note">Tipp: App lange drücken und ziehen</span>')+'</div></section>';
 }
 function viewApp(id){
-  const V={
+  const V={tagebuch:viewDiary,
   chats:viewChats,store:viewStore,jva:viewJva,post:viewPost,news:viewNews,kalender:viewKal,wege:viewWege,einst:viewEinst,klick:viewKlick,geschaefte:viewBiz,casino:viewCasino,
   leben:viewLeben,
   stadt:viewStadt,
@@ -4107,14 +4320,14 @@ function renderStart(){
   const has=!!(old&&old.alive&&old.st),home=has&&!form.neu;
   const contC=has?'<section class="card contc"><div class="cc1"><span class="cav2">'+avatarSvg(old.age,76,old)+'</span><div class="cc2"><small>Dein Spielstand</small><b>'+esc(old.first+' '+old.last)+'</b><span>'+old.age+' Jahre'+(old.job?' · '+esc(old.job.t):'')+'</span><span>'+eur(old.money)+(old.gen>1?' · Generation '+old.gen:'')+'</span></div></div><button class="btn o big" id="cont">Weiterspielen</button></section>':'';
   const homeA=home&&O.theme==='aurora'?'<div class="start s2 home2"><div class="h2t">Lebenslauf</div><div class="h2av">'+avatarSvg(old.age,150,old)+'</div>'+
-    '<section class="h2card"><b>'+esc(old.first+' '+old.last)+' · '+old.age+'</b><span>'+(old.job?esc(old.job.t):old.age<18?'Schüler/in':'Ohne Job')+' in '+esc(cityName(old.seed))+'</span>'+
+    '<section class="h2card"><b>'+esc(old.first+' '+old.last)+' · '+old.age+'</b><span>'+(old.job?esc(old.job.t):old.age<18?'Schüler/in':'Ohne Job')+' in '+esc(old.cityN&&old.cityNS===old.seed?old.cityN:cityName(old.seed))+'</span>'+
     '<div class="rings h2r">'+Object.keys(STAT).map(k=>'<div class="rw"><div class="ring" style="--v:'+old.st[k]+'"><b>'+old.st[k]+'</b></div><small>'+STAT[k]+'</small></div>').join('')+'</div>'+'<div class="h2st"><div><b>'+eur(old.money)+'</b><small>Vermögen</small></div><div><b>'+((old.kids||[]).length)+'</b><small>Kinder</small></div><div><b>'+(old.gen||1)+'. Gen.</b><small>Familie</small></div></div></section>'+
     '<div class="h2go"><button class="btn o big" id="cont">Weiterspielen</button><button class="btn g newl" id="neu">Neues Leben beginnen</button></div></div>':'';
   if(homeA){app.innerHTML=homeA;}else
   app.innerHTML='<div class="start s2">'+'<section class="hero"><div class="hav">'+avatarSvg(ag,112,P)+'</div><div class="ht"><small>LEBENSSIMULATOR</small><h1>Lebenslauf</h1><p>Ein ganzes Leben in einer neuen Stadt. Jede Entscheidung zählt.</p></div><div class="hchips"><span>Karriere</span><span>Liebe</span><span>Familie</span><span>Börse</span><span>Klick</span><span>Generationen</span></div></section>'+
     
     (home?contC+'<button class="btn g newl" id="neu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Neues Leben beginnen</button>':
-    (has?'<button class="backs" id="back"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Zurück zum Spielstand</button>':'')+'<section class="card sc"><div class="sh"><span class="sn">1</span><h2>Wer bist du?</h2><button class="dice" id="dice" aria-label="Zufälliger Name">'+dice+'</button></div><div class="nm"><label>Vorname<input type="text" id="fn" maxlength="20" value="'+esc(form.fn)+'"></label><label>Nachname<input type="text" id="ln" maxlength="20" value="'+esc(form.ln)+'"></label></div>'+
+    (has?'<button class="backs" id="back"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Zurück zum Spielstand</button>':'')+'<section class="card sc"><div class="sh"><span class="sn">1</span><h2>Wer bist du?</h2><button class="dice" id="dice" aria-label="Zufälliger Name">'+dice+'</button></div><div class="nm"><label>Vorname<input type="text" id="fn" maxlength="20" value="'+esc(form.fn)+'"></label><label>Nachname<input type="text" id="ln" maxlength="20" value="'+esc(form.ln)+'"></label></div><label class="cityf">Deine Stadt <small>(leer = zufälliger Name)</small><input type="text" id="cn" maxlength="22" placeholder="z. B. Sonnenhafen" value="'+esc(form.cn||'')+'"></label>'+
       '<div class="grid3">'+[['w','Weiblich'],['m','Männlich'],['d','Divers']].map(([k,n])=>'<button class="sch" data-gs="'+k+'" aria-pressed="'+(form.g===k)+'"><b>'+n+'</b></button>').join('')+'</div></section>'+
     '<section class="card sc"><div class="sh"><span class="sn">2</span><h2>Wann startest du?</h2></div><div class="ages">'+ages.map(([a,n,s])=>'<button class="sch big2" data-as="'+a+'" aria-pressed="'+(form.a===a)+'"><b>'+n+'</b><small>'+s+'</small></button>').join('')+'</div></section>'+
     '<section class="card sc"><div class="sh"><span class="sn">3</span><h2>Spielablauf</h2></div>'+
@@ -4130,14 +4343,14 @@ function renderStart(){
     '<p class="note" style="text-align:center">Version '+APPVER+' · Spielstand bleibt auf diesem Gerät</p></div>';
   if(home){document.getElementById('neu').onclick=()=>{form.neu=true;renderStart();window.scrollTo(0,0)};const c=document.getElementById('cont');c.onclick=()=>{p=old;tab='home';sel='home';render()};if(!renderStart.shown){renderStart.shown=true;setTimeout(showUpdates,400)}return}
   {const bk=document.getElementById('back');if(bk)bk.onclick=()=>{form.neu=false;renderStart();window.scrollTo(0,0)}}
-  const keep=()=>{form.fn=document.getElementById('fn').value;form.ln=document.getElementById('ln').value};
+  const keep=()=>{form.fn=document.getElementById('fn').value;form.ln=document.getElementById('ln').value;const c=document.getElementById('cn');if(c)form.cn=c.value};
   const re=()=>{keep();renderStart()};
   app.querySelectorAll('[data-gs]').forEach(b=>b.onclick=()=>{form.g=b.dataset.gs;re()});
   app.querySelectorAll('[data-as]').forEach(b=>b.onclick=()=>{form.a=+b.dataset.as;re()});
   app.querySelectorAll('[data-sk]').forEach(b=>b.onclick=()=>{const v=b.dataset.sv;form[b.dataset.sk]=isNaN(+v)?v:+v;re()});
   app.querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{form[b.dataset.st]=!form[b.dataset.st];re()});
   document.getElementById('dice').onclick=()=>{form.fn=pick(form.g==='m'?MN:form.g==='w'?FN:FN.concat(MN));form.ln=pick(LN);form.skin=R(0,4);form.hair=R(0,5);renderStart()};
-  const start=(fn,ln,g,a)=>{form.neu=false;O.tut=!!form.tut;O.rival=!!form.riv;O.mini=form.mini;saveO();newLife(fn,ln,g,a,!!form.sb);applyCfg(form);if(form.tut)setTimeout(()=>showTut(0),350);if(p.skin!=null&&form.skin!=null){p.skin=form.skin;p.hair=form.hair;save();render()}};
+  const start=(fn,ln,g,a)=>{form.neu=false;O.tut=!!form.tut;O.rival=!!form.riv;O.mini=form.mini;saveO();newLife(fn,ln,g,a,!!form.sb);applyCfg(form);if((form.cn||'').trim()){p.cityN=form.cn.trim().slice(0,22);p.cityNS=p.seed;save()}if(form.tut)setTimeout(()=>showTut(0),350);if(p.skin!=null&&form.skin!=null){p.skin=form.skin;p.hair=form.hair;save();render()}};
   document.getElementById('go').onclick=()=>{keep();start((form.fn||'').trim()||'Lena',(form.ln||'').trim()||'Krüger',form.g,form.a)};
   document.getElementById('rnd').onclick=()=>{const g=pick(['w','m']);form.skin=null;start(pick(g==='m'?MN:FN),pick(LN),g,pick([0,6,13,18]))};
   const c=document.getElementById('cont');if(c)c.onclick=()=>{p=old;tab='home';sel='home';render()};
