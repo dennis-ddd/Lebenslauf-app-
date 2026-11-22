@@ -202,3 +202,26 @@ html,body{overscroll-behavior-y:none}
 .kmon{margin:14px 0 4px;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#F6C453}.kmon:first-of-type{margin-top:8px}
 .kal.own .kt b{color:#9FF2E6}.kdel{background:none;border:0;color:var(--muted);font-size:20px;font-weight:900;padding:0 4px;cursor:pointer}
 .calrep{justify-content:flex-start;text-align:left}.calrep input[type=checkbox]{width:22px;height:22px;flex:none;margin:0;accent-color:#13B3A6}.calnew .btn{margin-top:2px}
+/* Kinderwelt: Spielzeugkiste und Schulranzen */
+.phone.kidw,:root[data-theme=aurora] .phone.kidw{background:radial-gradient(90% 40% at 0% 0%,rgba(62,133,135,.45),transparent 70%),radial-gradient(80% 40% at 100% 100%,rgba(149,137,181,.35),transparent 70%),#0E1A2E;color:#EAF0F6;gap:10px;padding:14px 12px 16px}
+.kwtop{display:flex;align-items:center;gap:10px}.kwav svg{display:block;border-radius:50%}.kwn{min-width:0;flex:1}.kwn b{display:block;font-size:17px;font-weight:800}.kwn small{color:#93A4BA;font-size:12px;font-weight:600}
+.kwchip,.kwgear{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:3px 9px 3px 3px;font:inherit;font-weight:800;font-size:13px;color:inherit;cursor:pointer}
+.kwchip img{width:28px;height:28px}.kwgear{padding:7px}.kwgear .i{width:18px;height:18px}
+.kwplan{display:flex;gap:4px}.kwplan span{flex:1;text-align:center;font-size:11px;font-weight:800;padding:5px 0;border-radius:8px;background:rgba(255,255,255,.06);color:#93A4BA}.kwplan span.now{background:#3E8587;color:#fff}
+.kwhero{border-radius:20px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:6px;padding:4px 14px 4px 2px}
+.kwhero>img{width:96px;height:96px;flex:none}.kwhero b{display:block;font-size:16px}.kwhero span{font-size:12.5px;color:#93A4BA;line-height:1.35}
+.kidw .rings{margin:0}.kidw .news{margin:0}
+.kwgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.kwi{position:relative;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.05);border-radius:16px;padding:4px 2px 8px;color:#DCE4EE;font:inherit;font-size:12px;font-weight:700;display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform .15s,background .15s;min-width:0}
+.kwi:active{transform:scale(.95)}.kwi:hover{background:rgba(255,255,255,.09)}.kwi img{width:64px;height:64px}.kwi span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.kwb{position:absolute;top:5px;right:6px;min-width:18px;height:18px;border-radius:9px;background:#D5A35E;color:#14263B;font-size:11px;font-style:normal;font-weight:900;display:grid;place-items:center;padding:0 4px}
+.kwmore small{display:block;color:#93A4BA;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin:2px 2px 6px}
+.kwmore>div{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.kwm{border:0;background:none;color:#C7D1DE;font:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;min-width:0}
+.kwm .ic{position:relative;width:38px;height:38px;border-radius:11px;display:grid;place-items:center}.kwm .ic .i{width:20px;height:20px;stroke:#fff}.kwm em{font-style:normal;font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.kwm .badge{position:absolute;top:-5px;right:-6px}
+.kwspar{text-align:center}.kwpig{width:150px;height:150px;display:block;margin:-6px auto -10px}.kwsum{font-size:34px;font-weight:900;margin-bottom:4px}
+.kwgoal{text-align:left;margin-top:12px;padding:12px;border-radius:16px;background:rgba(255,255,255,.06)}.kwgoal b{display:block}.kwgoal small{color:var(--muted,#93A4BA);font-weight:700}
+.kwgoal .bar{height:10px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden;margin:8px 0}.kwgoal .bar i{display:block;height:100%;background:linear-gradient(90deg,#3E8587,#D5A35E)}
+.kwht{min-width:0}.kwht span{display:block}.kwht .kwchip{margin-top:8px;display:inline-flex}
+.kwhero .kwchip img{width:26px;height:26px}

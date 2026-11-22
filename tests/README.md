@@ -17,3 +17,4 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `namen_export.js`: schreibt die eingebauten Namen neu nach `inhalte/namen.txt` (überschreibt!)
 - `kindheit.js`: spielt 120 Leben ab Geburt, prüft Meilensteine, Minispiele, Prägungen, Rückkehrer und seelische Last
 - `altersgerecht.js`: listet alle Nachrichten an Kinder und Jugendliche (0–17) zum Durchlesen
+- `node tests/kinderwelt.js`: Spielzeugkiste (0–5), Schulranzen, Sparschwein, Ereignis „Erstes Handy“ und der Schalter in den Einstellungen.

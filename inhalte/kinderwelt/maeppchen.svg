@@ -1,0 +1,21 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg"><defs>
+<linearGradient id="t" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3E8587"/><stop offset="1" stop-color="#1F4F5E"/></linearGradient>
+<linearGradient id="n" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#263F57"/><stop offset="1" stop-color="#14263B"/></linearGradient>
+<linearGradient id="v" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9589B5"/><stop offset="1" stop-color="#5A557F"/></linearGradient>
+<linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F0CC87"/><stop offset="1" stop-color="#B87B42"/></linearGradient>
+<linearGradient id="p" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#C9D3D8"/><stop offset="1" stop-color="#8E9DA8"/></linearGradient>
+<radialGradient id="g" cx=".5" cy=".5" r=".5"><stop stop-color="#72BAB1" stop-opacity=".18"/><stop offset="1" stop-color="#72BAB1" stop-opacity="0"/></radialGradient>
+<radialGradient id="s" cx=".5" cy=".5" r=".5"><stop stop-color="#0B1626" stop-opacity=".45"/><stop offset="1" stop-color="#0B1626" stop-opacity="0"/></radialGradient>
+</defs><circle cx="256" cy="270" r="220" fill="url(#g)"/><ellipse cx="256" cy="430" rx="170" ry="22" fill="url(#s)"/>
+<path d="M96 300L330 250L420 300L186 356Z" fill="#2B5F6C"/>
+<path d="M96 300L186 356V420L96 362Z" fill="url(#n)"/>
+<path d="M186 356L420 300V362L186 420Z" fill="url(#t)"/>
+<path d="M186 356L420 300V310L186 366Z" fill="#5A9C9A" opacity=".6"/>
+<path d="M140 296L344 252L352 258L148 302Z" fill="#14283F"/>
+<g transform="rotate(-13 250 230)">
+<rect x="130" y="196" width="230" height="16" rx="3" fill="#D5A35E"/><path d="M360 196L384 204L360 212Z" fill="#F4D3A0"/><path d="M376 201L384 204L376 207Z" fill="#14283F"/>
+<rect x="140" y="222" width="210" height="16" rx="3" fill="url(#v)"/><path d="M350 222L374 230L350 238Z" fill="#F4D3A0"/><path d="M366 227L374 230L366 233Z" fill="#3C3C58"/>
+<rect x="124" y="248" width="230" height="16" rx="3" fill="#3E8587"/><path d="M354 248L378 256L354 264Z" fill="#F4D3A0"/><path d="M370 253L378 256L370 259Z" fill="#14283F"/>
+</g>
+<path d="M350 330L398 318L404 340L356 352Z" fill="#B19BA1"/><path d="M350 330L364 327L370 349L356 352Z" fill="#7C8AA6"/>
+<path d="M120 380L250 350L254 366L124 396Z" fill="url(#p)"/><path d="M140 384L142 376M160 380L162 372M180 375L182 367M200 370L202 362M220 366L222 358" stroke="#4A5A6E" stroke-width="2"/></svg>
