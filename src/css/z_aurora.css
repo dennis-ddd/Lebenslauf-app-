@@ -183,3 +183,12 @@ html,body{overscroll-behavior-y:none}
 .mgtower{position:relative;height:220px;border-radius:16px;background:rgba(255,255,255,.06);margin:12px 0 14px;overflow:hidden;border-bottom:4px solid rgba(255,255,255,.3)}.mgtower i{position:absolute;height:11%;border-radius:5px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
 .prag{display:grid;gap:8px}.prag div{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.07)}.prag b{display:block}.prag small{color:var(--muted);font-weight:700}
 .kmem{list-style:none;padding:0;margin:10px 0 0}.kmem li{padding:6px 0;border-top:1px solid var(--line);font-weight:700}.kmem span{display:inline-block;min-width:62px;color:#F6C453;font-size:12.5px;font-weight:900}
+/* Reiter dürfen nicht überlappen */
+.seg.full{display:flex;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.seg.full::-webkit-scrollbar{display:none}
+.seg.full>button{flex:1 0 auto;min-width:max-content;white-space:nowrap;padding:0 12px}
+/* Chat-Antworten */
+.replies .rp{text-align:left}.replies .rp small{display:block;font-size:11.5px;font-weight:800;opacity:.7;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.replies .rp-lieb{border-color:rgba(123,227,174,.5)}.replies .rp-frech{border-color:rgba(255,147,166,.45)}
+:root .seg.full.ft,:root .seg.full.wt,:root .seg.full.lt,:root[data-theme=aurora] .seg.full.ft,:root[data-theme=aurora] .seg.full.wt,:root[data-theme=aurora] .seg.full.lt{position:sticky;top:0;z-index:5;background:rgba(24,14,46,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+:root:not([data-theme=aurora]) .seg.full.ft{background:var(--card)}
+.row .t small{display:block}

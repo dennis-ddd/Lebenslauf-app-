@@ -86,12 +86,12 @@ function orderedApps(){const o=appOrder();return APPS.slice().sort((a,b)=>o.inde
 function notify(t,goApp,sub){let n=document.getElementById('ntf');if(!n||!n.classList)return;n.innerHTML='<span class="nic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21h4"/></svg></span><span class="nt"><small>Erinnerung · jetzt</small><b>'+esc(t)+'</b></span>';
   n.dataset.g=goApp||'';n.dataset.s=sub||'';n.classList.add('show');sfx('msg');vib(30);clearTimeout(notify.t);notify.t=setTimeout(()=>n.classList.remove('show'),5200)}
 function reminders(){const L=[],a=p.age;
-  if(a>=10&&p.st.ge<60&&(p.lastArzt==null||a-p.lastArzt>=2))L.push(['arzt','Du warst lange nicht beim Arzt. Ein Check-up tut dir gut.','freizeit','gesund']);
-  if(a>=10&&(p.lastSport==null||a-p.lastSport>=2))L.push(['sport','Zeit für Sport! Dein Körper wird es dir danken.','freizeit','sport']);
-  const ob=people().filter(([id])=>p.grat[id]!==a);if(a>=10&&ob.length)L.push(['bd','Geburtstag: '+ob[0][1]+'. Nicht vergessen zu gratulieren!','kalender']);
+  if(a>=16&&p.st.ge<60&&(p.lastArzt==null||a-p.lastArzt>=2))L.push(['arzt','Du warst lange nicht beim Arzt. Ein Check-up tut dir gut.','freizeit','gesund']);
+  if(a>=16&&(p.lastSport==null||a-p.lastSport>=2))L.push(['sport','Zeit für Sport! Dein Körper wird es dir danken.','freizeit','sport']);
+  const ob=people().filter(([id])=>p.grat[id]!==a);if(a>=12&&ob.length)L.push(['bd','Geburtstag: '+ob[0][1]+'. Nicht vergessen zu gratulieren!','kalender']);
   const t=(p.terms||[]).find(x=>!x.done);if(a>=10&&t&&TERM[t.k])L.push(['term','Termin im Kalender: '+TERM[t.k][0]+'.','kalender']);
   if(a>=16&&p.money<0)L.push(['geld','Dein Konto ist im Minus. Schau mal in die Bank-App.','bank']);
-  if(p.st.gl<30)L.push(['gl','Du wirkst niedergeschlagen. Unternimm etwas Schönes!','freizeit','aktiv']);
+  if(a>=10&&p.st.gl<30)L.push(['gl','Du wirkst niedergeschlagen. Unternimm etwas Schönes!','freizeit','aktiv']);
   return L.filter(r=>!(p.remS&&p.remS[r[0]]===a))}
 function maybeRemind(){if(!p||!p.alive||tab!=='home'||document.getElementById('modal').classList.contains('on'))return;if(O.rem===false)return;p.remS=p.remS||{};
   const n=Object.values(p.remS).filter(v=>v===p.age).length;if(n>=2)return;const now=Date.now();if(maybeRemind.t&&now-maybeRemind.t<25000)return;const r=reminders()[0];if(!r)return;maybeRemind.t=now;p.remS[r[0]]=p.age;setTimeout(()=>notify(r[1],r[2],r[3]),900)}

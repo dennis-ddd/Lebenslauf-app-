@@ -186,7 +186,7 @@ QEV.npcmem=id=>{const o=npcOf(id);if(!o)return null;const n=npcName(id),s=memSum
   return E(n+' hat es nicht vergessen',n+': „'+last.t+'. Glaub nicht, dass ich das vergessen habe.“',()=>true,[
     ['Entschuldigen',()=>ch(o.tr==='nachtr'?.35:.65)?(remember(o,'Hat sich ehrlich entschuldigt',2),relUp(id,10),'„Okay. Schwamm drüber.“'):(relUp(id,-4),'„Das reicht nicht.“')],
     ['Kontern',()=>(remember(o,'Hat mich angegiftet',-1),relUp(id,-10),add('gl',-2),'Der Streit eskaliert.')]])};
-function npcCard(c){const o=npcOf(c.id);if(!o)return '';const M=memOf(o).slice(-3).reverse();
+function npcCard(c){if(p.age<12)return '';const o=npcOf(c.id);if(!o)return '';const M=memOf(o).slice(-3).reverse();
   return '<div class="npcc"><div class="npch"><b>'+esc(c.n)+'</b><span class="chip">'+NPCTR[o.tr][0]+'</span></div><small>'+esc(c.n.split(' ')[0])+' '+NPCTR[o.tr][1]+'.</small>'+
     (o.gk||relOf(c.id)>=70?'<div class="npcl"><span>Ziel</span>'+goalTxt(c.id,o)+(o.gd?' ✓':'')+'</div>':'<div class="npcl dim"><span>Ziel</span>Noch unbekannt. Baue eine engere Beziehung auf.</div>')+
     (o.sk?'<div class="npcl"><span>Geheimnis</span>'+secTxt(c.id,o)+'</div>':'')+

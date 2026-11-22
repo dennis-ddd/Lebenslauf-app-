@@ -6,7 +6,7 @@ function season(){const m=new Date().getMonth();
   if(m>=2&&m<=4)return {n:'Frühlingsfest',d:'Riesenrad, Zuckerwatte und die ersten warmen Tage.',a:[['riesenrad','Riesenrad',8,'Die ganze Stadt von oben.'],['flohmarkt','Flohmarkt',0,'Alte Sachen verkaufen, ein bisschen Geld verdienen.']]};
   return {n:'Sommer in der Stadt',d:'Freibad, Grillduft und lange Abende am Fluss.',a:[['freibad','Ins Freibad',6,'Sprungturm, Pommes, Sonnenbrand.'],['grill','Grillparty',30,'Mit Freunden bis in die Nacht.']]};
 }
-const KURSE={fahren:['Fahrsicherheitstraining',300,'fahren',16],schloss:['Übungsschlösser',90,'schloss',12],hack:['Online-Kurs Programmieren',240,'hack',12],charme:['Rhetorikkurs',200,'charme',14],kampf:['Selbstverteidigung',150,'kampf',10]};
+const KURSE={fahren:['Fahrsicherheitstraining',300,'fahren',16],schloss:['Übungsschlösser',90,'schloss',16],hack:['Online-Kurs Programmieren',240,'hack',13],charme:['Rhetorikkurs',200,'charme',14],kampf:['Selbstverteidigung',150,'kampf',10]};
 const GYM={basic:{n:'Studio Basic',c:600,u:3,d:'Geräte, Hanteln, Duschen. 3 Einheiten im Jahr.'},premium:{n:'Studio Premium',c:1800,u:6,d:'Sauna, Kurse, Trainer. 6 Einheiten im Jahr.'}};
 const FOCUS={ganz:['Ganzkörper','Von allem etwas, gleichmäßig fit.'],ausdauer:['Ausdauer','Laufband und Rad: mehr Form und Gesundheit.'],kraft:['Kraft','Muskeln und Ausstrahlung: mehr Aussehen.'],kampfs:['Kampfsport','Sandsack und Technik: mehr Kampf.']};
 const CLUBS={fc:['Fußballverein',400,'Training unter Flutlicht, danach ins Vereinsheim. Glück und Freundschaften.'],box:['Boxclub',700,'Sandsäcke und ein Trainer, der nichts durchgehen lässt. Kampf und Form.'],lauf:['Lauftreff',150,'Jeden Morgen ein paar Kilometer. Form und Gesundheit.']};
@@ -63,8 +63,8 @@ function viewFreizeit(){ensureEcon();const lock=!!p.prison;
   if(lock&&fTab!=='sport')return h+card('','<p class="note">Im Gefängnis kannst du nur trainieren und lesen.</p>')+card('',actRows(['sport','lesen']));
   if(fTab==='aktiv'){const S=season();
     h+='<section class="card event"><div class="lbl">HEUTE IN DER STADT</div><h2 class="h">'+S.n+'</h2><p class="note">'+S.d+'</p>'+S.a.map(([k,n,c,d])=>row(n,(c?eur(px$(c))+' · ':'')+d,btn('event',k,once('ev_'+k)?'Erledigt':'Los','o',once('ev_'+k)||p.money<px$(c)))).join('')+'</section>';
-    h+=card('Aktivitäten',actRows(['party','urlaub','medi','lesen','lotto'])+row('Weltreise','Ein halbes Jahr um die Welt · '+eur(px$(perk('pilot')?12500:25000)),btn('welt',null,p.welt?'Gemacht':'Los','o',p.age<18||p.money<px$(25000)||p.act<=0)));
-    h+=card('Kurse','<p class="note" style="margin-bottom:4px">Jeder Kurs kostet 1 Aktion und verbessert eine Fähigkeit.</p>'+Object.keys(KURSE).map(k=>{const K=KURSE[k];return row(K[0],eur(px$(K[1]))+' · '+SKN[K[2]][0]+' '+Math.round(p.sk[K[2]]),btn('kurs',k,'Los','',p.age<K[3]||p.act<=0||p.money<px$(K[1])||p.sk[K[2]]>=100))}).join(''));
+    if(p.age<18)h+=card('Aktivitäten',actRows(KIDACT.filter(a=>ACTS[a]&&ACTS[a].ok())));else h+=card('Aktivitäten',actRows(['party','urlaub','medi','lesen','lotto'])+row('Weltreise','Ein halbes Jahr um die Welt · '+eur(px$(perk('pilot')?12500:25000)),btn('welt',null,p.welt?'Gemacht':'Los','o',p.age<18||p.money<px$(25000)||p.act<=0)));
+    h+=card('Kurse','<p class="note" style="margin-bottom:4px">Jeder Kurs kostet 1 Aktion und verbessert eine Fähigkeit.</p>'+Object.keys(KURSE).filter(k=>p.age>=18||p.age>=KURSE[k][3]).map(k=>{const K=KURSE[k];return row(K[0],eur(px$(K[1]))+' · '+SKN[K[2]][0]+' '+Math.round(p.sk[K[2]]),btn('kurs',k,'Los','',p.age<K[3]||p.act<=0||p.money<px$(K[1])||p.sk[K[2]]>=100))}).join(''));
   }
   if(fTab==='sport'){
     h+='<div class="bizsum"><div><b>'+Math.round(p.sk.form)+'</b><small>Form von 100</small></div><div><b>'+Math.round(p.sk.kampf)+'</b><small>Kampf von 100</small></div></div>';
@@ -77,9 +77,10 @@ function viewFreizeit(){ensureEcon();const lock=!!p.prison;
     h+=card('Training',actRows(['sport','jog']));
   }
   if(fTab==='gesund'){const ill=Object.keys(p.ill);
-    h+=card('Dein Befinden',ill.length?ill.map(k=>{const I=ILLS[k],T=TREAT[I.cure];return row(I.n,p.ill[k].y<0?'früh erkannt':'seit '+p.ill[k].y+' Jahr(en)',btn('treat',I.cure,T[0]+' · '+eur(px$(T[1])),'o',p.money<px$(T[1])||once('tr_'+I.cure)))}).join(''):'<p class="note">Dir fehlt gerade nichts. Gesundheit '+p.st.ge+' %.</p>');
+    h+=card('Dein Befinden',ill.length?ill.map(k=>{const I=ILLS[k],T=TREAT[I.cure];return row(I.n,p.ill[k].y<0?'früh erkannt':'seit '+p.ill[k].y+' Jahr(en)',p.age<16?btn('kiddoc','kinderarzt',once('kd_kinderarzt')?'Schon beim Arzt':'Mit '+parentN()+' zum Kinderarzt','o',once('kd_kinderarzt')):btn('treat',I.cure,T[0]+' · '+eur(px$(T[1])),'o',p.money<px$(T[1])||once('tr_'+I.cure)))}).join(''):'<p class="note">Dir fehlt gerade nichts. Gesundheit '+p.st.ge+' %.</p>');
     const opt=(key,obj,cur,lab)=>Object.keys(obj).map(k=>{const o=obj[k],n=Array.isArray(o)?o[0]:o.n,d=Array.isArray(o)?(o.length>3?o[2]:o[1]):o.d,c=Array.isArray(o)?(typeof o[1]==='number'?o[1]:0):o.c;
       return '<div class="opt2'+(cur===k?' on':'')+'"><div><b>'+n+'</b><small>'+(c?eur(px$(c))+' im Jahr · ':'')+d+'</small></div>'+(cur===k?'<span class="chip">Gewählt</span>':btn(key,k,'Wählen','g'))+'</div>'}).join('');
+    if(p.age<16){h+=hInfo()+kidHealth();return h}
     h+=hInfo()+card('Vorsorge',opt('vors',VORS,p.ls.vors))+card('Wenn du krank wirst',opt('krank',KRANK,p.ls.krank))+card('Ernährung'+(p.staff.koch?' (dein Koch kocht mediterran)':''),opt('diet',DIET,p.ls.diet));
     h+=card('Praxis und Klinik','<p class="note" style="margin-bottom:4px">Jede Behandlung einmal pro Jahr, ohne Aktion.</p>'+Object.keys(TREAT).map(k=>{const T=TREAT[k];return row(T[0],eur(px$(T[1]))+' · '+T[2],btn('treat',k,once('tr_'+k)?'Erledigt':'Termin','o',once('tr_'+k)||p.money<px$(T[1])||(T[4]&&p.age<T[4])))}).join(''));
   }

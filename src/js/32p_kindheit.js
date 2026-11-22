@@ -138,7 +138,7 @@ function lastYear(){if(!heavyOn()||!p.slast)return;
 function lastCard(){if(!p.slast&&!p.ther&&!hasPr('gestaerkt'))return '';const L=p.slast||0,lock=!!p.prison,T=p.ther,open=T&&T.y<=p.age;
   return '<section class="card"><h2 class="h">Seelische Gesundheit</h2>'+(hasPr('gestaerkt')&&!L?'<p class="note">Du hast Schweres verarbeitet. Das hat dich gestärkt.</p>':
     '<div class="row"><span class="t">Seelische Last<small>'+(L>=55?'Sehr hoch. Hol dir bitte Hilfe.':L>=35?'Hoch. Gespräche oder Therapie helfen.':L>=20?'Spürbar, vor allem nachts.':'Leicht.')+'</small></span><b>'+L+'</b></div><div class="bar"><i class="low" style="width:'+L+'%"></i></div>'+
-    '<div class="btns">'+(T?(open?btn('therapie',null,'Therapiesitzung · 1 Std.','o',lock||(T.s||0)>=8):'<span class="note">Therapieplatz ab '+T.y+'</span>'):btn('hausarzt',null,'Hausarzt-Gespräch · 1 Std.','o',lock))+(L>=45&&!p.medi?btn('psychiater',null,'Zum Psychiater','g',lock):'')+'</div>'+(p.medi?'<p class="note">Du nimmst Medikamente, die dich stabilisieren.</p>':'')+(T&&open?'<p class="note">Sitzungen dieses Jahr: '+(T.s||0)+' von 8</p>':''))+'</section>'+
+    '<div class="btns">'+(T?(open?btn('therapie',null,p.age<18?'Kinder- und Jugendtherapie · 1 Std.':'Therapiesitzung · 1 Std.','o',lock||(T.s||0)>=8):'<span class="note">Therapieplatz ab '+T.y+'</span>'):btn('hausarzt',null,p.age<18?'Mit '+parentN()+' zum Kinderarzt · 1 Std.':'Hausarzt-Gespräch · 1 Std.','o',lock))+(L>=45&&!p.medi&&p.age>=16?btn('psychiater',null,'Zum Psychiater','g',lock):'')+'</div>'+(p.medi?'<p class="note">Du nimmst Medikamente, die dich stabilisieren.</p>':'')+(T&&open?'<p class="note">Sitzungen dieses Jahr: '+(T.s||0)+' von 8</p>':''))+'</section>'+
     (p.fears&&p.fears.wasser&&p.age>=16?'<section class="card"><h2 class="h">Angst vor Wasser</h2><p class="note">Seit dem Schwimmkurs als Kind ist dir tiefes Wasser unheimlich.</p>'+btn('swimfix',null,'Schwimmkurs für Erwachsene · 1,5 Std. ('+(p.swimN||0)+'/3)','o',lock)+'</section>':'')}
 function act18(id,arg){switch(id){
   case 'hausarzt':{if(p.ther||!spendTime(60))return 1;p.ther={s:0,y:p.age+1};done('Deine Hausärztin nimmt sich Zeit und überweist dich. Ein Therapieplatz ist ab nächstem Jahr frei.');return 1}
@@ -177,5 +177,5 @@ function kidCards(){let h='';if(p.age<6)h+='<section class="card cute"><h2 class
   return h}
 {const _vl=viewLeben;viewLeben=function(){return kidCards()+_vl()}}
 {const _vd=viewDiary;viewDiary=function(){const h=_vd();const k=kidCards();const i=h.indexOf('</section>')+10;return h.slice(0,i)+k+h.slice(i)}}
-{const _vf=viewFreizeit;if(typeof _vf==='function')viewFreizeit=function(){const h=_vf();return fTab==='gesund'?lastCard()+h:h}}
+{const _vf=viewFreizeit;if(typeof _vf==='function')viewFreizeit=function(){const h=_vf();return fTab==='gesund'?(h.replace(/(<\/section>)/,'$1'+lastCard())):h}}
 {const _ve=viewEinst;viewEinst=function(){return _ve()+'<section class="card tgs"><h2 class="h">Inhalte</h2>'+tog('heavyOff',!!O.heavyOff,'Schwere Lebensereignisse aus','Keine Trennungen, Todesfälle, Unfälle oder seelischen Krisen')+'</section>'}}
