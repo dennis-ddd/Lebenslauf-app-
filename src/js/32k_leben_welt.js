@@ -14,7 +14,8 @@ function mkNb(){const g=pick(['w','m']);return {n:pick(g==='w'?FN:MN)+' '+pick(L
 const nbAge=o=>p.age-o.b;
 function nbSync(){if(!p)return;if(p.nbHome!==p.home||!p.nb){const moved=p.nbHome!=null&&p.nbHome!==p.home;p.nbHome=p.home;p.nb=[mkNb(),mkNb()];
   if(moved){p.rentX=0;p.mold=false;log('Neue Nachbarn: '+p.nb.map(x=>x.n).join(' und ')+'.')}}}
-function nbYear(){nbSync();if(p.prison||p.age<14)return;
+const nbOk=()=>p.age>=18&&p.home!=='eltern';
+function nbYear(){nbSync();if(p.prison||!nbOk())return;
   p.nb.forEach((o,i)=>{if(nbAge(o)>82&&ch(.18)){const gift=o.rel>=85?px$(R(5,30)*1000):0;
       if(gift){p.money+=gift;log(o.n+' ist gestorben und hat dir '+eur(gift)+' vererbt. Ihr wart gute Nachbarn.');news('Nachbar/in hinterlässt '+p.first+' ein Erbe','lokal')}
       else log('Dein/e Nachbar/in '+o.n+' ist gestorben.');p.nb[i]=mkNb();log(p.nb[i].n+' zieht nebenan ein.')}});
@@ -23,32 +24,32 @@ function nbYear(){nbSync();if(p.prison||p.age<14)return;
     const k=o.rel>=82&&ch(.35)?'nbfreund':{laut:'nblaerm',grill:'nbgrill',hilfsb:'nbpaket',neugier:'nbklatsch',streng:'nbregel',ruhig:'nbhilfe'}[o.tr];p.q.push({id:k,d:i})}}
 const nbE=(i,f)=>{const o=p.nb&&p.nb[i];return o?f(o):null};
 const nbRel=(o,v)=>{o.rel=clamp(o.rel+v,0,100)};
-QEV.nblaerm=i=>nbE(i,o=>E('Party nebenan',o.n+' feiert schon wieder bis drei Uhr nachts. Die Wände wackeln.',()=>!p.prison&&p.age>=14,[
+QEV.nblaerm=i=>nbE(i,o=>E('Party nebenan',o.n+' feiert schon wieder bis drei Uhr nachts. Die Wände wackeln.',()=>!p.prison&&nbOk(),[
   ['Klingeln und bitten',()=>ch(.55)?(nbRel(o,2),add('gl',2),remember(o,'Ich habe nett um Ruhe gebeten',0),'Die Musik wird leiser. „Sorry!“'):(nbRel(o,-8),add('gl',-3),'Ein Lachen, die Tür geht zu. Weiter geht es.')],
   ['Mitfeiern',()=>(nbRel(o,10),add('gl',6),add('ge',-2),remember(o,'Wir haben zusammen gefeiert',1),'Beste Party des Jahres. Der Kater am Morgen auch.')],
   ['Polizei rufen',()=>(nbRel(o,-22),add('gl',1),remember(o,'Hat die Polizei gerufen',-2),'Endlich Ruhe. Im Treppenhaus grüßt '+o.n.split(' ')[0]+' nicht mehr.')]]));
-QEV.nbgrill=i=>nbE(i,o=>E('Grillabend',o.n+' lädt das ganze Haus zum Grillen in den Hof ein.',()=>!p.prison&&p.age>=14,[
+QEV.nbgrill=i=>nbE(i,o=>E('Grillabend',o.n+' lädt das ganze Haus zum Grillen in den Hof ein.',()=>!p.prison&&nbOk(),[
   ['Mit Nudelsalat hingehen',()=>(nbRel(o,10),add('gl',5),remember(o,'Kam zum Grillen, mit Nudelsalat',1),'Würstchen, Geschichten, Sonnenuntergang. Schön!')],
   ['Höflich absagen',()=>(nbRel(o,-3),'„Schade, nächstes Mal!“')]]));
-QEV.nbpaket=i=>nbE(i,o=>E('Ein Paket',o.n+' fragt, ob du ein Paket annehmen kannst. Lieferung zwischen 8 und 20 Uhr.',()=>!p.prison&&p.age>=14,[
+QEV.nbpaket=i=>nbE(i,o=>E('Ein Paket',o.n+' fragt, ob du ein Paket annehmen kannst. Lieferung zwischen 8 und 20 Uhr.',()=>!p.prison&&nbOk(),[
   ['Klar, mach ich',()=>(nbRel(o,7),remember(o,'Hat mein Paket angenommen',1),'Am Abend steht eine Flasche Wein vor deiner Tür. Danke!')],
   ['Keine Zeit',()=>(nbRel(o,-4),'„Okay, dann frage ich jemand anderen.“')]]));
-QEV.nbklatsch=i=>nbE(i,o=>E('Treppenhaus-Gespräch',o.n+(p.wanted>0?' fragt neugierig, wer da nachts immer bei dir klingelt.':' erzählt dir den neuesten Klatsch aus dem Haus.'),()=>!p.prison&&p.age>=14,p.wanted>0?[
+QEV.nbklatsch=i=>nbE(i,o=>E('Treppenhaus-Gespräch',o.n+(p.wanted>0?' fragt neugierig, wer da nachts immer bei dir klingelt.':' erzählt dir den neuesten Klatsch aus dem Haus.'),()=>!p.prison&&nbOk(),p.wanted>0?[
   ['Lockere Ausrede',()=>ch(.45+p.sk.charme/250)?(nbRel(o,3),'„Ach so, Lieferdienst. Verstehe!“ Gerettet.'):(nbRel(o,-12),remember(o,'Hat mir eine Lüge aufgetischt',-1),'Der Blick sagt alles. '+o.n.split(' ')[0]+' glaubt dir kein Wort.')],
   ['Tür zumachen',()=>(nbRel(o,-15),'Jetzt ist '+o.n.split(' ')[0]+' erst recht neugierig.')]]:[
   ['Zuhören',()=>(nbRel(o,4),add('gl',3),'Der Typ aus dem 3. Stock hat angeblich einen Papagei, der Schlager singt.')],
   ['Abwimmeln',()=>(nbRel(o,-3),'Du hast es eilig. '+o.n.split(' ')[0]+' schaut beleidigt.')]]));
-QEV.nbregel=i=>nbE(i,o=>E('Beschwerde',o.n+' beschwert sich: '+pick(['Dein Fahrrad steht im Flur.','Der Müll ist falsch getrennt.','Du warst mit dem Treppenputzen dran.','Deine Schuhe stehen vor der Tür.']),()=>!p.prison&&p.age>=14,[
+QEV.nbregel=i=>nbE(i,o=>E('Beschwerde',o.n+' beschwert sich: '+pick(['Dein Fahrrad steht im Flur.','Der Müll ist falsch getrennt.','Du warst mit dem Treppenputzen dran.','Deine Schuhe stehen vor der Tür.']),()=>!p.prison&&nbOk(),[
   ['Entschuldigen',()=>(nbRel(o,5),'„Na gut. Kann ja mal passieren.“')],
   ['Diskutieren',()=>(nbRel(o,-12),add('gl',-2),remember(o,'Hat mit mir gestritten',-1),'Zehn Minuten Streit im Flur. Ein Zettel hängt jetzt am schwarzen Brett.')],
   ['Ignorieren',()=>(nbRel(o,-6),'Ab jetzt hängt jede Woche ein Zettel an deiner Tür.')]]));
-QEV.nbhilfe=i=>nbE(i,o=>E('Hilfe gesucht',nbAge(o)>=65?o.n+' ist nicht mehr gut zu Fuß und fragt, ob du die Einkäufe hochtragen kannst.':o.n+' zieht einen Schrank um und braucht starke Arme.',()=>!p.prison&&p.age>=14,[
+QEV.nbhilfe=i=>nbE(i,o=>E('Hilfe gesucht',nbAge(o)>=65?o.n+' ist nicht mehr gut zu Fuß und fragt, ob du die Einkäufe hochtragen kannst.':o.n+' zieht einen Schrank um und braucht starke Arme.',()=>!p.prison&&nbOk(),[
   ['Helfen',()=>(nbRel(o,12),add('gl',4),remember(o,'Hat mir geholfen, als ich Hilfe brauchte',2),'Eine Stunde später: Kaffee, Kuchen und eine Freundschaft.')],
   ['Keine Zeit',()=>(nbRel(o,-5),'„Schon gut, ich frage jemand anderen.“')]]));
-QEV.nbfreund=i=>nbE(i,o=>E('Gute Nachbarschaft',o.n+' steht mit '+(memSum(o)>=3?'einem selbstgebackenen Kuchen':'einer Pflanze')+' vor der Tür. '+(memSum(o)>=3?'„Ich hab nicht vergessen, wie du mir geholfen hast.“':'„Einfach so. Weil du ein/e tolle/r Nachbar/in bist.“'),()=>!p.prison&&p.age>=14,[
+QEV.nbfreund=i=>nbE(i,o=>E('Gute Nachbarschaft',o.n+' steht mit '+(memSum(o)>=3?'einem selbstgebackenen Kuchen':'einer Pflanze')+' vor der Tür. '+(memSum(o)>=3?'„Ich hab nicht vergessen, wie du mir geholfen hast.“':'„Einfach so. Weil du ein/e tolle/r Nachbar/in bist.“'),()=>!p.prison&&nbOk(),[
   ['Reinbitten',()=>(nbRel(o,5),add('gl',7),remember(o,'Wir haben zusammen Kaffee getrunken',1),'Ihr redet stundenlang. Aus Nachbarn werden Freunde.')],
   ['Danke sagen',()=>(add('gl',3),'Ein netter Moment an der Tür.')]]));
-QEV.nbanzeige=i=>nbE(i,o=>E('Anzeige!',o.n+' hat dich bei der Polizei angezeigt. Er/sie hat beobachtet, was nachts bei dir los ist. Die Polizei steht vor der Tür.',()=>!p.prison&&p.age>=14,[
+QEV.nbanzeige=i=>nbE(i,o=>E('Anzeige!',o.n+' hat dich bei der Polizei angezeigt. Er/sie hat beobachtet, was nachts bei dir los ist. Die Polizei steht vor der Tür.',()=>!p.prison&&nbOk(),[
   ['Anwalt nehmen (5.000 €)',()=>{p.money-=px$(5000);if(ch(.7)){p.wanted=Math.max(0,p.wanted-1);return 'Dein Anwalt zerlegt die Aussage. Das Verfahren wird eingestellt.'}toJail(1,'Die Beweise reichen.');return 'Trotz Anwalt: verurteilt.'}],
   ['Alles abstreiten',()=>{if(ch(.4+p.sk.charme/300))return 'Du bleibst ruhig. Die Polizei zieht wieder ab, aber sie behält dich im Auge.';toJail(R(1,2),'Dein Leugnen hilft nicht.');return 'Abstreiten hat nicht gereicht.'}],
   ['Nachbar/in bestechen (2.000 €)',()=>{p.money-=px$(2000);if(ch(.6)){nbRel(o,15);remember(o,'Hat mich bestochen',0);return o.n.split(' ')[0]+' zieht die Anzeige zurück. „Hab mich wohl geirrt.“'}p.wanted=Math.min(5,p.wanted+1);toJail(2,'Bestechungsversuch fliegt auf.');return 'Das war ein Fehler.'}]]));
@@ -111,7 +112,7 @@ const ecoJob=()=>ECO[ecoPh()].j;
     else news('Entwarnung: '+WORLD[f][0]+' bleibt aus','welt','Die Experten haben sich geirrt.')}
   _wy(R0);
   if(w.ph==='normal'&&!w.fc&&ch(.22)){const f=pick(['boom','boom','rezession','rezession','krise','pandemie']);w.fc=f;news('Prognose: '+WORLD[f][0]+' im nächsten Jahr?','welt','Experten erwarten: '+ECO[f].t);
-    try{notify('Wirtschaftsprognose: Nächstes Jahr droht '+WORLD[f][0]+'.','news')}catch(e){}}}}
+    if(p.age>=18)try{notify('Wirtschaftsprognose: Nächstes Jahr droht '+WORLD[f][0]+'.','news')}catch(e){}}}}
 function ecoCard(){if(!p||!p.world)return '';const ph=ecoPh(),W=WORLD[ph],fc=p.world.fc;
   const lv=(l,v)=>'<div class="row"><span class="t">'+l+'</span><b class="'+(v>0?'up':v<0?'dn':'')+'">'+(v>0?'▲ höher':v<0?'▼ niedriger':'normal')+'</b></div>';
   return '<section class="card eco eco-'+ph+'"><h2 class="h">Was das für dich bedeutet</h2><p class="note">'+ECO[ph].t+'</p>'+
@@ -141,7 +142,7 @@ function npcMem(id,t,v){const o=npcOf(id);if(!o)return;remember(o,t,v*(o.tr==='n
   const who=id==='love'||id==='time'?'partner':id==='meet'?'freund':arg,before=who?relOf(who):0;const r=_act(id,arg);
   try{if(who&&npcOf(who)){const d=relOf(who)-before;if(id==='invno')npcMem(who,'Hat meine Einladung abgesagt',-1);else if(d>0)npcMem(who,{call:'Hat angerufen',meet:'Wir haben etwas unternommen',love:'Hat mir eine liebe Nachricht geschickt',time:'Wir hatten ein schönes Date',grat:'Hat mir gratuliert',invyes:'Ist zu meiner Einladung gekommen'}[id]||'War für mich da',1)}}catch(e){}
   return r}}
-function npcYear(){if(p.prison||p.age<8)return;const cs=contacts().map(c=>c.id).filter(id=>npcOf(id));if(!cs.length)return;
+function npcYear(){if(p.prison||p.age<18)return;const cs=contacts().map(c=>c.id).filter(id=>npcOf(id));if(!cs.length)return;
   cs.forEach(id=>{const o=npcOf(id),C=p.chats[id];const talked=C&&C.msgs.some(m=>m.me&&m.a===p.age-1);if(!talked&&relOf(id)<45&&(o.tr==='nachtr'||o.tr==='eifers')&&ch(.4))npcMem(id,'Hat sich ein ganzes Jahr nicht gemeldet',-1)});
   const r=Math.random();
   if(r<.16){const L=cs.filter(id=>!npcOf(id).sd);if(L.length)p.q.push({id:'npcsec',d:pick(L)})}
@@ -175,7 +176,7 @@ QEV.npcgoal=id=>{const o=npcOf(id);if(!o||o.gd)return null;const n=npcName(id),g
     if(g==='haus')return E('Traum vom Haus',n+' zeigt dir Hausangebote auf dem Handy. „Wäre das nicht schön? Ein eigenes Zuhause?“',()=>!!p.partner,[['Wir suchen zusammen',()=>(fin('Hat mit mir nach einem Haus gesucht',1),relUp(id,6),setTimeout(()=>{if(p&&p.alive){tab='wohnen';render()}},600),'Ihr schaut euch Angebote an.')],['Zu teuer',()=>(fin('Hat meinen Traum vom Haus abgetan',-1),relUp(id,-6),'„Immer ist alles zu teuer.“')]]);
     if(g==='kinder')return E('Kinderwunsch',n+' sagt leise: „Ich wünsche mir ein Kind mit dir.“',()=>!!p.partner,[['Ich auch',()=>(fin('Wir wollen beide Kinder',2),relUp(id,10),'Ihr haltet euch lange im Arm. Im Familie-Reiter könnt ihr es versuchen.')],['Ich bin nicht bereit',()=>(fin('Will (noch) keine Kinder',-1),relUp(id,-10),'Ein schwieriges Gespräch.')]]);
     return E('Gemeinsamer Traum',n+' träumt von '+goalTxt(id,o)+'. 4.000 €, zwei Wochen.',()=>!!p.partner,[['Buchen',()=>(p.money-=px$(4000),fin('Unsere große Reise',3),relUp(id,15),add('gl',12),'Sonnenaufgang am Meer. Das vergesst ihr nie.')],['Ein andermal',()=>(fin('Wieder keine Reise',-1),relUp(id,-5),'„Wie immer.“')]])}
-  if(g==='meer')return E('Ruhestand am Meer',n+' erzählt, dass ihr Traum ein Häuschen am Meer ist. Es fehlen 10.000 €.',()=>true,[['Zuschießen (10.000 €)',()=>(p.money-=px$(10000),fin('Hat uns das Haus am Meer ermöglicht',3),relUp(id,18),add('gl',6),'Postkarten mit Möwen und Sonnenbrand. Sie sind überglücklich.')],['Nur besuchen kommen',()=>(fin('Kommt uns besuchen',1),relUp(id,4),'„Wir freuen uns auf dich!“')]]);
+  if(g==='meer'&&p.age<25){o.gd=0;return null}if(g==='meer')return E('Ruhestand am Meer',n+' erzählt, dass ihr Traum ein Häuschen am Meer ist. Es fehlen 10.000 €.',()=>true,[['Zuschießen (10.000 €)',()=>(p.money-=px$(10000),fin('Hat uns das Haus am Meer ermöglicht',3),relUp(id,18),add('gl',6),'Postkarten mit Möwen und Sonnenbrand. Sie sind überglücklich.')],['Nur besuchen kommen',()=>(fin('Kommt uns besuchen',1),relUp(id,4),'„Wir freuen uns auf dich!“')]]);
   if(g==='vorstand')return E('Der Chef braucht dich',n+' will in den Vorstand und braucht ein Spitzenergebnis im Team.',()=>!!p.job,[['Überstunden machen',()=>(p.job.perf=Math.min(100,(p.job.perf||50)+12),add('gl',-4),fin('Hat mir den Rücken freigehalten',2),'Der Chef wird befördert. Und vergisst dich nicht.')],['Normal weiterarbeiten',()=>(fin('Hat sich nicht ins Zeug gelegt',-1),'Der Chef ist enttäuscht.')]]);
   if(g==='besser')return E('Die alte Rivalität',n+' will unbedingt '+goalTxt(id,o)+' und fordert dich zu einem Wettrennen heraus.',()=>true,[['Annehmen',()=>ch(.45+p.sk.form/250)?(add('gl',6),fin('Hat mich geschlagen',-1),'Gewonnen! '+n+' ist sprachlos.'):(add('gl',-4),fin('Ich war besser',0),'Verloren. '+n+' grinst.')],['Ablehnen',()=>'Du hast Besseres zu tun.']]);
   return E(n+' hat einen Traum',n+' will '+goalTxt(id,o)+'.',()=>true,[['Unterstützen',()=>(fin('Hat mich unterstützt',2),relUp(id,10),'„Du bist die/der Beste.“')],['Belächeln',()=>(fin('Hat mich ausgelacht',-2),relUp(id,-10),'Das sitzt.')]])};

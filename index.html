@@ -1958,7 +1958,7 @@ function ageUp(){
   if(!p.parentsGone&&a+p.pa>=86&&ch(.35)){p.parentsGone=true;log('Deine Eltern sind in hohem Alter verstorben.');parentInherit();add('gl',-15)}
   if(a>=8&&!p.parentsGone)msg('mama','Alles Gute zum '+a+'. Geburtstag, mein Schatz!');
   if(a>=8&&ch(.7))msg('freund',pick(['Happy Birthday!! Party?','Alles Gute, alte Socke!','Noch ein Jahr älter, haha. Alles Gute!']));
-  if(ch(.4)){const who=pick(['mama','papa','freund'].filter(k=>k==='freund'?a>=6:!p.parentsGone));if(who)msg(who,pick(CHAT_SMALL[who]))}
+  if(a>=8&&ch(.4)){const who=pick(['mama','papa','freund'].filter(k=>k==='freund'?a>=10:!p.parentsGone));const POOL=a<13?CHAT_KID:a<18?CHAT_TEEN:CHAT_SMALL;if(who&&POOL[who])msg(who,pick(POOL[who]))}
   p.trend=pick(TRENDS.filter(k=>k!==p.trend));
   // Körper
   if(a>45)add('ge',-R(0,2));if(a>65)add('ge',-R(1,4));if(a>30)add('au',-R(0,1));
@@ -2014,7 +2014,7 @@ E('Erbschaft','Deine Großtante ist gestorben und hat dir etwas vererbt.',()=>p.
 E('Rückenschmerzen','Dein Rücken meldet sich jeden Morgen.',()=>p.age>=35,[['Physiotherapie (400 €)',()=>(p.money-=400,add('ge',6),'Viel besser!')],['Ignorieren',()=>(add('ge',-6),'Es wird schlimmer.')]]),
 E('Midlife-Crisis','Plötzlich fragst du dich, ob das schon alles war.',()=>p.age>=42&&p.age<=55,[['Motorrad kaufen (12.000 €)',()=>(p.money-=12000,add('gl',10),'Wind in den Haaren!')],['Neues Hobby',()=>(add('gl',7),'Du lernst Töpfern. Überraschend schön.')]]),
 E('Ein Haustier?','Dein Kind wünscht sich so sehr einen Hund.',()=>p.kids.some(k=>p.age-k.b>=5&&p.age-k.b<16)&&!p.pets.some(x=>x.t==='hund'),[['Ja',()=>(adoptPet('hund',true),'Ein Hund zieht bei euch ein.')],['Nein',()=>(add('gl',-2),'Tränen beim Abendessen.')]]),
-E('Rubbellos','Jemand schenkt dir ein Rubbellos.',()=>p.age>=10,[['Rubbeln',()=>{if(ch(.01)){p.money+=10000;add('gl',15);return '10.000 €! Unglaublich!'}if(ch(.12)){p.money+=100;return '100 € gewonnen.'}return 'Leider eine Niete.'}]]),
+E('Rubbellos','Jemand schenkt dir ein Rubbellos.',()=>p.age>=18,[['Rubbeln',()=>{if(ch(.01)){p.money+=10000;add('gl',15);return '10.000 €! Unglaublich!'}if(ch(.12)){p.money+=100;return '100 € gewonnen.'}return 'Leider eine Niete.'}]]),
 E('Auto kaputt','Dein Auto springt nicht mehr an.',()=>p.cars.length>0,[['Reparieren (1.500 €)',()=>(p.money-=1500,'Läuft wieder.')],['Verkaufen',()=>{const c=p.cars.shift();const v=Math.round(CARS[c].pr*.3);p.money+=v;return CARS[c].n+' für '+eur(v)+' verkauft.'}]]),
 E('Tierarzt','Dein Haustier frisst nicht mehr und wirkt schlapp.',()=>p.pets.length>0,[['Zum Tierarzt (400 €)',()=>(p.money-=400,'Nach ein paar Tagen ist es wieder fit.')],['Abwarten',()=>{if(ch(.4)){const x=p.pets.shift();add('gl',-10);return x.n+' hat es leider nicht geschafft.'}return 'Glück gehabt, es erholt sich.'}]]),
 E('Aktientipp','Ein Kollege schwört: „Pixelhaus Games geht durch die Decke!“',()=>p.age>=18&&p.money>=2000&&!p.prison,[['2.000 € investieren',()=>{p.money-=2000;ensureStocks();p.sh.px=(p.sh.px||0)+2000/p.px.px;p.cost.px=(p.cost.px||0)+2000;return 'Du besitzt jetzt mehr Pixelhaus-Aktien. Mal sehen …'}],['Lieber nicht',()=>'Du bleibst vorsichtig.']]),
@@ -2394,7 +2394,7 @@ const TERM={arzt:['Vorsorge beim Hausarzt','Gesundheit +3',()=>p.age>=18,()=>{ad
  wahl:['Wahltag','Deine Stimme zählt',()=>p.age>=18&&p.age%4===0,()=>{addRuf(1);return 'Du warst wählen.'},null],
  blut:['Blutspende','Glück +3, Ruf +2',()=>p.age>=18&&p.age<=68,()=>{add('gl',3);addRuf(2);return 'Du hast Leben gerettet.'},null]};
 function newTerms(){const ks=Object.keys(TERM).filter(k=>TERM[k][2]());p.terms=shuffle(ks).slice(0,4).map(k=>({k,d:R(1,28),m:R(0,11),done:false})).sort((x,y)=>x.m-y.m||x.d-y.d)}
-function calYear(R0){if(p.age-1>=10)people().forEach(([id,n])=>{if(p.grat&&p.grat[id]===p.age-1)return;
+function calYear(R0){if(p.age-1>=14)people().forEach(([id,n])=>{if(p.grat&&p.grat[id]===p.age-1)return;
     if(id==='partner'&&p.partner){p.partner.rel-=8;msg('partner','Du hast meinen Geburtstag vergessen …')}
     else if(id==='mama'||id==='papa'){p.rel[id]=Math.max(0,p.rel[id]-5);msg(id,'Hast du meinen Geburtstag vergessen? Naja.')}
     else if(id==='freund'){p.rel.freund=Math.max(0,p.rel.freund-7)}
@@ -2530,7 +2530,7 @@ function rivalYear(){const r=p.rival;if(!r||!O.rival||p.age<6)return;const a=p.a
   if(a>=13&&ch(.4))r.fol=Math.round(r.fol*1.35+R(30,400));
   if(!r.partner&&a>=22&&a<=40&&ch(.15)){r.partner=true;if(!r.friend)msg('rival','Ich heirate übrigens. Du bist nicht eingeladen.')}if(r.partner&&a>=25&&a<=42&&r.kids<3&&ch(.15))r.kids++;
   if(r.friend){if(ch(.3))msg('rival',pick(['Lust auf ein Bier wie früher?','Danke nochmal für damals.','Wer hätte gedacht, dass wir mal Freunde werden.']));return}
-  const myMs=(p.ms||[]).filter(m=>m.a===a);if(myMs.length&&ch(.6))msg('rival',pick(RRESP));else if(ch(.35))msg('rival',pick(RTAUNT));
+  const myMs=(p.ms||[]).filter(m=>m.a===a);if(p.age<8){}else if(myMs.length&&ch(.6))msg('rival',pick(RRESP));else if(ch(.35))msg('rival',pick(p.age<18?RTAUNT_KID:RTAUNT));
 }
 const rivE=c=>()=>!!(O.rival&&p.rival&&!p.rival.friend&&p.age>=6)&&c();
 EVENTS.push(
@@ -2789,7 +2789,7 @@ function lifeX(R0){ensureLife();
   if(p.age>=8&&p.rel.freund<12){log('Du und '+p.friend+' habt euch aus den Augen verloren.');p.friend=pick(FN.concat(MN).filter(x=>x!==p.friend));p.rel.freund=45;p.chats.freund={msgs:[],un:0};msg('freund','Hi! Wir kennen uns vom Sport. Lust, mal was zu machen?')}
   p.lernN=0;p.skipN=0;if(p.trust&&p.age>=18){p.money+=p.trust;R0.inc.push(['Treuhandfonds der Familie',p.trust]);log('Du bekommst deinen Treuhandfonds: '+eur(p.trust)+'.');p.trust=0}
   const S=p.stats;S.maxNW=Math.max(S.maxNW,Math.round(netWorth()));S.earn+=Math.round(R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0));if(p.sm)S.maxFol=Math.max(S.maxFol,p.sm.fol);
-  if(p.age>=8&&ch(.3)&&!p.parentsGone){const k=pick(['mama','papa']);if(p.rel[k]<30)msg(k,'Du meldest dich gar nicht mehr. Ist alles okay?')}}
+  if(p.age>=18&&p.home!=='eltern'&&ch(.3)&&!p.parentsGone){const k=pick(['mama','papa']);if(p.rel[k]<30)msg(k,'Du meldest dich gar nicht mehr. Ist alles okay?')}}
 
 /* ================= Aktionen ================= */
 ACTS.schwaenzen={n:'Schwänzen',d:'Glück +, Zeugnis −',ok:()=>!!p.school&&p.age>=10,f:()=>{p.skipN=(p.skipN||0)+1;add('gl',R(3,6));if(ch(.25)&&!p.parentsGone){p.rel.mama=Math.max(0,p.rel.mama-5);msg('mama','Die Schule hat angerufen. Du warst nicht da?!');return 'Erwischt! Die Schule hat deine Eltern angerufen.'}return 'Ein freier Tag im Park.'}};
@@ -2941,7 +2941,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
- {v:'4.3',big:true,t:'Kindheit, die prägt',neu:['Baby-Meilensteine: erstes Lächeln, erstes Wort, laufen lernen, Kita-Start und mehr','Minispiele fürs Baby: Erstes Wort, Laufen lernen, Bauklötze','Niedlichkeit: Babys sind süß. Mit 6 wird daraus Charme','Kindheitsentscheidungen mit Folgen: Spielplatz, Pausenbrot, Mutprobe, Geldbeutel und mehr','Prägungen mit 16, zum Beispiel Streitschlichter/in, Mutig oder Klassenclown','Kindheitsfreunde kommen zurück: als Chef/in, Nachbar/in oder Date. Und sie erinnern sich','Klassentreffen mit 30, 40 und 50','Rückblenden: Erinnerungen aus der Kindheit helfen später','Schwere Lebensereignisse und seelische Last, mit Therapie, Psychiater und Klinik als Weg heraus. Abschaltbar in den Einstellungen'],mod:['Nachbar-Ereignisse erst ab 14','Mehrere wartende Ereignisse pro Jahr werden nacheinander gezeigt']},
+ {v:'4.3',big:true,t:'Kindheit, die prägt',neu:['Baby-Meilensteine: erstes Lächeln, erstes Wort, laufen lernen, Kita-Start und mehr','Minispiele fürs Baby: Erstes Wort, Laufen lernen, Bauklötze','Niedlichkeit: Babys sind süß. Mit 6 wird daraus Charme','Kindheitsentscheidungen mit Folgen: Spielplatz, Pausenbrot, Mutprobe, Geldbeutel und mehr','Prägungen mit 16, zum Beispiel Streitschlichter/in, Mutig oder Klassenclown','Kindheitsfreunde kommen zurück: als Chef/in, Nachbar/in oder Date. Und sie erinnern sich','Klassentreffen mit 30, 40 und 50','Rückblenden: Erinnerungen aus der Kindheit helfen später','Schwere Lebensereignisse und seelische Last, mit Therapie, Psychiater und Klinik als Weg heraus. Abschaltbar in den Einstellungen'],mod:['Kinder und Jugendliche bekommen nur noch altersgerechte Nachrichten: eigene Chats von Mama, Papa, Geschwistern, Freunden und dem Rivalen, keine Wirtschaftsprognosen, Kontowarnungen, Nachbarn, Geheimnisse oder Geldbitten','Nachbar-Ereignisse erst in der eigenen Wohnung','Mehrere wartende Ereignisse pro Jahr werden nacheinander gezeigt']},
  {v:'4.2',big:true,t:'Dein Leben, deine Geschichte',neu:['Eigener Stadtname beim Start, änderbar in den Einstellungen','Tagebuch-App: Deine Figur schreibt jedes Jahr einen Eintrag, du kannst eigene Notizen ergänzen','Werte und Moral: Deine Entscheidungen zeigen, was für ein Mensch du bist','Ehrliche Lebensfragen, zum Beispiel ob du mit deinem Job glücklich bist','Ereignisse als Bühne mit Bild und großen Antwortkarten','Münzen, Konfetti zum Geburtstag und Ringe, die sich füllen','Ladebildschirm mit Lebensweisheit','Darstellung: größere Schrift und weniger Bewegung einstellbar'],mod:['Handy oben runterwischen bringt dich in die Stadt, der Handy-Knopf unten in der Stadt wieder zurück','Ruhigeres Design: Kosten und Wirkungen als Symbole, lange Erklärungen eingeklappt','Jede App hat ihren eigenen Farbakzent','Neue runde Schrift für Überschriften','Besserer Kontrast auf Glas-Karten']},
  {v:'4.1',big:true,t:'Deine Ausbildung zählt',neu:['Gerichts-Minispiel: Nachbarn, Vermieter oder die Staatsanwaltschaft vor Gericht. Mit Jura ohne Anwaltskosten und mit besseren Chancen','Medizin: Gesundheits-Punkte, Notfälle in der Nachbarschaft, Krankheiten in der Familie früher erkennen','Informatik: eigene App programmieren, Hackerangriffe selbst abwehren','Architektur: Ausbauten 25 % günstiger und schneller','Lehramt: klügere Kinder, Nachhilfe ohne Aktionspunkte, ehemalige Schüler','Mechatronik, Koch/Köchin, Pflege, Friseur/in, Bank- und Bürokaufleute, Polizei und Pilot/in mit eigenen Vorteilen','Bildungs-App: Übersicht, was dir deine Ausbildung bringt'],mod:['Ausbildungsberufe zählen nach 2 Jahren im Job als gelernt']},
  {v:'4.0',big:true,t:'Aurora: neues Design und lebendige Nachbarschaft',neu:['Neues Aurora-Design: Lichtverlauf aus Violett, Türkis und Orange, Glas-Karten, farbige Statusringe, glänzende App-Symbole','Neue Startseite mit großem Avatar, Profilkarte und Weiterspielen-Knopf','Stadt bei Nacht: Fenster leuchten, Laternen brennen, Tag und Nacht folgen der Spieluhr','Karten-Pins mit Namen und Personen, die gerade dort sind','Apps lange drücken und ziehen, um sie zu verschieben','Nachbarn mit Persönlichkeit: Grillfeste, Lärm, Pakete, Freundschaften und Anzeigen','Wohnungsprobleme: Mieterhöhung, Schimmel, Nebenkosten-Nachzahlung','Erbstreit: Wer im Testament übergangen wird, fordert den Pflichtteil, auch in der nächsten Generation','Wirtschaftsprognosen und spürbare Folgen für Jobs, Geschäfte und Mieten','Figuren mit Persönlichkeit, Zielen, Geheimnissen und Gedächtnis'],mod:['Chats zeigen echte Gesichter','Das klassische Design gibt es weiter unter Einstellungen → Design']},
@@ -3234,15 +3234,15 @@ function spendTime(m){if(!clockOn())return true;if(p.clock+m>DAYEND){toast('Daf�
 const REPLY={lieb:['Danke dir, hab dich lieb!','Das ist so lieb von dir!','Du bist die/der Beste.','Freu mich total, von dir zu hören!'],kurz:['Ok.','Jo.','Klingt gut.','Mal sehen.'],frech:['Lass mich in Ruhe.','Muss das jetzt sein?','Kein Bock.','Später vielleicht.']};
 const INVITES={freund:[['Kino heute Abend?','kino'],['Kommst du mit zum Konzert?','konzert'],['Zocken bei mir?','zocken'],['Lust auf einen Spieleabend?','spiele']],mama:[['Kommst du Sonntag zum Essen?','essen']],papa:[['Hilfst du mir am Samstag beim Umzug von Oma?','hilfe']],
  partner:[['Wollen wir heute schick essen gehen?','dinner']],g_job:[['Feierabendbier heute?','bier']],g_klasse:[['Party bei Jonas am Freitag!','party']],kid:[['Grillen bei uns am Wochenende?','grill']]};
-const GROUPS={g_fam:['Familie','#E5527A',()=>!p.parentsGone||(p.sibs||[]).length>0],g_klasse:['Klasse '+'','#3BB273',()=>!!p.school&&p.age>=10],g_job:['Kollegen','#6B7385',()=>!!(p.job&&!['influ','pol'].includes(p.job.id))]};
+const GROUPS={g_fam:['Familie','#E5527A',()=>p.age>=10&&(!p.parentsGone||(p.sibs||[]).length>0)],g_klasse:['Klasse '+'','#3BB273',()=>!!p.school&&p.age>=10],g_job:['Kollegen','#6B7385',()=>!!(p.job&&!['influ','pol'].includes(p.job.id))]};
 const GMSG={g_fam:[['Mama','Wer bringt am Sonntag den Nachtisch mit?'],['Papa','Ich hab ein neues Grillrezept.'],['Mama','Schaut mal, die Katze vom Nachbarn!'],['Papa','Wer hat meinen Akkuschrauber?']],
  g_klasse:[['Lena','Hat jemand die Mathe-Hausaufgaben?'],['Jonas','Morgen fällt Sport aus!!'],['Mia','Wer kommt mit ins Freibad?'],['Tim','Ich hab den Test komplett verhauen']],
  g_job:[['Sabine','Wer hat meinen Joghurt aus dem Kühlschrank genommen?'],['Murat','Meeting um 9 ist verschoben.'],['Chefin','Gute Arbeit diese Woche, Team!'],['Jan','Kuchen in der Küche!']]};
 function relUp(id,n){if(id==='partner'&&p.partner)p.partner.rel=clamp(p.partner.rel+n,0,100);else if(p.rel&&p.rel[id]!=null)p.rel[id]=clamp(p.rel[id]+n,0,100);
   else if(String(id).startsWith('kid')){const k=p.kids[+id.slice(3)];if(k)k.rel=clamp(k.rel+n,0,100)}else if(String(id).startsWith('sib')){const s=(p.sibs||[])[+id.slice(3)];if(s)s.rel=clamp(s.rel+n,0,100)}}
 function chatsYear(){const cs=contacts().map(c=>c.id);Object.keys(p.chats).forEach(k=>{const c=p.chats[k];if(c.inv&&c.inv.y<p.age)c.inv=null});
-  Object.keys(GROUPS).forEach(g=>{if(GROUPS[g][2]()&&ch(.6)){const [n,t]=pick(GMSG[g]);msg(g,n+': '+t)}});
-  cs.forEach(id=>{const key=id.startsWith('kid')?'kid':id;const L=INVITES[key];if(!L||!ch(.3))return;if(key==='kid'&&p.age-p.kids[+id.slice(3)].b<20)return;const [t,k]=pick(L);msg(id,t);p.chats[id].inv={t,k,y:p.age}});
+  if(p.age<8)return;Object.keys(GROUPS).forEach(g=>{if(GROUPS[g][2]()&&ch(.6)){const [n,t]=pick(g==='g_fam'&&p.age<18?GMSG_KID:GMSG[g]);msg(g,n+': '+t)}});
+  cs.forEach(id=>{const key=id.startsWith('kid')?'kid':id;const L=p.age<18?(key==='freund'&&p.age>=13?INVITES.freund:INVITES_KID[key]):INVITES[key];if(!L||!ch(.3))return;if(key==='kid'&&p.age-p.kids[+id.slice(3)].b<20)return;const [t,k]=pick(L);msg(id,t);p.chats[id].inv={t,k,y:p.age}});
   cs.forEach(id=>{const c=p.chats[id];if(c&&c.msgs.length&&!c.msgs[c.msgs.length-1].me&&!id.startsWith('g_'))c.pend=true})}
 const _msg0=msg;msg=function(id,t,me){_msg0(id,t,me);const c=p.chats[id];if(c)c.pend=!me};
 function chatExtra(c){const C=p.chats[c.id]||{};let h='';
@@ -3288,7 +3288,7 @@ function sibYear(){(p.sibs||[]).forEach((s,i)=>{const a=sibAge(s);if(a<0)return;
   if(a>=20&&!s.job&&ch(.4))s.job=pick(['Krankenpfleger/in','Ingenieur/in','Verkäufer/in','Lehrer/in','Polizist/in','Grafiker/in','Koch/Köchin']);
   if(a>=24&&a<=40&&!s.mar&&ch(.12)){s.mar=true;p.q.push({id:'sibwed',d:i})}
   if(a>=5&&p.age>=5&&p.age<=16&&ch(.15))p.q.push({id:'sibfight',d:i});
-  if(a>=22&&ch(.05))p.q.push({id:'sibhelp',d:i});if(ch(.2))msg('sib'+i,pick(['Na, Kleines/Großes?','Weißt du noch, früher?','Mama nervt mal wieder, oder?','Wann sehen wir uns?']))});
+  if(a>=22&&p.age>=18&&ch(.05))p.q.push({id:'sibhelp',d:i});if(p.age>=8&&ch(.2))msg('sib'+i,pick(p.age<18?SIB_KID:['Na, Kleines/Großes?','Weißt du noch, früher?','Mama nervt mal wieder, oder?','Wann sehen wir uns?']))});
   const pa=p.age+p.pa;if(!p.parentsGone&&pa>=78&&p.age>=18){if(!p.care&&(p.careAsk==null||p.age-p.careAsk>=3)){p.careAsk=p.age;p.q.push({id:'care'})}
     if(p.care==='heim'){const c=px$(18000);p.money-=c;return c}if(p.care==='selbst'){add('gl',-3);p.rel.mama=Math.min(100,p.rel.mama+4);p.rel.papa=Math.min(100,p.rel.papa+4);addRuf(1)}}
   if(p.parentsGone&&p.care){p.care=null}
@@ -3318,8 +3318,8 @@ function reminders(){const L=[],a=p.age;
   if(a>=10&&p.st.ge<60&&(p.lastArzt==null||a-p.lastArzt>=2))L.push(['arzt','Du warst lange nicht beim Arzt. Ein Check-up tut dir gut.','freizeit','gesund']);
   if(a>=10&&(p.lastSport==null||a-p.lastSport>=2))L.push(['sport','Zeit für Sport! Dein Körper wird es dir danken.','freizeit','sport']);
   const ob=people().filter(([id])=>p.grat[id]!==a);if(a>=10&&ob.length)L.push(['bd','Geburtstag: '+ob[0][1]+'. Nicht vergessen zu gratulieren!','kalender']);
-  const t=(p.terms||[]).find(x=>!x.done);if(t&&TERM[t.k])L.push(['term','Termin im Kalender: '+TERM[t.k][0]+'.','kalender']);
-  if(p.money<0)L.push(['geld','Dein Konto ist im Minus. Schau mal in die Bank-App.','bank']);
+  const t=(p.terms||[]).find(x=>!x.done);if(a>=10&&t&&TERM[t.k])L.push(['term','Termin im Kalender: '+TERM[t.k][0]+'.','kalender']);
+  if(a>=16&&p.money<0)L.push(['geld','Dein Konto ist im Minus. Schau mal in die Bank-App.','bank']);
   if(p.st.gl<30)L.push(['gl','Du wirkst niedergeschlagen. Unternimm etwas Schönes!','freizeit','aktiv']);
   return L.filter(r=>!(p.remS&&p.remS[r[0]]===a))}
 function maybeRemind(){if(!p||!p.alive||tab!=='home'||document.getElementById('modal').classList.contains('on'))return;if(O.rem===false)return;p.remS=p.remS||{};
@@ -3357,7 +3357,7 @@ const CEV={katze:['Katze im Baum','Eine Katze sitzt fest. Schaffst du es hoch?',
  lieferung:['Eilige Lieferung','Ein Paket muss sofort an die richtige Adresse.','<path d="M3 7l9-4 9 4v10l-9 4-9-4z"/>'],schueler:['Schüler/in in der Stadt','Ein Kind aus deiner Klasse fragt dich etwas.','<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c2 2 10 2 12 0v-5"/>'],fans:['Fans erkennen dich!','„Bist du nicht …?“ Eine Gruppe will ein Selfie.','<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/>'],
  panne:['Autopanne','Ein Auto steht mit Warnblinker am Rand.','<path d="M3 13l2-5h14l2 5v5H3z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>'],buerger:['Bürgergespräch','Leute erkennen dich und haben Fragen zur Politik.','<path d="M4 21h16M6 21V10M18 21V10M3 10l9-6 9 6z"/>']};
 const JOBCEV={polizei:'verfolgung',arzt:'notfall',pflege:'notfall',koch:'foodtruck',kellner:'foodtruck',cafe:'foodtruck',paket:'lieferung',zeitung:'lieferung',lager:'lieferung',lehrer:'schueler',influ:'fans',mecha:'panne',pol:'buerger'};
-function cityEvents(){if(p.cevY!==p.age){p.cevY=p.age;const g=shuffle(['katze','tourist','geld','dieb','flash','markt','umfrage','unfall']).slice(0,3);const j=p.job&&JOBCEV[p.job.id];if(j)g.push(j);else if(p.sm&&p.sm.fol>=20000)g.push('fans');
+function cityEvents(){if(p.age<6)return [];if(p.cevY!==p.age){p.cevY=p.age;const g=shuffle(['katze','tourist','geld','dieb','flash','markt','umfrage','unfall'].filter(k=>p.age>=14||!['dieb','unfall','umfrage'].includes(k))).slice(0,3);const j=p.job&&JOBCEV[p.job.id];if(j)g.push(j);else if(p.sm&&p.sm.fol>=20000)g.push('fans');
     p.cev=g.map(k=>({k,x:R(8,82),y:R(22,68)}))}return p.age>=6?p.cev||[]:[]}
 function cevStrip(){const L=cityEvents();if(!L.length)return '';return '<section class="card cevs"><div class="lbl">GERADE IN DER STADT</div><div class="cevl">'+L.map((e,i)=>'<button class="cevb" data-a="cityev" data-g="'+i+'"'+(p.prison?' disabled':'')+'><span class="cevi"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+CEV[e.k][2]+'</svg></span><b>'+CEV[e.k][0]+'</b></button>').join('')+'</div><p class="note">Kostet keine Aktion, nur etwas Zeit. Auf der Karte pulsieren die Orte.</p></section>'}
 function runCityEv(i){const L=p.cev||[],e=L[i];if(!e||p.prison)return;if(!spendTime(30))return;L.splice(i,1);const k=e.k,T=CEV[k][0];
@@ -3686,7 +3686,8 @@ function mkNb(){const g=pick(['w','m']);return {n:pick(g==='w'?FN:MN)+' '+pick(L
 const nbAge=o=>p.age-o.b;
 function nbSync(){if(!p)return;if(p.nbHome!==p.home||!p.nb){const moved=p.nbHome!=null&&p.nbHome!==p.home;p.nbHome=p.home;p.nb=[mkNb(),mkNb()];
   if(moved){p.rentX=0;p.mold=false;log('Neue Nachbarn: '+p.nb.map(x=>x.n).join(' und ')+'.')}}}
-function nbYear(){nbSync();if(p.prison||p.age<14)return;
+const nbOk=()=>p.age>=18&&p.home!=='eltern';
+function nbYear(){nbSync();if(p.prison||!nbOk())return;
   p.nb.forEach((o,i)=>{if(nbAge(o)>82&&ch(.18)){const gift=o.rel>=85?px$(R(5,30)*1000):0;
       if(gift){p.money+=gift;log(o.n+' ist gestorben und hat dir '+eur(gift)+' vererbt. Ihr wart gute Nachbarn.');news('Nachbar/in hinterlässt '+p.first+' ein Erbe','lokal')}
       else log('Dein/e Nachbar/in '+o.n+' ist gestorben.');p.nb[i]=mkNb();log(p.nb[i].n+' zieht nebenan ein.')}});
@@ -3695,32 +3696,32 @@ function nbYear(){nbSync();if(p.prison||p.age<14)return;
     const k=o.rel>=82&&ch(.35)?'nbfreund':{laut:'nblaerm',grill:'nbgrill',hilfsb:'nbpaket',neugier:'nbklatsch',streng:'nbregel',ruhig:'nbhilfe'}[o.tr];p.q.push({id:k,d:i})}}
 const nbE=(i,f)=>{const o=p.nb&&p.nb[i];return o?f(o):null};
 const nbRel=(o,v)=>{o.rel=clamp(o.rel+v,0,100)};
-QEV.nblaerm=i=>nbE(i,o=>E('Party nebenan',o.n+' feiert schon wieder bis drei Uhr nachts. Die Wände wackeln.',()=>!p.prison&&p.age>=14,[
+QEV.nblaerm=i=>nbE(i,o=>E('Party nebenan',o.n+' feiert schon wieder bis drei Uhr nachts. Die Wände wackeln.',()=>!p.prison&&nbOk(),[
   ['Klingeln und bitten',()=>ch(.55)?(nbRel(o,2),add('gl',2),remember(o,'Ich habe nett um Ruhe gebeten',0),'Die Musik wird leiser. „Sorry!“'):(nbRel(o,-8),add('gl',-3),'Ein Lachen, die Tür geht zu. Weiter geht es.')],
   ['Mitfeiern',()=>(nbRel(o,10),add('gl',6),add('ge',-2),remember(o,'Wir haben zusammen gefeiert',1),'Beste Party des Jahres. Der Kater am Morgen auch.')],
   ['Polizei rufen',()=>(nbRel(o,-22),add('gl',1),remember(o,'Hat die Polizei gerufen',-2),'Endlich Ruhe. Im Treppenhaus grüßt '+o.n.split(' ')[0]+' nicht mehr.')]]));
-QEV.nbgrill=i=>nbE(i,o=>E('Grillabend',o.n+' lädt das ganze Haus zum Grillen in den Hof ein.',()=>!p.prison&&p.age>=14,[
+QEV.nbgrill=i=>nbE(i,o=>E('Grillabend',o.n+' lädt das ganze Haus zum Grillen in den Hof ein.',()=>!p.prison&&nbOk(),[
   ['Mit Nudelsalat hingehen',()=>(nbRel(o,10),add('gl',5),remember(o,'Kam zum Grillen, mit Nudelsalat',1),'Würstchen, Geschichten, Sonnenuntergang. Schön!')],
   ['Höflich absagen',()=>(nbRel(o,-3),'„Schade, nächstes Mal!“')]]));
-QEV.nbpaket=i=>nbE(i,o=>E('Ein Paket',o.n+' fragt, ob du ein Paket annehmen kannst. Lieferung zwischen 8 und 20 Uhr.',()=>!p.prison&&p.age>=14,[
+QEV.nbpaket=i=>nbE(i,o=>E('Ein Paket',o.n+' fragt, ob du ein Paket annehmen kannst. Lieferung zwischen 8 und 20 Uhr.',()=>!p.prison&&nbOk(),[
   ['Klar, mach ich',()=>(nbRel(o,7),remember(o,'Hat mein Paket angenommen',1),'Am Abend steht eine Flasche Wein vor deiner Tür. Danke!')],
   ['Keine Zeit',()=>(nbRel(o,-4),'„Okay, dann frage ich jemand anderen.“')]]));
-QEV.nbklatsch=i=>nbE(i,o=>E('Treppenhaus-Gespräch',o.n+(p.wanted>0?' fragt neugierig, wer da nachts immer bei dir klingelt.':' erzählt dir den neuesten Klatsch aus dem Haus.'),()=>!p.prison&&p.age>=14,p.wanted>0?[
+QEV.nbklatsch=i=>nbE(i,o=>E('Treppenhaus-Gespräch',o.n+(p.wanted>0?' fragt neugierig, wer da nachts immer bei dir klingelt.':' erzählt dir den neuesten Klatsch aus dem Haus.'),()=>!p.prison&&nbOk(),p.wanted>0?[
   ['Lockere Ausrede',()=>ch(.45+p.sk.charme/250)?(nbRel(o,3),'„Ach so, Lieferdienst. Verstehe!“ Gerettet.'):(nbRel(o,-12),remember(o,'Hat mir eine Lüge aufgetischt',-1),'Der Blick sagt alles. '+o.n.split(' ')[0]+' glaubt dir kein Wort.')],
   ['Tür zumachen',()=>(nbRel(o,-15),'Jetzt ist '+o.n.split(' ')[0]+' erst recht neugierig.')]]:[
   ['Zuhören',()=>(nbRel(o,4),add('gl',3),'Der Typ aus dem 3. Stock hat angeblich einen Papagei, der Schlager singt.')],
   ['Abwimmeln',()=>(nbRel(o,-3),'Du hast es eilig. '+o.n.split(' ')[0]+' schaut beleidigt.')]]));
-QEV.nbregel=i=>nbE(i,o=>E('Beschwerde',o.n+' beschwert sich: '+pick(['Dein Fahrrad steht im Flur.','Der Müll ist falsch getrennt.','Du warst mit dem Treppenputzen dran.','Deine Schuhe stehen vor der Tür.']),()=>!p.prison&&p.age>=14,[
+QEV.nbregel=i=>nbE(i,o=>E('Beschwerde',o.n+' beschwert sich: '+pick(['Dein Fahrrad steht im Flur.','Der Müll ist falsch getrennt.','Du warst mit dem Treppenputzen dran.','Deine Schuhe stehen vor der Tür.']),()=>!p.prison&&nbOk(),[
   ['Entschuldigen',()=>(nbRel(o,5),'„Na gut. Kann ja mal passieren.“')],
   ['Diskutieren',()=>(nbRel(o,-12),add('gl',-2),remember(o,'Hat mit mir gestritten',-1),'Zehn Minuten Streit im Flur. Ein Zettel hängt jetzt am schwarzen Brett.')],
   ['Ignorieren',()=>(nbRel(o,-6),'Ab jetzt hängt jede Woche ein Zettel an deiner Tür.')]]));
-QEV.nbhilfe=i=>nbE(i,o=>E('Hilfe gesucht',nbAge(o)>=65?o.n+' ist nicht mehr gut zu Fuß und fragt, ob du die Einkäufe hochtragen kannst.':o.n+' zieht einen Schrank um und braucht starke Arme.',()=>!p.prison&&p.age>=14,[
+QEV.nbhilfe=i=>nbE(i,o=>E('Hilfe gesucht',nbAge(o)>=65?o.n+' ist nicht mehr gut zu Fuß und fragt, ob du die Einkäufe hochtragen kannst.':o.n+' zieht einen Schrank um und braucht starke Arme.',()=>!p.prison&&nbOk(),[
   ['Helfen',()=>(nbRel(o,12),add('gl',4),remember(o,'Hat mir geholfen, als ich Hilfe brauchte',2),'Eine Stunde später: Kaffee, Kuchen und eine Freundschaft.')],
   ['Keine Zeit',()=>(nbRel(o,-5),'„Schon gut, ich frage jemand anderen.“')]]));
-QEV.nbfreund=i=>nbE(i,o=>E('Gute Nachbarschaft',o.n+' steht mit '+(memSum(o)>=3?'einem selbstgebackenen Kuchen':'einer Pflanze')+' vor der Tür. '+(memSum(o)>=3?'„Ich hab nicht vergessen, wie du mir geholfen hast.“':'„Einfach so. Weil du ein/e tolle/r Nachbar/in bist.“'),()=>!p.prison&&p.age>=14,[
+QEV.nbfreund=i=>nbE(i,o=>E('Gute Nachbarschaft',o.n+' steht mit '+(memSum(o)>=3?'einem selbstgebackenen Kuchen':'einer Pflanze')+' vor der Tür. '+(memSum(o)>=3?'„Ich hab nicht vergessen, wie du mir geholfen hast.“':'„Einfach so. Weil du ein/e tolle/r Nachbar/in bist.“'),()=>!p.prison&&nbOk(),[
   ['Reinbitten',()=>(nbRel(o,5),add('gl',7),remember(o,'Wir haben zusammen Kaffee getrunken',1),'Ihr redet stundenlang. Aus Nachbarn werden Freunde.')],
   ['Danke sagen',()=>(add('gl',3),'Ein netter Moment an der Tür.')]]));
-QEV.nbanzeige=i=>nbE(i,o=>E('Anzeige!',o.n+' hat dich bei der Polizei angezeigt. Er/sie hat beobachtet, was nachts bei dir los ist. Die Polizei steht vor der Tür.',()=>!p.prison&&p.age>=14,[
+QEV.nbanzeige=i=>nbE(i,o=>E('Anzeige!',o.n+' hat dich bei der Polizei angezeigt. Er/sie hat beobachtet, was nachts bei dir los ist. Die Polizei steht vor der Tür.',()=>!p.prison&&nbOk(),[
   ['Anwalt nehmen (5.000 €)',()=>{p.money-=px$(5000);if(ch(.7)){p.wanted=Math.max(0,p.wanted-1);return 'Dein Anwalt zerlegt die Aussage. Das Verfahren wird eingestellt.'}toJail(1,'Die Beweise reichen.');return 'Trotz Anwalt: verurteilt.'}],
   ['Alles abstreiten',()=>{if(ch(.4+p.sk.charme/300))return 'Du bleibst ruhig. Die Polizei zieht wieder ab, aber sie behält dich im Auge.';toJail(R(1,2),'Dein Leugnen hilft nicht.');return 'Abstreiten hat nicht gereicht.'}],
   ['Nachbar/in bestechen (2.000 €)',()=>{p.money-=px$(2000);if(ch(.6)){nbRel(o,15);remember(o,'Hat mich bestochen',0);return o.n.split(' ')[0]+' zieht die Anzeige zurück. „Hab mich wohl geirrt.“'}p.wanted=Math.min(5,p.wanted+1);toJail(2,'Bestechungsversuch fliegt auf.');return 'Das war ein Fehler.'}]]));
@@ -3783,7 +3784,7 @@ const ecoJob=()=>ECO[ecoPh()].j;
     else news('Entwarnung: '+WORLD[f][0]+' bleibt aus','welt','Die Experten haben sich geirrt.')}
   _wy(R0);
   if(w.ph==='normal'&&!w.fc&&ch(.22)){const f=pick(['boom','boom','rezession','rezession','krise','pandemie']);w.fc=f;news('Prognose: '+WORLD[f][0]+' im nächsten Jahr?','welt','Experten erwarten: '+ECO[f].t);
-    try{notify('Wirtschaftsprognose: Nächstes Jahr droht '+WORLD[f][0]+'.','news')}catch(e){}}}}
+    if(p.age>=18)try{notify('Wirtschaftsprognose: Nächstes Jahr droht '+WORLD[f][0]+'.','news')}catch(e){}}}}
 function ecoCard(){if(!p||!p.world)return '';const ph=ecoPh(),W=WORLD[ph],fc=p.world.fc;
   const lv=(l,v)=>'<div class="row"><span class="t">'+l+'</span><b class="'+(v>0?'up':v<0?'dn':'')+'">'+(v>0?'▲ höher':v<0?'▼ niedriger':'normal')+'</b></div>';
   return '<section class="card eco eco-'+ph+'"><h2 class="h">Was das für dich bedeutet</h2><p class="note">'+ECO[ph].t+'</p>'+
@@ -3813,7 +3814,7 @@ function npcMem(id,t,v){const o=npcOf(id);if(!o)return;remember(o,t,v*(o.tr==='n
   const who=id==='love'||id==='time'?'partner':id==='meet'?'freund':arg,before=who?relOf(who):0;const r=_act(id,arg);
   try{if(who&&npcOf(who)){const d=relOf(who)-before;if(id==='invno')npcMem(who,'Hat meine Einladung abgesagt',-1);else if(d>0)npcMem(who,{call:'Hat angerufen',meet:'Wir haben etwas unternommen',love:'Hat mir eine liebe Nachricht geschickt',time:'Wir hatten ein schönes Date',grat:'Hat mir gratuliert',invyes:'Ist zu meiner Einladung gekommen'}[id]||'War für mich da',1)}}catch(e){}
   return r}}
-function npcYear(){if(p.prison||p.age<8)return;const cs=contacts().map(c=>c.id).filter(id=>npcOf(id));if(!cs.length)return;
+function npcYear(){if(p.prison||p.age<18)return;const cs=contacts().map(c=>c.id).filter(id=>npcOf(id));if(!cs.length)return;
   cs.forEach(id=>{const o=npcOf(id),C=p.chats[id];const talked=C&&C.msgs.some(m=>m.me&&m.a===p.age-1);if(!talked&&relOf(id)<45&&(o.tr==='nachtr'||o.tr==='eifers')&&ch(.4))npcMem(id,'Hat sich ein ganzes Jahr nicht gemeldet',-1)});
   const r=Math.random();
   if(r<.16){const L=cs.filter(id=>!npcOf(id).sd);if(L.length)p.q.push({id:'npcsec',d:pick(L)})}
@@ -3847,7 +3848,7 @@ QEV.npcgoal=id=>{const o=npcOf(id);if(!o||o.gd)return null;const n=npcName(id),g
     if(g==='haus')return E('Traum vom Haus',n+' zeigt dir Hausangebote auf dem Handy. „Wäre das nicht schön? Ein eigenes Zuhause?“',()=>!!p.partner,[['Wir suchen zusammen',()=>(fin('Hat mit mir nach einem Haus gesucht',1),relUp(id,6),setTimeout(()=>{if(p&&p.alive){tab='wohnen';render()}},600),'Ihr schaut euch Angebote an.')],['Zu teuer',()=>(fin('Hat meinen Traum vom Haus abgetan',-1),relUp(id,-6),'„Immer ist alles zu teuer.“')]]);
     if(g==='kinder')return E('Kinderwunsch',n+' sagt leise: „Ich wünsche mir ein Kind mit dir.“',()=>!!p.partner,[['Ich auch',()=>(fin('Wir wollen beide Kinder',2),relUp(id,10),'Ihr haltet euch lange im Arm. Im Familie-Reiter könnt ihr es versuchen.')],['Ich bin nicht bereit',()=>(fin('Will (noch) keine Kinder',-1),relUp(id,-10),'Ein schwieriges Gespräch.')]]);
     return E('Gemeinsamer Traum',n+' träumt von '+goalTxt(id,o)+'. 4.000 €, zwei Wochen.',()=>!!p.partner,[['Buchen',()=>(p.money-=px$(4000),fin('Unsere große Reise',3),relUp(id,15),add('gl',12),'Sonnenaufgang am Meer. Das vergesst ihr nie.')],['Ein andermal',()=>(fin('Wieder keine Reise',-1),relUp(id,-5),'„Wie immer.“')]])}
-  if(g==='meer')return E('Ruhestand am Meer',n+' erzählt, dass ihr Traum ein Häuschen am Meer ist. Es fehlen 10.000 €.',()=>true,[['Zuschießen (10.000 €)',()=>(p.money-=px$(10000),fin('Hat uns das Haus am Meer ermöglicht',3),relUp(id,18),add('gl',6),'Postkarten mit Möwen und Sonnenbrand. Sie sind überglücklich.')],['Nur besuchen kommen',()=>(fin('Kommt uns besuchen',1),relUp(id,4),'„Wir freuen uns auf dich!“')]]);
+  if(g==='meer'&&p.age<25){o.gd=0;return null}if(g==='meer')return E('Ruhestand am Meer',n+' erzählt, dass ihr Traum ein Häuschen am Meer ist. Es fehlen 10.000 €.',()=>true,[['Zuschießen (10.000 €)',()=>(p.money-=px$(10000),fin('Hat uns das Haus am Meer ermöglicht',3),relUp(id,18),add('gl',6),'Postkarten mit Möwen und Sonnenbrand. Sie sind überglücklich.')],['Nur besuchen kommen',()=>(fin('Kommt uns besuchen',1),relUp(id,4),'„Wir freuen uns auf dich!“')]]);
   if(g==='vorstand')return E('Der Chef braucht dich',n+' will in den Vorstand und braucht ein Spitzenergebnis im Team.',()=>!!p.job,[['Überstunden machen',()=>(p.job.perf=Math.min(100,(p.job.perf||50)+12),add('gl',-4),fin('Hat mir den Rücken freigehalten',2),'Der Chef wird befördert. Und vergisst dich nicht.')],['Normal weiterarbeiten',()=>(fin('Hat sich nicht ins Zeug gelegt',-1),'Der Chef ist enttäuscht.')]]);
   if(g==='besser')return E('Die alte Rivalität',n+' will unbedingt '+goalTxt(id,o)+' und fordert dich zu einem Wettrennen heraus.',()=>true,[['Annehmen',()=>ch(.45+p.sk.form/250)?(add('gl',6),fin('Hat mich geschlagen',-1),'Gewonnen! '+n+' ist sprachlos.'):(add('gl',-4),fin('Ich war besser',0),'Verloren. '+n+' grinst.')],['Ablehnen',()=>'Du hast Besseres zu tun.']]);
   return E(n+' hat einen Traum',n+' will '+goalTxt(id,o)+'.',()=>true,[['Unterstützen',()=>(fin('Hat mich unterstützt',2),relUp(id,10),'„Du bist die/der Beste.“')],['Belächeln',()=>(fin('Hat mich ausgelacht',-2),relUp(id,-10),'Das sitzt.')]])};
@@ -3982,7 +3983,7 @@ function perkYear(R0){if(!p||p.prison)return;
   if(perk('polizei')&&p.job&&p.job.id==='polizei'&&p.wanted>0&&ch(.3)){p.job=null;add('gl',-10);log('Interne Ermittlungen: Du wurdest aus dem Polizeidienst entlassen.');news('Polizist/in '+p.first+' '+p.last+' suspendiert','lokal')}
   if(perk('Medizin')&&ch(.2)){const id=['mama','papa'].find(x=>{const o=p.npc&&p.npc[x];return o&&o.sec==='krank'&&!o.sd});if(id)p.q.push({id:'npcsec',d:id})}
   const r=Math.random();
-  if(r<.05&&p.age>=16)p.q.push({id:'notfall'});
+  if(r<.05&&nbOk())p.q.push({id:'notfall'});
   else if(r<.11&&p.biz&&(p.biz.fronts||[]).length){if(perk('Informatik'))log('Ein Hackerangriff auf deine Geschäfte: Du hast ihn selbst abgewehrt.');else p.q.push({id:'hack'})}
   else if(r<.19&&(p.cars||[]).length){if(perk('mecha'))log('Panne mit dem Auto: Du hast es selbst repariert, kostenlos.');else p.q.push({id:'panne'})}
   else if(r<.23&&perk('Lehramt')&&p.age>=35)p.q.push({id:'exschueler'});
@@ -4315,7 +4316,7 @@ QEV.krise=()=>{const e=E('Nichts geht mehr','Seit Wochen schläfst du kaum. Arbe
   ['Weitermachen wie bisher',()=>{addLast(4);if(p.job&&ch(.4)){p.job=null;return 'Du schaffst es nicht mehr zur Arbeit. Der Job ist weg.'}if(p.partner)p.partner.rel=clamp(p.partner.rel-15,0,100);return 'Es geht irgendwie weiter. Aber dein Umfeld merkt, dass etwas nicht stimmt.'}]]);e.help=true;return e};
 function lastYear(){if(!heavyOn()||!p.slast)return;
   if(p.medi)addLast(-4);if(p.ther&&p.ther.y<=p.age)p.ther.s=0;
-  if(p.age<16)return;
+  if(p.age<18)return;
   if(p.slast>=20){add('ge',-1);if(p.age%4===0)log('Du schläfst schlecht. Die Vergangenheit lässt dich nicht los.')}
   if(p.slast>=35){add('gl',-3);relUp('freund',-2)}
   const tags=p.trig||[];if(tags.length&&ch(Math.min(.35,p.slast/120)))p.q.push({id:'ausl',d:pick(tags)});
@@ -4337,7 +4338,7 @@ function act18(id,arg){switch(id){
 /* ---------- Jahreslauf der Kindheit ---------- */
 const MILE={1:['m_laecheln','m_zahn'],2:['m_wort','m_krabbel'],3:['m_laufen','m_brokkoli'],4:['m_bau','m_haare','m_kita'],5:['m_warum'],6:['k_schwimm']};
 const KIDEV=['k_spielplatz','k_pause','k_test','k_fenster','k_mut','k_wallet','k_theater','k_klingel','k_taschen','k_haustier'];
-function kidYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;p.kseen=p.kseen||{};
+function kidYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;if(p.age<16&&p.money<0)p.money=0;p.kseen=p.kseen||{};
   if(MILE[p.age])MILE[p.age].forEach(k=>{if(!p.kseen[k]){p.kseen[k]=1;p.q.push({id:k})}});
   if(p.age<6){p.cute=Math.max(0,100-p.age*18);relUp('mama',2);relUp('papa',2)}
   else if(!p.cuteDone){p.cuteDone=1;p.cute=0;const v=Math.round(avgPar()/5);p.sk.charme=Math.min(100,(p.sk.charme||0)+v);if(p.age<=8)log('Aus deiner Niedlichkeit wird Charme: +'+v+'.')}
@@ -4364,6 +4365,17 @@ function kidCards(){let h='';if(p.age<6)h+='<section class="card cute"><h2 class
 {const _vd=viewDiary;viewDiary=function(){const h=_vd();const k=kidCards();const i=h.indexOf('</section>')+10;return h.slice(0,i)+k+h.slice(i)}}
 {const _vf=viewFreizeit;if(typeof _vf==='function')viewFreizeit=function(){const h=_vf();return fTab==='gesund'?lastCard()+h:h}}
 {const _ve=viewEinst;viewEinst=function(){return _ve()+'<section class="card tgs"><h2 class="h">Inhalte</h2>'+tog('heavyOff',!!O.heavyOff,'Schwere Lebensereignisse aus','Keine Trennungen, Todesfälle, Unfälle oder seelischen Krisen')+'</section>'}}
+/* ================= Altersgerechte Nachrichten für Kinder und Jugendliche ================= */
+const CHAT_KID={mama:['Hast du deine Hausaufgaben gemacht?','Vergiss deine Sportsachen morgen nicht!','Es gibt heute Spaghetti!','Zieh die Mütze an, es ist kalt!','Wer hat die Kekse aufgegessen? 🙂'],
+  papa:['Wollen wir am Wochenende in den Zoo?','Fußball im Garten nach dem Abendessen?','Wie war es in der Schule?','Ich hab dir was vom Bäcker mitgebracht.'],
+  freund:['Spielen wir nach der Schule?','Kommst du mit auf den Spielplatz?','Hast du die Sammelkarten dabei?','Wer ist schneller beim Fahrradrennen?']};
+const CHAT_TEEN={mama:['Um 22 Uhr bist du zu Hause, ja?','Hast du schon für die Arbeit gelernt?','Dein Zimmer sieht aus wie nach einem Erdbeben.','Ich hab dir Geld für die Klassenfahrt hingelegt.'],
+  papa:['Soll ich dich nachher abholen?','Wie läuft es in der Schule?','Ich bin stolz auf dich.','Hast du Lust, am Samstag mit mir das Auto zu putzen? 😄'],
+  freund:['Zocken heute Abend?','Hast du die Hausaufgaben?','Kommst du mit ins Freibad?','Hast du gesehen, was in der Klassengruppe los ist?!']};
+const GMSG_KID=[['Mama','Abendessen ist fertig!'],['Papa','Wer will am Sonntag ins Schwimmbad?'],['Oma','Ich hab Kuchen gebacken!'],['Mama','Zimmer aufräumen, bitte!'],['Papa','Wer hat die Fernbedienung versteckt?']];
+const INVITES_KID={mama:[['Wollen wir zusammen Kekse backen?','backen']],papa:[['Gehen wir am Wochenende in den Zoo?','zoo'],['Fahrradtour am Sonntag?','rad']],freund:[['Spielen wir Fußball?','fussball'],['Übernachtungsparty bei mir?','party']]};
+const SIB_KID=['Spielst du mit mir?','Du warst an meinen Sachen!','Mama hat gesagt, du sollst den Tisch decken.','Leihst du mir dein Fahrrad?','Ich sag’s Mama!'];
+const RTAUNT_KID=['Ich hab eine 1 in Mathe. Und du?','Mein Fahrrad ist schneller als deins.','Wetten, ich gewinne beim Sportfest?','Ich hab mehr Freunde als du. Haha.'];
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],

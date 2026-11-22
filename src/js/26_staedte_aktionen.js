@@ -14,7 +14,7 @@ function lifeX(R0){ensureLife();
   if(p.age>=8&&p.rel.freund<12){log('Du und '+p.friend+' habt euch aus den Augen verloren.');p.friend=pick(FN.concat(MN).filter(x=>x!==p.friend));p.rel.freund=45;p.chats.freund={msgs:[],un:0};msg('freund','Hi! Wir kennen uns vom Sport. Lust, mal was zu machen?')}
   p.lernN=0;p.skipN=0;if(p.trust&&p.age>=18){p.money+=p.trust;R0.inc.push(['Treuhandfonds der Familie',p.trust]);log('Du bekommst deinen Treuhandfonds: '+eur(p.trust)+'.');p.trust=0}
   const S=p.stats;S.maxNW=Math.max(S.maxNW,Math.round(netWorth()));S.earn+=Math.round(R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0));if(p.sm)S.maxFol=Math.max(S.maxFol,p.sm.fol);
-  if(p.age>=8&&ch(.3)&&!p.parentsGone){const k=pick(['mama','papa']);if(p.rel[k]<30)msg(k,'Du meldest dich gar nicht mehr. Ist alles okay?')}}
+  if(p.age>=18&&p.home!=='eltern'&&ch(.3)&&!p.parentsGone){const k=pick(['mama','papa']);if(p.rel[k]<30)msg(k,'Du meldest dich gar nicht mehr. Ist alles okay?')}}
 
 /* ================= Aktionen ================= */
 ACTS.schwaenzen={n:'Schwänzen',d:'Glück +, Zeugnis −',ok:()=>!!p.school&&p.age>=10,f:()=>{p.skipN=(p.skipN||0)+1;add('gl',R(3,6));if(ch(.25)&&!p.parentsGone){p.rel.mama=Math.max(0,p.rel.mama-5);msg('mama','Die Schule hat angerufen. Du warst nicht da?!');return 'Erwischt! Die Schule hat deine Eltern angerufen.'}return 'Ein freier Tag im Park.'}};

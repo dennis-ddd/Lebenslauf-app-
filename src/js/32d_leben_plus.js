@@ -5,15 +5,15 @@ function spendTime(m){if(!clockOn())return true;if(p.clock+m>DAYEND){toast('Daf�
 const REPLY={lieb:['Danke dir, hab dich lieb!','Das ist so lieb von dir!','Du bist die/der Beste.','Freu mich total, von dir zu hören!'],kurz:['Ok.','Jo.','Klingt gut.','Mal sehen.'],frech:['Lass mich in Ruhe.','Muss das jetzt sein?','Kein Bock.','Später vielleicht.']};
 const INVITES={freund:[['Kino heute Abend?','kino'],['Kommst du mit zum Konzert?','konzert'],['Zocken bei mir?','zocken'],['Lust auf einen Spieleabend?','spiele']],mama:[['Kommst du Sonntag zum Essen?','essen']],papa:[['Hilfst du mir am Samstag beim Umzug von Oma?','hilfe']],
  partner:[['Wollen wir heute schick essen gehen?','dinner']],g_job:[['Feierabendbier heute?','bier']],g_klasse:[['Party bei Jonas am Freitag!','party']],kid:[['Grillen bei uns am Wochenende?','grill']]};
-const GROUPS={g_fam:['Familie','#E5527A',()=>!p.parentsGone||(p.sibs||[]).length>0],g_klasse:['Klasse '+'','#3BB273',()=>!!p.school&&p.age>=10],g_job:['Kollegen','#6B7385',()=>!!(p.job&&!['influ','pol'].includes(p.job.id))]};
+const GROUPS={g_fam:['Familie','#E5527A',()=>p.age>=10&&(!p.parentsGone||(p.sibs||[]).length>0)],g_klasse:['Klasse '+'','#3BB273',()=>!!p.school&&p.age>=10],g_job:['Kollegen','#6B7385',()=>!!(p.job&&!['influ','pol'].includes(p.job.id))]};
 const GMSG={g_fam:[['Mama','Wer bringt am Sonntag den Nachtisch mit?'],['Papa','Ich hab ein neues Grillrezept.'],['Mama','Schaut mal, die Katze vom Nachbarn!'],['Papa','Wer hat meinen Akkuschrauber?']],
  g_klasse:[['Lena','Hat jemand die Mathe-Hausaufgaben?'],['Jonas','Morgen fällt Sport aus!!'],['Mia','Wer kommt mit ins Freibad?'],['Tim','Ich hab den Test komplett verhauen']],
  g_job:[['Sabine','Wer hat meinen Joghurt aus dem Kühlschrank genommen?'],['Murat','Meeting um 9 ist verschoben.'],['Chefin','Gute Arbeit diese Woche, Team!'],['Jan','Kuchen in der Küche!']]};
 function relUp(id,n){if(id==='partner'&&p.partner)p.partner.rel=clamp(p.partner.rel+n,0,100);else if(p.rel&&p.rel[id]!=null)p.rel[id]=clamp(p.rel[id]+n,0,100);
   else if(String(id).startsWith('kid')){const k=p.kids[+id.slice(3)];if(k)k.rel=clamp(k.rel+n,0,100)}else if(String(id).startsWith('sib')){const s=(p.sibs||[])[+id.slice(3)];if(s)s.rel=clamp(s.rel+n,0,100)}}
 function chatsYear(){const cs=contacts().map(c=>c.id);Object.keys(p.chats).forEach(k=>{const c=p.chats[k];if(c.inv&&c.inv.y<p.age)c.inv=null});
-  Object.keys(GROUPS).forEach(g=>{if(GROUPS[g][2]()&&ch(.6)){const [n,t]=pick(GMSG[g]);msg(g,n+': '+t)}});
-  cs.forEach(id=>{const key=id.startsWith('kid')?'kid':id;const L=INVITES[key];if(!L||!ch(.3))return;if(key==='kid'&&p.age-p.kids[+id.slice(3)].b<20)return;const [t,k]=pick(L);msg(id,t);p.chats[id].inv={t,k,y:p.age}});
+  if(p.age<8)return;Object.keys(GROUPS).forEach(g=>{if(GROUPS[g][2]()&&ch(.6)){const [n,t]=pick(g==='g_fam'&&p.age<18?GMSG_KID:GMSG[g]);msg(g,n+': '+t)}});
+  cs.forEach(id=>{const key=id.startsWith('kid')?'kid':id;const L=p.age<18?(key==='freund'&&p.age>=13?INVITES.freund:INVITES_KID[key]):INVITES[key];if(!L||!ch(.3))return;if(key==='kid'&&p.age-p.kids[+id.slice(3)].b<20)return;const [t,k]=pick(L);msg(id,t);p.chats[id].inv={t,k,y:p.age}});
   cs.forEach(id=>{const c=p.chats[id];if(c&&c.msgs.length&&!c.msgs[c.msgs.length-1].me&&!id.startsWith('g_'))c.pend=true})}
 const _msg0=msg;msg=function(id,t,me){_msg0(id,t,me);const c=p.chats[id];if(c)c.pend=!me};
 function chatExtra(c){const C=p.chats[c.id]||{};let h='';
@@ -59,7 +59,7 @@ function sibYear(){(p.sibs||[]).forEach((s,i)=>{const a=sibAge(s);if(a<0)return;
   if(a>=20&&!s.job&&ch(.4))s.job=pick(['Krankenpfleger/in','Ingenieur/in','Verkäufer/in','Lehrer/in','Polizist/in','Grafiker/in','Koch/Köchin']);
   if(a>=24&&a<=40&&!s.mar&&ch(.12)){s.mar=true;p.q.push({id:'sibwed',d:i})}
   if(a>=5&&p.age>=5&&p.age<=16&&ch(.15))p.q.push({id:'sibfight',d:i});
-  if(a>=22&&ch(.05))p.q.push({id:'sibhelp',d:i});if(ch(.2))msg('sib'+i,pick(['Na, Kleines/Großes?','Weißt du noch, früher?','Mama nervt mal wieder, oder?','Wann sehen wir uns?']))});
+  if(a>=22&&p.age>=18&&ch(.05))p.q.push({id:'sibhelp',d:i});if(p.age>=8&&ch(.2))msg('sib'+i,pick(p.age<18?SIB_KID:['Na, Kleines/Großes?','Weißt du noch, früher?','Mama nervt mal wieder, oder?','Wann sehen wir uns?']))});
   const pa=p.age+p.pa;if(!p.parentsGone&&pa>=78&&p.age>=18){if(!p.care&&(p.careAsk==null||p.age-p.careAsk>=3)){p.careAsk=p.age;p.q.push({id:'care'})}
     if(p.care==='heim'){const c=px$(18000);p.money-=c;return c}if(p.care==='selbst'){add('gl',-3);p.rel.mama=Math.min(100,p.rel.mama+4);p.rel.papa=Math.min(100,p.rel.papa+4);addRuf(1)}}
   if(p.parentsGone&&p.care){p.care=null}
@@ -89,8 +89,8 @@ function reminders(){const L=[],a=p.age;
   if(a>=10&&p.st.ge<60&&(p.lastArzt==null||a-p.lastArzt>=2))L.push(['arzt','Du warst lange nicht beim Arzt. Ein Check-up tut dir gut.','freizeit','gesund']);
   if(a>=10&&(p.lastSport==null||a-p.lastSport>=2))L.push(['sport','Zeit für Sport! Dein Körper wird es dir danken.','freizeit','sport']);
   const ob=people().filter(([id])=>p.grat[id]!==a);if(a>=10&&ob.length)L.push(['bd','Geburtstag: '+ob[0][1]+'. Nicht vergessen zu gratulieren!','kalender']);
-  const t=(p.terms||[]).find(x=>!x.done);if(t&&TERM[t.k])L.push(['term','Termin im Kalender: '+TERM[t.k][0]+'.','kalender']);
-  if(p.money<0)L.push(['geld','Dein Konto ist im Minus. Schau mal in die Bank-App.','bank']);
+  const t=(p.terms||[]).find(x=>!x.done);if(a>=10&&t&&TERM[t.k])L.push(['term','Termin im Kalender: '+TERM[t.k][0]+'.','kalender']);
+  if(a>=16&&p.money<0)L.push(['geld','Dein Konto ist im Minus. Schau mal in die Bank-App.','bank']);
   if(p.st.gl<30)L.push(['gl','Du wirkst niedergeschlagen. Unternimm etwas Schönes!','freizeit','aktiv']);
   return L.filter(r=>!(p.remS&&p.remS[r[0]]===a))}
 function maybeRemind(){if(!p||!p.alive||tab!=='home'||document.getElementById('modal').classList.contains('on'))return;if(O.rem===false)return;p.remS=p.remS||{};
@@ -128,7 +128,7 @@ const CEV={katze:['Katze im Baum','Eine Katze sitzt fest. Schaffst du es hoch?',
  lieferung:['Eilige Lieferung','Ein Paket muss sofort an die richtige Adresse.','<path d="M3 7l9-4 9 4v10l-9 4-9-4z"/>'],schueler:['Schüler/in in der Stadt','Ein Kind aus deiner Klasse fragt dich etwas.','<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c2 2 10 2 12 0v-5"/>'],fans:['Fans erkennen dich!','„Bist du nicht …?“ Eine Gruppe will ein Selfie.','<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/>'],
  panne:['Autopanne','Ein Auto steht mit Warnblinker am Rand.','<path d="M3 13l2-5h14l2 5v5H3z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>'],buerger:['Bürgergespräch','Leute erkennen dich und haben Fragen zur Politik.','<path d="M4 21h16M6 21V10M18 21V10M3 10l9-6 9 6z"/>']};
 const JOBCEV={polizei:'verfolgung',arzt:'notfall',pflege:'notfall',koch:'foodtruck',kellner:'foodtruck',cafe:'foodtruck',paket:'lieferung',zeitung:'lieferung',lager:'lieferung',lehrer:'schueler',influ:'fans',mecha:'panne',pol:'buerger'};
-function cityEvents(){if(p.cevY!==p.age){p.cevY=p.age;const g=shuffle(['katze','tourist','geld','dieb','flash','markt','umfrage','unfall']).slice(0,3);const j=p.job&&JOBCEV[p.job.id];if(j)g.push(j);else if(p.sm&&p.sm.fol>=20000)g.push('fans');
+function cityEvents(){if(p.age<6)return [];if(p.cevY!==p.age){p.cevY=p.age;const g=shuffle(['katze','tourist','geld','dieb','flash','markt','umfrage','unfall'].filter(k=>p.age>=14||!['dieb','unfall','umfrage'].includes(k))).slice(0,3);const j=p.job&&JOBCEV[p.job.id];if(j)g.push(j);else if(p.sm&&p.sm.fol>=20000)g.push('fans');
     p.cev=g.map(k=>({k,x:R(8,82),y:R(22,68)}))}return p.age>=6?p.cev||[]:[]}
 function cevStrip(){const L=cityEvents();if(!L.length)return '';return '<section class="card cevs"><div class="lbl">GERADE IN DER STADT</div><div class="cevl">'+L.map((e,i)=>'<button class="cevb" data-a="cityev" data-g="'+i+'"'+(p.prison?' disabled':'')+'><span class="cevi"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+CEV[e.k][2]+'</svg></span><b>'+CEV[e.k][0]+'</b></button>').join('')+'</div><p class="note">Kostet keine Aktion, nur etwas Zeit. Auf der Karte pulsieren die Orte.</p></section>'}
 function runCityEv(i){const L=p.cev||[],e=L[i];if(!e||p.prison)return;if(!spendTime(30))return;L.splice(i,1);const k=e.k,T=CEV[k][0];

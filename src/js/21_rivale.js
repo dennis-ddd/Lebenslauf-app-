@@ -11,7 +11,7 @@ function rivalYear(){const r=p.rival;if(!r||!O.rival||p.age<6)return;const a=p.a
   if(a>=13&&ch(.4))r.fol=Math.round(r.fol*1.35+R(30,400));
   if(!r.partner&&a>=22&&a<=40&&ch(.15)){r.partner=true;if(!r.friend)msg('rival','Ich heirate übrigens. Du bist nicht eingeladen.')}if(r.partner&&a>=25&&a<=42&&r.kids<3&&ch(.15))r.kids++;
   if(r.friend){if(ch(.3))msg('rival',pick(['Lust auf ein Bier wie früher?','Danke nochmal für damals.','Wer hätte gedacht, dass wir mal Freunde werden.']));return}
-  const myMs=(p.ms||[]).filter(m=>m.a===a);if(myMs.length&&ch(.6))msg('rival',pick(RRESP));else if(ch(.35))msg('rival',pick(RTAUNT));
+  const myMs=(p.ms||[]).filter(m=>m.a===a);if(p.age<8){}else if(myMs.length&&ch(.6))msg('rival',pick(RRESP));else if(ch(.35))msg('rival',pick(p.age<18?RTAUNT_KID:RTAUNT));
 }
 const rivE=c=>()=>!!(O.rival&&p.rival&&!p.rival.friend&&p.age>=6)&&c();
 EVENTS.push(

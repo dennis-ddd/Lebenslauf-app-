@@ -16,3 +16,4 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `korrekturen.js`: Gefängnis, Wärter, Arzt-Rabatt, Namen-Lader, Stadt-Marker
 - `namen_export.js`: schreibt die eingebauten Namen neu nach `inhalte/namen.txt` (überschreibt!)
 - `kindheit.js`: spielt 120 Leben ab Geburt, prüft Meilensteine, Minispiele, Prägungen, Rückkehrer und seelische Last
+- `altersgerecht.js`: listet alle Nachrichten an Kinder und Jugendliche (0–17) zum Durchlesen

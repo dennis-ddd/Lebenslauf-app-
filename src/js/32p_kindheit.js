@@ -130,7 +130,7 @@ QEV.krise=()=>{const e=E('Nichts geht mehr','Seit Wochen schläfst du kaum. Arbe
   ['Weitermachen wie bisher',()=>{addLast(4);if(p.job&&ch(.4)){p.job=null;return 'Du schaffst es nicht mehr zur Arbeit. Der Job ist weg.'}if(p.partner)p.partner.rel=clamp(p.partner.rel-15,0,100);return 'Es geht irgendwie weiter. Aber dein Umfeld merkt, dass etwas nicht stimmt.'}]]);e.help=true;return e};
 function lastYear(){if(!heavyOn()||!p.slast)return;
   if(p.medi)addLast(-4);if(p.ther&&p.ther.y<=p.age)p.ther.s=0;
-  if(p.age<16)return;
+  if(p.age<18)return;
   if(p.slast>=20){add('ge',-1);if(p.age%4===0)log('Du schläfst schlecht. Die Vergangenheit lässt dich nicht los.')}
   if(p.slast>=35){add('gl',-3);relUp('freund',-2)}
   const tags=p.trig||[];if(tags.length&&ch(Math.min(.35,p.slast/120)))p.q.push({id:'ausl',d:pick(tags)});
@@ -152,7 +152,7 @@ function act18(id,arg){switch(id){
 /* ---------- Jahreslauf der Kindheit ---------- */
 const MILE={1:['m_laecheln','m_zahn'],2:['m_wort','m_krabbel'],3:['m_laufen','m_brokkoli'],4:['m_bau','m_haare','m_kita'],5:['m_warum'],6:['k_schwimm']};
 const KIDEV=['k_spielplatz','k_pause','k_test','k_fenster','k_mut','k_wallet','k_theater','k_klingel','k_taschen','k_haustier'];
-function kidYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;p.kseen=p.kseen||{};
+function kidYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;if(p.age<16&&p.money<0)p.money=0;p.kseen=p.kseen||{};
   if(MILE[p.age])MILE[p.age].forEach(k=>{if(!p.kseen[k]){p.kseen[k]=1;p.q.push({id:k})}});
   if(p.age<6){p.cute=Math.max(0,100-p.age*18);relUp('mama',2);relUp('papa',2)}
   else if(!p.cuteDone){p.cuteDone=1;p.cute=0;const v=Math.round(avgPar()/5);p.sk.charme=Math.min(100,(p.sk.charme||0)+v);if(p.age<=8)log('Aus deiner Niedlichkeit wird Charme: +'+v+'.')}

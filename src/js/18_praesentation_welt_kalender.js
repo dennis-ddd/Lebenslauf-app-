@@ -64,7 +64,7 @@ const TERM={arzt:['Vorsorge beim Hausarzt','Gesundheit +3',()=>p.age>=18,()=>{ad
  wahl:['Wahltag','Deine Stimme zählt',()=>p.age>=18&&p.age%4===0,()=>{addRuf(1);return 'Du warst wählen.'},null],
  blut:['Blutspende','Glück +3, Ruf +2',()=>p.age>=18&&p.age<=68,()=>{add('gl',3);addRuf(2);return 'Du hast Leben gerettet.'},null]};
 function newTerms(){const ks=Object.keys(TERM).filter(k=>TERM[k][2]());p.terms=shuffle(ks).slice(0,4).map(k=>({k,d:R(1,28),m:R(0,11),done:false})).sort((x,y)=>x.m-y.m||x.d-y.d)}
-function calYear(R0){if(p.age-1>=10)people().forEach(([id,n])=>{if(p.grat&&p.grat[id]===p.age-1)return;
+function calYear(R0){if(p.age-1>=14)people().forEach(([id,n])=>{if(p.grat&&p.grat[id]===p.age-1)return;
     if(id==='partner'&&p.partner){p.partner.rel-=8;msg('partner','Du hast meinen Geburtstag vergessen …')}
     else if(id==='mama'||id==='papa'){p.rel[id]=Math.max(0,p.rel[id]-5);msg(id,'Hast du meinen Geburtstag vergessen? Naja.')}
     else if(id==='freund'){p.rel.freund=Math.max(0,p.rel.freund-7)}

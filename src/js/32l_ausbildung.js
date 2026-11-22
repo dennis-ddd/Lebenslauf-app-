@@ -93,7 +93,7 @@ function perkYear(R0){if(!p||p.prison)return;
   if(perk('polizei')&&p.job&&p.job.id==='polizei'&&p.wanted>0&&ch(.3)){p.job=null;add('gl',-10);log('Interne Ermittlungen: Du wurdest aus dem Polizeidienst entlassen.');news('Polizist/in '+p.first+' '+p.last+' suspendiert','lokal')}
   if(perk('Medizin')&&ch(.2)){const id=['mama','papa'].find(x=>{const o=p.npc&&p.npc[x];return o&&o.sec==='krank'&&!o.sd});if(id)p.q.push({id:'npcsec',d:id})}
   const r=Math.random();
-  if(r<.05&&p.age>=16)p.q.push({id:'notfall'});
+  if(r<.05&&nbOk())p.q.push({id:'notfall'});
   else if(r<.11&&p.biz&&(p.biz.fronts||[]).length){if(perk('Informatik'))log('Ein Hackerangriff auf deine Geschäfte: Du hast ihn selbst abgewehrt.');else p.q.push({id:'hack'})}
   else if(r<.19&&(p.cars||[]).length){if(perk('mecha'))log('Panne mit dem Auto: Du hast es selbst repariert, kostenlos.');else p.q.push({id:'panne'})}
   else if(r<.23&&perk('Lehramt')&&p.age>=35)p.q.push({id:'exschueler'});
