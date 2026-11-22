@@ -664,3 +664,8 @@ body.appdrag{touch-action:none;overflow:hidden}
 .nbr .bar{margin:2px 0}
 .eco .row b.up{color:var(--good)}.eco .row b.dn{color:var(--bad)}
 .appbar h2{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.appbar>.chip,.appbar>span:last-child{flex:none;font-size:12px}
+.perks .pk{padding:10px 0;border-top:1px solid var(--line)}.perks .pk:first-of-type{border-top:0}
+.perks .pk b{display:flex;align-items:center;gap:8px;font-size:15px}.perks .pk>small{display:block;color:var(--muted);font-weight:700;font-size:12.5px}
+.perks ul{margin:4px 0 6px;padding-left:18px;font-size:14px;font-weight:600}.perks li{margin:2px 0}
+.pk:not(.on) ul{color:var(--muted)}
+.pkmore summary{cursor:pointer;font-weight:800;padding:8px 0;color:var(--blueText)}

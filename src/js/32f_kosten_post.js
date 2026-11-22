@@ -62,7 +62,7 @@ function viewPost(){p.mail=p.mail||[];const lock=!!p.prison;const bills=p.mail.f
   return h}
 function act12(id,arg){const lock=!!p.prison;if(id.startsWith('mail')){if(lock)return 1;p.mail=p.mail||[]}switch(id){
   case 'mailpay':{const m=p.mail[+arg];if(!m)return 1;const M=MAIL[m.k];if(m.amt>0&&p.money<m.amt)return 1;if(!spendTime(10))return 1;
-    if(M[3]===3){p.money-=m.amt;p.mail.splice(+arg,1);add('gl',-5);done('Du hast 49 € überwiesen. Die 10.000 € kommen nie an. Es war Betrug.');return 1}
+    if(M[3]===3&&perk('bankkfm')){p.mail.splice(+arg,1);done('Als Bankkaufmann/-frau erkennst du die Masche sofort: Betrug. Ab in den Müll.');return 1}if(M[3]===3){p.money-=m.amt;p.mail.splice(+arg,1);add('gl',-5);done('Du hast 49 € überwiesen. Die 10.000 € kommen nie an. Es war Betrug.');return 1}
     if(M[3]===4){p.money+=m.amt;p.mail.splice(+arg,1);add('gl',4);done('Oma schreibt, dass sie stolz auf dich ist. Und legt '+eur(m.amt)+' bei.');return 1}
     p.money-=m.amt;p.mail.splice(+arg,1);done(m.amt>=0?M[0]+' bezahlt: '+eur(m.amt)+'.':'Gutschrift: '+eur(-m.amt)+' zurück.');return 1}
   case 'mailpayall':{const bills=p.mail.filter(m=>MAIL[m.k]&&MAIL[m.k][3]===1);const sum=bills.reduce((s,m)=>s+m.amt,0);if(p.money<sum)return 1;if(!spendTime(10*bills.length))return 1;p.money-=sum;p.mail=p.mail.filter(m=>!bills.includes(m));done(bills.length+' Rechnung(en) bezahlt: '+eur(sum)+'.');return 1}

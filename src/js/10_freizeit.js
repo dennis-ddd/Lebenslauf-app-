@@ -63,7 +63,7 @@ function viewFreizeit(){ensureEcon();const lock=!!p.prison;
   if(lock&&fTab!=='sport')return h+card('','<p class="note">Im Gefängnis kannst du nur trainieren und lesen.</p>')+card('',actRows(['sport','lesen']));
   if(fTab==='aktiv'){const S=season();
     h+='<section class="card event"><div class="lbl">HEUTE IN DER STADT</div><h2 class="h">'+S.n+'</h2><p class="note">'+S.d+'</p>'+S.a.map(([k,n,c,d])=>row(n,(c?eur(px$(c))+' · ':'')+d,btn('event',k,once('ev_'+k)?'Erledigt':'Los','o',once('ev_'+k)||p.money<px$(c)))).join('')+'</section>';
-    h+=card('Aktivitäten',actRows(['party','urlaub','medi','lesen','lotto'])+row('Weltreise','Ein halbes Jahr um die Welt · '+eur(px$(25000)),btn('welt',null,p.welt?'Gemacht':'Los','o',p.age<18||p.money<px$(25000)||p.act<=0)));
+    h+=card('Aktivitäten',actRows(['party','urlaub','medi','lesen','lotto'])+row('Weltreise','Ein halbes Jahr um die Welt · '+eur(px$(perk('pilot')?12500:25000)),btn('welt',null,p.welt?'Gemacht':'Los','o',p.age<18||p.money<px$(25000)||p.act<=0)));
     h+=card('Kurse','<p class="note" style="margin-bottom:4px">Jeder Kurs kostet 1 Aktion und verbessert eine Fähigkeit.</p>'+Object.keys(KURSE).map(k=>{const K=KURSE[k];return row(K[0],eur(px$(K[1]))+' · '+SKN[K[2]][0]+' '+Math.round(p.sk[K[2]]),btn('kurs',k,'Los','',p.age<K[3]||p.act<=0||p.money<px$(K[1])||p.sk[K[2]]>=100))}).join(''));
   }
   if(fTab==='sport'){
@@ -120,7 +120,7 @@ function act2(id,arg){
     else if(arg==='geschenke'){add('gl',6);if(p.partner)p.partner.rel=Math.min(100,p.partner.rel+6);if(!p.parentsGone)msg('mama','Danke für das Geschenk, mein Schatz! Du bist der/die Beste.');t='Alle haben sich über deine Geschenke gefreut.'}
     else if(arg==='kostuem'&&!p.partner&&p.age>=16&&ch(.2)){newPartner(55);add('gl',8);t='Auf der Kostümparty hast du '+p.partner.name+' kennengelernt!'}
     else{add('gl',R(3,7));t=e[1]+': '+e[3]}done(t);return 1}
-  case 'welt':if(p.welt||p.age<18||!useAct())return 1;{const c=px$(25000);if(p.money<c){refundAct();toast('Die Weltreise kostet '+eur(c)+'.');return 1}p.money-=c;p.welt=true;add('gl',25);add('in',3);done('Ein halbes Jahr um die Welt. Unvergesslich!')}return 1;
+  case 'welt':if(p.welt||p.age<18||!useAct())return 1;{const c=px$(perk('pilot')?12500:25000);if(p.money<c){refundAct();toast('Die Weltreise kostet '+eur(c)+'.');return 1}p.money-=c;p.welt=true;add('gl',25);add('in',3);done('Ein halbes Jahr um die Welt. Unvergesslich!')}return 1;
   case 'kurs':{const K=KURSE[arg],c=px$(K[1]);if(p.age<K[3]||p.money<c||!useAct())return 1;p.money-=c;const g=R(10,20);p.sk[K[2]]=Math.min(100,p.sk[K[2]]+g);if(arg==='hack')add('in',2);done(K[0]+' abgeschlossen: '+SKN[K[2]][0]+' +'+g+'.');return 1}
   case 'gym':if(arg==='none'){p.gym=null;p.gymU=0;done('Studio-Abo gekündigt.');return 1}if(p.age<14||p.prison)return 1;{p.gym=arg;p.gymU=GYM[arg].u;done(GYM[arg].n+' abgeschlossen: '+eur(px$(GYM[arg].c)/12)+' im Monat, abgebucht zum Jahresende.')}return 1;
   case 'train':{if(!p.gym||!p.gymU)return 1;p.gymU--;const f=p.focus;p.sk.form=Math.min(100,p.sk.form+(f==='ausdauer'?5:3));add('ge',f==='ausdauer'?3:2);if(f==='kraft'||f==='ganz')add('au',f==='kraft'?3:1);if(f==='kampfs')p.sk.kampf=Math.min(100,p.sk.kampf+4);

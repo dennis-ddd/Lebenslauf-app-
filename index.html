@@ -680,6 +680,11 @@ body.appdrag{touch-action:none;overflow:hidden}
 .nbr .bar{margin:2px 0}
 .eco .row b.up{color:var(--good)}.eco .row b.dn{color:var(--bad)}
 .appbar h2{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.appbar>.chip,.appbar>span:last-child{flex:none;font-size:12px}
+.perks .pk{padding:10px 0;border-top:1px solid var(--line)}.perks .pk:first-of-type{border-top:0}
+.perks .pk b{display:flex;align-items:center;gap:8px;font-size:15px}.perks .pk>small{display:block;color:var(--muted);font-weight:700;font-size:12.5px}
+.perks ul{margin:4px 0 6px;padding-left:18px;font-size:14px;font-weight:600}.perks li{margin:2px 0}
+.pk:not(.on) ul{color:var(--muted)}
+.pkmore summary{cursor:pointer;font-weight:800;padding:8px 0;color:var(--blueText)}
 /* ================= Aurora-Design (Standard) =================
    Dunkelviolett, Türkis und Orange als weiches Licht, Glas-Karten, leuchtende Hauptknöpfe.
    Gilt nur mit data-theme="aurora"; "Hell" und "Dunkel" bleiben das klassische Design. */
@@ -1201,7 +1206,7 @@ const loanSum=()=>(p.loans||[]).reduce((t,l)=>t+l.amt,0),fgSum=()=>(p.fg||[]).re
 function bonitaet(){const inc=(p.job?p.job.pay:0)+p.pension;return clamp(Math.round(35+Math.min(30,inc/2500)+Math.min(25,Math.max(0,netWorth())/40000)-loanSum()/Math.max(10000,inc*2)*12+(p.bon-70)),0,100)}
 const bonTxt=b=>b>=80?'Sehr gut':b>=60?'Gut':b>=40?'Mittel':b>=20?'Schwach':'Schlecht';
 const maxLoan=()=>p.age<18?0:Math.round(((((p.job?p.job.pay:0)+p.pension)*3+Math.max(0,netWorth())*.5+5000)*bonitaet()/100)/1000)*1000;
-const loanRate=()=>+(curLz()+2+(100-bonitaet())/12).toFixed(1);
+const loanRate=()=>+Math.max(.5,curLz()+2+(100-bonitaet())/12-(perk('bankkfm')?1:0)).toFixed(1);
 function bankYear(){const r=econYear(),out={zins:0,raten:0,fgz:0,si:0};
   out.si=Math.round(p.sav*rates().konto/100);p.sav+=out.si;
   p.fg=p.fg.filter(f=>{const z=Math.round(f.amt*f.rate/100);f.amt+=z;out.fgz+=z;f.left--;if(f.left<=0){p.money+=f.amt;log('Festgeld ausgezahlt: '+eur(f.amt)+'.');return false}return true});
@@ -1445,7 +1450,7 @@ function viewFreizeit(){ensureEcon();const lock=!!p.prison;
   if(lock&&fTab!=='sport')return h+card('','<p class="note">Im Gefängnis kannst du nur trainieren und lesen.</p>')+card('',actRows(['sport','lesen']));
   if(fTab==='aktiv'){const S=season();
     h+='<section class="card event"><div class="lbl">HEUTE IN DER STADT</div><h2 class="h">'+S.n+'</h2><p class="note">'+S.d+'</p>'+S.a.map(([k,n,c,d])=>row(n,(c?eur(px$(c))+' · ':'')+d,btn('event',k,once('ev_'+k)?'Erledigt':'Los','o',once('ev_'+k)||p.money<px$(c)))).join('')+'</section>';
-    h+=card('Aktivitäten',actRows(['party','urlaub','medi','lesen','lotto'])+row('Weltreise','Ein halbes Jahr um die Welt · '+eur(px$(25000)),btn('welt',null,p.welt?'Gemacht':'Los','o',p.age<18||p.money<px$(25000)||p.act<=0)));
+    h+=card('Aktivitäten',actRows(['party','urlaub','medi','lesen','lotto'])+row('Weltreise','Ein halbes Jahr um die Welt · '+eur(px$(perk('pilot')?12500:25000)),btn('welt',null,p.welt?'Gemacht':'Los','o',p.age<18||p.money<px$(25000)||p.act<=0)));
     h+=card('Kurse','<p class="note" style="margin-bottom:4px">Jeder Kurs kostet 1 Aktion und verbessert eine Fähigkeit.</p>'+Object.keys(KURSE).map(k=>{const K=KURSE[k];return row(K[0],eur(px$(K[1]))+' · '+SKN[K[2]][0]+' '+Math.round(p.sk[K[2]]),btn('kurs',k,'Los','',p.age<K[3]||p.act<=0||p.money<px$(K[1])||p.sk[K[2]]>=100))}).join(''));
   }
   if(fTab==='sport'){
@@ -1502,7 +1507,7 @@ function act2(id,arg){
     else if(arg==='geschenke'){add('gl',6);if(p.partner)p.partner.rel=Math.min(100,p.partner.rel+6);if(!p.parentsGone)msg('mama','Danke für das Geschenk, mein Schatz! Du bist der/die Beste.');t='Alle haben sich über deine Geschenke gefreut.'}
     else if(arg==='kostuem'&&!p.partner&&p.age>=16&&ch(.2)){newPartner(55);add('gl',8);t='Auf der Kostümparty hast du '+p.partner.name+' kennengelernt!'}
     else{add('gl',R(3,7));t=e[1]+': '+e[3]}done(t);return 1}
-  case 'welt':if(p.welt||p.age<18||!useAct())return 1;{const c=px$(25000);if(p.money<c){refundAct();toast('Die Weltreise kostet '+eur(c)+'.');return 1}p.money-=c;p.welt=true;add('gl',25);add('in',3);done('Ein halbes Jahr um die Welt. Unvergesslich!')}return 1;
+  case 'welt':if(p.welt||p.age<18||!useAct())return 1;{const c=px$(perk('pilot')?12500:25000);if(p.money<c){refundAct();toast('Die Weltreise kostet '+eur(c)+'.');return 1}p.money-=c;p.welt=true;add('gl',25);add('in',3);done('Ein halbes Jahr um die Welt. Unvergesslich!')}return 1;
   case 'kurs':{const K=KURSE[arg],c=px$(K[1]);if(p.age<K[3]||p.money<c||!useAct())return 1;p.money-=c;const g=R(10,20);p.sk[K[2]]=Math.min(100,p.sk[K[2]]+g);if(arg==='hack')add('in',2);done(K[0]+' abgeschlossen: '+SKN[K[2]][0]+' +'+g+'.');return 1}
   case 'gym':if(arg==='none'){p.gym=null;p.gymU=0;done('Studio-Abo gekündigt.');return 1}if(p.age<14||p.prison)return 1;{p.gym=arg;p.gymU=GYM[arg].u;done(GYM[arg].n+' abgeschlossen: '+eur(px$(GYM[arg].c)/12)+' im Monat, abgebucht zum Jahresende.')}return 1;
   case 'train':{if(!p.gym||!p.gymU)return 1;p.gymU--;const f=p.focus;p.sk.form=Math.min(100,p.sk.form+(f==='ausdauer'?5:3));add('ge',f==='ausdauer'?3:2);if(f==='kraft'||f==='ganz')add('au',f==='kraft'?3:1);if(f==='kampfs')p.sk.kampf=Math.min(100,p.sk.kampf+4);
@@ -1608,8 +1613,8 @@ function viewProp(pr,lock){const T=PT[pr.t],v=propVal(pr),busy=pr.jobs.length>0;
   const running=pr.jobs.map(j=>row(j.k==='san'?'Sanierung':BLD[j.k][0],'fertig, wenn du '+j.done+' bist (noch '+(j.done-p.age)+' Jahr(e)) · während der Bauzeit −15 % Miete, neue Miete ab dem Jahr danach','<span class="chip">Baustelle</span>')).join('');
   const doneB=Object.keys(pr.bd).map(k=>'<span class="tag g">✓ '+BLD[k][0]+'</span>').join('');
   h+='<h3 class="sec">Bauaufträge</h3>'+(running?card('',running):'')+(doneB?'<div class="tags">'+doneB+'</div>':'');
-  h+=T.bld.filter(k=>!pr.bd[k]&&!pr.jobs.some(j=>j.k===k)).map(k=>{const B=BLD[k],c=Math.round(pr.val*B[2]);
-    return '<section class="card"><b style="font-size:16px">'+B[0]+'</b><p class="note" style="margin:2px 0 8px">'+B[1]+'</p><div class="tags" style="margin:0 0 10px"><span class="tag">'+B[3]+' Jahr(e)</span><span class="tag g">+'+B[4]+' % Wert</span>'+(B[5]?'<span class="tag g">+'+B[5]+' % Miete</span>':'')+(B[6]?'<span class="tag">+'+B[6]+' Glück</span>':'')+(B[7]&&(pr.t==='mfh'||pr.t==='buero')?'<span class="tag">+'+B[7]+' Einheit(en)</span>':'')+'</div>'+
+  h+=T.bld.filter(k=>!pr.bd[k]&&!pr.jobs.some(j=>j.k===k)).map(k=>{const B=BLD[k],c=Math.round(pr.val*B[2]*archF());
+    return '<section class="card"><b style="font-size:16px">'+B[0]+'</b><p class="note" style="margin:2px 0 8px">'+B[1]+'</p><div class="tags" style="margin:0 0 10px"><span class="tag">'+archT(B[3])+' Jahr(e)</span><span class="tag g">+'+B[4]+' % Wert</span>'+(B[5]?'<span class="tag g">+'+B[5]+' % Miete</span>':'')+(B[6]?'<span class="tag">+'+B[6]+' Glück</span>':'')+(B[7]&&(pr.t==='mfh'||pr.t==='buero')?'<span class="tag">+'+B[7]+' Einheit(en)</span>':'')+'</div>'+
       (k==='fassade'?'<div class="amts" style="margin-bottom:10px">'+COLORS.map((c,i)=>'<button class="amt colb" data-a="fasscol" data-g="'+i+'" aria-pressed="'+(fassCol===i)+'"><i style="background:'+c[1]+'"></i>'+c[0]+'</button>').join('')+'</div>':'')+
       btn('build',k,'Beauftragen für '+eur(c)+', fertig mit '+(p.age+B[3]),'o',p.money<c||lock)+'</section>'}).join('');
   return h+'<button class="btn g big sell" data-a="sellprop">Verkaufen für '+eur(v*.97)+'</button>';
@@ -1629,7 +1634,7 @@ function act3(id,arg){const pr=propSel!=null&&p.props?p.props.find(x=>x.id===pro
   case 'repair':{if(!pr)return 1;const c=Math.round(pr.val*(100-pr.cond)/100*.15);if(p.money<c)return 1;p.money-=c;pr.cond=100;done('Repariert: Zustand 100 %.');return 1}
   case 'sanieren':{if(!pr||pr.lvl>=3||pr.jobs.some(j=>j.k==='san'))return 1;const c=Math.round(pr.val*.25*pr.lvl);if(p.money<c)return 1;p.money-=c;pr.jobs.push({k:'san',done:p.age+1});done('Sanierung beauftragt. Fertig, wenn du '+(p.age+1)+' bist.');return 1}
   case 'fasscol':fassCol=+arg;render();return 1;
-  case 'build':{if(!pr)return 1;const B=BLD[arg],c=Math.round(pr.val*B[2]);if(pr.bd[arg]||p.money<c)return 1;p.money-=c;pr.jobs.push({k:arg,done:p.age+B[3],col:arg==='fassade'?fassCol:null});if(B[6])add('gl',B[6]);done(B[0]+' beauftragt. Fertig, wenn du '+(p.age+B[3])+' bist.');return 1}
+  case 'build':{if(!pr)return 1;const B=BLD[arg],c=Math.round(pr.val*B[2]*archF());if(pr.bd[arg]||p.money<c)return 1;p.money-=c;pr.jobs.push({k:arg,done:p.age+archT(B[3]),col:arg==='fassade'?fassCol:null});if(B[6])add('gl',B[6]);done(B[0]+' beauftragt. Fertig, wenn du '+(p.age+archT(B[3]))+' bist.'+(perk('Architektur')?' Du hast selbst geplant: 25 % günstiger.':''));return 1}
   case 'landbuild':{if(!pr||!PT[pr.t].land||pr.jobs.length)return 1;const c=px$(LANDB[arg][0]);if(p.money<c)return 1;p.money-=c;pr.jobs.push({k:'land_'+arg,done:p.age+LANDB[arg][1],cost:c});done('Bau eines '+PT[arg].n+' beauftragt.');return 1}
   case 'sellprop':{if(!pr)return 1;const v=Math.round(propVal(pr)*.97);if(pr.use==='self')p.home=p.age>=18?'wg':'eltern';p.money+=v;p.props=p.props.filter(x=>x!==pr);propSel=null;done(propName(pr)+' für '+eur(v)+' verkauft.');return 1}
   }return 0;
@@ -2003,7 +2008,7 @@ function act(id,arg){
   if(!p||!p.alive)return;CUR=id;
   if(ACTS[id]){const A=ACTS[id];if(!can(id)||!useAct())return;const r=A.f();if(r===null){refundAct();toast('Dafür hast du nicht genug Geld.');return}
     if(A.crime){log(r);checkAch();save();render();dialog(A.n,r,[['OK',null]])}else done(r);return}
-  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg)||act12(id,arg)||act13(id,arg)||act14(id,arg))return;
+  if(act2(id,arg)||act3(id,arg)||act4(id,arg)||act5(id,arg)||act6(id,arg)||act7(id,arg)||act8(id,arg)||act9(id,arg)||act10(id,arg)||act11(id,arg)||act12(id,arg)||act13(id,arg)||act14(id,arg)||act15(id,arg))return;
   switch(id){
   case 'goto':tab=arg;if(arg==='stadt')sel=null;if(p.appSeen)p.appSeen[arg]=1;if(arg==='store')p.storeY=p.age;if(arg==='klick'&&p.sm)p.sm.nf=0;if(arg==='chats')chatSel=null;render();if(arg==='jobs')p.seenJobs=JOBS.filter(j=>!canJob(j)).map(j=>j.id);window.scrollTo(0,0);break;
   case 'apply':{const j=JOBS.find(x=>x.id===arg);if(canJob(j)||!useAct())return;
@@ -2704,7 +2709,7 @@ function movePick(){dialog('Wohin soll es gehen?','Umzug kostet '+eur(px$(2500))
 
 /* ================= Jahreswechsel ================= */
 function lifeX(R0){ensureLife();
-  worldYear(R0);jvaYear();leben2Year(R0);bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);{const net=R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0)-((R0.out.find(x=>x[0]==='Steuern')||[0,0])[1]);costYear(R0,net)}mailYear();examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
+  worldYear(R0);jvaYear();leben2Year(R0);perkYear(R0);bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);{const net=R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0)-((R0.out.find(x=>x[0]==='Steuern')||[0,0])[1]);costYear(R0,net)}mailYear();examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
   ['mama','papa'].forEach(k=>p.rel[k]=Math.max(0,p.rel[k]-2));p.rel.freund=Math.max(0,p.rel.freund-3);
   if(p.age>=8&&p.rel.freund<12){log('Du und '+p.friend+' habt euch aus den Augen verloren.');p.friend=pick(FN.concat(MN).filter(x=>x!==p.friend));p.rel.freund=45;p.chats.freund={msgs:[],un:0};msg('freund','Hi! Wir kennen uns vom Sport. Lust, mal was zu machen?')}
   p.lernN=0;p.skipN=0;if(p.trust&&p.age>=18){p.money+=p.trust;R0.inc.push(['Treuhandfonds der Familie',p.trust]);log('Du bekommst deinen Treuhandfonds: '+eur(p.trust)+'.');p.trust=0}
@@ -2861,6 +2866,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+ {v:'4.1',big:true,t:'Deine Ausbildung zählt',neu:['Gerichts-Minispiel: Nachbarn, Vermieter oder die Staatsanwaltschaft vor Gericht. Mit Jura ohne Anwaltskosten und mit besseren Chancen','Medizin: Gesundheits-Punkte, Notfälle in der Nachbarschaft, Krankheiten in der Familie früher erkennen','Informatik: eigene App programmieren, Hackerangriffe selbst abwehren','Architektur: Ausbauten 25 % günstiger und schneller','Lehramt: klügere Kinder, Nachhilfe ohne Aktionspunkte, ehemalige Schüler','Mechatronik, Koch/Köchin, Pflege, Friseur/in, Bank- und Bürokaufleute, Polizei und Pilot/in mit eigenen Vorteilen','Bildungs-App: Übersicht, was dir deine Ausbildung bringt'],mod:['Ausbildungsberufe zählen nach 2 Jahren im Job als gelernt']},
  {v:'4.0',big:true,t:'Aurora: neues Design und lebendige Nachbarschaft',neu:['Neues Aurora-Design: Lichtverlauf aus Violett, Türkis und Orange, Glas-Karten, farbige Statusringe, glänzende App-Symbole','Neue Startseite mit großem Avatar, Profilkarte und Weiterspielen-Knopf','Stadt bei Nacht: Fenster leuchten, Laternen brennen, Tag und Nacht folgen der Spieluhr','Karten-Pins mit Namen und Personen, die gerade dort sind','Apps lange drücken und ziehen, um sie zu verschieben','Nachbarn mit Persönlichkeit: Grillfeste, Lärm, Pakete, Freundschaften und Anzeigen','Wohnungsprobleme: Mieterhöhung, Schimmel, Nebenkosten-Nachzahlung','Erbstreit: Wer im Testament übergangen wird, fordert den Pflichtteil, auch in der nächsten Generation','Wirtschaftsprognosen und spürbare Folgen für Jobs, Geschäfte und Mieten','Figuren mit Persönlichkeit, Zielen, Geheimnissen und Gedächtnis'],mod:['Chats zeigen echte Gesichter','Das klassische Design gibt es weiter unter Einstellungen → Design']},
  {v:'3.1',big:false,t:'Gefängnis und Feinschliff',neu:['Gefängnis-App für Insassen: Hofgang, Bibliothek, Werkstatt, Schulabschluss, Anti-Gewalt-Training, Besuch, Berufung und Ausbruch','Neuer Beruf Justizvollzugsbeamter/in mit Zellenkontrolle','Gute Führung bringt eine frühere Entlassung','Hinweis, wenn nur noch wenige Aktionen übrig sind','Namen für Personen, Läden, Gebäude, Bands und Vereine lassen sich in inhalte/namen.txt ändern'],mod:['Zurück bringt dich dorthin, wo du warst, zum Beispiel in die Chat-Liste','Stadt-Ereignisse sitzen jetzt auf echten Gebäuden','Gebäude-Karte ist größer und zeigt alle Optionen, mit Schließen-Knopf','Deutlicher „Handy“-Knopf zum Zurückgehen','Gratulieren und Einladungen kosten nur noch eine Aktion, wenn die Beziehung schlecht ist','Arzttermine hängen von Gesundheits-Punkten ab: Arztbesuche, gesunde Ernährung, Sport und Check-ups machen sie kürzer und ab 7 Punkten kostenlos, Rauchen und Fast Food machen sie teurer','Vollbild nur noch einmal pro Start, in den Einstellungen abschaltbar']},
  {v:'3.0',big:true,t:'Das echte Leben kostet',neu:['Post-App ab 16: Rechnungen, Steuererklärung, Behördenbriefe, Betrugsversuche und Briefe von Oma','Wer Rechnungen ignoriert, bekommt Mahnung, Inkasso und am Ende den Gerichtsvollzieher','Lebenshaltungskosten ab 18: Essen, Kleidung, Handyvertrag, Strom und Internet, Versicherungen, Bus und Bahn, Konsum und Urlaub','Grundsteuer auf alle Immobilien, ab der 4. Immobilie eine zusätzliche Abgabe'],mod:['Einkommensteuer in Stufen: 0, 25, 38 und 45 %','Fitnessstudio kostet jetzt monatlich statt einmalig','Ab 25 verlangen die Eltern Kostgeld, wenn du noch zu Hause wohnst','Wer viel Geld hat, gibt auch mehr aus']},
@@ -3428,7 +3434,7 @@ function viewPost(){p.mail=p.mail||[];const lock=!!p.prison;const bills=p.mail.f
   return h}
 function act12(id,arg){const lock=!!p.prison;if(id.startsWith('mail')){if(lock)return 1;p.mail=p.mail||[]}switch(id){
   case 'mailpay':{const m=p.mail[+arg];if(!m)return 1;const M=MAIL[m.k];if(m.amt>0&&p.money<m.amt)return 1;if(!spendTime(10))return 1;
-    if(M[3]===3){p.money-=m.amt;p.mail.splice(+arg,1);add('gl',-5);done('Du hast 49 € überwiesen. Die 10.000 € kommen nie an. Es war Betrug.');return 1}
+    if(M[3]===3&&perk('bankkfm')){p.mail.splice(+arg,1);done('Als Bankkaufmann/-frau erkennst du die Masche sofort: Betrug. Ab in den Müll.');return 1}if(M[3]===3){p.money-=m.amt;p.mail.splice(+arg,1);add('gl',-5);done('Du hast 49 € überwiesen. Die 10.000 € kommen nie an. Es war Betrug.');return 1}
     if(M[3]===4){p.money+=m.amt;p.mail.splice(+arg,1);add('gl',4);done('Oma schreibt, dass sie stolz auf dich ist. Und legt '+eur(m.amt)+' bei.');return 1}
     p.money-=m.amt;p.mail.splice(+arg,1);done(m.amt>=0?M[0]+' bezahlt: '+eur(m.amt)+'.':'Gutschrift: '+eur(-m.amt)+' zurück.');return 1}
   case 'mailpayall':{const bills=p.mail.filter(m=>MAIL[m.k]&&MAIL[m.k][3]===1);const sum=bills.reduce((s,m)=>s+m.amt,0);if(p.money<sum)return 1;if(!spendTime(10*bills.length))return 1;p.money-=sum;p.mail=p.mail.filter(m=>!bills.includes(m));done(bills.length+' Rechnung(en) bezahlt: '+eur(sum)+'.');return 1}
@@ -3607,7 +3613,7 @@ function nbYear(){nbSync();if(p.prison)return;
   p.nb.forEach((o,i)=>{if(nbAge(o)>82&&ch(.18)){const gift=o.rel>=85?px$(R(5,30)*1000):0;
       if(gift){p.money+=gift;log(o.n+' ist gestorben und hat dir '+eur(gift)+' vererbt. Ihr wart gute Nachbarn.');news('Nachbar/in hinterlässt '+p.first+' ein Erbe','lokal')}
       else log('Dein/e Nachbar/in '+o.n+' ist gestorben.');p.nb[i]=mkNb();log(p.nb[i].n+' zieht nebenan ein.')}});
-  if(p.wanted>0){const bad=p.nb.findIndex(o=>o.rel<25);if(bad>=0&&ch(.22+p.wanted*.04)){p.q.push({id:'nbanzeige',d:bad});return}}
+  if(p.wanted>0){const bad=p.nb.findIndex(o=>o.rel<25);if(bad>=0&&ch((.22+p.wanted*.04)*(perk('polizei')?.3:1))){p.q.push({id:'nbanzeige',d:bad});return}}
   if(ch(.5)){const i=R(0,p.nb.length-1),o=p.nb[i];
     const k=o.rel>=82&&ch(.35)?'nbfreund':{laut:'nblaerm',grill:'nbgrill',hilfsb:'nbpaket',neugier:'nbklatsch',streng:'nbregel',ruhig:'nbhilfe'}[o.tr];p.q.push({id:k,d:i})}}
 const nbE=(i,f)=>{const o=p.nb&&p.nb[i];return o?f(o):null};
@@ -3804,6 +3810,115 @@ function act14(id,arg){switch(id){
 
 /* ---------- Jahreswechsel ---------- */
 function leben2Year(R0){try{nbYear()}catch(e){}try{flatYear()}catch(e){}try{willYear()}catch(e){}try{npcYear()}catch(e){}}
+/* ================= Was dir deine Ausbildung im Leben bringt ================= */
+const hasDeg=k=>p&&p.deg===k;
+function tradeOK(id){return !!p&&((p.job&&p.job.id===id)||((p.jobYrs||{})[id]||0)>=2)}
+const juraOK=()=>hasDeg('Jura')||tradeOK('jura');
+const PERKS=[
+ ['Jura','Jura',juraOK,['Vor Gericht ziehen ohne Anwaltskosten, mit besseren Chancen','Im Gerichts-Minispiel bleiben nur zwei Antworten übrig','Bei einer Anzeige kannst du dich selbst verteidigen'],'Studium Jura oder Beruf Anwalt/Anwältin'],
+ ['Medizin','Medizin',()=>hasDeg('Medizin'),['+2 Gesundheits-Punkte: Arzttermine werden schneller kostenlos','Notfälle in der Nachbarschaft: Du kannst Leben retten','Du merkst früher, wenn jemand in der Familie krank ist'],'Studium Medizin'],
+ ['Informatik','Informatik',()=>hasDeg('Informatik'),['Eigene App programmieren: bringt jedes Jahr Geld','Hackerangriffe auf deine Geschäfte wehrst du selbst ab','Bessere Chancen beim Hacken'],'Studium Informatik'],
+ ['Architektur','Architektur',()=>hasDeg('Architektur'),['Ausbauten an Immobilien 25 % günstiger','Baustellen sind ein Jahr schneller fertig'],'Studium Architektur'],
+ ['Lehramt','Lehramt',()=>hasDeg('Lehramt'),['Deine Kinder lernen besser: Intelligenz jedes Jahr höher','Nachhilfe geben: Geld ohne Aktion, nur Zeit','Ehemalige Schüler erinnern sich an dich'],'Studium Lehramt'],
+ ['mecha','Mechatronik',()=>tradeOK('mecha'),['Alte Autos herrichten und mit Gewinn verkaufen','Pannen reparierst du selbst, kostenlos','Autowerkstatt als Geschäft läuft 15 % besser'],'2 Jahre als Mechatroniker/in'],
+ ['koch','Koch/Köchin',()=>tradeOK('koch'),['+2 Gesundheits-Punkte, weil du gesund kochst','Beim Grillfest der Nachbarn bist du der Star','Pizzeria und Kaffeerösterei laufen 15 % besser'],'2 Jahre als Koch/Köchin'],
+ ['pflege','Pflege',()=>tradeOK('pflege'),['Eltern selbst pflegen macht dich nicht unglücklich','Ältere Nachbarn mögen dich jedes Jahr mehr','+1 Gesundheits-Punkt'],'2 Jahre als Pflegefachkraft'],
+ ['friseur','Friseur/in',()=>tradeOK('friseur'),['Freunden die Haare schneiden: Beziehung und Aussehen +, keine Aktion'],'2 Jahre als Friseur/in'],
+ ['bankkfm','Bankkaufmann/-frau',()=>tradeOK('bankkfm'),['Kredite 1 Prozentpunkt günstiger','Betrügerische Briefe und Angebote erkennst du sofort'],'2 Jahre als Bankkaufmann/-frau'],
+ ['buero','Bürokaufmann/-frau',()=>tradeOK('buero'),['Steuererklärung selbst machen: 8 % der Steuern zurück','Nebenkosten-Abrechnungen prüfst du selbst, kostenlos'],'2 Jahre als Bürokaufmann/-frau'],
+ ['polizei','Polizei',()=>tradeOK('polizei'),['Nachbarn zeigen dich viel seltener an','Aber: Krumme Dinge können dich den Job kosten'],'2 Jahre als Polizist/in'],
+ ['pilot','Pilot/in',()=>tradeOK('pilot'),['Urlaub und Weltreise zum halben Preis','Seltene Notlandungen als Ereignis'],'2 Jahre als Pilot/in']];
+const perk=k=>{const P=PERKS.find(x=>x[0]===k);return !!(P&&P[2]())};
+
+/* ---------- Gerichts-Minispiel ---------- */
+const COURTQ=[['Welches Beweismittel legst du vor?','Ein Protokoll mit Datum und Uhrzeit','Ein Foto von deinem Hund','Dein Bauchgefühl'],
+ ['Die Richterin fragt nach Zeugen. Wen nennst du?','Leute, die es selbst erlebt haben','Deine Mama, die nicht dabei war','Niemanden, das muss reichen'],
+ ['Ab wann gilt meistens Nachtruhe?','22 Uhr','18 Uhr','1 Uhr'],
+ ['Die Gegenseite wird laut. Was tust du?','Ruhig und sachlich antworten','Zurückbrüllen','Den Saal verlassen'],
+ ['Wie heißt eine Einigung ohne Urteil?','Vergleich','Freispruch','Verwarnung'],
+ ['Was gehört in eine gute Klageschrift?','Was passiert ist und was du forderst','Wie unsympathisch die Gegenseite ist','Nur deine Telefonnummer'],
+ ['Wer muss im Zivilprozess seine Behauptung beweisen?','Wer etwas fordert','Immer das Gericht','Niemand'],
+ ['Um wie viel darf die Miete in drei Jahren meist höchstens steigen?','20 %','50 %','100 %'],
+ ['Was sagst du zur Richterin?','Frau Vorsitzende','Hey du','Euer Ehren, Baby']];
+function court(c){const jura=juraOK(),fee=jura?0:px$(3000);
+  if(!jura&&p.money<fee){toast('Ein Anwalt kostet '+eur(fee)+'. Das hast du gerade nicht.');return}
+  p.money-=fee;const Q=COURTQ.slice().sort(()=>Math.random()-.5).slice(0,3);let sc=0,strat='beweis';
+  const ask=i=>{if(i>=Q.length)return end();const q=Q[i];let o=[[q[1],1],[q[2],0],[q[3],0]];if(jura)o=[o[0],o[1+R(0,1)]];o.sort(()=>Math.random()-.5);
+    dialog('⚖ Frage '+(i+1)+' von 3',q[0],o.map(x=>[x[0],()=>{if(x[1])sc++;setTimeout(()=>ask(i+1),60)}]))};
+  const end=()=>{const pr=clamp(c.base+sc*.14+(jura?.15:0)+(strat==='hart'?.05:0)-(strat==='hart'&&sc<2?.15:0),.05,.95);
+    let r;if(strat==='vergleich')r='settle';else if(ch(pr))r='win';else r=sc>=2&&strat!=='hart'?'settle':'lose';
+    const txt=r==='win'?c.win():r==='settle'?c.settle():c.lose();
+    if(r==='win'&&p.job&&p.job.id==='jura'){p.job.perf=Math.min(100,(p.job.perf||50)+6);if(ch(.4))news(p.first+' '+p.last+' gewinnt Prozess gegen '+c.opp,'lokal')}
+    const res=txt+(fee?' Anwalt: '+eur(fee)+'.':' Du hast dich selbst vertreten.');log('Gericht: '+res);save();render();dialog(r==='win'?'⚖ Gewonnen!':r==='settle'?'⚖ Vergleich':'⚖ Verloren',res,[['OK',null]])};
+  dialog('⚖ Vor Gericht: '+c.t,(jura?'Du vertrittst dich selbst. ':'Dein Anwalt kostet '+eur(fee)+'. ')+'Gegen '+c.opp+'. Wie gehst du vor?',[
+    ['Beweise sammeln',()=>{strat='beweis';setTimeout(()=>ask(0),60)}],['Hart auftreten',()=>{strat='hart';setTimeout(()=>ask(0),60)}],['Auf einen Vergleich setzen',()=>{strat='vergleich';setTimeout(end,60)}]])}
+const courtOpt=(label,c)=>['⚖ '+label+(juraOK()?' (selbst)':' (Anwalt)'),()=>{setTimeout(()=>court(c),60);return juraOK()?'Du setzt die Klageschrift selbst auf.':'Du nimmst dir einen Anwalt.'}];
+const nbCourt=(o,i)=>courtOpt('Vor Gericht ziehen',{t:'Nachbarschaftsstreit',opp:o.n,base:.35,
+  win:()=>{const v=px$(R(5,20)*100);p.money+=v;o.rel=0;remember(o,'Hat mich verklagt',-3);if(ch(.5)){const n=o.n;p.nb[i]=mkNb();return n+' muss '+eur(v)+' zahlen und zieht kurz darauf aus. Neu nebenan: '+p.nb[i].n+'.'}return o.n+' muss '+eur(v)+' zahlen. Im Haus ist es jetzt still. Sehr still.'},
+  settle:()=>{o.rel=clamp(o.rel-10,0,100);remember(o,'Wir haben uns vor Gericht geeinigt',-1);return 'Ihr einigt euch: Ruhe ab 22 Uhr, Fahrrad in den Keller. Freunde werdet ihr nicht.'},
+  lose:()=>{const v=px$(1500);p.money-=v;o.rel=clamp(o.rel-25,0,100);remember(o,'Hat mich verklagt und verloren',-3);return 'Das Gericht sieht keinen Verstoß. Du zahlst '+eur(v)+' Gerichtskosten.'}});
+const addOpt=(k,f)=>{const o=QEV[k];QEV[k]=d=>{const e=o(d);if(e){const x=f(d,e);if(x)e.o.push(x)}return e}};
+addOpt('nblaerm',i=>nbCourt(p.nb[i],i));addOpt('nbregel',i=>nbCourt(p.nb[i],i));
+addOpt('mieterh',(d,e)=>{const m=e.x.match(/um ([\d.]+)\s?€/);const x=m?+m[1].replace(/\./g,''):px$(300);return courtOpt('Gegen die Erhöhung klagen',{t:'Mieterhöhung',opp:'deinen Vermieter',base:.4,
+  win:()=>'Die Erhöhung ist unwirksam. Die Miete bleibt, wie sie ist.',settle:()=>(p.rentX=(p.rentX||0)+Math.round(x/2),'Ihr trefft euch in der Mitte: nur die halbe Erhöhung.'),lose:()=>(p.rentX=(p.rentX||0)+x,p.money-=px$(900),'Die Erhöhung war rechtens. Dazu kommen Gerichtskosten.')})});
+addOpt('nbanzeige',i=>juraOK()?courtOpt('Selbst verteidigen',{t:'Strafverfahren',opp:'die Staatsanwaltschaft',base:.3,
+  win:()=>(p.wanted=Math.max(0,p.wanted-1),'Verfahren eingestellt. Die Staatsanwältin nickt dir anerkennend zu.'),settle:()=>(p.money-=px$(3000),'Einstellung gegen Geldauflage: '+eur(px$(3000))+'.'),lose:()=>(toJail(1,'Verurteilt.'),'Deine Verteidigung hat nicht gereicht.')}):null);
+{const o=QEV.nebenk;QEV.nebenk=()=>{const e=o();if(e&&perk('buero')){const m=e.x.match(/([\d.]+)\s?€/),x=m?+m[1].replace(/\./g,''):0;e.o[1]=['★ Selbst prüfen (Bürokauffrau/-mann)',()=>{if(ch(.75)){p.money-=Math.round(x/2);return 'Du findest zwei Fehler. Du zahlst nur die Hälfte.'}p.money-=x;return 'Alles korrekt, leider.'}]}return e}}
+{const o=QEV.nbgrill;QEV.nbgrill=i=>{const e=o(i);if(e&&perk('koch')){const n=p.nb[i];e.o.unshift(['★ Am Grill übernehmen (Koch/Köchin)',()=>(n.rel=clamp(n.rel+18,0,100),add('gl',7),remember(n,'Hat für alle gegrillt. Unglaublich lecker!',2),'Alle wollen dein Rezept. Du bist der Star des Abends.')])}return e}}
+
+/* ---------- Gesundheit, Kosten, Immobilien ---------- */
+{const _hp=hParts;hParts=()=>{const L=_hp();if(perk('Medizin'))L.push(['Medizinwissen',2]);if(perk('koch'))L.push(['Du kochst gesund',2]);if(perk('pflege'))L.push(['Pflegewissen',1]);return L}}
+const archF=()=>perk('Architektur')?.75:1;
+const archT=y=>perk('Architektur')?Math.max(1,y-1):y;
+{const _bm=bizMul;bizMul=k=>_bm(k)*((perk('koch')&&(k==='pizza'||k==='kaffee'))||(perk('mecha')&&k==='werkstatt')?1.15:1)}
+{const A=ACTS.urlaub,f=A.f;A.f=()=>{const r=f();if(r!==null&&perk('pilot')){p.money+=750;return r+' Als Pilot/in fliegst du zum halben Preis.'}return r}}
+
+/* ---------- Aktionen ohne Aktionspunkte ---------- */
+function act15(id,arg){switch(id){
+  case 'devapp':{if(!perk('Informatik')||p.prison||!spendTime(180))return 1;const a=p.myApp=p.myApp||{v:0,dl:0,n:pick(['Tagesplaner','Pflanzenwecker','Rezeptwürfel','Sparschwein','Laufbuddy'])};a.v++;a.dl+=R(300,2500)*a.v;done('Version '+a.v+' von „'+a.n+'“ ist online. '+kfmt(a.dl)+' Downloads.');return 1}
+  case 'nachhilfe':{if(!perk('Lehramt')||p.prison||!spendTime(120))return 1;const v=px$(R(40,90));p.money+=v;p.tutN=(p.tutN||0)+1;done('Zwei Stunden Mathe mit einem Achtklässler. +'+eur(v)+'.');return 1}
+  case 'carflip':{if(!perk('mecha')||p.prison)return 1;if((p.flipY||{})[p.age]>=2){toast('Mehr als zwei Autos pro Jahr schaffst du nicht.');return 1}const c=px$(1500);if(p.money<c){toast('Ein altes Auto kostet '+eur(c)+'.');return 1}if(!spendTime(240))return 1;
+    p.flipY=p.flipY||{};p.flipY[p.age]=(p.flipY[p.age]||0)+1;p.money-=c;const s=ch(.85)?px$(R(2200,4300)):px$(R(800,1400));p.money+=s;done(s>c?'Rost weg, Motor läuft. Verkauft für '+eur(s)+'. Gewinn: '+eur(s-c)+'.':'Der Motor war hinüber. Nur '+eur(s)+' bekommen.');return 1}
+  case 'haircut':{if(!perk('friseur')||p.prison)return 1;if((p.cutY||{})[p.age]>=3){toast('Für dieses Jahr sind alle frisiert.');return 1}if(!spendTime(45))return 1;p.cutY=p.cutY||{};p.cutY[p.age]=(p.cutY[p.age]||0)+1;
+    const who=p.partner&&ch(.5)?'partner':'freund';relUp(who,6);try{npcMem(who,'Hat mir die Haare geschnitten',1)}catch(e){}add('au',1);done((who==='partner'?p.partner.name:p.friend)+' ist begeistert vom neuen Haarschnitt.');return 1}
+}return 0}
+
+/* ---------- Ereignisse ---------- */
+QEV.notfall=()=>{const o=(p.nb||[])[0];if(!o)return null;const med=perk('Medizin'),pf=perk('pflege');return E('Notfall im Treppenhaus',o.n+' bricht vor deiner Tür zusammen und atmet kaum.',()=>!p.prison,[
+  [(med?'★ Erste Hilfe (Medizin)':pf?'★ Erste Hilfe (Pflege)':'Erste Hilfe versuchen'),()=>{if(ch(med?.9:pf?.75:.4)){o.rel=100;remember(o,'Hat mir das Leben gerettet',5);addRuf(6);add('gl',10);news(p.first+' '+p.last+' rettet Nachbar/in das Leben','lokal');return 'Herzdruckmassage, bis der Notarzt kommt. '+o.n+' überlebt. Wegen dir.'}return 'Du gibst alles. Der Notarzt übernimmt. Es geht knapp gut.'}],
+  ['Notruf wählen',()=>(remember(o,'Hat den Notarzt gerufen',2),o.rel=clamp(o.rel+10,0,100),'Der Rettungswagen ist in acht Minuten da. Gut gemacht.')]])};
+QEV.hack=()=>E('Hackerangriff','Jemand hat die Kassensysteme deiner Geschäfte verschlüsselt und will 5.000 €.',()=>!!p.biz,[
+  ['IT-Firma holen (3.000 €)',()=>(p.money-=px$(3000),'Nach drei Tagen läuft alles wieder.')],['Lösegeld zahlen',()=>(p.money-=px$(5000),ch(.5)?'Die Daten sind wieder da. Diesmal.':'Bezahlt, aber die Daten bleiben weg.')]]);
+QEV.panne=()=>E('Panne!','Dein Auto bleibt auf der Landstraße liegen.',()=>(p.cars||[]).length>0,[
+  ['Abschleppen lassen',()=>{const c=px$(R(300,1200));p.money-=c;return 'Werkstatt, Ersatzteil, Rechnung: '+eur(c)+'.'}]]);
+QEV.exschueler=()=>E('Ein ehemaliger Schüler','Im Supermarkt spricht dich ein junger Mann an: „Sie waren meine Lieblingslehrkraft!“ Er arbeitet jetzt als Banker.',()=>true,[
+  ['Ins Gespräch kommen',()=>ch(.5)?(p.money+=px$(R(5,20)*100),'Er gibt dir einen Aktientipp. Der geht auf!'):(add('gl',8),'Er erzählt, dass er wegen dir studiert hat. Das wärmt das Herz.')]]);
+QEV.notlandung=()=>E('Triebwerksausfall!','Über den Alpen fällt ein Triebwerk aus. 180 Passagiere schauen nach vorne.',()=>!!(p.job&&p.job.id==='pilot'),[
+  ['Checkliste abarbeiten',()=>ch(.85)?(addRuf(10),add('gl',8),p.job.perf=Math.min(100,(p.job.perf||50)+15),news('Heldin oder Held der Lüfte: Pilot/in '+p.first+' '+p.last+' landet sicher','lokal'),'Sichere Landung in München. Applaus in der Kabine.'):(add('gl',-10),'Harte Landung, alle verletzt, aber alle leben. Untersuchung folgt.')],
+  ['Sofort umkehren',()=>ch(.6)?(addRuf(4),'Zurück am Startflughafen. Alle sicher.'):(add('ge',-8),'Unruhige Landung. Ein paar blaue Flecken.')]]);
+function perkYear(R0){if(!p||p.prison)return;
+  if(p.job){p.jobYrs=p.jobYrs||{};p.jobYrs[p.job.id]=(p.jobYrs[p.job.id]||0)+1}
+  if(p.myApp){const a=p.myApp,v=Math.round(a.dl*.35*(perk('Informatik')?1:.5));if(v>0){p.money+=v;R0.inc.push(['App „'+a.n+'“',v])}a.dl=Math.round(a.dl*.85)}
+  if(perk('Lehramt'))(p.kids||[]).forEach(k=>{if(p.age-k.b<19&&k.st)k.st.in=Math.min(100,(k.st.in||50)+2)});
+  if(perk('pflege')){if(p.care==='selbst')add('gl',4);(p.nb||[]).forEach(o=>{if(nbAge(o)>=65)o.rel=clamp(o.rel+3,0,100)})}
+  if(perk('buero')){const t=(R0.out.find(x=>x[0]==='Steuern')||[0,0])[1];if(t>0){const r=Math.round(t*.08);p.money+=r;R0.inc.push(['Steuererklärung (selbst gemacht)',r])}}
+  if(perk('polizei')&&p.job&&p.job.id==='polizei'&&p.wanted>0&&ch(.3)){p.job=null;add('gl',-10);log('Interne Ermittlungen: Du wurdest aus dem Polizeidienst entlassen.');news('Polizist/in '+p.first+' '+p.last+' suspendiert','lokal')}
+  if(perk('Medizin')&&ch(.2)){const id=['mama','papa'].find(x=>{const o=p.npc&&p.npc[x];return o&&o.sec==='krank'&&!o.sd});if(id)p.q.push({id:'npcsec',d:id})}
+  const r=Math.random();
+  if(r<.05&&p.age>=16)p.q.push({id:'notfall'});
+  else if(r<.11&&p.biz&&(p.biz.fronts||[]).length){if(perk('Informatik'))log('Ein Hackerangriff auf deine Geschäfte: Du hast ihn selbst abgewehrt.');else p.q.push({id:'hack'})}
+  else if(r<.19&&(p.cars||[]).length){if(perk('mecha'))log('Panne mit dem Auto: Du hast es selbst repariert, kostenlos.');else p.q.push({id:'panne'})}
+  else if(r<.23&&perk('Lehramt')&&p.age>=35)p.q.push({id:'exschueler'});
+  else if(r<.27&&p.job&&p.job.id==='pilot')p.q.push({id:'notlandung'})}
+
+/* ---------- Bildungs-App: Was dir deine Ausbildung bringt ---------- */
+function perkCard(){if(!p||p.age<14)return '';const lock=!!p.prison;
+  const acts={Informatik:p.myApp?btn('devapp',null,'App updaten · 3 Std.','o',lock):btn('devapp',null,'App programmieren · 3 Std.','o',lock),Lehramt:btn('nachhilfe',null,'Nachhilfe geben · 2 Std.','o',lock),
+    mecha:btn('carflip',null,'Auto herrichten · 4 Std.','o',lock),friseur:btn('haircut',null,'Haare schneiden · 45 Min.','o',lock)};
+  const on=PERKS.filter(P=>P[2]()),off=PERKS.filter(P=>!P[2]());
+  return '<section class="card perks"><h2 class="h">Das bringt dir deine Ausbildung</h2>'+(on.length?on.map(P=>'<div class="pk on"><b>'+P[1]+' <span class="chip">aktiv</span></b><ul>'+P[3].map(x=>'<li>'+x+'</li>').join('')+'</ul>'+(acts[P[0]]?'<div class="btns">'+acts[P[0]]+'</div>':'')+(P[0]==='Informatik'&&p.myApp?'<small class="note">„'+esc(p.myApp.n)+'“ · Version '+p.myApp.v+' · '+kfmt(p.myApp.dl)+' Downloads</small>':'')+'</div>').join(''):'<p class="note">Noch nichts freigeschaltet. Jedes Studium und jede Ausbildung bringt dir Vorteile im Alltag.</p>')+
+    '<details class="pkmore"><summary>Alle Vorteile ansehen</summary>'+off.map(P=>'<div class="pk"><b>'+P[1]+'</b><small>'+P[4]+'</small><ul>'+P[3].map(x=>'<li>'+x+'</li>').join('')+'</ul></div>').join('')+'</details></section>'}
+{const _vb=viewBildung;viewBildung=function(){return _vb()+perkCard()}}
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],

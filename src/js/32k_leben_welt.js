@@ -18,7 +18,7 @@ function nbYear(){nbSync();if(p.prison)return;
   p.nb.forEach((o,i)=>{if(nbAge(o)>82&&ch(.18)){const gift=o.rel>=85?px$(R(5,30)*1000):0;
       if(gift){p.money+=gift;log(o.n+' ist gestorben und hat dir '+eur(gift)+' vererbt. Ihr wart gute Nachbarn.');news('Nachbar/in hinterlässt '+p.first+' ein Erbe','lokal')}
       else log('Dein/e Nachbar/in '+o.n+' ist gestorben.');p.nb[i]=mkNb();log(p.nb[i].n+' zieht nebenan ein.')}});
-  if(p.wanted>0){const bad=p.nb.findIndex(o=>o.rel<25);if(bad>=0&&ch(.22+p.wanted*.04)){p.q.push({id:'nbanzeige',d:bad});return}}
+  if(p.wanted>0){const bad=p.nb.findIndex(o=>o.rel<25);if(bad>=0&&ch((.22+p.wanted*.04)*(perk('polizei')?.3:1))){p.q.push({id:'nbanzeige',d:bad});return}}
   if(ch(.5)){const i=R(0,p.nb.length-1),o=p.nb[i];
     const k=o.rel>=82&&ch(.35)?'nbfreund':{laut:'nblaerm',grill:'nbgrill',hilfsb:'nbpaket',neugier:'nbklatsch',streng:'nbregel',ruhig:'nbhilfe'}[o.tr];p.q.push({id:k,d:i})}}
 const nbE=(i,f)=>{const o=p.nb&&p.nb[i];return o?f(o):null};

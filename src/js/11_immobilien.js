@@ -76,8 +76,8 @@ function viewProp(pr,lock){const T=PT[pr.t],v=propVal(pr),busy=pr.jobs.length>0;
   const running=pr.jobs.map(j=>row(j.k==='san'?'Sanierung':BLD[j.k][0],'fertig, wenn du '+j.done+' bist (noch '+(j.done-p.age)+' Jahr(e)) · während der Bauzeit −15 % Miete, neue Miete ab dem Jahr danach','<span class="chip">Baustelle</span>')).join('');
   const doneB=Object.keys(pr.bd).map(k=>'<span class="tag g">✓ '+BLD[k][0]+'</span>').join('');
   h+='<h3 class="sec">Bauaufträge</h3>'+(running?card('',running):'')+(doneB?'<div class="tags">'+doneB+'</div>':'');
-  h+=T.bld.filter(k=>!pr.bd[k]&&!pr.jobs.some(j=>j.k===k)).map(k=>{const B=BLD[k],c=Math.round(pr.val*B[2]);
-    return '<section class="card"><b style="font-size:16px">'+B[0]+'</b><p class="note" style="margin:2px 0 8px">'+B[1]+'</p><div class="tags" style="margin:0 0 10px"><span class="tag">'+B[3]+' Jahr(e)</span><span class="tag g">+'+B[4]+' % Wert</span>'+(B[5]?'<span class="tag g">+'+B[5]+' % Miete</span>':'')+(B[6]?'<span class="tag">+'+B[6]+' Glück</span>':'')+(B[7]&&(pr.t==='mfh'||pr.t==='buero')?'<span class="tag">+'+B[7]+' Einheit(en)</span>':'')+'</div>'+
+  h+=T.bld.filter(k=>!pr.bd[k]&&!pr.jobs.some(j=>j.k===k)).map(k=>{const B=BLD[k],c=Math.round(pr.val*B[2]*archF());
+    return '<section class="card"><b style="font-size:16px">'+B[0]+'</b><p class="note" style="margin:2px 0 8px">'+B[1]+'</p><div class="tags" style="margin:0 0 10px"><span class="tag">'+archT(B[3])+' Jahr(e)</span><span class="tag g">+'+B[4]+' % Wert</span>'+(B[5]?'<span class="tag g">+'+B[5]+' % Miete</span>':'')+(B[6]?'<span class="tag">+'+B[6]+' Glück</span>':'')+(B[7]&&(pr.t==='mfh'||pr.t==='buero')?'<span class="tag">+'+B[7]+' Einheit(en)</span>':'')+'</div>'+
       (k==='fassade'?'<div class="amts" style="margin-bottom:10px">'+COLORS.map((c,i)=>'<button class="amt colb" data-a="fasscol" data-g="'+i+'" aria-pressed="'+(fassCol===i)+'"><i style="background:'+c[1]+'"></i>'+c[0]+'</button>').join('')+'</div>':'')+
       btn('build',k,'Beauftragen für '+eur(c)+', fertig mit '+(p.age+B[3]),'o',p.money<c||lock)+'</section>'}).join('');
   return h+'<button class="btn g big sell" data-a="sellprop">Verkaufen für '+eur(v*.97)+'</button>';
@@ -97,7 +97,7 @@ function act3(id,arg){const pr=propSel!=null&&p.props?p.props.find(x=>x.id===pro
   case 'repair':{if(!pr)return 1;const c=Math.round(pr.val*(100-pr.cond)/100*.15);if(p.money<c)return 1;p.money-=c;pr.cond=100;done('Repariert: Zustand 100 %.');return 1}
   case 'sanieren':{if(!pr||pr.lvl>=3||pr.jobs.some(j=>j.k==='san'))return 1;const c=Math.round(pr.val*.25*pr.lvl);if(p.money<c)return 1;p.money-=c;pr.jobs.push({k:'san',done:p.age+1});done('Sanierung beauftragt. Fertig, wenn du '+(p.age+1)+' bist.');return 1}
   case 'fasscol':fassCol=+arg;render();return 1;
-  case 'build':{if(!pr)return 1;const B=BLD[arg],c=Math.round(pr.val*B[2]);if(pr.bd[arg]||p.money<c)return 1;p.money-=c;pr.jobs.push({k:arg,done:p.age+B[3],col:arg==='fassade'?fassCol:null});if(B[6])add('gl',B[6]);done(B[0]+' beauftragt. Fertig, wenn du '+(p.age+B[3])+' bist.');return 1}
+  case 'build':{if(!pr)return 1;const B=BLD[arg],c=Math.round(pr.val*B[2]*archF());if(pr.bd[arg]||p.money<c)return 1;p.money-=c;pr.jobs.push({k:arg,done:p.age+archT(B[3]),col:arg==='fassade'?fassCol:null});if(B[6])add('gl',B[6]);done(B[0]+' beauftragt. Fertig, wenn du '+(p.age+archT(B[3]))+' bist.'+(perk('Architektur')?' Du hast selbst geplant: 25 % günstiger.':''));return 1}
   case 'landbuild':{if(!pr||!PT[pr.t].land||pr.jobs.length)return 1;const c=px$(LANDB[arg][0]);if(p.money<c)return 1;p.money-=c;pr.jobs.push({k:'land_'+arg,done:p.age+LANDB[arg][1],cost:c});done('Bau eines '+PT[arg].n+' beauftragt.');return 1}
   case 'sellprop':{if(!pr)return 1;const v=Math.round(propVal(pr)*.97);if(pr.use==='self')p.home=p.age>=18?'wg':'eltern';p.money+=v;p.props=p.props.filter(x=>x!==pr);propSel=null;done(propName(pr)+' für '+eur(v)+' verkauft.');return 1}
   }return 0;

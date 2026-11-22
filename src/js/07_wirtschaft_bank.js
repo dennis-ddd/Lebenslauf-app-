@@ -20,7 +20,7 @@ const loanSum=()=>(p.loans||[]).reduce((t,l)=>t+l.amt,0),fgSum=()=>(p.fg||[]).re
 function bonitaet(){const inc=(p.job?p.job.pay:0)+p.pension;return clamp(Math.round(35+Math.min(30,inc/2500)+Math.min(25,Math.max(0,netWorth())/40000)-loanSum()/Math.max(10000,inc*2)*12+(p.bon-70)),0,100)}
 const bonTxt=b=>b>=80?'Sehr gut':b>=60?'Gut':b>=40?'Mittel':b>=20?'Schwach':'Schlecht';
 const maxLoan=()=>p.age<18?0:Math.round(((((p.job?p.job.pay:0)+p.pension)*3+Math.max(0,netWorth())*.5+5000)*bonitaet()/100)/1000)*1000;
-const loanRate=()=>+(curLz()+2+(100-bonitaet())/12).toFixed(1);
+const loanRate=()=>+Math.max(.5,curLz()+2+(100-bonitaet())/12-(perk('bankkfm')?1:0)).toFixed(1);
 function bankYear(){const r=econYear(),out={zins:0,raten:0,fgz:0,si:0};
   out.si=Math.round(p.sav*rates().konto/100);p.sav+=out.si;
   p.fg=p.fg.filter(f=>{const z=Math.round(f.amt*f.rate/100);f.amt+=z;out.fgz+=z;f.left--;if(f.left<=0){p.money+=f.amt;log('Festgeld ausgezahlt: '+eur(f.amt)+'.');return false}return true});

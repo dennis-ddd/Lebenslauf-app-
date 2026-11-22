@@ -5,7 +5,7 @@ const els={};function el(id){return els[id]||(els[id]={id,innerHTML:'',style:{},
 global.document={getElementById:el,addEventListener(){},createElement:()=>({getContext:()=>null}),querySelector:()=>null,body:el('body')};global.window={scrollTo(){}};global.localStorage={getItem:()=>null,setItem(){},removeItem(){}};
 const fs=require('fs'),path=require('path');
 let src=(s=>s.split('<script>')[1].split('</script>')[0])(fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8')).trim();
-src=src.replace(/^\{/,'').replace(/\}\s*$/,'')+';global.T={applyCfg,newLife,act,get p(){return p},viewJva,jvaYear,applyNames,FN,PROCLUBS,FR,PARTIES,setTab:v=>tab=v,render,viewStadt,setG:v=>G=v,cevMarkers,cityEvents,setMode:v=>cityMode=v,durOf,QEV,leben2Year,nbSync,npcOf,viewWohnen,viewNews,viewChats,setChat:v=>chatSel=v,contacts,continueAs,estate,ecoCard,worldYear,setP:v=>p=v};';eval(src);
+src=src.replace(/^\{/,'').replace(/\}\s*$/,'')+';global.T={applyCfg,newLife,act,get p(){return p},viewJva,jvaYear,applyNames,FN,PROCLUBS,FR,PARTIES,setTab:v=>tab=v,render,viewStadt,setG:v=>G=v,cevMarkers,cityEvents,setMode:v=>cityMode=v,durOf,QEV,leben2Year,nbSync,npcOf,viewWohnen,viewNews,viewChats,setChat:v=>chatSel=v,contacts,continueAs,estate,ecoCard,worldYear,setP:v=>p=v,perkYear,perkCard,court,setDialog:f=>dialog=f,PERKS,viewBildung,hFit,archF,loanRate};';eval(src);
 let errs=0;const ok=(n,c)=>{if(!c){errs++;console.log('FEHLER',n)}};
 const close=()=>el('modal').classList.remove('on');
 // Insasse
@@ -54,4 +54,24 @@ T.setTab('chats');T.setChat('freund');ok('chat npc',T.viewChats().includes('npcc
 // Erbe: bevorzugtes Kind
 T.newLife('A','B','w',70,false);T.applyCfg({act:6,clock:false,ev:'normal',big:false,wealth:'normal'});p=T.p;p.money=200000;p.kids=[{n:'Max',g:'m',b:p.age-40,rel:60,st:{in:50},edu:'Abitur'},{n:'Mia',g:'w',b:p.age-38,rel:70,st:{in:50},edu:'Abitur'}];p.will='kid0';p.alive=false;
 T.continueAs(1);p=T.p;ok('übergangen',p.q.some(x=>x.id==='erbklage')&&p.sibs[0].rel<40);
+
+// ---- Ausbildungs-Vorteile ----
+T.newLife('A','B','w',30,false);T.applyCfg({act:6,clock:false,ev:'normal',big:false,wealth:'normal'});p=T.p;p.money=1e6;p.deg='Jura';T.nbSync();
+ok('perkcard',T.perkCard().includes('Jura')&&T.viewBildung().includes('Das bringt dir'));
+{const e=T.QEV.nbregel(0);ok('gerichtsoption',e.o.some(o=>o[0].startsWith('⚖')))}
+// Gericht durchspielen: Dialoge automatisch beantworten
+{const seen=[];T.setDialog((h,x,o)=>{seen.push(h);if(o[0]&&o[0][1])o[R(0,o.length-1)][1]()});
+ for(let k=0;k<20;k++)T.court({t:'Test',opp:'X',base:.4,win:()=>'w',settle:()=>'s',lose:()=>'l'});
+ const res=seen.filter(h=>h.startsWith('⚖ Gew')||h.startsWith('⚖ Verl')||h.startsWith('⚖ Verg')).length;ok('gericht ergebnisse '+res,res===20);
+ console.log('  Urteile:',['Gewonnen','Vergleich','Verloren'].map(w=>w+' '+seen.filter(h=>h.includes(w)).length).join(', '))}
+const h0=T.hFit();p.deg='Medizin';ok('medizin punkte',T.hFit()===h0+2);
+p.deg='Architektur';ok('architektur',T.archF()===.75);
+p.deg=null;p.job={id:'bankkfm',t:'x',pay:1,perf:50,yrs:0};const lr=T.loanRate();p.job=null;p.jobYrs={};ok('bank zins',T.loanRate()-lr>=.9||T.loanRate()===lr);
+['Informatik','Lehramt','Medizin'].forEach(dg=>{p.deg=dg;for(let y=0;y<5;y++){try{T.perkYear({inc:[],out:[['Steuern',10000]]});p.q=[]}catch(x){errs++;console.log('ERR perk',dg,x.message)}}});
+p.deg='Informatik';T.act('devapp');ok('app',!!p.myApp);
+p.deg='Lehramt';const m0=p.money;T.act('nachhilfe');ok('nachhilfe',p.money>m0&&p.act===6);
+p.deg=null;p.jobYrs={mecha:3,friseur:3,pilot:3,koch:3};p.cars=[{}];const m1=p.money;T.act('carflip');ok('auto',p.money!==m1);T.act('haircut');
+['notfall','hack','panne','exschueler'].forEach(k=>{const e=T.QEV[k]();if(e)e.o.forEach(o=>{try{o[1]()}catch(x){errs++;console.log('ERR',k,x.message)}})});
+p.job={id:'pilot',t:'x',pay:1,perf:50,yrs:0};{const e=T.QEV.notlandung();e.o.forEach(o=>o[1]())}
+{const e=T.QEV.nbgrill(0);ok('koch grill',e.o[0][0].startsWith('★'))}
 console.log('errors',errs);
