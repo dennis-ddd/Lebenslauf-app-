@@ -24,7 +24,7 @@ function ageUp(){
   const smi=smYear();if(p.job&&p.job.id==='influ')p.job.pay=smi;const BZ=bizYear();
   const azubi=p.azubi?12000:0,pocket=a>=6&&a<18?(cfg().wealth==='arm'?0:cfg().wealth==='reich'?1200:300):0;
   const gross=sal+azubi+p.pension+smi,tax=incTax(gross+BZ.taxable);
-  const wohnen=Math.round(cityF(1)*(a>=18?px$(HOMES[p.home].c+(p.home==='eltern'?1200:0))+p.owned.filter(k=>k!==p.home).reduce((t,k)=>t+px$(HOMES[k].c),0):0)),kids=p.kids.filter(k=>a-k.b<18).length*3000,
+  const wohnen=Math.round(cityF(1)*(a>=18?px$(HOMES[p.home].c+(p.home==='eltern'?1200:0)+(rentedHome()?(p.rentX||0):0))+p.owned.filter(k=>k!==p.home).reduce((t,k)=>t+px$(HOMES[k].c),0):0)),kids=p.kids.filter(k=>a-k.b<18).length*3000,
     cars=p.cars.reduce((s,c)=>s+CARS[c].c,0),pets=p.pets.reduce((s,x)=>s+PETS[x.t].c,0),zins=0;
   p.money+=gross-tax-wohnen-kids-cars-pets-zins+pocket;
   const BK=bankYear(),HY=homeYear(),LY=lifeYear(),PY=propYear(),si=BK.si;p.wanted=Math.max(0,(p.wanted||0)-1);

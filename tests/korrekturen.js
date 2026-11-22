@@ -5,7 +5,7 @@ const els={};function el(id){return els[id]||(els[id]={id,innerHTML:'',style:{},
 global.document={getElementById:el,addEventListener(){},createElement:()=>({getContext:()=>null}),querySelector:()=>null,body:el('body')};global.window={scrollTo(){}};global.localStorage={getItem:()=>null,setItem(){},removeItem(){}};
 const fs=require('fs'),path=require('path');
 let src=(s=>s.split('<script>')[1].split('</script>')[0])(fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8')).trim();
-src=src.replace(/^\{/,'').replace(/\}\s*$/,'')+';global.T={applyCfg,newLife,act,get p(){return p},viewJva,jvaYear,applyNames,FN,PROCLUBS,FR,PARTIES,setTab:v=>tab=v,render,viewStadt,setG:v=>G=v,cevMarkers,cityEvents,setMode:v=>cityMode=v,durOf};';eval(src);
+src=src.replace(/^\{/,'').replace(/\}\s*$/,'')+';global.T={applyCfg,newLife,act,get p(){return p},viewJva,jvaYear,applyNames,FN,PROCLUBS,FR,PARTIES,setTab:v=>tab=v,render,viewStadt,setG:v=>G=v,cevMarkers,cityEvents,setMode:v=>cityMode=v,durOf,QEV,leben2Year,nbSync,npcOf,viewWohnen,viewNews,viewChats,setChat:v=>chatSel=v,contacts,continueAs,estate,ecoCard,worldYear,setP:v=>p=v};';eval(src);
 let errs=0;const ok=(n,c)=>{if(!c){errs++;console.log('FEHLER',n)}};
 const close=()=>el('modal').classList.remove('on');
 // Insasse
@@ -37,4 +37,21 @@ cev.children=ce.map((e,i)=>({dataset:{},style:{}}));
 T.cevMarkers();ce.forEach((e,i)=>{cev.children[i].dataset.ci=String(e.ci)});T.cevMarkers();
 ce.forEach((e,i)=>{const s=cev.children[i].style;ok('marker '+i,e.ci!=null&&cells[e.ci]&&/translate/.test(s.transform));ok('marker verschieden '+i,ce.filter(x=>x.ci===e.ci).length===1)});
 console.log('marker',cev.children.map(c=>c.style.transform+' '+c.style.display).join(' | '));
+
+// ---- Nachbarn, Wohnung, Erbe, Wirtschaft, Figuren ----
+T.newLife('A','B','w',30,false);T.applyCfg({act:6,clock:false,ev:'normal',big:false,wealth:'normal'});p=T.p;p.money=1e6;p.home='einzimmer';p.owned=[];p.partner={name:'Kim',rel:60,mar:false};
+T.nbSync();ok('nachbarn',p.nb&&p.nb.length===2);
+const runE=(id,d)=>{const e=T.QEV[id](d);if(!e)return console.log('  (kein Ereignis)',id);e.o.forEach((o,k)=>{try{const r=o[1]();if(typeof r!=='string')console.log('  kein Text',id,k)}catch(x){errs++;console.log('ERR',id,k,x.message)}})};
+['nblaerm','nbgrill','nbpaket','nbklatsch','nbregel','nbhilfe','nbfreund'].forEach(k=>runE(k,0));p.wanted=2;runE('nbklatsch',1);p.prison=0;runE('nbanzeige',0);p.prison=0;p.wanted=0;
+['mieterh','schimmel','nebenk'].forEach(k=>runE(k));
+p.kids=[{n:'Max',g:'m',b:p.age-10,rel:60,st:{in:50}},{n:'Mia',g:'w',b:p.age-8,rel:70,st:{in:50}}];runE('willremind');
+p.sibs=[{n:'Tom',g:'m',rel:20},{n:'Ida',g:'w',rel:50}];p.erbFeud=1;runE('feud');runE('erbklage',{to:'Tom',pt:5000});runE('pflicht',{pt:8000});
+T.contacts().forEach(c=>{const o=T.npcOf(c.id);if(!o)return;['npcsec','npcgoal'].forEach(k=>{const oo=T.npcOf(c.id);oo.sd=0;oo.gd=0;runE(k,c.id)});oo=T.npcOf(c.id);oo.mem=[{a:1,t:'Test',v:3}];runE('npcmem',c.id);oo.mem=[{a:1,t:'Test',v:-3}];runE('npcmem',c.id)});
+for(let y=0;y<30;y++){try{T.leben2Year({inc:[],out:[]});p.age++;p.q=[]}catch(x){errs++;console.log('ERR jahr',x.message);break}}
+const R0={inc:[],out:[]};for(let y=0;y<20;y++){try{T.worldYear(R0)}catch(x){errs++;console.log('ERR welt',x.message);break}}
+ok('eco',T.ecoCard().includes('bedeutet'));ok('wohnen',T.viewWohnen().includes('Deine Nachbarn'));ok('news',T.viewNews().includes('bedeutet'));
+T.setTab('chats');T.setChat('freund');ok('chat npc',T.viewChats().includes('npcc'));T.setChat(null);ok('chat avatar',T.viewChats().includes('cav av'));
+// Erbe: bevorzugtes Kind
+T.newLife('A','B','w',70,false);T.applyCfg({act:6,clock:false,ev:'normal',big:false,wealth:'normal'});p=T.p;p.money=200000;p.kids=[{n:'Max',g:'m',b:p.age-40,rel:60,st:{in:50},edu:'Abitur'},{n:'Mia',g:'w',b:p.age-38,rel:70,st:{in:50},edu:'Abitur'}];p.will='kid0';p.alive=false;
+T.continueAs(1);p=T.p;ok('übergangen',p.q.some(x=>x.id==='erbklage')&&p.sibs[0].rel<40);
 console.log('errors',errs);

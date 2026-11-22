@@ -650,3 +650,17 @@ body.placeopen #city{height:34vh;min-height:220px}
 .dragghost{position:fixed;z-index:50;pointer-events:none;transform:scale(1.15);filter:drop-shadow(0 14px 18px rgba(0,0,0,.5));transition:transform .12s;display:flex;flex-direction:column;align-items:center;gap:4px;color:#fff;font-size:12px;font-weight:800;background:none;border:0}
 body.appdrag{touch-action:none;overflow:hidden}
 .apps .app{transition:transform .15s}
+/* Figuren, Nachbarn, Wirtschaft */
+.cav.av{overflow:hidden;padding:0;background:none!important}.cav.av svg{width:100%;height:100%}
+.npcc{margin:8px 0;padding:12px 14px;border-radius:16px;background:var(--soft);display:flex;flex-direction:column;gap:6px;font-size:14px}
+.npch{display:flex;align-items:center;gap:8px}.npch b{flex:1;font-size:15px}
+.npcc>small{color:var(--muted);font-weight:700}
+.npcl{display:flex;gap:8px;font-weight:700}.npcl span,.npcm>span{flex:none;min-width:82px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding-top:2px}
+.npcl.dim{color:var(--muted);font-weight:600}
+.npcm{display:flex;flex-wrap:wrap;gap:4px 8px}.npcm i{font-style:normal;font-weight:700;flex:1 1 100%;padding-left:90px;margin-top:-2px}.npcm>span+i{padding-left:0;flex:1 1 calc(100% - 92px)}
+.npcm i.g::before{content:"＋ ";color:var(--good)}.npcm i.b::before{content:"− ";color:var(--bad)}.npcm i small{color:var(--muted);font-weight:600}
+.nbr{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line)}.nbr:first-of-type{border-top:0}
+.nbr .t{flex:1;display:flex;flex-direction:column;gap:3px}.nbr .t small{color:var(--muted);font-weight:600;font-size:13px}.nbr .nbm{font-style:italic}
+.nbr .bar{margin:2px 0}
+.eco .row b.up{color:var(--good)}.eco .row b.dn{color:var(--bad)}
+.appbar h2{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.appbar>.chip,.appbar>span:last-child{flex:none;font-size:12px}

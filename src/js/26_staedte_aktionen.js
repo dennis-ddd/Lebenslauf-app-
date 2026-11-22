@@ -9,7 +9,7 @@ function movePick(){dialog('Wohin soll es gehen?','Umzug kostet '+eur(px$(2500))
 
 /* ================= Jahreswechsel ================= */
 function lifeX(R0){ensureLife();
-  worldYear(R0);jvaYear();bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);{const net=R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0)-((R0.out.find(x=>x[0]==='Steuern')||[0,0])[1]);costYear(R0,net)}mailYear();examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
+  worldYear(R0);jvaYear();leben2Year(R0);bizPlusYear(R0);appYear(R0);chatsYear();hobbyYear(R0);{const net=R0.inc.reduce((s,x)=>s+Math.max(0,x[1]),0)-((R0.out.find(x=>x[0]==='Steuern')||[0,0])[1]);costYear(R0,net)}mailYear();examYear();{const sc=sibYear();if(sc)R0.out.push(['Pflegeheim der Eltern',sc])}calYear(R0);kidYear(R0);gradesYear();studyYear(R0);sportYear();musicYear(R0);polYear(R0);gangYear(R0);rivalYear();laterYear();habitYear();
   ['mama','papa'].forEach(k=>p.rel[k]=Math.max(0,p.rel[k]-2));p.rel.freund=Math.max(0,p.rel.freund-3);
   if(p.age>=8&&p.rel.freund<12){log('Du und '+p.friend+' habt euch aus den Augen verloren.');p.friend=pick(FN.concat(MN).filter(x=>x!==p.friend));p.rel.freund=45;p.chats.freund={msgs:[],un:0};msg('freund','Hi! Wir kennen uns vom Sport. Lust, mal was zu machen?')}
   p.lernN=0;p.skipN=0;if(p.trust&&p.age>=18){p.money+=p.trust;R0.inc.push(['Treuhandfonds der Familie',p.trust]);log('Du bekommst deinen Treuhandfonds: '+eur(p.trust)+'.');p.trust=0}
@@ -34,7 +34,7 @@ function act5(id,arg){const lock=!!p.prison;
   case 'kidfd':{const [i,f]=arg.split(':'),k=p.kids[+i];if(!k)return 1;k.fd[f]=!k.fd[f];render();return 1}
   case 'kidgift':{const k=p.kids[+arg];if(!k||p.money<2000)return 1;p.money-=2000;k.rel=Math.min(100,k.rel+10);msg('kid'+arg,'Danke!! Das hilft mir gerade so sehr.');done(k.n+' freut sich über 2.000 €.');return 1}
   case 'adoptkid':{const c=px$(8000);if(p.age<25||p.age>55||lock||p.money<c||!useAct())return 1;p.money-=c;const g=ch(.5)?'w':'m',n=pick((g==='m'?MN:FN).filter(x=>!p.kids.some(k=>k.n===x)&&x!==p.first)),ka=R(0,6);p.kids.push({n,b:p.age-ka,g,adopt:true});ensureLife();add('gl',12);ach('kind');mile(n+' kommt in die Familie','kid');done(n+' ('+ka+' Jahre) ist jetzt dein Kind.');return 1}
-  case 'will':p.will=arg;if(arg==='stiftung')addRuf(0);save();render();return 1;
+  case 'will':willChange(arg);p.will=arg;if(arg==='stiftung')addRuf(0);save();render();return 1;
   case 'sprecher':{if(p.sprecher||p.age<12||!p.school||p.sprY===p.age||!useAct())return 1;p.sprY=p.age;if(ch(.35+p.sk.charme/200+p.st.au/400)){p.sprecher=true;p.sk.charme=Math.min(100,p.sk.charme+5);addRuf(5);mile('Klassensprecher/in','star');done('Gewählt! Du bist Klassensprecher/in.')}else done('Knapp verloren. Nächstes Jahr wieder!');return 1}
   case 'exam':{if(!p.study||p.study.ex===p.age||lock)return 1;mgStart('quiz',3,'Semesterprüfung',(sc,auto)=>{p.study.ex=p.age;p.study.sc=(p.study.sc||[]).concat([sc]);if(sc>=2)add('in',2);else add('gl',-3);const t='Semesterprüfung'+(auto?' (automatisch)':'')+': '+sc+' von 3 Aufgaben richtig.';log(t);save();render();dialog('Prüfung',t,[['Weiter',null]])});return 1}
   case 'bafoeg':if(p.study){p.study.kr=true;done('Studienkredit bewilligt: '+eur(px$(8000))+' pro Jahr.')}return 1;

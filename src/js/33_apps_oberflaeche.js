@@ -83,11 +83,11 @@ function viewChats(){
     if(p.chats[c.id])p.chats[c.id].un=0;
     const acts={mama:[['call','Anrufen']],papa:[['call','Anrufen']],freund:[['meet','Treffen']],partner:[['love','Liebe Nachricht'],['time','Date']],chef:[]};
     const qa=(acts[c.id]||[['call','Anrufen']]).map(([k,l])=>btn(k==='time'?'time':k,c.id,l,'o',k==='love'?p.loveA===p.age||!!p.prison:(p.act<=0||!!p.prison))).join('');
-    return '<section class="chat"><header><button class="back" data-a="chat" data-g="" aria-label="Alle Chats"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="cav" style="background:'+c.col+'">'+esc(c.n[0])+'</span><div><b>'+esc(c.n)+'</b><small>'+esc(c.sub||'')+'</small></div></header>'+
+    return '<section class="chat"><header><button class="back" data-a="chat" data-g="" aria-label="Alle Chats"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>'+cavOf(c)+'<div><b>'+esc(c.n)+'</b><small>'+esc(c.sub||'')+'</small></div></header>'+
       '<div class="bubbles">'+(c.msgs.length?c.msgs.slice(-25).map(m=>'<div class="bub'+(m.me?' me':'')+'">'+esc(m.t)+'<small>Alter '+m.a+'</small></div>').join(''):'<p class="note" style="text-align:center">Noch keine Nachrichten.</p>')+'</div>'+
       chatExtra(c)+(qa&&!c.id.startsWith('g_')?'<div class="qa">'+qa+'</div>':'')+'</section>';
   }
-  return '<section class="card clist">'+cs.map(c=>{const l=c.msgs[c.msgs.length-1];return '<button class="crow" data-a="chat" data-g="'+c.id+'"><span class="cav" style="background:'+c.col+'">'+esc(c.n[0])+'</span><span class="ct"><b>'+esc(c.n)+'</b><small>'+(l?(l.me?'Du: ':'')+esc(l.t):esc(c.sub||''))+'</small></span>'+(c.un?'<span class="badge">'+c.un+'</span>':(p.chats[c.id]&&p.chats[c.id].inv?'<span class="badge nb">Einladung</span>':''))+'</button>'}).join('')+'</section>';
+  return '<section class="card clist">'+cs.map(c=>{const l=c.msgs[c.msgs.length-1];return '<button class="crow" data-a="chat" data-g="'+c.id+'">'+cavOf(c)+'<span class="ct"><b>'+esc(c.n)+'</b><small>'+(l?(l.me?'Du: ':'')+esc(l.t):esc(c.sub||''))+'</small></span>'+(c.un?'<span class="badge">'+c.un+'</span>':(p.chats[c.id]&&p.chats[c.id].inv?'<span class="badge nb">Einladung</span>':''))+'</button>'}).join('')+'</section>';
 }
 const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>(clockOn()?clockTxt()+' · ':'')+(unl()&&n>0?'∞ Aktionen':n===1?'1 Aktion':n+' Aktionen');

@@ -5,7 +5,7 @@ function nightK(t){const h=cityHour();if(h==null)return (Math.cos((t||0)/1000/18
   if(h>=7&&h<17)return 0;if(h>=17&&h<20.5)return (h-17)/3.5;if(h>=5&&h<7)return 1-(h-5)/2;return 1}
 const phaseOf=h=>h==null?null:h<5?'Nacht':h<10?'Morgen':h<12?'Vormittag':h<14?'Mittag':h<18?'Nachmittag':h<21?'Abend':'Nacht';
 const hsh=s=>{let h=7;for(const ch of String(s))h=(h*31+ch.charCodeAt(0))>>>0;return h};
-function npcAv(n,g,age,size){const h=hsh(n);return avatarSvg(Math.max(1,age|0),size,{g:g||(FN.includes(String(n).split(' ')[0])?'w':'m'),skin:h%5,hair:(h>>3)%6,st:{gl:70}})}
+function npcAv(n,g,age,size){const h=hsh(n);return avatarSvg(Math.max(1,age|0),size,{g:g||(FN.includes(String(n).split(' ')[0])?'w':'m'),skin:h%5,hair:(h>>>3)%6,st:{gl:70}})}
 function peopleAt(){const P={},h=cityHour(),H=h==null?15:h,add=(pl,n,g,a)=>{(P[pl]=P[pl]||[]).length<3&&P[pl].push({n,g,a})};if(!p||p.prison)return P;
   const evening=H>=18||H<7;
   if(p.age<18&&!p.parentsGone&&(evening||p.age<6)){add('home','Mama','w',p.age+30);add('home','Papa','m',p.age+32)}
