@@ -628,3 +628,25 @@ body.placeopen #city{height:34vh;min-height:220px}
 .xbtn{margin-left:auto;width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);font-size:22px;font-weight:900;line-height:1;display:grid;place-items:center;flex:none}
 .listseg:has(.xbtn) .chip{order:3}
 .jvah{background:light-dark(#F1EEF6,#24212C);border-color:light-dark(#D9D2E6,#3C3648)}.jvah b{display:block;font-size:18px;font-weight:900}.jvah small{display:block;color:var(--muted);font-weight:700;margin:4px 0 8px}
+/* Karten-Pins (Stadt) */
+.pins{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.pinm{position:absolute;left:0;top:0;pointer-events:auto;background:none;border:0;padding:0;width:0;height:0;will-change:transform}
+.pinm .pinsv{position:absolute;left:-13px;top:-34px;width:26px;height:34px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.45))}
+.pinm .pinsv path{fill:#F0457E;stroke:#fff;stroke-width:1.6}.pinm .pinsv circle{fill:#fff}
+.pinm.home .pinsv path{fill:#2FB4F0}
+.pinm.on .pinsv{transform:scale(1.25);transform-origin:50% 100%}.pinm.on .pinsv path{fill:#F2994A}
+.pinm .plb{position:absolute;left:0;top:-56px;transform:translateX(-50%);white-space:nowrap;font-size:12.5px;font-weight:900;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.9),0 0 6px rgba(0,0,0,.6);pointer-events:none}
+.pinm.on .plb{background:rgba(242,153,74,.92);padding:2px 8px;border-radius:999px;text-shadow:none}
+.pinm.nolbl .plb{display:none}
+.pinm .ppl{position:absolute;left:0;top:-90px;transform:translateX(-50%);display:flex;gap:3px;padding:3px;border-radius:999px;background:rgba(40,24,80,.85);border:1.5px solid rgba(255,255,255,.55);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.pinm .ppl i{display:block;width:26px;height:26px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 1.5px #fff}
+.pinm.nolbl .ppl{top:-70px}
+.ctime{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;align-items:center;gap:8px;padding:6px 14px 6px 10px;border-radius:999px;background:rgba(30,18,64,.82);border:1px solid rgba(160,140,255,.45);color:#fff;font-size:13px;font-weight:800;pointer-events:none;z-index:2;white-space:nowrap}
+.ctime .i{width:18px;height:18px;color:#B9A6FF}
+.ctl{z-index:3}
+.cname{display:flex;align-items:center;gap:6px}.cname .i{width:16px;height:16px;flex:none}
+/* Apps ziehen */
+.app.dragsrc{opacity:.25}
+.dragghost{position:fixed;z-index:50;pointer-events:none;transform:scale(1.15);filter:drop-shadow(0 14px 18px rgba(0,0,0,.5));transition:transform .12s;display:flex;flex-direction:column;align-items:center;gap:4px;color:#fff;font-size:12px;font-weight:800;background:none;border:0}
+body.appdrag{touch-action:none;overflow:hidden}
+.apps .app{transition:transform .15s}

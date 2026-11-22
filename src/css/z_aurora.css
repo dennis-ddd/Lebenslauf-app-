@@ -1,0 +1,110 @@
+/* ================= Aurora-Design (Standard) =================
+   Dunkelviolett, Türkis und Orange als weiches Licht, Glas-Karten, leuchtende Hauptknöpfe.
+   Gilt nur mit data-theme="aurora"; "Hell" und "Dunkel" bleiben das klassische Design. */
+:root[data-theme=aurora]{color-scheme:dark;
+ --bg:#150C27;--card:rgba(255,255,255,.075);--ink:#F6F2FF;--muted:#C8BFDC;--line:rgba(255,255,255,.14);
+ --blue:#13B3A6;--blueText:#72E8D8;--soft:rgba(255,255,255,.09);--orange:#F2994A;--coral:#E8467C;--good:#7BE3AE;--bad:#FF93A6;--inkbg:#1C1233;
+ --glass:rgba(255,255,255,.075);--glass2:rgba(255,255,255,.12);--gline:rgba(255,255,255,.16);
+ --au-go:linear-gradient(100deg,#F2994A 0%,#E8467C 55%,#7B4BE0 100%);--au-tq:linear-gradient(120deg,#13B3A6,#2E7FE0)}
+:root[data-theme=aurora] body{background:
+  radial-gradient(110% 55% at 0% 0%,rgba(110,48,170,.85) 0%,transparent 62%),
+  radial-gradient(80% 45% at 100% 28%,rgba(15,163,163,.55) 0%,transparent 62%),
+  radial-gradient(90% 50% at 25% 100%,rgba(242,153,74,.45) 0%,transparent 60%),
+  linear-gradient(180deg,#1C1033,#120A22 60%,#170C26);background-attachment:fixed;color:var(--ink)}
+
+/* Karten und Flächen aus Glas */
+:root[data-theme=aurora] .card,:root[data-theme=aurora] .cont,:root[data-theme=aurora] .homecard{background:var(--glass);border:1px solid var(--gline);box-shadow:0 10px 30px -14px rgba(0,0,0,.6)}
+:root[data-theme=aurora] .opt,:root[data-theme=aurora] .sch,:root[data-theme=aurora] input[type=text],:root[data-theme=aurora] textarea{background:rgba(255,255,255,.06);border-color:var(--gline);color:var(--ink)}
+:root[data-theme=aurora] .opt[aria-pressed=true]{border-color:#72E8D8;background:rgba(19,179,166,.18)}
+:root[data-theme=aurora] .sch[aria-pressed=true]{background:linear-gradient(135deg,#7B4BE0,#13B3A6);border-color:transparent;color:#fff}
+:root[data-theme=aurora] .sch[aria-pressed=true] small{color:rgba(255,255,255,.85)}
+:root[data-theme=aurora] .chip{background:rgba(114,232,216,.14);color:#9FF2E6}
+:root[data-theme=aurora] .seg,:root[data-theme=aurora] .cname{background:rgba(22,12,42,.72);border:1px solid var(--gline);color:#fff;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+:root[data-theme=aurora] .cname small{color:#C8BFDC}
+:root[data-theme=aurora] .seg button{color:#E9E3F7}
+:root[data-theme=aurora] .seg button[aria-pressed=true]{background:var(--au-go);color:#fff}
+:root[data-theme=aurora] .seg.full,:root[data-theme=aurora] .seg.mini{background:rgba(255,255,255,.07);backdrop-filter:none;-webkit-backdrop-filter:none}
+:root[data-theme=aurora] .seg.full button[aria-pressed=true]{background:rgba(255,255,255,.16);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+
+/* Kopfzeile */
+:root[data-theme=aurora] .top{background:rgba(20,10,38,.55);border-bottom:1px solid var(--gline);box-shadow:0 12px 30px -12px rgba(0,0,0,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+:root[data-theme=aurora] .top .m{background:rgba(255,255,255,.08);border:1px solid var(--gline)}
+:root[data-theme=aurora] .ava{background:linear-gradient(135deg,#7B4BE0,#13B3A6);color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+
+/* Knöpfe */
+:root[data-theme=aurora] .btn{background:var(--au-tq);color:#fff}
+:root[data-theme=aurora] .btn.o,:root[data-theme=aurora] .big,:root[data-theme=aurora] .btn.big:not(.o){background:var(--au-go);color:#fff;box-shadow:0 10px 26px -8px rgba(232,70,124,.75)}
+:root[data-theme=aurora] .btn.g{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.3);color:#fff}
+:root[data-theme=aurora] .btn:disabled{box-shadow:none}
+
+/* Startseite */
+:root[data-theme=aurora] .hero{background:radial-gradient(120% 90% at 0% 0%,rgba(123,75,224,.75),transparent 60%),radial-gradient(90% 80% at 100% 20%,rgba(19,179,166,.6),transparent 60%),radial-gradient(90% 80% at 40% 110%,rgba(242,153,74,.65),transparent 60%),rgba(255,255,255,.06);border:1px solid var(--gline);box-shadow:0 20px 50px -20px rgba(0,0,0,.7)}
+:root[data-theme=aurora] .hav{box-shadow:0 0 0 3px rgba(255,255,255,.3),0 0 40px rgba(242,153,74,.45)}
+:root[data-theme=aurora] .start h1{color:#fff}
+:root[data-theme=aurora] .sn{background:var(--au-go);color:#fff}
+
+/* Handy */
+:root[data-theme=aurora] .phone{background:var(--wall);border:1px solid rgba(255,255,255,.2);box-shadow:0 30px 60px -24px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+:root[data-theme=aurora] .phone:not(.frm):not(.ph3){border:1px solid rgba(255,255,255,.2)}
+:root[data-theme=aurora] .phone.ph0{border:6px solid #3A3F4B}
+:root[data-theme=aurora] .news{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14)}
+:root[data-theme=aurora] .ring::before{background:#1A1030;box-shadow:inset 0 0 12px rgba(0,0,0,.5)}
+:root[data-theme=aurora] .rings .rw:nth-child(1) .ring{background:conic-gradient(#F6C453 calc(var(--v)*1%),rgba(255,255,255,.12) 0);filter:drop-shadow(0 0 6px rgba(246,196,83,.35))}
+:root[data-theme=aurora] .rings .rw:nth-child(2) .ring{background:conic-gradient(#5CE1C6 calc(var(--v)*1%),rgba(255,255,255,.12) 0);filter:drop-shadow(0 0 6px rgba(92,225,198,.35))}
+:root[data-theme=aurora] .rings .rw:nth-child(3) .ring{background:conic-gradient(#B58CFF calc(var(--v)*1%),rgba(255,255,255,.12) 0);filter:drop-shadow(0 0 6px rgba(181,140,255,.35))}
+:root[data-theme=aurora] .rings .rw:nth-child(4) .ring{background:conic-gradient(#FF8FB1 calc(var(--v)*1%),rgba(255,255,255,.12) 0);filter:drop-shadow(0 0 6px rgba(255,143,177,.35))}
+:root[data-theme=aurora] .ring{transition:--v .6s}
+
+/* App-Symbole: Verlauf, Glanz, weiches Leuchten */
+:root[data-theme=aurora] .app .ic{border-radius:18px;box-shadow:0 8px 18px -6px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.35)}
+:root[data-theme=aurora] .app .ic::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(150deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.08) 38%,rgba(0,0,0,0) 55%,rgba(0,0,0,.22) 100%)}
+:root[data-theme=aurora] .app .ic svg{position:relative;z-index:1;stroke-width:2.2;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
+:root[data-theme=aurora] .app .ic .badge{z-index:2}
+:root[data-theme=aurora] .app>span:last-child,:root[data-theme=aurora] .app small{text-shadow:0 1px 3px rgba(0,0,0,.6)}
+
+/* Untere Navigation als schwebende Glasleiste */
+:root[data-theme=aurora] nav.tabs{background:rgba(22,12,42,.72);border:1px solid var(--gline);border-radius:24px;margin:0 10px max(8px,env(safe-area-inset-bottom));bottom:8px;padding:4px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 14px 34px -10px rgba(0,0,0,.7)}
+:root[data-theme=aurora] nav.tabs button{color:#B9AFD0;border-radius:18px}
+:root[data-theme=aurora] nav.tabs button[aria-current=true]{color:#fff;background:rgba(255,255,255,.1)}
+:root[data-theme=aurora] nav.tabs button[aria-current=true] svg{color:#F6A15A}
+
+/* Dialoge */
+:root[data-theme=aurora] #modal{background:rgba(8,4,18,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+:root[data-theme=aurora] .dlg{background:linear-gradient(180deg,rgba(52,30,92,.96),rgba(26,16,48,.97));border:1px solid var(--gline);box-shadow:0 30px 70px -20px rgba(0,0,0,.85)}
+:root[data-theme=aurora] #toast,:root[data-theme=aurora] .ntf{background:rgba(30,18,56,.92);border:1px solid var(--gline);color:#fff;backdrop-filter:blur(12px)}
+
+/* Kleinteile */
+:root[data-theme=aurora] .bar{background:rgba(255,255,255,.12)}
+:root[data-theme=aurora] .bar i{background:linear-gradient(90deg,#13B3A6,#72E8D8)}
+:root[data-theme=aurora] .bar i.low{background:linear-gradient(90deg,#E8467C,#F2994A)}
+:root[data-theme=aurora] .row,:root[data-theme=aurora] .opt2{border-color:rgba(255,255,255,.1)}
+:root[data-theme=aurora] .appbar h2{color:#fff}
+:root[data-theme=aurora] .back.pill{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--gline)}
+:root[data-theme=aurora] .xbtn{background:rgba(255,255,255,.08);border-color:var(--gline);color:#fff}
+:root[data-theme=aurora] .jvah{background:rgba(123,75,224,.14);border-color:rgba(181,140,255,.3)}
+:root[data-theme=aurora] .badge{box-shadow:0 0 0 2px #1A1030}
+:root[data-theme=aurora] #city{background:#1B1538}
+
+/* Startseite mit Spielstand */
+.home2{align-items:stretch;justify-content:flex-start;min-height:100dvh;gap:16px!important;padding-bottom:max(24px,env(safe-area-inset-bottom))!important}
+.h2t{text-align:center;font-weight:900;font-size:28px;letter-spacing:-.02em;margin-top:6px;background:linear-gradient(90deg,#FFD2A8,#FFFFFF 45%,#9FF2E6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.h2av{width:170px;height:170px;margin:4px auto 0;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.3);box-shadow:0 0 60px rgba(242,153,74,.45),0 0 0 10px rgba(255,255,255,.04);animation:float 5s ease-in-out infinite}
+.h2av svg{border-radius:50%}
+.h2card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);border-radius:26px;padding:18px 16px;text-align:center;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 20px 50px -24px rgba(0,0,0,.8)}
+.h2card>b{display:block;font-size:21px;font-weight:900}.h2card>span{display:block;color:#C8BFDC;font-weight:700;font-size:15px}
+.h2st{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12)}
+.h2st b{display:block;font-size:17px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.h2st small{color:#C8BFDC;font-weight:700;font-size:12.5px}
+.h2go{margin-top:auto;display:flex;flex-direction:column;gap:10px}
+.h2go .big{height:62px;font-size:21px;border-radius:22px}
+.h2go .newl{min-height:48px;border-radius:18px;background:transparent;border:1px solid rgba(255,255,255,.28);color:#E9E3F7;font-weight:800}
+.h2r{margin-top:14px}.h2r .rw small{display:block;text-align:center;font-size:11.5px;font-weight:800;color:#C8BFDC;margin-top:4px}.h2r .ring b{font-size:16px}
+:root[data-theme=aurora] .tip{background:linear-gradient(135deg,rgba(123,75,224,.22),rgba(255,255,255,.06));border:1px solid rgba(181,140,255,.4)}
+:root[data-theme=aurora] .tipb button{background:rgba(255,255,255,.08);color:#fff}
+:root[data-theme=aurora] .tipb button:first-child{background:var(--au-go);color:#fff}
+:root[data-theme=aurora] .warn{background:rgba(242,153,74,.14);border:1px solid rgba(242,153,74,.3)}
+:root[data-theme=aurora] .event{background:linear-gradient(160deg,rgba(123,75,224,.28),var(--card) 70%)}
+:root[data-theme=aurora] .cname{display:flex;align-items:center;gap:6px;border-radius:999px;padding:6px 14px 6px 10px;font-size:14px}
+:root[data-theme=aurora] .cname .i{width:16px;height:16px;color:#F0457E}
+:root[data-theme=aurora] #cseg{border-radius:999px;padding:3px}
+:root[data-theme=aurora] #cseg button{min-height:32px;min-width:0;padding:0 11px;font-size:13px;border-radius:999px}

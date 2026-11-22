@@ -1,20 +1,21 @@
 /* ================= Einstellungen, Präsentation, Handy ================= */
 const OKEY='lebenslauf-opts';
-let O={snd:true,vib:true,theme:'auto',mini:'ask',rival:true,wall:0};try{Object.assign(O,JSON.parse(localStorage.getItem(OKEY)||'{}'))}catch(e){}
+let O={snd:true,vib:true,theme:'aurora',mini:'ask',rival:true,wall:0};try{Object.assign(O,JSON.parse(localStorage.getItem(OKEY)||'{}'))}catch(e){}
 function applyTheme(){try{const r=document.documentElement;if(O.theme==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',O.theme)}catch(e){}}
 function saveO(){try{localStorage.setItem(OKEY,JSON.stringify(O))}catch(e){}applyTheme()}
+if(!O.au4){O.au4=1;O.theme='aurora';if(O.wall)O.wall++;try{localStorage.setItem(OKEY,JSON.stringify(O))}catch(e){}}
 applyTheme();
 let AC=null;
 const SFX={coin:[[988,.06],[1319,.12]],win:[[523,.09],[659,.09],[784,.09],[1047,.22]],bday:[[523,.12],[523,.1],[587,.22],[523,.22],[698,.22],[659,.36]],msg:[[880,.06],[1175,.09]],bad:[[330,.16],[247,.34]],tap:[[700,.035]],big:[[392,.12],[523,.12],[659,.12],[784,.12],[1047,.3]]};
 function sfx(k){if(!O.snd)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();let t=AC.currentTime+.01;
   (SFX[k]||SFX.tap).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=k==='bad'?'triangle':'sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.13,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.03);t+=d*.92})}catch(e){}}
 function vib(ms){if(!O.vib)return;try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}}
-const WALLS=[['Nachtblau','linear-gradient(160deg,#1B2340,#0B1022)'],['Sonnenuntergang','linear-gradient(160deg,#F5A25D,#C2306A 60%,#3A1F5C)'],['Ozean','linear-gradient(160deg,#1E9ED8,#1B3C7A)'],
+const WALLS=[['Aurora','radial-gradient(120% 60% at 0% 0%,rgba(123,75,224,.55),transparent 60%),radial-gradient(90% 50% at 100% 40%,rgba(19,179,166,.4),transparent 60%),radial-gradient(90% 50% at 30% 110%,rgba(242,153,74,.4),transparent 60%),rgba(14,8,28,.72)'],['Nachtblau','linear-gradient(160deg,#1B2340,#0B1022)'],['Sonnenuntergang','linear-gradient(160deg,#F5A25D,#C2306A 60%,#3A1F5C)'],['Ozean','linear-gradient(160deg,#1E9ED8,#1B3C7A)'],
   ['Wald','linear-gradient(160deg,#3BB273,#14503A)'],['Aurora','linear-gradient(160deg,#16213E,#1B7F79 50%,#7A4BD6)'],['Gold','linear-gradient(160deg,#3A2E12,#C9A227 60%,#2A220C)'],['Neon','linear-gradient(160deg,#120C2E,#E5407A 55%,#2BD1E6)'],['Marmor','linear-gradient(160deg,#5A6275,#2A2F3A 50%,#7C8396)']];
 const PHONES=[['Kinderhandy','Tasten und ein kleines Display. Telefonieren geht.',1],['Smartphone','Das erste richtige Handy. Kamera ist okay.',3],['Smartphone Pro','Super Kamera: Posts gelingen besser.',5],['Ultra Fold','Faltbar, beste Kamera, alle Hintergründe.',8]];
 function phoneTier(){const it=p.items;return it.includes('handy3')?3:it.includes('handy2')?2:it.includes('handy')?1:0}
 const phoneOld=()=>phoneTier()>0&&p.phoneY!=null&&p.age-p.phoneY>=6;
-const wallOk=i=>i<PHONES[phoneTier()][2];
+const wallOk=i=>i<PHONES[phoneTier()][2]+1;
 SHOP.push({id:'handy2',n:'Smartphone Pro',pr:1400,e:{gl:4},min:12},{id:'handy3',n:'Ultra Fold',pr:2800,e:{gl:6,au:1},min:14});
 
 /* ---------- Meilensteine, Ruf, Statistik ---------- */
@@ -87,7 +88,7 @@ const tog=(k,on,l,s)=>'<button class="tg" data-a="opt" data-g="'+k+'" aria-press
 function viewEinst(){const t=phoneTier();
   let h='<section class="card"><h2 class="h">Dein Handy</h2>'+row(PHONES[t][0]+(phoneOld()?' (alt)':''),PHONES[t][1]+(phoneOld()?' Der Akku hält kaum noch einen Tag.':''),t<3?btn('goto','shop','Upgrade','o',p.age<10):'<span class="chip">Top</span>')+'</section>';
   h+='<section class="card"><h2 class="h">Hintergrund</h2><div class="walls">'+WALLS.map((w,i)=>'<button class="wall" data-a="wall" data-g="'+i+'" aria-pressed="'+(O.wall===i)+'" aria-label="'+w[0]+'" style="background:'+w[1]+'"'+(wallUsable(i)?'':' disabled')+'>'+(wallUsable(i)?'':'<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>')+'</button>').join('')+'</div><p class="note" style="margin-top:8px">Bessere Handys schalten mehr Hintergründe frei, besondere gibt es in der Sammlung (App Erfolge).</p></section>';
-  if(p)h+=cfgCard();h+='<section class="card"><h2 class="h">Design</h2><div class="seg full">'+[['auto','Automatisch'],['light','Hell'],['dark','Dunkel']].map(([k,l])=>'<button data-a="theme" data-g="'+k+'" aria-pressed="'+(O.theme===k)+'">'+l+'</button>').join('')+'</div></section>';
+  if(p)h+=cfgCard();h+='<section class="card"><h2 class="h">Design</h2><div class="seg full">'+[['aurora','Aurora'],['light','Hell'],['dark','Dunkel'],['auto','System']].map(([k,l])=>'<button data-a="theme" data-g="'+k+'" aria-pressed="'+(O.theme===k)+'">'+l+'</button>').join('')+'</div></section>';
   h+='<section class="card tgs">'+tog('snd',O.snd,'Töne','Kleine Klänge bei Geld, Erfolgen, Geburtstagen')+tog('vib',O.vib,'Vibration','Kurzes Brummen bei wichtigen Momenten')+tog('rival',O.rival,'Rivale','Eine Person aus deiner Schulzeit fordert dich ein Leben lang heraus')+tog2('fstog',O.fs!==false,'Vollbild beim Start','Blendet die Leiste unten aus. Chrome zeigt dabei einmal kurz einen Hinweis.')+'</section>';
   h+='<section class="card"><h2 class="h">Minispiele bei der Arbeit</h2><div class="seg full">'+[['ask','Fragen'],['play','Immer spielen'],['skip','Überspringen']].map(([k,l])=>'<button data-a="mini" data-g="'+k+'" aria-pressed="'+(O.mini===k)+'">'+l+'</button>').join('')+'</div><p class="note" style="margin-top:6px">Beim Überspringen wird das Ergebnis aus deinen Werten berechnet.</p></section>';
   return h}

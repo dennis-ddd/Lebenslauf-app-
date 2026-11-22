@@ -100,7 +100,7 @@ function viewHome(){
     (last?'<button class="news" data-a="goto" data-g="leben"><small>Neuigkeit · Alter '+last.a+'</small>'+esc(last.t)+'</button>':'')+
     (p.prison?'<p class="pnote">Du sitzt noch '+p.prison+' Jahr(e) im Gefängnis. Einige Apps sind gesperrt.</p>':'')+
     '<div class="apps'+(editApps?' edit':'')+'">'+orderedApps().filter(a=>appVisible(a[0])).map(([id,n,c,ic,bg])=>{const lock=p.prison&&!PRISON_APPS.includes(id)&&!editApps,b=editApps?0:badgeOf(id),nw=!editApps&&p.appSeen&&p.appSeen[id]===0;
-      return '<button class="app'+(nw?' newapp':'')+(editApps&&swapSel===id?' pick':'')+'" data-a="'+(editApps?'appswap':'goto')+'" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div><div class="phb">'+(editApps?'<span class="note">'+(swapSel?'Tippe auf den neuen Platz':'Tippe eine App an, dann ihren neuen Platz')+'</span>'+btn('appreset',null,'Zurücksetzen','g')+btn('appedit',null,'Fertig','o'):btn('appedit',null,'Apps anordnen','g'))+'</div></section>';
+      return '<button class="app'+(nw?' newapp':'')+(editApps&&swapSel===id?' pick':'')+'" data-a="'+(editApps?'appswap':'goto')+'" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div><div class="phb">'+(editApps?'<span class="note">'+(swapSel?'Tippe auf den neuen Platz':'App lange drücken und ziehen, oder antippen und dann den neuen Platz')+'</span>'+btn('appreset',null,'Zurücksetzen','g')+btn('appedit',null,'Fertig','o'):btn('appedit',null,'Apps anordnen','g')+'<span class="note">Tipp: App lange drücken und ziehen</span>')+'</div></section>';
 }
 function viewApp(id){
   const V={
@@ -145,7 +145,7 @@ function holdButton(b,fn){const MS=650;let t=null,st=0;
   b.addEventListener('click',e=>e.preventDefault());
 }
 function buildShell(){
-  document.getElementById('app').innerHTML='<header class="top" id="hd"></header><main id="view"></main><div id="ntf" class="ntf" role="status"></div><div id="city"><div id="cv"></div><div id="cev" class="cev"></div><div class="ctl"><div class="cname" id="cname"></div><div class="seg" id="cseg"></div></div>'+
+  document.getElementById('app').innerHTML='<header class="top" id="hd"></header><main id="view"></main><div id="ntf" class="ntf" role="status"></div><div id="city"><div id="cv"></div><div id="pins" class="pins"></div><div id="cev" class="cev"></div><div class="ctime" id="ctime"></div><div class="ctl"><div class="cname" id="cname"></div><div class="seg" id="cseg"></div></div>'+
     '<div class="rot"><button aria-label="Drehen" id="rotL"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7"/><path d="M4 4v4h4"/></svg></button><button aria-label="Zum Zuhause" id="ctr"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button></div></div>'+
     '<main id="view2"></main><div class="age"><button class="btn o big hold" id="up" aria-label="1 Jahr älter werden, gedrückt halten"><span class="fill" aria-hidden="true"></span><span class="lbl2">+ 1 Jahr älter werden<small>gedrückt halten</small></span></button></div>';
   holdButton(document.getElementById('up'),ageUp);
@@ -164,7 +164,7 @@ function render(){if(p&&p.sm)ensureSm();
   const map=tab==='stadt'&&cityMode!=='list'&&initThree();
   if(tab==='stadt'&&!map)cityMode='list';
   document.getElementById('hd').innerHTML='<div class="ava">'+avatarSvg(p.age,58)+'<span class="agebadge">'+p.age+'</span></div><div><div class="n">'+esc(p.first+' '+p.last)+'</div><div class="s">'+p.age+' Jahre · '+esc(status())+(curTitle()?' · '+esc(curTitle()):'')+(p.sb?' · Sandbox':'')+'</div></div><div class="m"><small>Kontostand</small><b>'+eur(p.money)+'</b></div>';
-  document.getElementById('cname').innerHTML=esc(cityName(p.seed))+'<small>Ziehen zum Bewegen, zwei Finger zum Zoomen</small>';
+  document.getElementById('cname').innerHTML='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.4 7-12A7 7 0 0 0 5 9c0 5.6 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>'+esc(cityName(p.seed));
   document.getElementById('cseg').innerHTML=['3d','2d','list'].map(m=>'<button data-a="mode" data-g="'+m+'" aria-pressed="'+(cityMode===m)+'">'+(m==='list'?'Liste':m.toUpperCase())+'</button>').join('');
   const html=tab==='home'?viewHome():viewApp(tab);
   if(map){const i=html.indexOf('</div>')+6;document.getElementById('view').innerHTML=html.slice(0,i);document.getElementById('view2').innerHTML=html.slice(i)}
@@ -185,6 +185,11 @@ function renderStart(){
   const dice='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r="1.2"/><circle cx="15" cy="15" r="1.2"/><circle cx="15" cy="9" r="1.2"/><circle cx="9" cy="15" r="1.2"/></svg>';
   const has=!!(old&&old.alive&&old.st),home=has&&!form.neu;
   const contC=has?'<section class="card contc"><div class="cc1"><span class="cav2">'+avatarSvg(old.age,76,old)+'</span><div class="cc2"><small>Dein Spielstand</small><b>'+esc(old.first+' '+old.last)+'</b><span>'+old.age+' Jahre'+(old.job?' · '+esc(old.job.t):'')+'</span><span>'+eur(old.money)+(old.gen>1?' · Generation '+old.gen:'')+'</span></div></div><button class="btn o big" id="cont">Weiterspielen</button></section>':'';
+  const homeA=home&&O.theme==='aurora'?'<div class="start s2 home2"><div class="h2t">Lebenslauf</div><div class="h2av">'+avatarSvg(old.age,150,old)+'</div>'+
+    '<section class="h2card"><b>'+esc(old.first+' '+old.last)+' · '+old.age+'</b><span>'+(old.job?esc(old.job.t):old.age<18?'Schüler/in':'Ohne Job')+' in '+esc(cityName(old.seed))+'</span>'+
+    '<div class="rings h2r">'+Object.keys(STAT).map(k=>'<div class="rw"><div class="ring" style="--v:'+old.st[k]+'"><b>'+old.st[k]+'</b></div><small>'+STAT[k]+'</small></div>').join('')+'</div>'+'<div class="h2st"><div><b>'+eur(old.money)+'</b><small>Vermögen</small></div><div><b>'+((old.kids||[]).length)+'</b><small>Kinder</small></div><div><b>'+(old.gen||1)+'. Gen.</b><small>Familie</small></div></div></section>'+
+    '<div class="h2go"><button class="btn o big" id="cont">Weiterspielen</button><button class="btn g newl" id="neu">Neues Leben beginnen</button></div></div>':'';
+  if(homeA){app.innerHTML=homeA;}else
   app.innerHTML='<div class="start s2">'+'<section class="hero"><div class="hav">'+avatarSvg(ag,112,P)+'</div><div class="ht"><small>LEBENSSIMULATOR</small><h1>Lebenslauf</h1><p>Ein ganzes Leben in einer neuen Stadt. Jede Entscheidung zählt.</p></div><div class="hchips"><span>Karriere</span><span>Liebe</span><span>Familie</span><span>Börse</span><span>Klick</span><span>Generationen</span></div></section>'+
     
     (home?contC+'<button class="btn g newl" id="neu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Neues Leben beginnen</button>':
