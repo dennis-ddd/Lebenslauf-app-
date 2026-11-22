@@ -173,3 +173,13 @@ html,body{overscroll-behavior-y:none}
 .cgrab .si{width:20px;height:20px}.cgrab.ready{background:linear-gradient(100deg,#F2994A,#E8467C 55%,#7B4BE0)}
 :root:not([data-theme=aurora]) .pgrab i{background:var(--line)}
 :root:not([data-theme=aurora]) .cgrab{background:var(--ink);color:var(--bg)}
+/* Kindheit */
+.helpstar{position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:rgba(20,10,40,.55);color:#F6C453;font-size:18px;cursor:pointer;backdrop-filter:blur(6px)}
+.helpbox{margin:10px 18px 0;padding:12px 14px;border-radius:14px;background:rgba(246,196,83,.14);border:1px solid rgba(246,196,83,.45);font-size:14px;line-height:1.5}.helpbox b{display:block;margin-bottom:2px}.helpbox a{color:#F6C453;font-weight:900}
+.dlg.mg .sbody{padding:18px}.mgword{font-size:40px;font-weight:700;text-align:center;margin:10px 0 14px;font-family:'Fredoka',ui-rounded,sans-serif}
+.mgsyl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mgsyl button{padding:16px 0;border-radius:16px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.09);color:inherit;font:inherit;font-size:20px;font-weight:900;cursor:pointer}
+.mgbal{position:relative;height:30px;border-radius:99px;background:rgba(255,255,255,.12);margin:16px 0 10px;overflow:hidden}.mgbal .z{position:absolute;left:37%;width:26%;top:0;bottom:0;background:rgba(123,227,174,.45)}.mgbal .n{position:absolute;top:3px;width:24px;height:24px;margin-left:-12px;border-radius:50%;background:#F6C453;box-shadow:0 0 12px #F6C453}
+.mgsteps{text-align:center;font-weight:900;font-size:18px;margin:6px 0 14px}
+.mgtower{position:relative;height:220px;border-radius:16px;background:rgba(255,255,255,.06);margin:12px 0 14px;overflow:hidden;border-bottom:4px solid rgba(255,255,255,.3)}.mgtower i{position:absolute;height:11%;border-radius:5px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.prag{display:grid;gap:8px}.prag div{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.07)}.prag b{display:block}.prag small{color:var(--muted);font-weight:700}
+.kmem{list-style:none;padding:0;margin:10px 0 0}.kmem li{padding:6px 0;border-top:1px solid var(--line);font-weight:700}.kmem span{display:inline-block;min-width:62px;color:#F6C453;font-size:12.5px;font-weight:900}

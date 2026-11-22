@@ -14,7 +14,7 @@ function mkNb(){const g=pick(['w','m']);return {n:pick(g==='w'?FN:MN)+' '+pick(L
 const nbAge=o=>p.age-o.b;
 function nbSync(){if(!p)return;if(p.nbHome!==p.home||!p.nb){const moved=p.nbHome!=null&&p.nbHome!==p.home;p.nbHome=p.home;p.nb=[mkNb(),mkNb()];
   if(moved){p.rentX=0;p.mold=false;log('Neue Nachbarn: '+p.nb.map(x=>x.n).join(' und ')+'.')}}}
-function nbYear(){nbSync();if(p.prison)return;
+function nbYear(){nbSync();if(p.prison||p.age<14)return;
   p.nb.forEach((o,i)=>{if(nbAge(o)>82&&ch(.18)){const gift=o.rel>=85?px$(R(5,30)*1000):0;
       if(gift){p.money+=gift;log(o.n+' ist gestorben und hat dir '+eur(gift)+' vererbt. Ihr wart gute Nachbarn.');news('Nachbar/in hinterlässt '+p.first+' ein Erbe','lokal')}
       else log('Dein/e Nachbar/in '+o.n+' ist gestorben.');p.nb[i]=mkNb();log(p.nb[i].n+' zieht nebenan ein.')}});
@@ -23,32 +23,32 @@ function nbYear(){nbSync();if(p.prison)return;
     const k=o.rel>=82&&ch(.35)?'nbfreund':{laut:'nblaerm',grill:'nbgrill',hilfsb:'nbpaket',neugier:'nbklatsch',streng:'nbregel',ruhig:'nbhilfe'}[o.tr];p.q.push({id:k,d:i})}}
 const nbE=(i,f)=>{const o=p.nb&&p.nb[i];return o?f(o):null};
 const nbRel=(o,v)=>{o.rel=clamp(o.rel+v,0,100)};
-QEV.nblaerm=i=>nbE(i,o=>E('Party nebenan',o.n+' feiert schon wieder bis drei Uhr nachts. Die Wände wackeln.',()=>!p.prison,[
+QEV.nblaerm=i=>nbE(i,o=>E('Party nebenan',o.n+' feiert schon wieder bis drei Uhr nachts. Die Wände wackeln.',()=>!p.prison&&p.age>=14,[
   ['Klingeln und bitten',()=>ch(.55)?(nbRel(o,2),add('gl',2),remember(o,'Ich habe nett um Ruhe gebeten',0),'Die Musik wird leiser. „Sorry!“'):(nbRel(o,-8),add('gl',-3),'Ein Lachen, die Tür geht zu. Weiter geht es.')],
   ['Mitfeiern',()=>(nbRel(o,10),add('gl',6),add('ge',-2),remember(o,'Wir haben zusammen gefeiert',1),'Beste Party des Jahres. Der Kater am Morgen auch.')],
   ['Polizei rufen',()=>(nbRel(o,-22),add('gl',1),remember(o,'Hat die Polizei gerufen',-2),'Endlich Ruhe. Im Treppenhaus grüßt '+o.n.split(' ')[0]+' nicht mehr.')]]));
-QEV.nbgrill=i=>nbE(i,o=>E('Grillabend',o.n+' lädt das ganze Haus zum Grillen in den Hof ein.',()=>!p.prison,[
+QEV.nbgrill=i=>nbE(i,o=>E('Grillabend',o.n+' lädt das ganze Haus zum Grillen in den Hof ein.',()=>!p.prison&&p.age>=14,[
   ['Mit Nudelsalat hingehen',()=>(nbRel(o,10),add('gl',5),remember(o,'Kam zum Grillen, mit Nudelsalat',1),'Würstchen, Geschichten, Sonnenuntergang. Schön!')],
   ['Höflich absagen',()=>(nbRel(o,-3),'„Schade, nächstes Mal!“')]]));
-QEV.nbpaket=i=>nbE(i,o=>E('Ein Paket',o.n+' fragt, ob du ein Paket annehmen kannst. Lieferung zwischen 8 und 20 Uhr.',()=>!p.prison,[
+QEV.nbpaket=i=>nbE(i,o=>E('Ein Paket',o.n+' fragt, ob du ein Paket annehmen kannst. Lieferung zwischen 8 und 20 Uhr.',()=>!p.prison&&p.age>=14,[
   ['Klar, mach ich',()=>(nbRel(o,7),remember(o,'Hat mein Paket angenommen',1),'Am Abend steht eine Flasche Wein vor deiner Tür. Danke!')],
   ['Keine Zeit',()=>(nbRel(o,-4),'„Okay, dann frage ich jemand anderen.“')]]));
-QEV.nbklatsch=i=>nbE(i,o=>E('Treppenhaus-Gespräch',o.n+(p.wanted>0?' fragt neugierig, wer da nachts immer bei dir klingelt.':' erzählt dir den neuesten Klatsch aus dem Haus.'),()=>!p.prison,p.wanted>0?[
+QEV.nbklatsch=i=>nbE(i,o=>E('Treppenhaus-Gespräch',o.n+(p.wanted>0?' fragt neugierig, wer da nachts immer bei dir klingelt.':' erzählt dir den neuesten Klatsch aus dem Haus.'),()=>!p.prison&&p.age>=14,p.wanted>0?[
   ['Lockere Ausrede',()=>ch(.45+p.sk.charme/250)?(nbRel(o,3),'„Ach so, Lieferdienst. Verstehe!“ Gerettet.'):(nbRel(o,-12),remember(o,'Hat mir eine Lüge aufgetischt',-1),'Der Blick sagt alles. '+o.n.split(' ')[0]+' glaubt dir kein Wort.')],
   ['Tür zumachen',()=>(nbRel(o,-15),'Jetzt ist '+o.n.split(' ')[0]+' erst recht neugierig.')]]:[
   ['Zuhören',()=>(nbRel(o,4),add('gl',3),'Der Typ aus dem 3. Stock hat angeblich einen Papagei, der Schlager singt.')],
   ['Abwimmeln',()=>(nbRel(o,-3),'Du hast es eilig. '+o.n.split(' ')[0]+' schaut beleidigt.')]]));
-QEV.nbregel=i=>nbE(i,o=>E('Beschwerde',o.n+' beschwert sich: '+pick(['Dein Fahrrad steht im Flur.','Der Müll ist falsch getrennt.','Du warst mit dem Treppenputzen dran.','Deine Schuhe stehen vor der Tür.']),()=>!p.prison,[
+QEV.nbregel=i=>nbE(i,o=>E('Beschwerde',o.n+' beschwert sich: '+pick(['Dein Fahrrad steht im Flur.','Der Müll ist falsch getrennt.','Du warst mit dem Treppenputzen dran.','Deine Schuhe stehen vor der Tür.']),()=>!p.prison&&p.age>=14,[
   ['Entschuldigen',()=>(nbRel(o,5),'„Na gut. Kann ja mal passieren.“')],
   ['Diskutieren',()=>(nbRel(o,-12),add('gl',-2),remember(o,'Hat mit mir gestritten',-1),'Zehn Minuten Streit im Flur. Ein Zettel hängt jetzt am schwarzen Brett.')],
   ['Ignorieren',()=>(nbRel(o,-6),'Ab jetzt hängt jede Woche ein Zettel an deiner Tür.')]]));
-QEV.nbhilfe=i=>nbE(i,o=>E('Hilfe gesucht',nbAge(o)>=65?o.n+' ist nicht mehr gut zu Fuß und fragt, ob du die Einkäufe hochtragen kannst.':o.n+' zieht einen Schrank um und braucht starke Arme.',()=>!p.prison,[
+QEV.nbhilfe=i=>nbE(i,o=>E('Hilfe gesucht',nbAge(o)>=65?o.n+' ist nicht mehr gut zu Fuß und fragt, ob du die Einkäufe hochtragen kannst.':o.n+' zieht einen Schrank um und braucht starke Arme.',()=>!p.prison&&p.age>=14,[
   ['Helfen',()=>(nbRel(o,12),add('gl',4),remember(o,'Hat mir geholfen, als ich Hilfe brauchte',2),'Eine Stunde später: Kaffee, Kuchen und eine Freundschaft.')],
   ['Keine Zeit',()=>(nbRel(o,-5),'„Schon gut, ich frage jemand anderen.“')]]));
-QEV.nbfreund=i=>nbE(i,o=>E('Gute Nachbarschaft',o.n+' steht mit '+(memSum(o)>=3?'einem selbstgebackenen Kuchen':'einer Pflanze')+' vor der Tür. '+(memSum(o)>=3?'„Ich hab nicht vergessen, wie du mir geholfen hast.“':'„Einfach so. Weil du ein/e tolle/r Nachbar/in bist.“'),()=>!p.prison,[
+QEV.nbfreund=i=>nbE(i,o=>E('Gute Nachbarschaft',o.n+' steht mit '+(memSum(o)>=3?'einem selbstgebackenen Kuchen':'einer Pflanze')+' vor der Tür. '+(memSum(o)>=3?'„Ich hab nicht vergessen, wie du mir geholfen hast.“':'„Einfach so. Weil du ein/e tolle/r Nachbar/in bist.“'),()=>!p.prison&&p.age>=14,[
   ['Reinbitten',()=>(nbRel(o,5),add('gl',7),remember(o,'Wir haben zusammen Kaffee getrunken',1),'Ihr redet stundenlang. Aus Nachbarn werden Freunde.')],
   ['Danke sagen',()=>(add('gl',3),'Ein netter Moment an der Tür.')]]));
-QEV.nbanzeige=i=>nbE(i,o=>E('Anzeige!',o.n+' hat dich bei der Polizei angezeigt. Er/sie hat beobachtet, was nachts bei dir los ist. Die Polizei steht vor der Tür.',()=>!p.prison,[
+QEV.nbanzeige=i=>nbE(i,o=>E('Anzeige!',o.n+' hat dich bei der Polizei angezeigt. Er/sie hat beobachtet, was nachts bei dir los ist. Die Polizei steht vor der Tür.',()=>!p.prison&&p.age>=14,[
   ['Anwalt nehmen (5.000 €)',()=>{p.money-=px$(5000);if(ch(.7)){p.wanted=Math.max(0,p.wanted-1);return 'Dein Anwalt zerlegt die Aussage. Das Verfahren wird eingestellt.'}toJail(1,'Die Beweise reichen.');return 'Trotz Anwalt: verurteilt.'}],
   ['Alles abstreiten',()=>{if(ch(.4+p.sk.charme/300))return 'Du bleibst ruhig. Die Polizei zieht wieder ab, aber sie behält dich im Auge.';toJail(R(1,2),'Dein Leugnen hilft nicht.');return 'Abstreiten hat nicht gereicht.'}],
   ['Nachbar/in bestechen (2.000 €)',()=>{p.money-=px$(2000);if(ch(.6)){nbRel(o,15);remember(o,'Hat mich bestochen',0);return o.n.split(' ')[0]+' zieht die Anzeige zurück. „Hab mich wohl geirrt.“'}p.wanted=Math.min(5,p.wanted+1);toJail(2,'Bestechungsversuch fliegt auf.');return 'Das war ein Fehler.'}]]));

@@ -34,13 +34,16 @@ const sceneOf=e=>{const s=(e.t||'')+' '+(typeof e.x==='function'?'':e.x||'');con
 function optMeta(l){const ic=/⚖/.test(l)?'scale':/★/.test(l)?'star':/€/.test(l)?'coin':/helf|hilf|unterstütz|tröst|verzeih|kuchen|danke|umarm|für sie|für ihn|da sein/i.test(l)?'heart':/std|min\.|warten|später|ein andermal/i.test(l)?'clock':/riskier|ausbruch|flucht|hart|wagen|wette|klauen|bestech/i.test(l)?'bolt':'arrow';
   const hint=/⚖|★/.test(l)?'Dein Wissen hilft':/€/.test(l)?'Kostet Geld':ic==='heart'?'Gut für Beziehungen':ic==='bolt'?'Riskant':/ignorier|keine zeit|abwimmel|weitererzähl|polizei rufen|kontern|belächel|absagen/i.test(l)?'Kann jemanden kränken':'';
   return [ic,hint]}
-function stageDialog(sc,h,t,opts,cls){const d=document.getElementById('dlg');d.className='dlg stage'+(cls?' '+cls:'');
-  d.innerHTML='<div class="scene">'+(SCENES[sc]||SCENES.stadt)+'</div><div class="sbody"><h2>'+esc(h)+'</h2><p>'+esc(t)+'</p><div class="ocards">'+opts.map((o,i)=>{const m=optMeta(o[0]);
+function stageDialog(sc,h,t,opts,cls,help){const d=document.getElementById('dlg');d.className='dlg stage'+(cls?' '+cls:'');
+  d.innerHTML='<div class="scene">'+(SCENES[sc]||SCENES.stadt)+(help?'<button class="helpstar" type="button" aria-label="Hilfe im echten Leben">★</button>':'')+'</div>'+(help?'<div class="helpbox" hidden><b>Geht es dir selbst nicht gut?</b><span>Die TelefonSeelsorge ist rund um die Uhr erreichbar, kostenlos und anonym: <a href="tel:08001110111">0800 111 0 111</a> oder <a href="tel:08001110222">0800 111 0 222</a>. Auch per Chat auf telefonseelsorge.de.</span></div>':'')+'<div class="sbody"><h2>'+esc(h)+'</h2><p>'+esc(t)+'</p><div class="ocards">'+opts.map((o,i)=>{const m=optMeta(o[0]);
     return '<button class="ocard" data-o="'+i+'">'+SVGI[m[0]]+'<span><b>'+esc(o[0].replace(/^[⚖★]\s*/,''))+'</b>'+(m[1]?'<small>'+m[1]+'</small>':'')+'</span></button>'}).join('')+'</div></div>';
-  const md=document.getElementById('modal');md.classList.add('on');
+  const md=document.getElementById('modal');md.classList.add('on');const hs=d.querySelector('.helpstar');if(hs)hs.onclick=()=>{const b=d.querySelector('.helpbox');b.hidden=!b.hidden};
   d.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{md.classList.remove('on');const f=opts[+b.dataset.o][1];if(f)f()});try{d.querySelector('button').focus()}catch(e){}}
 showEvent0=function(e){p.evSeen=p.evSeen||{};p.evSeen[e.t]=(p.evSeen[e.t]||0)+1;const t=typeof e.x==='function'?e.x():e.x,sc=sceneOf(e);
-  stageDialog(sc,e.t,t,e.o.map(([l,f])=>[l,()=>{try{valFromLabel(l)}catch(_){}const r=f();log(r);checkAch();save();render();stageDialog(sc,'Ergebnis',r,[['Weiter',null]],'res')}]))};
+  stageDialog(sc,e.t,t,e.o.map(([l,f])=>[l,()=>{try{valFromLabel(l)}catch(_){}const r=f();log(r);checkAch();save();render();stageDialog(sc,'Ergebnis',r,[['Weiter',()=>{try{chainEvent()}catch(_){}}]],'res',e.help)}]),null,e.help)};
+// Mehrere wartende Ereignisse pro Jahr nacheinander zeigen (höchstens drei)
+function chainEvent(){if(!p||!p.alive)return;if(p.evNA!==p.age){p.evNA=p.age;p.evN=0}if(p.evN>=2)return;
+  while(p.q&&p.q.length){const q=p.q.shift();const e=QEV[q.id]&&QEV[q.id](q.d);if(e&&e.c()){p.evN++;setTimeout(()=>{(typeof showEvent==='function'?showEvent:showEvent0)(e)},120);return}}}
 
 /* ---------- Münzen, Konfetti, Jahreswechsel, Ringe ---------- */
 let FX={money:null,rings:{}};
