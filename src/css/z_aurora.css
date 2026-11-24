@@ -265,3 +265,13 @@ body.cityfull .age{display:none}
 .chip.down{background:rgba(229,72,77,.16);color:#E5484D}
 
 .rot.rtop{top:58px;bottom:auto}
+/* Wirtschaftsseite, Stadtanzeiger, Bekanntheit */
+.ecgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.ectile{background:rgba(255,255,255,.06);border:1px solid var(--line,rgba(255,255,255,.1));border-radius:14px;padding:10px 10px 8px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ectile small{font-size:11px;font-weight:800;color:var(--muted,#93A4BA)}.ectile b{font-size:19px}.ectile span{font-size:11px;color:var(--muted,#93A4BA)}.spk{width:100%;height:26px;display:block;margin:2px 0}
+.econ b.up{color:#2FA88F}.econ b.dn{color:#E5484D}
+.press{gap:8px}.press .prh{display:flex;flex-direction:column;border-bottom:2px solid var(--ink,#fff);padding-bottom:6px;margin-bottom:4px}
+.press .prh b{font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:700;letter-spacing:.01em}.press .prh small{color:var(--muted,#93A4BA);font-weight:700}
+.press .nw{box-shadow:none;background:rgba(255,255,255,.04);padding:10px 12px}.press .nw.me{outline:2px solid #E5407A;background:rgba(229,64,122,.08)}
+.fame .bar{height:10px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:10px 0 4px}.fame .bar i{display:block;height:100%;background:linear-gradient(90deg,#F2C14E,#E5407A)}
+.feff{margin:4px 0 0;padding-left:18px;line-height:1.5;font-size:13.5px}
