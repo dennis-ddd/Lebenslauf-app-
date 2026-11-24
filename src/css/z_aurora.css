@@ -249,3 +249,19 @@ html,body{overscroll-behavior-y:none}
 .kver{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#3E7CB1;color:#fff;font-size:10px;font-weight:900;vertical-align:1px}
 .merpr{display:flex;align-items:center;gap:10px;margin:6px 0 10px}.merpr b{font-size:20px;min-width:80px;text-align:center}
 .licb{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+/* App-Cover */
+#splash.cov{padding:0;place-items:end center;background:linear-gradient(180deg,#1B2E6E 0%,#2A3C82 40%,#121628 100%)}#splash.cov .splimg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center 30%}
+#splash .spl2{position:relative;width:100%;max-width:none;padding:26px 24px max(28px,env(safe-area-inset-bottom));background:linear-gradient(180deg,transparent,rgba(10,12,30,.82) 40%);color:#fff}
+#splash .spl2 p{font-size:16px;font-weight:700;margin:0 auto 8px;max-width:360px;text-shadow:0 2px 8px rgba(0,0,0,.5)}#splash .spl2 small{opacity:.8}
+:root[data-theme=aurora] .start .hero{background:linear-gradient(180deg,rgba(14,18,44,.05) 0%,rgba(14,18,44,.55) 55%,rgba(14,18,44,.92) 100%),var(--cover) 92% 66%/cover;color:#fff}
+:root[data-theme=aurora] .start .hero .ht small,:root[data-theme=aurora] .start .hero .ht p{color:rgba(255,255,255,.88)}
+:root[data-theme=aurora] .home2{background:linear-gradient(180deg,rgba(14,18,44,.1),rgba(14,18,44,.88) 60%),var(--cover) center 70%/cover}
+/* Stadt: Vollbild, eigene Gebäude, Wahrzeichen */
+body.cityfull #city{position:fixed;inset:0;height:auto!important;max-height:none!important;min-height:0!important;z-index:60}
+body.cityfull .age{display:none}
+#cfull.hl{background:linear-gradient(135deg,#F0CC87,#D5A35E)!important;color:#14263B!important}#cfull.hl .i{stroke:#14263B}
+.pinm.own .pinsv{fill:#D5A35E;stroke:#fff}.pinm.own .plb{background:#F0CC87;color:#14263B;text-shadow:none;padding:2px 8px;border-radius:999px;font-size:11.5px}
+.pinm.lm{pointer-events:none;opacity:.85}.pinm.lm .plb{background:rgba(20,24,44,.72);color:#fff;font-size:11px;padding:2px 8px;border-radius:999px;text-shadow:none}
+.chip.down{background:rgba(229,72,77,.16);color:#E5484D}
+
+.rot.rtop{top:58px;bottom:auto}

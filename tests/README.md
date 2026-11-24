@@ -19,3 +19,4 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `altersgerecht.js`: listet alle Nachrichten an Kinder und Jugendliche (0–17) zum Durchlesen
 - `node tests/kinderwelt.js`: Spielzeugkiste (0–5), Schulranzen, Sparschwein, Ereignis „Erstes Handy“ und der Schalter in den Einstellungen.
 - `node tests/fuehrerschein_influencer.js`: alle vier Führerscheine (Stunden, Theorie, Praxis, Fahrzeuge) und die Influencer-Systeme (Deals, Shitstorm, Collabs, Merch, Agentur, Award).
+- `node tests/stadt.js`: Stadtplanung (alle Orte im passenden Viertel, Seed reproduzierbar), Stadtwandel über ein ganzes Leben, eigene Firmen und Immobilien auf der Karte.

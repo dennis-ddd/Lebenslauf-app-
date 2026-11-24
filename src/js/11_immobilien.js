@@ -19,7 +19,7 @@ const propVal=pr=>Math.round(pr.val*(.7+.3*pr.cond/100));
 function unitRent(pr){const T=PT[pr.t];return pr.val*.045/Math.max(1,pr.units)*(.75+.25*pr.cond/100)*(1+.15*(pr.lvl-1))*pr.rb*(T.com?1.1:1)}
 function mkTenant(pr,r){const T=PT[pr.t],k=r()<.35?'zuv':r()<.75?'norm':'schw';return {n:pick2(r,T.com?TN_COM:TN_RES),k,rent:Math.round(unitRent(pr)*TEN[k][1]),y:0}}
 function listings(){const r=rng(p.seed%100000+p.age*977),L=[];const keys=['wohnung','wohnung','haus','haus','laden','buero','mfh','flaeche','flaeche'];
-  for(let i=0;i<6;i++){const t=pick2(r,keys),d=Math.floor(r()*DIST.length),D=DIST[d];const val=Math.round(PT[t].b*D[1]*p.econ.idx*(.85+r()*.3)/1000)*1000;
+  for(let i=0;i<6;i++){const t=pick2(r,keys),d=Math.floor(r()*DIST.length),D=DIST[d];const val=Math.round(PT[t].b*D[1]*p.econ.idx*(.85+r()*.3)*(1+distW(d)*.12)/1000)*1000;
     const cond=PT[t].land?100:R0i(r,55,100);L.push({id:p.age+'-'+i,t,d,val,cond,price:Math.round(val*(.7+.3*cond/100)/1000)*1000,occ:PT[t].land?0:r()})}
   return L.filter(x=>!(p.boughtL||[]).includes(x.id))}
 function R0i(r,a,b){return a+Math.floor(r()*(b-a+1))}
@@ -36,7 +36,7 @@ function propYear(){const out={rent:0,cost:0};if(!p.props)return out;const infl=
       else{const B=BLD[j.k];pr.bd[j.k]=1;pr.val=Math.round(pr.val*(1+B[4]/100));pr.rb*=1+B[5]/100;if(B[7]&&pr.t==='mfh'||B[7]&&pr.t==='buero')pr.units+=B[7];if(j.k==='fassade')pr.col=j.col;log(B[0]+' fertig: '+propName(pr)+'. Die neue Miete gilt ab dem nächsten Jahr.')}
       pr.reprice=true;return false});
     // Wert und Zustand
-    pr.val=Math.round(pr.val*(1+D[2]+(Math.random()*.08-.03)+infl/100*.6));
+    pr.val=Math.round(pr.val*(1+D[2]+(Math.random()*.08-.03)+infl/100*.6+distW(pr.d)*.025));
     pr.cond=clamp(pr.cond-R(2,5)*(p.staff&&p.staff.haus?.5:1)-(pr.use==='rent'?pr.ten.filter(x=>x.k==='schw').length:0),20,100);
     const up=Math.round(pr.val*.008);out.cost+=up;
     if(pr.use==='rent'){pr.ten=pr.ten.filter(x=>{x.y++;if(ch(TEN[x.k][2])){if(x.k==='schw'&&ch(.5)){const dmg=Math.round(x.rent*.5*(p.staff&&p.staff.haus?.5:1));out.cost+=dmg;log(x.n+' hat in deinem '+PT[pr.t].n+' Schaden angerichtet: '+eur(dmg)+'.')}else log(x.n+' hat die Miete nicht gezahlt.');return true}

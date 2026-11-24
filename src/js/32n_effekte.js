@@ -89,6 +89,6 @@ const WISE=['Das Leben ist kein Rennen. Genieße die Strecke.','Kleine Schritte 
  'Glück ist das Einzige, das sich verdoppelt, wenn man es teilt.','Morgen ist ein neuer Tag.','Man bereut selten, was man getan hat. Eher, was man nicht getan hat.','Ein guter Nachbar ist mehr wert als ein ferner Freund.','Geld kann man verdienen. Zeit nicht.',
  'Jeder Tag ist eine neue Seite im Tagebuch.','Freundschaft ist eine Pflanze, die man gießen muss.','Auch der längste Weg beginnt mit dem ersten Schritt.','Sei die Person, die du als Kind gebraucht hättest.','Mut ist, Angst zu haben und es trotzdem zu tun.'];
 function splash(){if(O.noSplash||!document.body||document.getElementById('splash'))return;const s=document.createElement('div');s.id='splash';
-  s.innerHTML='<div class="spl"><div class="splt">Lebenslauf</div><p>„'+pick(WISE)+'“</p><small>Tippen zum Starten</small></div>';document.body.appendChild(s);
+  s.className='cov';s.innerHTML=(typeof COVER!=='undefined'?'<img class="splimg" src="'+COVER+'" alt="">':'<div class="splt">Lebenslauf</div>')+'<div class="spl spl2"><p>„'+pick(WISE)+'“</p><small>Tippen zum Starten</small></div>';document.body.appendChild(s);
   const go=()=>{if(!s.parentNode)return;s.classList.add('out');setTimeout(()=>s.remove(),lessMotion()?0:450)};s.onclick=go;setTimeout(go,lessMotion()?900:2400)}
 try{applyLook();if(typeof window!=='undefined'&&window.addEventListener&&document.readyState!=null)splash()}catch(e){}
