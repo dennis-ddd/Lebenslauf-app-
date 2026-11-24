@@ -18,3 +18,4 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `kindheit.js`: spielt 120 Leben ab Geburt, prüft Meilensteine, Minispiele, Prägungen, Rückkehrer und seelische Last
 - `altersgerecht.js`: listet alle Nachrichten an Kinder und Jugendliche (0–17) zum Durchlesen
 - `node tests/kinderwelt.js`: Spielzeugkiste (0–5), Schulranzen, Sparschwein, Ereignis „Erstes Handy“ und der Schalter in den Einstellungen.
+- `node tests/fuehrerschein_influencer.js`: alle vier Führerscheine (Stunden, Theorie, Praxis, Fahrzeuge) und die Influencer-Systeme (Deals, Shitstorm, Collabs, Merch, Agentur, Award).

@@ -225,3 +225,27 @@ html,body{overscroll-behavior-y:none}
 .kwgoal .bar{height:10px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden;margin:8px 0}.kwgoal .bar i{display:block;height:100%;background:linear-gradient(90deg,#3E8587,#D5A35E)}
 .kwht{min-width:0}.kwht span{display:block}.kwht .kwchip{margin-top:8px;display:inline-flex}
 .kwhero .kwchip img{width:26px;height:26px}
+/* Neue Minispiele */
+.mg2 .sbody{text-align:center}.mg2 p{line-height:1.4}
+.mgmemo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.mgmemo button{border:1px solid var(--line,rgba(255,255,255,.12));background:rgba(255,255,255,.06);color:inherit;font:inherit;font-weight:800;font-size:13px;border-radius:14px;padding:16px 4px;transition:transform .12s,background .12s}
+.mgmemo button.lit{background:linear-gradient(135deg,#F0CC87,#D5A35E);color:#14263B;transform:scale(1.06)}.mgmemo button.ok{background:#3E8587;color:#fff}.mgmemo button.no{background:#C0504D;color:#fff}
+.mgfb{margin-top:10px;font-weight:800;min-height:22px;color:var(--muted,#93A4BA)}.mgfb.ok{color:#5FD0A0}.mgfb.no{color:#FF7A7A}
+.mgsuch{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0}.mgsuch button{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);border-radius:12px;padding:4px;aspect-ratio:1/1.1;display:grid;place-items:center}
+.mgsuch svg{width:100%;height:100%}.mgsuch button.hit{outline:3px solid #5FD0A0;background:rgba(95,208,160,.15)}.mgsuch.k button{aspect-ratio:1}
+.mgcard{margin:14px auto;max-width:300px;min-height:72px;border-radius:16px;padding:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-weight:700;display:flex;flex-direction:column;justify-content:center;gap:4px;transition:transform .3s,opacity .3s}
+.mgcard small{color:var(--muted,#93A4BA);font-size:11px}.mgcard b{font-size:20px}.mgcard.in{animation:mgIn .25s}.mgcard.out{opacity:.4;transform:translateY(-8px)}.mgcard.out.ok{border-color:#5FD0A0}.mgcard.out.no{border-color:#FF7A7A}
+@keyframes mgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.mgbins{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}.mgbins .btn{flex:1;min-width:0}
+.mgtor{position:relative;height:130px;margin:12px auto;max-width:300px;border:4px solid #EAF0F6;border-bottom:0;border-radius:6px 6px 0 0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 12px,transparent 12px 24px)}
+.mgtor .kp{position:absolute;bottom:0;left:50%;width:34px;height:70px;margin-left:-17px;border-radius:14px 14px 4px 4px;background:linear-gradient(#F0CC87,#D5A35E);transition:transform .45s}
+.mgtor .kp.k0{transform:rotate(-8deg)}.mgtor .kp.k2{transform:rotate(8deg)}.mgtor .kp.d0{transform:translateX(-90px) rotate(-70deg)}.mgtor .kp.d1{transform:translateY(-30px)}.mgtor .kp.d2{transform:translateX(90px) rotate(70deg)}
+.mgtor .ball{position:absolute;bottom:-40px;left:50%;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:#fff;transition:transform .45s}
+.mgtor .ball.s0{transform:translate(-100px,-120px)}.mgtor .ball.s1{transform:translate(0,-130px)}.mgtor .ball.s2{transform:translate(100px,-120px)}
+.thprev{margin:10px auto;max-width:300px;text-align:left}.thprev b{display:block;margin-top:6px;font-size:14px}.thprev small{color:var(--muted,#93A4BA)}
+.thimg{position:relative;aspect-ratio:16/9;border-radius:12px;display:grid;place-items:center;overflow:hidden}.thface svg{width:84px;height:84px;display:block}.thwow{position:absolute;right:16%;top:12%;font:900 40px/1 system-ui;color:#fff;font-style:normal;text-shadow:0 2px 6px rgba(0,0,0,.4)}
+.thres{font:900 54px/1 system-ui;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.35)}.thtxt{font:900 26px/1.05 system-ui;color:#fff;text-transform:uppercase;text-shadow:0 3px 0 rgba(0,0,0,.35);padding:0 10px;text-align:center}
+.throw{margin:8px 0;text-align:left}.throw small{display:block;font-weight:800;color:var(--muted,#93A4BA);font-size:11px;margin-bottom:4px}.throw>div{display:flex;gap:6px}.throw .amt{flex:1}
+.kver{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#3E7CB1;color:#fff;font-size:10px;font-weight:900;vertical-align:1px}
+.merpr{display:flex;align-items:center;gap:10px;margin:6px 0 10px}.merpr b{font-size:20px;min-width:80px;text-align:center}
+.licb{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}

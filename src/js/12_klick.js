@@ -46,7 +46,7 @@ function doPost(type){const T=POSTT[type],sm=p.sm;if(!sm||p.prison||(T.need&&!T.
 function doVideo(g){const V=VIDT[g],sm=p.sm;if(!sm||p.prison||!sm.ch)return;ensureSm();
   if(!(p.items.includes('handy')||p.items.includes('kamera')||p.items.includes('laptop'))){toast('Du brauchst ein Smartphone, eine Kamera oder einen Laptop aus dem Shop.');return}
   if(V.need&&!V.need()){toast('Dafür brauchst du: '+V.needN+'.');return}if(sm.vl<=0){toast('Keine Videos mehr übrig in diesem Jahr.');return}sm.vl--;
-  const eq=p.items.includes('kamera')?1.6:1,cut=sm.studio.cutter?1.5:1,viral=ch(.04),q=(.4+p.st[V.st]/100*.8)*(.6+Math.random()*.8)*eq*cut*smMult()*(viral?8:1);
+  const eq=p.items.includes('kamera')?1.6:1,cut=sm.studio.cutter?1.5:1,viral=ch(.04),q=(.4+p.st[V.st]/100*.8)*(.6+Math.random()*.8)*eq*cut*smMult()*(viral?8:1)*KB.vid;
   const views=Math.round((sm.ch.subs*.8/(1+sm.ch.subs/100000)+sm.fol*.12/(1+sm.fol/100000)+250)*q),ns=Math.round(views*.05);
   sm.ch.subs+=ns;sm.subs=sm.ch.subs;sm.views+=views;sm.yv+=views;sm.active=true;smGain(views*.02);
   const v={g,t:pick(V.t),views,ns,a:p.age,viral};sm.vids.unshift(v);sm.vids=sm.vids.slice(0,10);if(viral)ach('viral');checkPlq();
@@ -64,10 +64,10 @@ function doLive(){const sm=p.sm;if(!sm||p.prison||!sm.ch)return;ensureSm();const
   const si=nextSlot(),planned=si!=null;let sM=1,txt=[];
   if(planned){c.done.push(si);c.streak++;sM=SLOTS[si][2]*(c.ann.includes(si)?1.15:1)*(1+Math.min(.3,c.streak*.02))}else c.streak=0;
   const eq=p.items.includes('setup')&&p.items.includes('laptop')?1.6:p.items.includes('laptop')?1.2:1,CS=CATS[c.cat],sv=CS[1]==='form'?p.sk.form:p.st[CS[1]];
-  const viewers=Math.round((c.subs*.1/(1+c.subs/120000)+sm.fol*.012/(1+sm.fol/120000)+30)*eq*(.6+sv/100*.6)*F[2]*sM*(.7+c.com/100*.6)*smMult()*(.75+Math.random()*.5));
+  const viewers=Math.round((c.subs*.1/(1+c.subs/120000)+sm.fol*.012/(1+sm.fol/120000)+30)*eq*(.6+sv/100*.6)*F[2]*sM*(.7+c.com/100*.6)*smMult()*(.75+Math.random()*.5)*KB.live);
   let ns=Math.round(viewers*(.25+Math.random()*.2)*(F[6]&&chFmt==='charity'?1.2:1)),don=Math.round(viewers*(.3+Math.random()*.9));
   c.com=clamp(c.com+F[3]+(c.streak>=5?1:0),0,100);if(chFmt==='marathon')add('ge',-6);
-  const risk=F[4]*(sm.studio.mods?.33:1)*(sm.mood==='wild'?1.5:1);
+  const risk=F[4]*(sm.studio.mods?.33:1)*(sm.mood==='wild'?1.5:1)*KB.risk;
   if(ch(risk)){ns=-Math.round(c.subs*.05);smGain(-sm.fol*.08);c.com=Math.max(0,c.com-15);sm.trust=Math.max(10,sm.trust-10);don=Math.round(don/3);txt.push('Shitstorm! Ein Satz kam falsch an.');add('gl',-6)}
   else{smGain(viewers*.08);add('gl',R(2,5))}
   c.subs=Math.max(0,c.subs+ns);sm.subs=c.subs;c.streams++;c.rec=Math.max(c.rec,viewers);c.vh.push(viewers);if(c.vh.length>12)c.vh.shift();
@@ -86,7 +86,7 @@ function smYear(){const sm=p.sm;if(!sm)return 0;ensureSm();let inc=0;
     if(sm.studio.mods)c.com=Math.min(100,c.com+5);c.hist.push(c.subs);if(c.hist.length>30)c.hist.shift();c.sl=streamBudget();c.done=[];c.ann=[]}
   let sp=0;sm.spon.forEach(k=>{const S=SPONS.find(x=>x[0]===k);if(!S)return;sp+=sponPay(S);if(S[4]){sm.trust=Math.max(10,sm.trust-8);if(c)c.com=Math.max(0,c.com-5)}});
   if(sm.studio.manager)sp=Math.round(sp*.85);inc+=sp;
-  if(sm.studio.merch)inc+=Math.round((sm.fol*.01+(c?c.subs*.08:0))*(c?(.5+c.com/100):1));
+  if(sm.studio.merch)inc+=merchInc(sm,c);
   let cost=(sm.studio.mods?px$(STUDIO.mods[3]):0)+(sm.studio.cutter?px$(STUDIO.cutter[3]):0);inc-=cost;
   if(!sm.active&&sm.fol>50){smGain(-sm.fol*.08);log('Klick: Ohne neue Inhalte sind dir Follower verloren gegangen.')}
   sm.trust=Math.min(100,sm.trust+5);sm.yv=0;sm.active=false;sm.dyr=0;sm.pl=postBudget();sm.vl=3;sm.earn+=Math.max(0,inc);
@@ -148,7 +148,7 @@ function viewKlick(){
     if(chSub==='stats'){const sp=sm.spon.reduce((s,k)=>{const S=SPONS.find(x=>x[0]===k);return s+(S?sponPay(S):0)},0);
       h+=card('Abonnenten pro Jahr',c.hist.length>1?lineSvg(c.hist.slice(-15),110,true,'neu'):'<p class="note">Nach dem ersten Jahr siehst du hier deine Kurve.</p>')+
         card('Zuschauer pro Stream',c.vh.length?bars(c.vh)+'<p class="note">Rekord: '+kfmt(c.rec)+' Zuschauer gleichzeitig.</p>':'<p class="note">Noch keine Streams.</p>')+
-        card('Einnahmen pro Jahr (geschätzt)','<div class="mrow"><span>Abos (bis 1,50 € pro Abo)</span><b>'+eur(c.subs*1.5/(1+c.subs/300000))+'</b></div><div class="mrow"><span>Creator-Fonds</span><b>'+eur(sm.fol>=1000?sm.fol*.02:0)+'</b></div><div class="mrow"><span>Sponsoren</span><b>'+eur(sm.studio.manager?sp*.85:sp)+'</b></div><div class="mrow"><span>Merch</span><b>'+eur(sm.studio.merch?(sm.fol*.01+c.subs*.08)*(.5+c.com/100):0)+'</b></div><div class="mrow"><span>Spenden bisher gesamt</span><b>'+eur(c.earn)+'</b></div>');
+        card('Einnahmen pro Jahr (geschätzt)','<div class="mrow"><span>Abos (bis 1,50 € pro Abo)</span><b>'+eur(c.subs*1.5/(1+c.subs/300000))+'</b></div><div class="mrow"><span>Creator-Fonds</span><b>'+eur(sm.fol>=1000?sm.fol*.02:0)+'</b></div><div class="mrow"><span>Sponsoren</span><b>'+eur(sm.studio.manager?sp*.85:sp)+'</b></div><div class="mrow"><span>Merch</span><b>'+eur(sm.studio.merch?merchInc(sm,c):0)+'</b></div><div class="mrow"><span>Spenden bisher gesamt</span><b>'+eur(c.earn)+'</b></div>');
     }
   }
   if(smTab==='biz'){const max=3+(sm.studio.manager?1:0),reach=sm.fol+(c?c.subs*3:0);
