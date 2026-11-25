@@ -26,3 +26,4 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `node tests/wiederkehr.js`: Lebensfilm, Lebensalbum mit Erinnerungsstücken über alle Leben und die Zweite Chance.
 - `node tests/zusammen_alter.js`: Freundeskreis (Hochzeiten, Krisen, Umzüge, Abschiede), Haustiere mit Tricks und Bindung (auch beim Weiterspielen), Gesundheit und Wohnen im Alter.
 - `node tests/avatar.js`: lebendiger Avatar in allen Altersstufen, Stimmungen und Kombinationen, Kleiderschrank, Friseur, Altersgrenzen und klassischer Avatar.
+- `node tests/politik.js`: Politik-Karriere mit Programm, Vorlagen im Amt, Wahlkampf mit TV-Duell, Lobby und Skandal, Koalition und Kanzleramt.

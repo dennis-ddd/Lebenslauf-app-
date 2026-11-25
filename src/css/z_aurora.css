@@ -398,3 +398,6 @@ body.lm .av2 *{animation:none!important}
 .avcols{display:flex;flex-wrap:wrap;gap:8px}.avcols button{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.25);cursor:pointer}.avcols button[aria-pressed=true]{outline:3px solid #F0CC87;outline-offset:2px}
 .avcols button.nat{width:auto;padding:0 12px;border-radius:99px;background:rgba(255,255,255,.08);color:inherit;font:inherit;font-size:12px;font-weight:700}
 .avcols button:disabled{opacity:.4}
+/* 5.6 Politik */
+.pth{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.pth button{padding:7px 12px;border-radius:99px;border:1px solid color-mix(in srgb,var(--pc) 55%,transparent);background:color-mix(in srgb,var(--pc) 10%,transparent);color:inherit;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.pth button[aria-pressed=true]{background:var(--pc);color:#fff;border-color:transparent}
