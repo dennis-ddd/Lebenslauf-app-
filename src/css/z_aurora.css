@@ -332,3 +332,8 @@ body.tb .cgrab{display:none!important}body.tb.placeopen .ctime{display:none}
 .bar.clb{width:110px;height:8px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}.bar.clb i{display:block;height:100%}
 .rp.rp-witz{border-color:rgba(242,193,78,.5)!important}.rp.rp-witz small{color:#F2C14E}
 .frow{display:flex;gap:8px;margin:8px 0}.frow input{flex:1;min-width:0}
+/* 5.2 Ereigniskategorie */
+.evcat{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:0 0 8px}
+.evcat span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;background:rgba(124,140,255,.16);color:#AEB8FF}
+.evcat small{font-size:12px;opacity:.72;font-style:italic}
+.evcat small::before{content:'↺ ';font-style:normal}
