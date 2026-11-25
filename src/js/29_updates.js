@@ -1,6 +1,7 @@
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+ {v:'5.7.1',big:false,t:'Update-Hinweise repariert',neu:['Unter Einstellungen → Hilfe findest du jetzt „Was ist neu?“ mit allen Updates zum Nachlesen'],mod:['Die Hinweise zu den Updates 5.2 bis 5.7 wurden wegen eines Fehlers nicht angezeigt. Sie erscheinen jetzt einmal nachträglich']},
  {v:'5.7',big:true,t:'Leichter Einstieg und Suche',neu:['Erste Schritte: Im ersten Leben führen dich fünf kleine Aufgaben durch das Wichtigste, mit Startgeschenk am Ende','Babyjahre im Zeitraffer: Wer als Baby startet, kann direkt zum Schulstart springen und bekommt eine Zusammenfassung','Dezente Suche: Die Lupe neben „Einstellungen“ findet Apps, Orte, Aktionen, Personen, Haustiere und Einstellungen']},
  {v:'5.6',big:true,t:'Politik mit Tiefe',neu:['Dein Programm: Wähle bis zu drei Kernthemen wie Wohnen, Klima oder Sicherheit','Echte Entscheidungen im Amt: Radwege, Hallenbad, neue Wohnviertel, Stadion, Straßenbahn, Haushaltsloch, Klimagesetz, Rentenreform und Krisensitzung','Deine Entscheidungen verändern die Stadt: Viertel werden beliebter, Immobilien steigen oder fallen','Rückhalt bei Bürger/innen, Wirtschaft und Umweltverbänden','Wahlkampf mit TV-Duell, Umfragen und Gegenkandidat/in, manchmal sogar deinem Rivalen','Lobbyisten mit Umschlägen, Skandale, die Jahre später auffliegen, und Koalitionsverhandlungen','Neues höchstes Amt: Bundeskanzler/in','Pressekonferenz und Rücktritt']},
  {v:'5.5',big:true,t:'Dein Avatar lebt',neu:['Ganz neuer Avatar: blinzelt, atmet und zeigt deine Stimmung (strahlend, zufrieden, müde, traurig, krank)','Er altert sichtbar: Falten, graue Haare, Lesebrille','Neuer Kleiderschrank mit Oberteilen, Jacken, Kopfbedeckungen, Brillen, Schmuck und Uhren, die du kombinieren kannst','Friseur mit acht Frisuren und Haarfarben von Blond bis Pink','Teile mit Wirkung: Anzug und Hornbrille helfen bei Bewerbungen, die Smartwatch hält gesund, die Luxusuhr bringt Ruf, lockt aber Diebe an','Saison-Artikel: Weihnachtspulli im Dezember, Karnevalskostüm im Februar','Der alte Avatar lässt sich unter Einstellungen > Aussehen wieder einschalten']},
@@ -31,13 +32,19 @@ const CHANGES=[
  {v:'2.2',big:true,t:'Lebenswege und Generationen',neu:['Apps Nachrichten, Kalender, Karriere und Einstellungen','Minispiele für jeden Job','Seltene Großereignisse und ein Rivale fürs Leben','Kinder mit Talenten, Testament, Stammbaum und Weiterspielen als Kind','Sport-, Musik-, Politik- und Untergrund-Karriere','Grabstein mit Lebensrückblick'],mod:['Schulnoten, Sitzenbleiben und Hauptschule','Umzug in Großstadt, Kleinstadt, Dorf oder Ausland']},
  {v:'2.1',big:true,t:'Klick 2.0',neu:['Eigener Kanal mit Sendeplan, Formaten, Spendenziel und Plaketten','Sponsoren, Merch und Studio'],mod:['Posts und Streams kosten keine Aktionen mehr','Influencer/in schon mit 16 bis 19 möglich']}];
 const APPVER=CHANGES[0].v;
-function showUpdates(){let seen=null;try{seen=localStorage.getItem(VKEY)}catch(e){}
-  try{localStorage.setItem(VKEY,APPVER)}catch(e){}
+function showUpdates(){let seen=null,fix=null;try{seen=localStorage.getItem(VKEY);fix=localStorage.getItem(VKEY+'-fix')}catch(e){}
+  // Die Hinweise zu 5.2 bis 5.7 konnten wegen eines Fehlers nicht angezeigt werden: einmal nachholen
+  if(!fix&&['5.2','5.3','5.4','5.5','5.6','5.7'].includes(seen))seen='5.1';
+  try{localStorage.setItem(VKEY+'-fix','1')}catch(e){}
   if(seen===APPVER)return;let list;
   if(seen==null){if(!load())return;list=CHANGES.slice(0,1)}else{const i=CHANGES.findIndex(c=>c.v===seen);list=i<0?CHANGES.slice(0,2):CHANGES.slice(0,i)}
   if(!list.length)return;const big=list.some(c=>c.big);
   const li=(a,c)=>a.length?'<ul class="ul2 '+c+'">'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'';
-  const h=(big?'<div class="upbig"><small>GROSSES UPDATE</small><b>'+esc(list[0].t)+'</b><span>Version '+list[0].v+'</span></div>':'<h2>Update auf Version '+list[0].v+'</h2>')+
-    list.map((c,i)=>(i||big?'':'')+'<div class="upv">'+(i||!big?'<div class="uph"><b>'+esc(c.t)+'</b><span class="chip">'+(c.big?'Großes Update · ':'')+'v'+c.v+'</span></div>':'')+(c.neu.length?'<div class="upl">Neu</div>'+li(c.neu,'neu'):'')+(c.mod.length?'<div class="upl">Geändert</div>'+li(c.mod,'mod'):'')+'</div>').join('');
-  htmlDialog(h,'Los geht’s',null,'upd'+(big?' bigup':''));setTimeout(()=>{const d=document.getElementById('dlg');if(d)d.scrollTop=0},30);if(big)sfx('big')}
+  const hd=list.find(c=>c.big)||list[0];const h=(big?'<div class="upbig"><small>'+(list.filter(c=>c.big).length>1?list.filter(c=>c.big).length+' GROSSE UPDATES':'GROSSES UPDATE')+'</small><b>'+esc(hd.t)+'</b><span>Version '+list[0].v+'</span></div>':'<h2>Update auf Version '+list[0].v+'</h2>')+
+    list.map((c,i)=>'<div class="upv">'+(c!==hd||!big?'<div class="uph"><b>'+esc(c.t)+'</b><span class="chip">'+(c.big?'Großes Update · ':'')+'v'+c.v+'</span></div>':'')+((c.neu||[]).length?'<div class="upl">Neu</div>'+li(c.neu,'neu'):'')+((c.mod||[]).length?'<div class="upl">Geändert</div>'+li(c.mod,'mod'):'')+'</div>').join('');
+  try{localStorage.setItem(VKEY,APPVER)}catch(e){}htmlDialog(h,'Los geht’s',null,'upd'+(big?' bigup':''));setTimeout(()=>{const d=document.getElementById('dlg');if(d)d.scrollTop=0},30);if(big)sfx('big')}
 
+
+/* Alle Updates jederzeit nachlesen */
+function showAllUpdates(){const li=a=>(a||[]).length?'<ul class="ul2">'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'';
+  htmlDialog('<h2>Was ist neu?</h2>'+CHANGES.slice(0,15).map(c=>'<div class="upv"><div class="uph"><b>'+esc(c.t)+'</b><span class="chip">v'+c.v+'</span></div>'+li(c.neu)+li(c.mod)+'</div>').join(''),'Schließen',null,'upd');setTimeout(()=>{const d=document.getElementById('dlg');if(d)d.scrollTop=0},30)}

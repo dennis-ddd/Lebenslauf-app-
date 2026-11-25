@@ -4,7 +4,7 @@ const els={};function el(id){return els[id]||(els[id]={id,innerHTML:'',style:{},
 global.document={getElementById:el,addEventListener(){},createElement:()=>({getContext:()=>null}),querySelector:()=>null,body:el('body')};global.window={scrollTo(){}};global.localStorage={getItem:()=>null,setItem(){},removeItem(){}};
 const fs=require('fs'),path=require('path');
 let src=(s=>s.split('<script>')[1].split('</script>')[0])(fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8')).trim();
-src=src.replace(/^\{/,'').replace(/\}\s*$/,'')+';global.T={applyCfg,newLife,ageUp,act,viewHome,srchFind,srchIndex,fsCheck,O,QEV,showEvent0,get p(){return p},get tab(){return tab},setDialog:f=>dialog=f};';eval(src);
+src=src.replace(/^\{/,'').replace(/\}\s*$/,'')+';global.T={showAllUpdates,CHANGES,applyCfg,newLife,ageUp,act,viewHome,srchFind,srchIndex,fsCheck,O,QEV,showEvent0,get p(){return p},get tab(){return tab},setDialog:f=>dialog=f};';eval(src);
 let errs=0;const ok=(n,c)=>{if(!c){errs++;console.log('FEHLER',n)}};T.setDialog(()=>{});
 // Zeitraffer
 for(let i=0;i<10;i++){T.newLife('Kim','Test','w',0,false);T.applyCfg({act:6,clock:false,ev:'normal',big:false,wealth:'normal'});ok('Karte',T.viewHome().includes('fastgo'));el('modal').classList.remove('on');T.act('fastgo');ok('Alter 6',T.p.age===6);ok('kein Zeitraffer mehr',!T.viewHome().includes('fastgo'));ok('Meilenstein',T.p.ms.some(m=>m.t==='Babyjahre im Zeitraffer'))}
@@ -18,4 +18,7 @@ const I=T.srchIndex();ok('Index groß',I.length>30);ok('ohne Fehler',I.every(r=>
 [['friseur','Friseur'],['mama','Mama'],['bello','Bello'],['bank','Bank'],['joggen',null],['haustier','Haustiere'],['wahl','Politik']].forEach(([q,exp])=>{const r=T.srchFind(q);ok('Suche '+q+' → '+(r[0]&&r[0].t),r.length>0&&(!exp||r.some(x=>x.t===exp)))});
 ok('Unsinn findet nichts',T.srchFind('xqzv').length===0);
 const r=T.srchFind('friseur')[0];T.act(r.a,r.g);if(r.b)T.act(r.b,r.g2);ok('Navigation',T.tab==='freizeit');
+// Update-Hinweise: jeder Eintrag lässt sich anzeigen
+try{T.showAllUpdates();ok('Was ist neu',true)}catch(e){ok('Was ist neu: '+e.message,false)}
+T.CHANGES.forEach(c=>ok('Eintrag '+c.v,c.v&&c.t&&Array.isArray(c.neu||[])));
 console.log('errors',errs);process.exit(errs?1:0);

@@ -59,3 +59,5 @@ function srchGo(r){if(!r)return;if(r.g==='freizeit'&&r.b==='avcat'){fTab='shop'}
 {const _vh=viewHome;viewHome=function(){let h=_vh();const top=fastCard()+fsCard();
   h=h.replace('<div class="hsec hsx">Alle Apps<button class="lnk" data-a="goto" data-g="einst">Einstellungen</button></div>','<div class="hsec hsx">Alle Apps<span class="hsxb"><button class="lnk srbtn" data-a="srch" aria-label="Suchen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button><button class="lnk" data-a="goto" data-g="einst">Einstellungen</button></span></div>');
   if(!top)return h;const i=h.indexOf('<section');return i>=0?h.slice(0,i)+top+h.slice(i):top+h}}
+{const f=act;act=function(id,arg){if(id==='whatsnew'){showAllUpdates();return}return f(id,arg)}}
+{const _ve=viewEinst;viewEinst=function(){const h=_ve();if(typeof einTab==='undefined'||einTab!=='help')return h;const c='<section class="card">'+row('Was ist neu?','Alle Updates der letzten Zeit zum Nachlesen · Version '+APPVER,btn('whatsnew',null,'Ansehen','o'))+'</section>';const i=h.indexOf('</div>');return i>=0?h.slice(0,i+6)+c+h.slice(i+6):c+h}}
