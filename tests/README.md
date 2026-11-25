@@ -22,3 +22,5 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `node tests/stadt.js`: Stadtplanung (alle Orte im passenden Viertel, Seed reproduzierbar), Stadtwandel über ein ganzes Leben, eigene Firmen und Immobilien auf der Karte.
 - `node tests/ruhm_wirtschaft.js`: Arbeitslosigkeit, Immobilienmarkt und Lohnrunden über viele Leben, Bekanntheit mit Promi-Ereignissen, Stadtanzeiger mit allen Rubriken und Bürgermeisterwahlen.
 - `node tests/clown_chats.js`: Klassenclown über ganze Schulzeiten, alle neuen Chat-Nachrichten mit passenden Antworten (inklusive witziger Antwort), Gruppenchat-Optionen und die neuen Einstellungs-Tabs.
+- `node tests/schicksal.js`: zentrales Ereignissystem, alle Lebenslage-Ereignisse und Spätfolgen (frühere Entscheidungen kommen zurück), Wendepunkte in der Lebensmitte.
+- `node tests/wiederkehr.js`: Lebensfilm, Lebensalbum mit Erinnerungsstücken über alle Leben und die Zweite Chance.

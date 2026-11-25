@@ -122,9 +122,9 @@ function persCard(){if(!p)return '';const c=px$(250);
     if(!t)s=s.replace(/<button class="tg" data-a="opt" data-g="rival"[\s\S]*?<\/button>/,'');S[k].push(s)});
   const tabs=[['spiel','Spiel'],['look','Aussehen'],['bed','Bedienung'],['help','Hilfe']];
   const body=einTab==='spiel'?startCard()+persCard()+S.spiel.join(''):einTab==='look'?S.look.join(''):einTab==='bed'?S.bed.join(''):S.help.join('')+'<section class="card"><h2 class="h">Neues Leben</h2><p class="note">Startet ein neues Leben. Der aktuelle Spielstand wird dabei ersetzt.</p>'+btn('goStart',null,'Zum Startbildschirm','g')+'</section>';
-  return '<div class="seg full etab">'+tabs.map(([k,l])=>'<button data-a="etab" data-g="'+k+'" aria-pressed="'+(einTab===k)+'">'+l+'</button>').join('')+'</div>'+body}}
+  return '<div class="seg full etab">'+tabs.map(([k,l])=>'<button data-a="einstab" data-g="'+k+'" aria-pressed="'+(einTab===k)+'">'+l+'</button>').join('')+'</div>'+body}}
 {const f=act;act=function(id,arg){
-  if(id==='etab'){einTab=arg;render();return}
+  if(id==='einstab'){einTab=arg;render();return}
   if(id==='gopt'){const [cid,k]=String(arg).split(':');gOpt(cid,k);return}
   if(id==='namechg'){const a=document.getElementById('nfn'),b=document.getElementById('nln');if(!a||!b||p.age<18)return;const fn=a.value.trim().slice(0,18),ln=b.value.trim().slice(0,22),c=px$(250);
     if(!fn||!ln){toast('Bitte Vor- und Nachnamen eintragen.');return}if(fn===p.first&&ln===p.last){toast('Das ist schon dein Name.');return}if(p.money<c){toast('Die Gebühr beträgt '+eur(c)+'.');return}

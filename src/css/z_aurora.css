@@ -337,3 +337,34 @@ body.tb .cgrab{display:none!important}body.tb.placeopen .ctime{display:none}
 .evcat span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;background:rgba(124,140,255,.16);color:#AEB8FF}
 .evcat small{font-size:12px;opacity:.72;font-style:italic}
 .evcat small::before{content:'↺ ';font-style:normal}
+/* 5.3 Lebensfilm, Album, Zweite Chance */
+.dlg.film{background:radial-gradient(120% 80% at 50% 0%,#2A1B4A,#0D0A1A 70%);color:#F3EEFF}
+.dlg.film .stbars i.lfrun{position:relative;overflow:hidden;background:rgba(255,255,255,.22)}
+.dlg.film .stbars i.lfrun::after{content:'';position:absolute;inset:0;background:var(--acc,#F0CC87);transform-origin:left;animation:lfbar 5.2s linear forwards}
+@keyframes lfbar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.dlg.film .stbars i.lfrun::after{animation:none}}
+.lfs{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:18px 10px;border-radius:24px;background:linear-gradient(180deg,color-mix(in srgb,var(--sc) 26%,transparent),transparent 85%);animation:lfIn .7s ease}
+@keyframes lfIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+.lfk{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--sc);filter:brightness(1.4)}
+.lfav{border-radius:50%;padding:6px;background:color-mix(in srgb,var(--sc) 30%,transparent);box-shadow:0 0 0 2px color-mix(in srgb,var(--sc) 55%,transparent)}
+.lfav.old{filter:grayscale(.35)}
+.lfs p{font-size:20px;font-weight:800;line-height:1.35;margin:0}.lfs p span{font-size:15px;opacity:.7}
+.lfs em{font-size:14px;opacity:.78}
+.lftl{display:flex;flex-direction:column;gap:8px;width:100%}.lftl div{display:flex;gap:12px;align-items:center;text-align:left;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.06)}
+.lftl span{font-weight:800;color:var(--sc);min-width:28px}.lftl b{font-size:15px}
+.lfst{display:flex;gap:8px;width:100%}.lfst span{flex:1;display:flex;flex-direction:column;font-size:11px;opacity:.8;padding:8px 4px;border-radius:12px;background:rgba(255,255,255,.06)}.lfst b{font-size:15px;opacity:1}
+.lfheirs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}.lfh{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 12px;border-radius:16px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:inherit;font:inherit;cursor:pointer}
+.lfh small{opacity:.7;font-size:11px}
+.lfcta{display:flex;flex-direction:column;gap:10px}
+.lfrow{display:flex;align-items:center;justify-content:space-between;gap:12px}.lfrow>div{display:flex;flex-direction:column;gap:2px;min-width:0}.lfrow small{font-size:12px;opacity:.72}
+.lfrow.sc2{padding-top:10px;border-top:1px solid rgba(128,128,128,.2)}
+.kpg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kp{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:10px 6px;border-radius:16px;background:rgba(128,128,128,.08)}
+.kp b{font-size:12px;line-height:1.25}.kp small{font-size:10.5px;opacity:.65;line-height:1.25}
+.kp.lock .kpi{filter:grayscale(1);opacity:.35}
+.kpi{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb,var(--kc) 22%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--kc) 50%,transparent)}
+.kpi .i{width:58%;height:58%;stroke:var(--kc);stroke-width:1.8}
+.alb{padding:10px 0;border-bottom:1px solid rgba(128,128,128,.16)}.alb:last-child{border:0}
+.albh{display:flex;justify-content:space-between;gap:8px}.albh span{font-size:12px;opacity:.7;white-space:nowrap}.alb small{font-size:12px;opacity:.7}
+.albm{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.albm i{font-style:normal;font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(128,128,128,.14)}
+.lfrow>div{flex:1}.lfrow>.btn{flex:none;white-space:nowrap}
