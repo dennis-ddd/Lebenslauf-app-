@@ -401,3 +401,16 @@ body.lm .av2 *{animation:none!important}
 /* 5.6 Politik */
 .pth{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.pth button{padding:7px 12px;border-radius:99px;border:1px solid color-mix(in srgb,var(--pc) 55%,transparent);background:color-mix(in srgb,var(--pc) 10%,transparent);color:inherit;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
 .pth button[aria-pressed=true]{background:var(--pc);color:#fff;border-color:transparent}
+/* 5.7 Erste Schritte, Zeitraffer, Suche */
+.fsc{border:1px solid rgba(240,204,135,.35);background:linear-gradient(135deg,rgba(123,75,224,.18),rgba(19,179,166,.12))}
+.fsd{display:flex;align-items:center;gap:6px;margin:8px 0}.fsd i{width:22px;height:6px;border-radius:3px;background:rgba(255,255,255,.18)}.fsd i.on{background:#F0CC87}.fsd small{margin-left:6px;opacity:.7;font-size:12px}
+.fsn{display:flex;flex-direction:column;gap:2px}.fsn small{opacity:.75;font-size:13px}
+.fsl{display:flex;flex-direction:column;gap:6px;margin:10px 0;max-height:46vh;overflow:auto}.fsl div{font-size:14px;padding:8px 10px;border-radius:12px;background:rgba(128,128,128,.1)}
+.hsxb{display:inline-flex;align-items:center;gap:6px}.srbtn{display:inline-flex;align-items:center;padding:4px}.srbtn .i{width:18px;height:18px}
+.dlg.srch{align-self:flex-start;margin-top:max(84px,env(safe-area-inset-top));max-height:80vh;display:flex;flex-direction:column}
+.srbar{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+.srbar .i{width:18px;height:18px;opacity:.7;flex:none}.srbar input{flex:1;min-width:0;background:none;border:0;color:inherit;font:inherit;font-size:16px;padding:8px 0;outline:none}
+.srr{overflow:auto;margin-top:10px;display:flex;flex-direction:column;gap:4px}
+.srow{display:flex;align-items:center;gap:10px;text-align:left;padding:10px;border-radius:12px;border:0;background:rgba(255,255,255,.04);color:inherit;font:inherit;cursor:pointer}
+.srow:hover,.srow:focus{background:rgba(255,255,255,.1)}.srow>span:last-child{display:flex;flex-direction:column;min-width:0}.srow small{opacity:.65;font-size:12px}
+.srty{flex:none;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:3px 7px;border-radius:99px;background:rgba(124,140,255,.18);color:#C3CAFF;min-width:58px;text-align:center}
