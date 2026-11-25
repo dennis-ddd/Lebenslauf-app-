@@ -326,3 +326,9 @@ body.tb.placeopen #view2{height:auto!important;flex:none!important;min-height:0;
 body.tb.placeopen #view2>.pcard{width:100%;box-sizing:border-box;max-width:none}
 body.tb.placeopen #view2>.pcard{height:auto!important;max-height:none!important;justify-content:flex-start!important;align-items:stretch!important;animation:none}body.tb.placeopen #view2 .pcard .h,body.tb.placeopen #view2 .pcard b{color:#EEF1F8}
 body.tb .cgrab{display:none!important}body.tb.placeopen .ctime{display:none}
+/* Einstellungen-Tabs, Klassenclown, witzige Antwort */
+.etab{position:sticky;top:0;z-index:3;margin-bottom:4px}.etab button{font-size:12.5px}
+.hsx{display:flex;justify-content:space-between;align-items:center}.hsx .lnk{text-transform:none;letter-spacing:0}
+.bar.clb{width:110px;height:8px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}.bar.clb i{display:block;height:100%}
+.rp.rp-witz{border-color:rgba(242,193,78,.5)!important}.rp.rp-witz small{color:#F2C14E}
+.frow{display:flex;gap:8px;margin:8px 0}.frow input{flex:1;min-width:0}
