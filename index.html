@@ -1055,6 +1055,14 @@ body.tb .cgrab{display:none!important}body.tb.placeopen .ctime{display:none}
 .albh{display:flex;justify-content:space-between;gap:8px}.albh span{font-size:12px;opacity:.7;white-space:nowrap}.alb small{font-size:12px;opacity:.7}
 .albm{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.albm i{font-style:normal;font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(128,128,128,.14)}
 .lfrow>div{flex:1}.lfrow>.btn{flex:none;white-space:nowrap}
+/* 5.4 Freunde, Tiere, Alter */
+.seg.ft6{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.seg.ft6 button{font-size:13px;padding:8px 4px}
+.fkc .fh,.ptc .fh{align-items:flex-start}.fkc .fh>div,.ptc .fh>div{flex:1;min-width:0}
+.fkm{margin:6px 0 0;font-style:italic}
+.albm i.on{background:color-mix(in srgb,#3BB273 22%,transparent);color:inherit}.albm i.off{opacity:.55}
+.pti{flex:none;border-radius:16px}
+.lnk.sm{font-size:13px;padding:0 4px;opacity:.6;background:none;border:0;color:inherit;cursor:pointer}
+.seg.full.ft6{display:grid!important;grid-template-columns:repeat(3,1fr)!important;grid-auto-flow:row!important;gap:4px}
 </style>
 </head>
 <body>
@@ -3278,6 +3286,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+ {v:'5.4',big:true,t:'Freundeskreis, Haustiere mit Charakter und Leben im Alter',neu:['Freundeskreis mit bis zu sechs Freunden: Jede/r hat Charakter, Herkunft, eigene Lebensgeschichte (Hochzeit, Kinder, Umzug, Krisen) und gemeinsame Erinnerungen','Treffen, Schreiben und Freundesabende halten Freundschaften lebendig. Wer sich nie meldet, verliert sich aus den Augen','Haustiere mit Charakter, Bindung, Gesundheit und Tricks. Neu: Kaninchen, Wellensittich, Schildkröte und Pferd','Haustiere ziehen beim Weiterspielen mit zum Kind','Gesundheit im Alter: Beschwerden wie Schwerhörigkeit oder Arthrose, Behandlungen und Gedächtnistraining','Ruhestand: Seniorensport, Enkel hüten, Memoiren schreiben, Kleingarten, Wohnen im Alter','Neue Ereignisse: Klassentreffen nach 50 Jahren, Enkeltrick, Jubiläum, Kreuzfahrt']},
  {v:'5.3',big:true,t:'Lebensfilm, Lebensalbum und Zweite Chance',neu:['Am Ende jedes Lebens läuft dein Lebensfilm: Kindheit, Jugend, Liebe, Familie, die größten Momente und was Jahre später zurückkam','Direkt aus dem Film als dein Kind weiterspielen','Lebensalbum: Jedes gelebte Leben bleibt gespeichert, mit 24 Erinnerungsstücken zum Sammeln über alle Leben hinweg (Taschenuhr, rote Clownsnase, Amtskette …)','Zweite Chance: Einmal pro Leben kannst du nach dem Tod ein Jahr zurückspulen','Das Album findest du unter Erfolge und auf dem Startbildschirm']},
  {v:'5.2',big:true,t:'Das Leben vergisst nichts',neu:['Neues Ereignissystem: Was passiert, hängt von deiner Lage ab (Kinder, Partner, Firma, Immobilien, Nachbarschaft, Stadt)','Entscheidungen kommen Jahre später zurück: der zurückgebrachte Geldbeutel, das Abschreiben, der Kredit an den Nachbarn, der Seitensprung …','Wendepunkte in der Lebensmitte: Burnout, Sinnkrise, Sabbatjahr, Warnschuss vom Herzen, Neuanfang','Jedes Ereignis zeigt seine Kategorie, Spätfolgen erinnern an die Entscheidung von damals','Im Profil: „Deine Entscheidungen“']},
  {v:'5.1',big:true,t:'Klassenclown, mehr Chats und neue Einstellungen',neu:['Klassenclown spielen: Witze, Streiche, Theater-AG, Verweise und der Titel „Klassenclown des Jahrgangs“','Beliebtheit in der Klasse und Klassenclown-Wert in der Bildung-App','Klassenchat und andere Gruppen: viele neue Nachrichten und passende Antworten statt nur „Mitreden“','Rund 50 neue Chat-Nachrichten, abwechselnde Antworten und eine neue witzige Antwort','Einstellungen in Tabs: Spiel, Aussehen, Bedienung, Hilfe','„Wie beim Start“: alle Startoptionen jederzeit änderbar, Namensänderung ab 18'],mod:['Einstellungen sind jetzt direkt von der Startseite erreichbar','Frühere Klassenclowns haben mit Comedy-Videos mehr Erfolg']},
@@ -5940,6 +5949,220 @@ function viewAlbum(){const n=Object.keys(KEEP).length,got=Object.keys(KEEP).filt
   const hero=st.querySelector('.hero');const html='<section class="card albst"><div class="lfrow"><div><b>Dein Lebensalbum</b><small>'+ALB.lives.length+' '+(ALB.lives.length===1?'Leben':'Leben')+' · '+got+' Erinnerungsstücke · zuletzt '+esc(L.n)+' ('+L.a+')</small></div><button class="btn g sm" data-alb="1">Ansehen</button></div></section>';
   if(hero)hero.insertAdjacentHTML('afterend',html);else st.insertAdjacentHTML('afterbegin',html);
   const b=st.querySelector('[data-alb]');if(b)b.onclick=()=>htmlDialog('<h2>Lebensalbum</h2>'+viewAlbum(),'Schließen')}catch(e){}}}
+/* ================= Gesundheit und Leben im Alter ================= */
+const ACOND={ruecken:['Rückenschmerzen','Reha (3 Wochen)',1500,{gl:-2,ge:-2}],hoeren:['Schwerhörigkeit','Hörgerät',1800,{gl:-3}],augen:['Grauer Star','Augen-OP',900,{gl:-2,in:-1}],
+  gelenke:['Arthrose','Physiotherapie',1200,{ge:-3}],herz:['Bluthochdruck','Tabletten und Kontrolle',300,{ge:-3}],gedaechtnis:['Vergesslichkeit','Gedächtnistraining (Aktion)',0,{in:-2,gl:-1}]};
+const altS=()=>(p.alt=p.alt||{c:{},w:'zuhause',memo:0});
+const AWOHN={zuhause:['Zuhause','In den eigenen vier Wänden.',0],betreut:['Betreutes Wohnen','Eigene Wohnung, Hilfe auf Knopfdruck. Weniger Stürze.',9000],kinder:['Bei den Kindern','Mehr Familie, weniger Ruhe.',0],heim:['Pflegeheim','Rundum versorgt. Besuch macht den Unterschied.',24000]};
+function altYear(){if(!p||p.age<58||p.prison)return;const A=altS();
+  Object.keys(ACOND).forEach(k=>{if(A.c[k])return;let r=.025+(p.age-58)*.004;if(p.st.ge<50)r*=1.5;if(typeof skMem==='function'&&skMem('lebensstil').length)r*=.6;if(A.sp>=p.age-1)r*=.6;if(k==='gedaechtnis'&&A.gt>=p.age-1)r*=.5;
+    if(ch(r)){A.c[k]={y:p.age,t:0,l:1};log('Diagnose beim Arzt: '+ACOND[k][0]+'.')}});
+  Object.keys(A.c).forEach(k=>{const c=A.c[k];if(k==='gedaechtnis'){if(A.gt>=p.age-1)c.t=1;else{c.t=0;if(ch(.35))c.l=Math.min(3,c.l+1)}}
+    if(!c.t)Object.entries(ACOND[k][3]).forEach(([s,v])=>add(s,v*(k==='gedaechtnis'?c.l:1)))});
+  if(A.w==='betreut'||A.w==='heim'){const c=px$(AWOHN[A.w][2]);p.money-=c;if(R0Out)R0Out.push(['Wohnen im Alter',c])}
+  if(A.w==='heim'){add('ge',2);const vis=(p.kids||[]).some(k=>k.alive!==false&&k.rel>=60)||fkList().some(f=>f.cl>=50&&!f.st.far);add('gl',vis?1:-3)}
+  if(A.w==='kinder'){add('gl',3);const k=(p.kids||[]).find(k=>k.alive!==false);if(k)k.rel=clamp(k.rel+(ch(.7)?2:-4),0,100)}
+  if(A.w==='zuhause'&&p.age>=75&&p.st.ge<55&&ch(.08)&&!p.prison)p.q.push({id:'alt_sturz'});
+  const once=(k,c)=>{A.ev=A.ev||{};if(!A.ev[k]&&c()){A.ev[k]=1;p.q.push({id:'alt_'+k});return true}return false};
+  once('klassentreffen',()=>p.age>=62&&p.age<=72&&ch(.25))||once('enkeltrick',()=>p.age>=70&&ch(.15))||once('jubilaeum',()=>p.age>=70&&p.partner&&p.partner.mar&&ch(.2))||
+  once('fuehrerschein',()=>p.age>=80&&typeof hasLic==='function'&&hasLic('auto')&&ch(.3))||once('digital',()=>p.age>=68&&(p.kids||[]).some(k=>k.kids)&&ch(.2))||once('kreuzfahrt',()=>p.age>=66&&p.money>px$(8000)&&ch(.15))}
+let R0Out=null;
+{const _py=perkYear;perkYear=function(R0){R0Out=R0&&R0.out||null;_py(R0);try{altYear()}catch(e){}R0Out=null}}
+const AE=(t,x,o)=>{const e=E(t,x,()=>true,o);e.cat='Im Alter';return e};
+QEV.alt_sturz=()=>AE('Gestürzt','Im Badezimmer rutschst du aus. Zum Glück hört dich '+(p.partner?p.partner.name:'die Nachbarin')+'.',[
+  ['Ins betreute Wohnen ziehen',()=>{altS().w='betreut';add('ge',-4);return 'Ein Notrufknopf am Handgelenk. Es fühlt sich sicherer an.'}],
+  ['Zuhause bleiben, Haltegriffe einbauen',()=>{p.money-=px$(800);add('ge',-6);return 'Ein paar Haltegriffe und eine rutschfeste Matte. Es geht weiter.'}]]);
+QEV.alt_klassentreffen=()=>{const M=(typeof kmates==='function'&&p.km)?kmates():null,f=M&&M[1],b=M&&M[0];return AE('50 Jahre Klassentreffen','Die alte Schule lädt ein. Viele Gesichter erkennst du erst auf den zweiten Blick.'+(f?' Da ist '+f.n+'! Und '+b.n+', der/die dich früher geärgert hat.':''),[
+  ['Hingehen',()=>{add('gl',8);if(f){const x=fkMake('der Grundschule');x.n=f.n;x.g=f.g;x.d=0;x.cl=55;x.since=p.age-55;fkList().push(x);fkMem(x,'Wiedersehen beim Klassentreffen');return 'Ihr redet, als wäre kein Tag vergangen. '+f.n+' gehört wieder zu deinem Freundeskreis.'}return 'Ein Abend voller alter Geschichten.'}],
+  ['Lieber nicht',()=>'Die Fotos schaust du dir später auf dem Handy an.']])};
+QEV.alt_enkeltrick=()=>{const c=px$(8000);return AE('Ein seltsamer Anruf','„Hallo Oma/Opa, ich bin’s! Ich hatte einen Unfall und brauche sofort '+eur(c)+'. Bitte sag Mama nichts!“',[
+  ['Sofort das Geld überweisen',()=>{p.money-=c;add('gl',-8);mile('Opfer des Enkeltricks','bad');return 'Erst am Abend merkst du: Es war gar nicht dein Enkel. Das Geld ist weg.'}],
+  ['Zurückrufen und nachfragen',()=>{add('gl',3);addRuf(2);news('Senior/in entlarvt Telefonbetrüger','lokal');return 'Dein echtes Enkelkind ist ahnungslos. Die Polizei schnappt die Betrüger dank dir.'}],
+  ['Einfach auflegen',()=>'Klick. Nicht mit dir.']])};
+QEV.alt_jubilaeum=()=>AE('Euer großes Jubiläum','Seit Jahrzehnten an der Seite von '+p.partner.name+'. Die Kinder wollen ein Fest organisieren.',[
+  ['Großes Fest mit allen',()=>{p.money-=px$(3000);add('gl',10);relUp('partner',10);mile('Jubiläum mit '+p.partner.name,'big');return 'Die ganze Familie tanzt. '+p.partner.name+' hält eine Rede, bei der alle weinen.'}],
+  ['Zu zweit an den Ort, wo alles begann',()=>{add('gl',8);relUp('partner',12);return 'Ihr sitzt auf derselben Bank wie damals. Manche Dinge ändern sich nie.'}]]);
+QEV.alt_fuehrerschein=()=>AE('Noch fahren?','Beim Einparken übersiehst du einen Poller. Deine Kinder fragen vorsichtig, ob du noch fahren solltest.',[
+  ['Den Führerschein freiwillig abgeben',()=>{add('gl',-2);addRuf(2);p.ticket=1;return 'Ab jetzt Bus, Taxi und Enkel-Chauffeur. Erstaunlich entspannt.'}],
+  ['Eine Fahrprobe machen',()=>ch(.5)?(add('gl',3),'Der Fahrlehrer ist beeindruckt. Du darfst weiterfahren.'):(add('gl',-3),'Durchgefallen. Du gibst den Schlüssel ab.')],
+  ['Weiterfahren, alles halb so wild',()=>{if(ch(.25)){p.money-=px$(2500);add('ge',-6);return 'Ein Auffahrunfall. Zum Glück nur Blechschaden. Und ein Schreck.'}return 'Es geht gut. Diesmal.'}]]);
+QEV.alt_digital=()=>{const k=(p.kids||[]).find(k=>k.kids);return AE('Technik-Nachhilfe','Dein Enkelkind erklärt dir zum dritten Mal, wie man ein Foto verschickt.',[
+  ['Geduldig zuhören',()=>{add('gl',4);add('in',1);return 'Am Ende schickst du allen ein Foto. Leider von deinem Daumen.'}],['Lieber anrufen wie früher',()=>{add('gl',2);return 'Manche Dinge waren früher einfach besser.'}]])};
+QEV.alt_kreuzfahrt=()=>{const c=px$(4500);return AE('Kreuzfahrt?','Im Briefkasten liegt ein Prospekt: „Drei Wochen Mittelmeer für Junggebliebene“.',[
+  ['Buchen ('+eur(c)+')',()=>{p.money-=c;add('gl',10);mile('Kreuzfahrt durchs Mittelmeer','star');return 'Sonnenuntergänge, Tanzabende und neue Freunde aus ganz Europa.'}],['Zu teuer',()=>'Du stellst dir das Meer einfach vor.']])};
+/* Aktionen im Ruhestand */
+Object.assign(ACTS,{
+  seniorsport:{n:'Seniorensport',d:'Hält dich fit und senkt das Risiko für Beschwerden',ok:()=>p.age>=58,f:()=>{altS().sp=p.age;add('ge',R(2,4));add('gl',2);if(ch(.15)&&fkList().length<6&&!p.fkNew){p.fkNew=fkMake('Seniorensport');p.q.push({id:'fk_neu'})}return pick(['Wassergymnastik mit Musik aus den 80ern.','Nordic Walking im Park. Du überholst sogar jemanden.','Tanzkurs für Junggebliebene.'])}},
+  gedtrain:{n:'Gedächtnistraining',d:'Hält den Kopf fit',ok:()=>p.age>=58,f:()=>{altS().gt=p.age;add('in',1);return pick(['Sudoku, Schach und ein Gedächtniskurs in der Volkshochschule.','Du lernst Italienisch. Mit 70. Warum nicht?'])}},
+  enkel:{n:'Enkel hüten',d:'Die Familie rückt zusammen',ok:()=>(p.kids||[]).some(k=>k.kids&&k.alive!==false),f:()=>{const k=(p.kids||[]).filter(k=>k.kids&&k.alive!==false);const kk=pick(k);kk.rel=clamp(kk.rel+4,0,100);add('gl',6);return pick(['Ihr backt Plätzchen. Die Küche sieht aus wie nach einem Schneesturm.','Du erzählst Geschichten von früher. Die Enkel hängen an deinen Lippen.','Ein Nachmittag im Zoo, mit drei Eis pro Kopf.'])}},
+  memoiren:{n:'Memoiren schreiben',d:'Dein Leben als Buch',ok:()=>p.age>=60&&(altS().memo||0)<4,f:()=>{const A=altS();A.memo=(A.memo||0)+1;if(A.memo>=4){const m=px$(R(2,30)*1000);p.money+=m;mile('Memoiren veröffentlicht','big');news(p.first+' '+p.last+' veröffentlicht Lebenserinnerungen','kultur');return 'Dein Buch ist fertig! Ein kleiner Verlag druckt es. Honorar: '+eur(m)+'.'}return 'Kapitel '+A.memo+' von 4 ist fertig.'}},
+  garten:{n:'Im Kleingarten werkeln',d:'Frische Luft, Ruhe und eigene Tomaten',ok:()=>p.age>=55,f:()=>{add('gl',4);add('ge',1);return pick(['Die Tomaten werden dieses Jahr riesig.','Ein Nachmittag mit Kaffee unter dem Kirschbaum.'])}}});
+Object.assign(DUR,{seniorsport:90,gedtrain:60,enkel:180,memoiren:120,garten:120});
+{const f=act;act=function(id,arg){
+  if(id==='altfix'){const A=altS(),c=A.c[arg],C=ACOND[arg];if(!c||c.t||!C[2])return;const cost=px$(C[2]);if(p.money<cost){toast('Das kostet '+eur(cost)+'.');return}p.money-=cost;c.t=1;add('gl',3);done(C[1]+': Es geht dir spürbar besser.');return}
+  if(id==='altwohn'){const A=altS();if(!AWOHN[arg]||A.w===arg)return;if(arg==='kinder'&&!(p.kids||[]).some(k=>k.alive!==false&&k.rel>=55)){toast('Dafür braucht es ein Kind, das dich gern aufnimmt.');return}A.w=arg;mile('Neues Zuhause: '+AWOHN[arg][0],'star');done('Du wohnst jetzt: '+AWOHN[arg][0]+'.');return}
+  return f(id,arg)}}
+function altCard(){if(p.age<55)return '';const A=altS(),ks=Object.keys(A.c);
+  let h='<section class="card altc"><h2 class="h">Gesundheit im Alter</h2>'+(ks.length?ks.map(k=>{const c=A.c[k],C=ACOND[k];return row(C[0]+(k==='gedaechtnis'&&c.l>1?' (Stufe '+c.l+')':''),c.t?(k==='gedaechtnis'?'Gut im Griff, solange du trainierst':'Behandelt: '+C[1]):'Unbehandelt · drückt auf '+Object.keys(C[3]).map(s=>STAT[s]).join(' und '),
+    c.t?'<span class="chip">OK</span>':(C[2]?btn('altfix',k,C[1].split(' (')[0]+' · '+eur(px$(C[2])),'o',p.money<px$(C[2])):''))}).join(''):'<p class="note">Keine Beschwerden. Bewegung und ein wacher Kopf halten das so.</p>')+'</section>';
+  h+=card('Ruhestand und Alltag',actRows(['seniorsport','gedtrain','garten','enkel','memoiren'].filter(k=>ACTS[k].ok())));
+  if(p.age>=70)h+=card('Wohnen im Alter',Object.keys(AWOHN).map(k=>{const W=AWOHN[k];return row(W[0]+(A.w===k?' <small class="note">jetzt</small>':''),W[1]+(W[2]?' · '+eur(px$(W[2]))+'/Jahr':''),A.w===k?'<span class="chip">Hier</span>':btn('altwohn',k,'Umziehen','g'))}).join(''));
+  return h}
+{const _vl=viewLeben;viewLeben=function(){const h=_vl();if(lTab!=='ich'||p.age<55)return h;const i=h.indexOf('<section class="card"><h2 class="h">Kampf und Schutz</h2>');return i>0?h.slice(0,i)+altCard()+h.slice(i):h+altCard()}}
+/* ================= Freundeskreis mit Tiefe und Haustiere mit Charakter ================= */
+/* ---------- Freundeskreis ---------- */
+const FTR={treu:['Treu','geht mit dir durch dick und dünn'],lustig:['Lustig','bringt dich immer zum Lachen'],chaot:['Chaotisch','kommt immer zu spät, aber mit den besten Geschichten'],
+  klug:['Klug','hat für jedes Problem einen Rat'],sport:['Sportlich','zieht dich zu jedem Lauf mit'],kreativ:['Kreativ','malt, schreibt und hat ständig neue Ideen']};
+const FMEET={treu:['Ihr redet stundenlang beim Spaziergang.','Ein Abend auf dem Balkon, wie früher.'],lustig:['Ihr lacht so sehr im Kino, dass ihr rausfliegt.','Karaoke-Abend. Niemand trifft einen Ton.'],
+  chaot:['Ihr verpasst den Zug und landet in einer anderen Stadt. Großartiger Tag.','Ein spontaner Roadtrip ohne Plan.'],klug:['Ein langer Abend über das Leben und alles.','Ihr löst gemeinsam ein Kreuzworträtsel. Fast.'],
+  sport:['Zehn Kilometer gemeinsam gelaufen. Du lebst noch.','Ein Nachmittag beim Bouldern.'],kreativ:['Ihr malt zusammen ein riesiges Bild.','Ein Töpferkurs mit sehr schiefen Tassen.']};
+const FFROM=a=>a<13?['Grundschule','Nachbarschaft','Fußballverein']:a<19?['Schule','Verein','Sommerferien']:a<28?['Studium','Ausbildung','WG','einer Party']:a<60?['Arbeit','Verein','Nachbarschaft'].concat((p.kids||[]).length?['Elternabend']:[]):['Seniorensport','Kleingarten','Chor'];
+const fkList=()=>(p.fk=p.fk||[]);
+const fkAge=f=>p.age+(f.d||0);
+const fkById=id=>fkList().find(f=>f.id===id);
+const fkP=f=>{const h=hsh(f.n);return {g:f.g,st:{gl:Math.max(30,f.cl)},skin:h%5,hair:(h>>3)%6,beard:f.g==='m'&&fkAge(f)>25&&h%3===0,bald:f.g==='m'&&fkAge(f)>55&&h%2===0,glasses:h%4===0,look:{o:null,acc:[]}}};
+function fkMake(from){const g=pick(['w','m']);return {id:'f'+Date.now().toString(36)+R(10,99),n:pick(g==='w'?FN:MN),g,d:R(-3,3),tr:pick(Object.keys(FTR)),from,since:p.age,cl:R(45,60),met:p.age,st:{mar:0,kids:0,far:0},mem:[]}}
+function fkAdd(f){fkList().push(f);log(f.n+' ('+f.from+') gehört jetzt zu deinem Freundeskreis.')}
+function fkMem(f,t){f.mem=f.mem||[];f.mem.push({a:p.age,t});if(f.mem.length>5)f.mem.shift()}
+const fkCl=(f,v)=>{f.cl=clamp(f.cl+v,0,100)};
+function fkYear(){if(!p||p.age<6||p.prison)return;const L=fkList();
+  const near=L.filter(f=>!f.st.far).length;
+  if(L.length<6&&near<5&&ch(p.age<12?.12:p.age<30?.25:.15)&&!p.fkNew){p.fkNew=fkMake(pick(FFROM(p.age)));p.q.push({id:'fk_neu'})}
+  const EV=[];L.forEach(f=>{const fa=fkAge(f);
+    if(f.met<p.age-0)fkCl(f,-(f.st.far?(f.pen?5:9):5));
+    if(fa>=24&&fa<=38&&!f.st.mar&&ch(.12)){f.st.mar=1;EV.push({id:'fk_hochzeit',d:f.id})}
+    else if(fa>=26&&fa<=42&&f.st.mar&&f.st.kids<3&&ch(.13)){f.st.kids++;if(f.st.kids===1&&f.cl>=55)EV.push({id:'fk_pate',d:f.id});else log(f.n+' hat ein Kind bekommen.')}
+    else if(fa>=20&&fa<=60&&!f.st.far&&ch(.035))EV.push({id:'fk_umzug',d:f.id});
+    else if(fa>=18&&ch(.04))EV.push({id:'fk_krise',d:f.id});
+    else if(f.cl>=70&&fa>=18&&fa<=72&&ch(.05))EV.push({id:'fk_reise',d:f.id});
+    else if(f.tr==='chaot'&&f.cl>=40&&ch(.05))EV.push({id:'fk_streit',d:f.id});
+    if(fa>=62&&ch((fa-58)*.006))p.q.push({id:'fk_tod',d:f.id});
+    if(f.cl<12&&!f.drift){f.drift=1;p.q.push({id:'fk_drift',d:f.id})}});
+  if(EV.length){p.q.push(EV.splice(R(0,EV.length-1),1)[0]);if(EV.length&&ch(.3))p.q.push(pick(EV))}
+  const close=L.filter(f=>f.cl>=40).length+((p.rel&&p.rel.freund>=40)?1:0);
+  if(p.age>=16&&!close){add('gl',-3);if(ch(.3))log('Du fühlst dich in letzter Zeit ziemlich einsam.')}
+  else if(close>=3)add('gl',1)}
+const FKE=(id,f)=>{const x=fkById(id);return x?f(x):null};
+const FE=(t,x,o)=>{const e=E(t,x,()=>true,o);e.cat='Freunde';return e};
+QEV.fk_neu=()=>{const f=p.fkNew;p.fkNew=null;if(!f)return null;const T=FTR[f.tr];
+  return FE('Eine neue Bekanntschaft','Bei '+(f.from==='einer Party'?'einer Party':f.from==='Arbeit'?'der Arbeit':f.from==='WG'?'der WG-Besichtigung':'„'+f.from+'“')+' lernst du '+f.n+' kennen. '+T[0]+': '+T[1]+'. Ihr versteht euch auf Anhieb.',[
+    ['Nummern austauschen',()=>{fkAdd(f);add('gl',3);fkMem(f,'Kennengelernt ('+f.from+')');return f.n+' schreibt dir noch am selben Abend.'}],
+    ['Lieber nicht',()=>'Ihr seht euch nie wieder. Schade eigentlich.']])};
+QEV.fk_hochzeit=id=>FKE(id,f=>FE(f.n+' heiratet!',f.n+' ruft aufgeregt an: „Ich heirate! Und ich will, dass du '+(f.cl>=60?'mein/e Trauzeug/in bist':'dabei bist')+'.“',[
+  ...(f.cl>=60?[['Eine Rede halten',()=>{const ok=ch(.4+p.st.in/250+(p.sk&&p.sk.charme||0)/300);fkCl(f,ok?18:8);add('gl',ok?6:2);fkMem(f,ok?'Deine legendäre Hochzeitsrede':'Die Rede, bei der du den Faden verloren hast');if(ok)mile('Trauzeug/in bei '+f.n,'star');return ok?'Die halbe Hochzeitsgesellschaft weint. '+f.n+' umarmt dich ewig.':'Du verlierst den Faden. Alle lachen, '+f.n+' am lautesten. Wird trotzdem ein schöner Abend.'}]]:[]),
+  ['Hingehen und feiern',()=>{fkCl(f,8);add('gl',4);p.money-=px$(150);fkMem(f,'Ihr habt auf der Hochzeit bis zum Morgen getanzt');return 'Ein Fest bis in den Morgen.'}],
+  ['Absagen',()=>{fkCl(f,-15);fkMem(f,'Du warst nicht auf der Hochzeit');return f.n+' ist enttäuscht. Sehr.'}]]));
+QEV.fk_pate=id=>FKE(id,f=>FE('Willst du Pate werden?',f.n+' hat ein Baby bekommen und fragt: „Wirst du Pate oder Patin? Du bist für uns wie Familie.“',[
+  ['Ja, sehr gerne',()=>{fkCl(f,14);add('gl',6);f.pate=1;mile('Pate/Patin für das Kind von '+f.n,'star');fkMem(f,'Du bist Pate/Patin geworden');return 'Du hältst das Baby im Arm und bist sofort verliebt.'}],
+  ['Lieber nicht, die Verantwortung …',()=>{fkCl(f,-6);return f.n+' versteht das. Irgendwie.'}]]));
+QEV.fk_umzug=id=>FKE(id,f=>{const c=pick(['Hamburg','München','Wien','Zürich','Lissabon','Kanada','Australien']);return FE(f.n+' zieht weg',f.n+' hat einen Job in '+c+' bekommen und zieht nächsten Monat weg.',[
+  ['Abschiedsparty organisieren',()=>{f.st.far=c;fkCl(f,10);add('gl',2);p.money-=px$(200);fkMem(f,'Die Abschiedsparty vor dem Umzug nach '+c);return 'Mit Fotos, Tränen und viel zu viel Kuchen.'}],
+  ['Versprechen, jede Woche zu schreiben',()=>{f.st.far=c;f.pen=1;fkCl(f,4);return 'Ihr schreibt euch. Fast jede Woche.'}],
+  ['„Viel Glück“',()=>{f.st.far=c;fkCl(f,-4);return f.n+' ist weg. Der Kontakt wird weniger.'}]])});
+QEV.fk_krise=id=>FKE(id,f=>{const k=pick(['Trennung','Jobverlust','Krankheit in der Familie']);const c=px$(2000);return FE(f.n+' geht es schlecht',f.n+' steckt mitten in einer Krise ('+k+') und meldet sich spät in der Nacht.',[
+  ['Sofort hinfahren',()=>{fkCl(f,16);add('gl',-1);f.met=p.age;fkMem(f,'Du warst in der schwersten Nacht da');return 'Ihr sitzt bis zum Morgen in der Küche. '+f.n+' sagt: „Ohne dich hätte ich das nicht geschafft.“'}],
+  ['Mit Geld aushelfen ('+eur(c)+')',()=>{p.money-=c;fkCl(f,10);if(ch(.6))later('fkzurueck',R(2,4),{n:f.n,c});fkMem(f,'Du hast mit Geld ausgeholfen');return f.n+' ist sprachlos vor Dankbarkeit.'}],
+  ['Gerade keine Zeit',()=>{fkCl(f,-14);fkMem(f,'Du hattest keine Zeit, als es drauf ankam');return 'Du schreibst „Kopf hoch!“. Die Antwort kommt erst Tage später.'}]])});
+LATER.fkzurueck={ev:1,f:d=>E('Geld zurück',d.n+' steht vor deiner Tür, mit Umschlag und Wein: „Ich habe es nicht vergessen.“',()=>true,[['Danke!',()=>{p.money+=d.c;add('gl',4);return 'Du bekommst '+eur(d.c)+' zurück. Und eine Umarmung.'}]])};
+QEV.fk_reise=id=>FKE(id,f=>{const z=pick(['Barcelona','Island','die Alpen','Rom','Kopenhagen','Marokko']),c=px$(900);return FE('Eine Reise mit '+f.n,f.n+' schlägt vor: „Lass uns zusammen nach '+z+'! Nur wir zwei, wie früher.“',[
+  ['Koffer packen ('+eur(c)+')',()=>{p.money-=c;fkCl(f,14);add('gl',8);f.met=p.age;mile('Reise mit '+f.n+' nach '+z,'star');fkMem(f,'Eure Reise nach '+z);return 'Eine Woche, an die ihr euch noch mit 80 erinnern werdet.'}],
+  ['Keine Zeit',()=>{fkCl(f,-5);return f.n+' fährt allein.'}]])});
+QEV.fk_streit=id=>FKE(id,f=>{const w=pick(['hat dein Geheimnis weitererzählt','hat dein geliehenes Auto verbeult','hat deinen Geburtstag vergessen']);return FE('Ärger mit '+f.n,f.n+' '+w+'.',[
+  ['Verzeihen',()=>{fkCl(f,3);add('gl',1);return 'Ihr lacht am Ende darüber. Fast.'}],['Ein ehrliches Gespräch',()=>{if(ch(.6)){fkCl(f,8);return 'Es war unangenehm, aber gut. Ihr seid euch jetzt näher.'}fkCl(f,-10);return 'Es wird laut. Ihr braucht erst mal Abstand.'}],
+  ['Freundschaft beenden',()=>{p.fk=fkList().filter(x=>x!==f);add('gl',-4);return 'Du löschst die Nummer von '+f.n+'.'}]])});
+QEV.fk_drift=id=>FKE(id,f=>FE('Aus den Augen verloren','Beim Durchscrollen siehst du ein altes Foto von dir und '+f.n+'. Ihr habt seit Ewigkeiten nichts voneinander gehört.',[
+  ['Einfach anrufen',()=>{f.drift=0;f.cl=38;f.met=p.age;add('gl',3);return 'Nach zwei Minuten ist es, als wäre nie Zeit vergangen.'}],
+  ['Loslassen',()=>{p.fk=fkList().filter(x=>x!==f);return 'Manche Freundschaften gehören zu einem bestimmten Lebensabschnitt.'}]]));
+QEV.fk_tod=id=>FKE(id,f=>{const close=f.cl>=50;return FE('Abschied von '+f.n,'Die Nachricht kommt an einem Dienstagmorgen: '+f.n+' ist gestorben.',[
+  ['Eine Rede auf der Beerdigung halten',()=>{add('gl',close?-8:-3);addRuf(1);p.fkGone=(p.fkGone||[]).concat([{n:f.n,a:p.age}]);p.fk=fkList().filter(x=>x!==f);mile('Abschied von '+f.n,'star');return 'Du erzählst von '+(f.mem&&f.mem.length?f.mem[f.mem.length-1].t.toLowerCase():'euren besten Momenten')+'. Es wird gelacht und geweint.'}],
+  ['Still gedenken',()=>{add('gl',close?-10:-4);p.fkGone=(p.fkGone||[]).concat([{n:f.n,a:p.age}]);p.fk=fkList().filter(x=>x!==f);return 'Du zündest eine Kerze an und schaust alte Fotos an.'}]])});
+/* ---------- Haustiere mit Charakter ---------- */
+Object.assign(PETS,{kaninchen:{n:'Kaninchen',pr:60,c:250,life:9,names:['Hoppel','Mümmel','Schnuffel','Luna']},vogel:{n:'Wellensittich',pr:40,c:120,life:10,names:['Pieps','Bubi','Coco','Kiwi']},
+  schildi:{n:'Schildkröte',pr:120,c:150,life:70,names:['Kurt','Frieda','Methusalem','Speedy']},pferd:{n:'Pferd',pr:6000,c:4200,life:28,names:['Blitz','Stella','Donner','Fee']}});
+const PART={hund:'ein Hund',katze:'eine Katze',hamster:'ein Hamster',kaninchen:'ein Kaninchen',vogel:'ein Wellensittich',schildi:'eine Schildkröte',pferd:'ein Pferd'};
+const PTR={verspielt:'Verspielt',verschmust:'Verschmust',frech:'Frech',aengstlich:'Ängstlich',schlau:'Schlau'};
+const PTRICK={hund:['Sitz','Pfote geben','Rolle','Toter Hund','Zeitung holen'],katze:['High Five','Durch den Reifen springen','Auf Pfiff kommen'],hamster:['Laufrad-Rekord','Durch das Labyrinth'],
+  kaninchen:['Männchen machen','Durch den Tunnel','Über die Hürde'],vogel:['Hallo sagen','Wie das Handy klingeln','Auf die Schulter fliegen'],schildi:['Kommen, wenn man ruft'],pferd:['Verbeugen','Steigen','Über den Oxer springen']};
+const PETCOL={hund:'#D5A35E',katze:'#8E63D6',hamster:'#F2994A',kaninchen:'#E5527A',vogel:'#3BB273',schildi:'#2FA88F',pferd:'#8E6E53'};
+const PIC={hund:'<path d="M7 5c-3 0-4.5 4-3.5 8l3-1.5M17 5c3 0 4.5 4 3.5 8l-3-1.5"/><path d="M7 5h10v9a5 5 0 0 1-10 0z"/><circle cx="10" cy="10.5" r=".8"/><circle cx="14" cy="10.5" r=".8"/><path d="M10.8 14h2.4L12 15.4z"/>',katze:'<path d="M5 20V9L4 3l5 3h6l5-3-1 6v11z"/><circle cx="9.5" cy="12" r=".8"/><circle cx="14.5" cy="12" r=".8"/><path d="M12 15v1M8 16l-4 1M16 16l4 1"/>',
+  hamster:'<circle cx="12" cy="13" r="7"/><circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="10" cy="12" r=".8"/><circle cx="14" cy="12" r=".8"/>',kaninchen:'<path d="M9 9V3M15 9V3"/><circle cx="12" cy="15" r="6"/><circle cx="10" cy="14" r=".8"/><circle cx="14" cy="14" r=".8"/>',
+  vogel:'<path d="M4 14c0-5 4-9 9-9a5 5 0 0 1 5 5l3 1-3 1c0 5-4 8-9 8l-2 2v-3c-2-1-3-3-3-5z"/><circle cx="15" cy="9" r=".8"/>',schildi:'<path d="M4 15a8 6 0 0 1 16 0z"/><path d="M20 13h2M3 17l-1 2M21 17l1 2M8 10l2 5M16 10l-2 5"/>',
+  pferd:'<path d="M7 21v-6l-3-2 3-8 4-2 6 4 3 6-3 1-2-3v10"/><circle cx="9" cy="8" r=".8"/>'};
+const petIc=(t,sz)=>'<span class="kpi pti" style="--kc:'+(PETCOL[t]||'#8E63D6')+';width:'+(sz||52)+'px;height:'+(sz||52)+'px"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+(PIC[t]||PIC.hund)+'</svg></span>';
+function petEns(){(p.pets||[]).forEach(x=>{if(!x.id)x.id='p'+R(1e5,9e5);if(x.b==null)x.b=55;if(!x.tr)x.tr=pick(Object.keys(PTR));if(!x.tk)x.tk=[];if(x.hp==null)x.hp=100;if(x.pl==null)x.pl=p.age})}
+function petYear(){if(!p||!p.pets||p.prison)return;petEns();
+  const seen=p.petSeen||[],now=p.pets.map(x=>x.id);seen.forEach(s=>{if(!now.includes(s.id)&&!s.gone)p.q.push({id:'pet_abschied',d:s})});
+  p.pets.forEach(x=>{const L=PETS[x.t].life;if(x.pl<p.age-1)x.b=clamp(x.b-6,0,100);if(x.age>L*.6)x.hp=clamp(x.hp-R(4,10),5,100);
+    if(x.age===L-1&&!x.oldEv)p.q.push({id:'pet_alt',d:x.id});
+    else if(ch(.06)&&!x.wegEv&&['hund','katze','kaninchen','vogel'].includes(x.t))p.q.push({id:'pet_weg',d:x.id});
+    else if(x.tr==='frech'&&ch(.12))p.q.push({id:'pet_streich',d:x.id});
+    else if(x.t==='hund'&&x.b>=70&&ch(.04)&&!x.held)p.q.push({id:'pet_held',d:x.id});
+    else if(x.b>=75&&ch(.06))add('gl',2)});
+  p.petSeen=p.pets.map(x=>({id:x.id,n:x.n,t:x.t,b:x.b,age:x.age}))}
+const PEV=(id,f)=>{const x=(p.pets||[]).find(y=>y.id===id);return x?f(x):null};
+const PE=(t,x,o)=>{const e=E(t,x,()=>true,o);e.cat='Haustier';return e};
+QEV.pet_weg=id=>PEV(id,x=>{x.wegEv=1;return PE(x.n+' ist weg!','Die Tür stand nur kurz offen. Jetzt ist '+x.n+' verschwunden.',[
+  ['Die ganze Nachbarschaft absuchen',()=>{if(ch(.5+x.b/250)){x.b=clamp(x.b+10,0,100);add('gl',4);return 'Nach drei Stunden findest du '+x.n+' im Garten der Nachbarn. Ihr kuschelt den ganzen Abend.'}p.pets=p.pets.filter(y=>y!==x);add('gl',-10);(p.petSeen||[]).forEach(s=>{if(s.id===x.id)s.gone=1});return x.n+' bleibt verschwunden. Du hängst noch monatelang Zettel auf.'}],
+  ['Zettel aufhängen und warten',()=>{if(ch(.6)){add('gl',2);return 'Zwei Tage später ruft eine Frau an: '+x.n+' sitzt bei ihr auf dem Sofa.'}p.pets=p.pets.filter(y=>y!==x);add('gl',-10);(p.petSeen||[]).forEach(s=>{if(s.id===x.id)s.gone=1});return x.n+' kommt nicht zurück.'}]])});
+QEV.pet_streich=id=>PEV(id,x=>PE(x.n+' war das!',pick([x.n+' hat deine Lieblingsschuhe zerlegt.',x.n+' hat den Weihnachtsbraten vom Tisch geklaut.',x.n+' hat sich im Wäschekorb versteckt und dich zu Tode erschreckt.']),[
+  ['Lachen',()=>{add('gl',3);x.b=clamp(x.b+4,0,100);return 'Wie soll man bei dem Blick auch böse sein?'}],
+  ...(p.sm?[['Ein Video posten',()=>{const g=R(50,600)*(ch(.1)?40:1);p.sm.fol+=g;add('gl',2);return 'Das Video geht '+(g>5000?'viral':'gut')+': +'+kfmt(g)+' Follower.'}]]:[]),
+  ['Schimpfen',()=>{x.b=clamp(x.b-6,0,100);return x.n+' schaut beleidigt weg.'}]]));
+QEV.pet_held=id=>PEV(id,x=>{x.held=1;return PE(x.n+' ist ein Held','Mitten in der Nacht bellt '+x.n+' wie verrückt. In der Küche schmort ein Kabel. Ihr kommt gerade noch rechtzeitig.',[
+  ['Die größte Wurst der Welt kaufen',()=>{x.b=100;add('gl',8);mile(x.n+' rettet die Familie','big');news('Hund '+x.n+' verhindert Wohnungsbrand','lokal');return 'Sogar die Zeitung berichtet über '+x.n+'.'}]])});
+QEV.pet_alt=id=>PEV(id,x=>{x.oldEv=1;const c=px$(600);return PE(x.n+' wird alt','Die Schnauze ist grau, die Schritte langsam. '+x.n+' schläft fast den ganzen Tag.',[
+  ['Extra-Pflege und Tierarzt ('+eur(c)+')',()=>{p.money-=c;x.age=Math.max(0,x.age-2);x.hp=clamp(x.hp+25,0,100);return 'Die Tierärztin ist zufrieden. Ihr habt noch etwas gemeinsame Zeit.'}],
+  ['Die letzte Zeit genießen',()=>{x.b=clamp(x.b+10,0,100);add('gl',3);return 'Lange Nachmittage im Garten, nur ihr zwei.'}]])});
+QEV.pet_abschied=s=>{(p.petSeen||[]).forEach(y=>{if(y.id===s.id)y.gone=1});return PE('Abschied von '+s.n,s.n+' ist friedlich eingeschlafen. '+(s.b>=70?'Ihr wart unzertrennlich.':'Es ist plötzlich sehr still im Haus.'),[
+  ['Im Garten begraben',()=>{add('gl',-4);mile('Abschied von '+s.n,'star');p.petGone=(p.petGone||[]).concat([{n:s.n,t:s.t,a:p.age}]);return 'Unter dem Apfelbaum. Mit dem Lieblingsspielzeug.'}],
+  ['Ein Foto an die Wand hängen',()=>{add('gl',-2);p.petGone=(p.petGone||[]).concat([{n:s.n,t:s.t,a:p.age}]);return s.n+' schaut dich jetzt jeden Morgen an.'}]])};
+/* Haustiere ziehen mit zur nächsten Generation */
+{const _ca=continueAs;continueAs=function(i){const prev=p,pets=(prev.pets||[]).slice(),fk=0;_ca.apply(this,arguments);if(p===prev)return;
+  if(pets.length&&!(p.pets||[]).length){p.pets=pets;log(pets.map(x=>x.n).join(' und ')+(pets.length>1?' leben':' lebt')+' jetzt bei dir.');save()}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{fkYear()}catch(e){}try{petYear()}catch(e){}}}
+/* ---------- Aktionen ---------- */
+{const _ap=adoptPet;adoptPet=function(){const r=_ap.apply(this,arguments);try{petEns()}catch(e){}return r}}
+{const f=act;act=function(id,arg){
+  if(/^(pplay|ptrick|pvet|petname)$/.test(id))petEns();
+  if(id==='adopt'){const P=PETS[arg];if(!P||p.age<8||p.prison)return;if(p.money<P.pr){toast('Das kostet '+eur(P.pr)+'.');return}if(arg==='pferd'&&p.age<12){toast('Ein Pferd gibt es ab 12 Jahren.');return}adoptPet(arg);petEns();const x=p.pets[p.pets.length-1];done((PART[arg]||P.n).replace(/^e/,'E')+' namens '+x.n+' zieht bei dir ein. Charakter: '+PTR[x.tr]+'.');return}
+  if(id==='fkmeet'){const x=fkById(arg);if(!x)return;if(x.met===p.age){toast('Ihr habt euch dieses Jahr schon getroffen.');return}const c=x.st.far?px$(250):px$(30);if(p.money<c){toast('Dafür fehlt dir das Geld.');return}CUR='freunde';if(!useAct())return;p.money-=c;x.met=p.age;x.drift=0;fkCl(x,x.st.far?16:12);add('gl',3);const t=pick(FMEET[x.tr]);fkMem(x,t);done(x.st.far?'Du besuchst '+x.n+' in '+x.st.far+'. '+t:t);return}
+  if(id==='fkmsg'){const x=fkById(arg);if(!x)return;if(x.wy===p.age){toast('Du hast '+x.n+' dieses Jahr schon geschrieben.');return}x.wy=p.age;fkCl(x,4);done(x.n+' antwortet mit drei Sprachnachrichten.');return}
+  if(id==='fkabend'){const L=fkList().filter(x=>!x.st.far);if(L.length<2){toast('Dafür brauchst du mindestens zwei Freunde in der Nähe.');return}if(p.fkA===p.age){toast('Euer Freundesabend war dieses Jahr schon.');return}const c=px$(40)*L.length;if(p.money<c){toast('Dafür fehlt dir das Geld.');return}CUR='party';if(!useAct())return;p.money-=c;p.fkA=p.age;L.forEach(x=>{fkCl(x,7);x.met=p.age;fkMem(x,'Der Freundesabend mit '+(L.length)+' Leuten')});add('gl',6);done('Ein Abend mit '+L.map(x=>x.n).join(', ')+'. Es wird spät. Sehr spät.');return}
+  if(id==='pplay'){const x=(p.pets||[]).find(y=>y.id===arg);if(!x)return;if(x.pl===p.age&&x.pl2===p.age){toast(x.n+' braucht jetzt eine Pause.');return}CUR='pet';if(!useAct())return;if(x.pl===p.age)x.pl2=p.age;x.pl=p.age;x.b=clamp(x.b+(x.tr==='verschmust'?12:9),0,100);add('gl',x.tr==='verspielt'?6:4);done(pick(['Du spielst mit '+x.n+', bis ihr beide müde seid.',x.n+' rollt sich auf deinem Schoß zusammen.','Ein langer Ausflug mit '+x.n+'.']));return}
+  if(id==='ptrick'){const x=(p.pets||[]).find(y=>y.id===arg);if(!x)return;const T=PTRICK[x.t]||[],nx=T.find(t=>!x.tk.includes(t));if(!nx){toast(x.n+' kann schon alle Tricks.');return}CUR='pet';if(!useAct())return;x.pl=p.age;
+    const ok=ch(.3+(x.tr==='schlau'?.25:0)-(x.tr==='aengstlich'?.1:0)+x.b/300);if(ok){x.tk.push(nx);x.b=clamp(x.b+5,0,100);add('gl',4);if(x.tk.length===T.length)mile(x.n+' kann alle Tricks','star');done(x.n+' kann jetzt „'+nx+'“!')}else done(x.n+' schaut dich nur fragend an. Morgen vielleicht.');return}
+  if(id==='pvet'){const x=(p.pets||[]).find(y=>y.id===arg);if(!x)return;const c=px$(120);if(p.money<c){toast('Das kostet '+eur(c)+'.');return}p.money-=c;x.hp=clamp(x.hp+30,0,100);done('Die Tierärztin sagt: '+(x.hp>=80?'Kerngesund!':'Gut aufpassen, aber alles im Rahmen.'));return}
+  if(id==='petname'){const x=(p.pets||[]).find(y=>y.id===arg);if(!x)return;const n=(window.prompt?window.prompt('Neuer Name für '+x.n+':',x.n):null);if(n&&n.trim()){x.n=n.trim().slice(0,16);save();render()}return}
+  return f(id,arg)}}
+Object.assign(DUR,{freunde:120});
+/* ---------- Ansichten ---------- */
+function viewFreunde(){const L=fkList();let h='';
+  h+='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Dein Freundeskreis</h2><span class="chip">'+(L.length+(p.age>=6?1:0))+'</span></div>'+(p.age>=6?row(esc(p.friend)+' <small class="note">beste/r Freund/in</small>','Seit der Kindheit · Nähe '+(p.rel.freund||0)+' %',''):'')+
+    '<p class="note">Freundschaften brauchen Pflege. Wer sich lange nicht meldet, verliert sich aus den Augen.</p>'+(L.filter(x=>!x.st.far).length>=2?'<div class="btns">'+btn('fkabend',null,'Freundesabend veranstalten','o',p.act<=0||p.fkA===p.age)+'</div>':'')+'</section>';
+  if(!L.length)h+=card('','<p class="note">Noch niemand. Neue Freunde lernst du in der Schule, im Studium, bei der Arbeit, im Verein oder in der Nachbarschaft kennen.</p>');
+  L.forEach(x=>{const st=[];if(x.st.mar)st.push('verheiratet');if(x.st.kids)st.push(x.st.kids+' Kind'+(x.st.kids>1?'er':'')+(x.pate?' (Patenkind)':''));if(x.st.far)st.push('lebt in '+x.st.far);const m=(x.mem||[]).slice(-1)[0];
+    h+='<section class="card fkc"><div class="fh"><span class="meav sm">'+avatarSvg(Math.max(6,fkAge(x)),56,fkP(x))+'</span><div><b>'+esc(x.n)+'</b><small>'+fkAge(x)+' Jahre · '+FTR[x.tr][0]+' · aus „'+esc(x.from)+'“ · seit '+(p.age-x.since)+' J.</small>'+
+      '<div class="stat"><div class="r"><span>Nähe</span><span>'+x.cl+' %</span></div><div class="bar"><i class="'+(x.cl<30?'low':'')+'" style="width:'+x.cl+'%"></i></div></div>'+(st.length?'<div class="albm">'+st.map(s=>'<i>'+esc(s)+'</i>').join('')+'</div>':'')+(m?'<p class="note fkm">↺ Mit '+m.a+': '+esc(m.t)+'</p>':'')+
+      '<div class="btns">'+btn('fkmeet',x.id,x.st.far?'Besuchen':'Treffen','o',p.act<=0||x.met===p.age||!!p.prison)+btn('fkmsg',x.id,'Schreiben','g',x.wy===p.age)+'</div></div></div></section>'});
+  if((p.fkGone||[]).length)h+=card('In Erinnerung',p.fkGone.map(g=>row(esc(g.n),'gestorben, als du '+g.a+' warst','')).join(''));
+  return h}
+function viewTiere(){petEns();let h='';
+  (p.pets||[]).forEach(x=>{const P=PETS[x.t],T=PTRICK[x.t]||[];
+    h+='<section class="card ptc"><div class="fh">'+petIc(x.t)+'<div><b>'+esc(x.n)+' <button class="lnk sm" data-a="petname" data-g="'+x.id+'" aria-label="Umbenennen">✎</button></b><small>'+P.n+' · '+x.age+' '+(x.age===1?'Jahr':'Jahre')+' · '+PTR[x.tr]+'</small>'+
+      '<div class="stat"><div class="r"><span>Bindung</span><span>'+x.b+' %</span></div><div class="bar"><i class="'+(x.b<30?'low':'')+'" style="width:'+x.b+'%"></i></div></div>'+
+      '<div class="stat"><div class="r"><span>Gesundheit</span><span>'+x.hp+' %</span></div><div class="bar"><i class="'+(x.hp<40?'low':'')+'" style="width:'+x.hp+'%;background:#3BB273"></i></div></div>'+
+      '<div class="albm">'+T.map(t=>'<i class="'+(x.tk.includes(t)?'on':'off')+'">'+(x.tk.includes(t)?'✓ ':'')+esc(t)+'</i>').join('')+'</div>'+
+      '<div class="btns">'+btn('pplay',x.id,'Spielen','o',p.act<=0||!!p.prison)+btn('ptrick',x.id,'Trick üben','',p.act<=0||!!p.prison||x.tk.length>=T.length)+btn('pvet',x.id,'Tierarzt','g',p.money<px$(120))+'</div></div></div></section>'});
+  if(!(p.pets||[]).length)h+=card('','<p class="note">Noch kein Haustier. Jedes Tier hat seinen eigenen Charakter, lernt Tricks und wird ein Teil der Familie.</p>');
+  if((p.petGone||[]).length)h+=card('In Erinnerung',p.petGone.map(g=>row(esc(g.n),(PETS[g.t]||{n:''}).n+' · bis du '+g.a+' warst','')).join(''));
+  h+=card('Tierheim',special('adopt'));return h}
+{const _vf=viewFamilie;viewFamilie=function(){const want=famTab;if(want==='freunde'||want==='tiere'){famTab='kinder'}let h=_vf();famTab=want;
+  const i=h.indexOf('<div class="seg full">'),j=h.indexOf('</div>',i);
+  const seg='<div class="seg full ft6">'+[['kinder','Kinder'],['eltern','Eltern'],['freunde','Freunde'],['tiere','Tiere'],['baum','Stammbaum'],['erbe','Testament']].map(([k,l])=>'<button data-a="famtab" data-g="'+k+'" aria-pressed="'+(famTab===k)+'">'+l+'</button>').join('')+'</div>';
+  if(want==='freunde')return seg+viewFreunde();if(want==='tiere')return seg+viewTiere();
+  h=seg+h.slice(j+6);
+  const a=h.indexOf('<section class="card"><h2 class="h">Haustiere</h2>'),b=h.indexOf('<h2 class="h">Tierheim</h2>');if(a>=0&&b>a){const e=h.indexOf('</section>',b)+10;h=h.slice(0,a)+card('',row('Haustiere','Jetzt mit Charakter, Tricks und Bindung',btn('famtab','tiere','Ansehen','g')))+h.slice(e)}
+  return h}}
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],

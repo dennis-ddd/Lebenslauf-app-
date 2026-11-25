@@ -24,3 +24,4 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `node tests/clown_chats.js`: Klassenclown über ganze Schulzeiten, alle neuen Chat-Nachrichten mit passenden Antworten (inklusive witziger Antwort), Gruppenchat-Optionen und die neuen Einstellungs-Tabs.
 - `node tests/schicksal.js`: zentrales Ereignissystem, alle Lebenslage-Ereignisse und Spätfolgen (frühere Entscheidungen kommen zurück), Wendepunkte in der Lebensmitte.
 - `node tests/wiederkehr.js`: Lebensfilm, Lebensalbum mit Erinnerungsstücken über alle Leben und die Zweite Chance.
+- `node tests/zusammen_alter.js`: Freundeskreis (Hochzeiten, Krisen, Umzüge, Abschiede), Haustiere mit Tricks und Bindung (auch beim Weiterspielen), Gesundheit und Wohnen im Alter.

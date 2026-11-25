@@ -368,3 +368,11 @@ body.tb .cgrab{display:none!important}body.tb.placeopen .ctime{display:none}
 .albh{display:flex;justify-content:space-between;gap:8px}.albh span{font-size:12px;opacity:.7;white-space:nowrap}.alb small{font-size:12px;opacity:.7}
 .albm{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.albm i{font-style:normal;font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(128,128,128,.14)}
 .lfrow>div{flex:1}.lfrow>.btn{flex:none;white-space:nowrap}
+/* 5.4 Freunde, Tiere, Alter */
+.seg.ft6{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.seg.ft6 button{font-size:13px;padding:8px 4px}
+.fkc .fh,.ptc .fh{align-items:flex-start}.fkc .fh>div,.ptc .fh>div{flex:1;min-width:0}
+.fkm{margin:6px 0 0;font-style:italic}
+.albm i.on{background:color-mix(in srgb,#3BB273 22%,transparent);color:inherit}.albm i.off{opacity:.55}
+.pti{flex:none;border-radius:16px}
+.lnk.sm{font-size:13px;padding:0 4px;opacity:.6;background:none;border:0;color:inherit;cursor:pointer}
+.seg.full.ft6{display:grid!important;grid-template-columns:repeat(3,1fr)!important;grid-auto-flow:row!important;gap:4px}
