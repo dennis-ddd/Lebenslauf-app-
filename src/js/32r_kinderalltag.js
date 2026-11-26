@@ -99,7 +99,7 @@ function replyOpts(cid){const C=p.chats[cid];if(!C)return [];const last=C.msgs.f
 {const _ce=chatExtra;chatExtra=function(c){let h=_ce(c);const i=h.indexOf('<div class="replies">');if(i<0)return h;const j=h.indexOf('</div>',i)+6;
   return h.slice(0,i)+'<div class="replies">'+replyOpts(c.id).map(([k,l,t])=>'<button class="rp rp-'+k+'" data-a="reply" data-g="'+c.id+':'+k+'">„'+esc(t)+'“<small>'+l+'</small></button>').join('')+'</div>'+h.slice(j)}}
 // Chats nicht überfüllen: höchstens 25 Nachrichten, höchstens 2 unbeantwortete pro Jahr
-{const _m=msg;msg=function(id,t,me){const c=p.chats[id];if(!me&&c&&c.msgs.length){const open=c.msgs.slice(-4).filter(m=>!m.me&&m.a===p.age).length;if(open>=2&&!/Geburtstag|Alles Gute|Danke für das Geschenk/.test(t))return}
+{const _m=msg;msg=function(id,t,me){const c=p.chats[id];if(!me&&c&&c.msgs.length){const open=c.msgs.slice(-4).filter(m=>!m.me&&m.a===p.age&&!/Geburtstag|Inkasso|Happy Birthday/.test(m.t)).length;if(open>=2&&!/Geburtstag|Alles Gute|Danke für das Geschenk/.test(t))return}
   _m(id,t,me);const C=p.chats[id];if(C&&C.msgs.length>25)C.msgs.splice(0,C.msgs.length-25)}}
 
 /* ---------- Taschengeld ---------- */

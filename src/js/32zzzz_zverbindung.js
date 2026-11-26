@@ -14,7 +14,7 @@ const fkByCid=cid=>String(cid).startsWith('fk_')?fkList().find(f=>fkCid(f)===cid
 {const _ms=msg;msg=function(id,t,me){if(p&&p.deadParent&&id===p.deadParent)return;return _ms(id,t,me)}}
 {const _ru=relUp;relUp=function(id,n){const f=fkByCid(id);if(f){fkCl(f,n);if(n>0)f.met=Math.max(f.met,p.age-1);return}return _ru(id,n)}}
 {const _cv=cavOf;cavOf=function(c,size){const f=fkByCid(c.id);if(f)return '<span class="cav av" style="background:'+c.col+'">'+avatarSvg(Math.max(6,fkAge(f)),size||44,fkP(f))+'</span>';return _cv(c,size)}}
-function fkChatYear(){if(!p||p.age<8||p.prison)return;fkList().filter(f=>f.cl>=30&&!f.gone).forEach(f=>{if(ch(f.cl>=60?.55:.3))msg(fkCid(f),pick(FKMSG[f.tr]||FKMSG.treu))})}
+function fkChatYear(){if(!p||p.age<8||p.prison)return;fkList().filter(f=>f.cl>=30&&!f.gone).forEach(f=>{if(ch(f.cl>=60?.55:.3)){const t=chatPick(fkCid(f),FKMSG[f.tr]||FKMSG.treu);if(t)msg(fkCid(f),t)}})}
 /* ---------- Lebensfilm: auch Freunde, Tiere und Ämter ---------- */
 {const _fs=filmScenes;filmScenes=function(){const S=_fs.apply(this,arguments);try{const add=[];
   const ppl=fkList().slice().sort((a,b)=>b.cl-a.cl).slice(0,3).map(f=>f.n).concat((p.fkGone||[]).slice(-1).map(g=>g.n+' (in Erinnerung)'));

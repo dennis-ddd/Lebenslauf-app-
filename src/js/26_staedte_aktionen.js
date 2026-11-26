@@ -26,7 +26,7 @@ function act5(id,arg){const lock=!!p.prison;
   case 'mini':O.mini=arg;saveO();render();return 1;
   case 'grat':{if(p.grat[arg]===p.age||p.age<6||!people().some(x=>x[0]===arg))return 1;if(relOf(arg)<30){CUR='grat';if(!useAct())return 1}p.grat[arg]=p.age;const nm=(people().find(x=>x[0]===arg)||[0,''])[1];
     if(arg==='partner'&&p.partner)p.partner.rel=Math.min(100,p.partner.rel+5);else if(p.rel[arg]!=null)p.rel[arg]=Math.min(100,p.rel[arg]+6);else if(arg.startsWith('kid')){const k=p.kids[+arg.slice(3)];if(k)k.rel=Math.min(100,k.rel+6)}
-    if(arg!=='rival'){msg(arg,'Alles Gute zum Geburtstag!',true);msg(arg,pick(['Danke!! Du hast dran gedacht <3','Wie lieb von dir, danke!','Danke dir! Feiern wir bald zusammen?']))}else{msg('rival','Alles Gute. Ehrlich.',true);msg('rival','… Danke. Hätte ich nicht gedacht.');if(ch(.2)&&p.age>=25){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}}
+    if(arg!=='rival'){msg(arg,'Alles Gute zum Geburtstag!',true);msg(arg,bdThanks(arg))}else{msg('rival','Alles Gute. Ehrlich.',true);msg('rival','… Danke. Hätte ich nicht gedacht.');if(ch(.2)&&p.age>=25){p.rival.friend=true;mile('Frieden mit '+p.rival.n,'star')}}
     done('Du hast '+nm+' gratuliert.');return 1}
   case 'term':{const t=p.terms[+arg];if(!t||t.done||lock)return 1;if(HEALTHT.includes(t.k)){const hv=p.hv||0;CUR='arzt';if(!useAct())return 1;p.hv=hv+1}t.done=true;done(TERM[t.k][3]());return 1}
   case 'famtab':famTab=arg;render();return 1;

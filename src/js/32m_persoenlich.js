@@ -41,7 +41,7 @@ const LQ=[
    ['Berühmt werden',()=>(p.dream='star','Bühne, Licht, Applaus!')],['Eigene Firma',()=>(p.dream='chef','Selbst der Chef sein. Warum nicht?')]]]];
 const DREAMJOB={arzt:['arzt'],it:['info'],chef:[]};
 QEV.lfrage=i=>{const q=LQ[i];if(!q||!q[0]())return null;return E('Eine ehrliche Frage',q[1],()=>true,q[2]())};
-function lqYear(){if(p.prison||p.age<10||(p.lqLast!=null&&p.age-p.lqLast<3)||!ch(.22))return;p.lqLast=p.age;const L=LQ.map((q,i)=>i).filter(i=>{const y=(p.lqY||{})[i];return LQ[i][0]()&&(y==null||p.age-y>=6)});if(!L.length)return;const i=pick(L);p.lqY=p.lqY||{};p.lqY[i]=p.age;p.q.push({id:'lfrage',d:i})}
+function lqYear(){if(p.prison||p.age<10||(p.lqLast!=null&&p.age-p.lqLast<5)||!ch(.2))return;p.lqLast=p.age;const L=LQ.map((q,i)=>i).filter(i=>{const y=(p.lqY||{})[i];return LQ[i][0]()&&(y==null||p.age-y>=6)});if(!L.length)return;const i=pick(L);p.lqY=p.lqY||{};p.lqY[i]=p.age;p.q.push({id:'lfrage',d:i})}
 function dreamCheck(){if(!p.dream||p.dreamDone)return;const j=p.job&&p.job.id;const ok=p.dream==='chef'?!!(p.biz&&(p.biz.fronts||[]).length):p.dream==='star'?(p.fol||0)>=100000||(p.mus&&p.mus.fame>=60):!!j&&(DREAMJOB[p.dream]||[]).includes(j);
   if(ok){p.dreamDone=1;add('gl',12);log('Kindheitstraum erfüllt! Schon mit '+(p.dreamA||14)+' wusstest du, was du willst.');try{mile('Kindheitstraum erfüllt','star')}catch(e){errLog(e)}}}
 

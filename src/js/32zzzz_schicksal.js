@@ -49,7 +49,7 @@ const SK=[
     ['Einen Laden darin mieten',()=>{p.money-=px$(8000);skMerk('mallshop');return 'Du sicherst dir eine Ladenfläche. Mal sehen, ob es sich lohnt.'}]])},
  // Unternehmen
  {id:'biz_uebernahme',cat:'Unternehmen',cd:8,w:()=>p.biz&&(p.biz.firm||(p.biz.fronts||[]).length>=2)?1.5:0,ev:()=>{const v=px$(Math.round((p.biz.firm&&p.biz.firm.val||200000)*1.3/1000)*1000);
-   return EC('Unternehmen','Ein Übernahmeangebot','Ein großer Konkurrent möchte '+esc(p.biz.co||'deine Firma')+' kaufen. Angebot: '+eur(v)+'.',[
+   return EC('Unternehmen','Ein Übernahmeangebot','Ein großer Konkurrent möchte '+esc((p.biz.firm&&p.biz.firm.name)||(p.biz.co&&p.biz.co.name)||'deine Firma')+' kaufen. Angebot: '+eur(v)+'.',[
     ['Annehmen',()=>{p.money+=v;if(p.biz.firm)p.biz.firm=null;else p.biz.fronts=[];add('gl',6);mile('Firma verkauft','big');return 'Unterschrieben. Du bist reich, aber dein Lebenswerk gehört jetzt anderen.'}],
     ['Nachverhandeln',()=>{if(ch(.45)){const v2=Math.round(v*1.25);p.money+=v2;if(p.biz.firm)p.biz.firm=null;else p.biz.fronts=[];mile('Firma verkauft','big');return 'Sie legen 25 % drauf: '+eur(v2)+'. Deal!'}return 'Der Konkurrent zieht sein Angebot zurück und eröffnet direkt neben dir.'}],
     ['Ablehnen',()=>{skMerk('bizstay');return 'Deine Firma bleibt deine Firma.'}]])}},

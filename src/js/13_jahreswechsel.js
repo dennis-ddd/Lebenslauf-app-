@@ -48,7 +48,7 @@ function ageUp(){
   if(!p.parentsGone&&a+p.pa>=86&&ch(.35)){p.parentsGone=true;log('Deine Eltern sind in hohem Alter verstorben.');parentInherit();add('gl',-15)}
   if(a>=8&&!p.parentsGone)msg('mama','Alles Gute zum '+a+'. Geburtstag, mein Schatz!');
   if(a>=8&&ch(.7))msg('freund',pick(['Happy Birthday!! Party?','Alles Gute, alte Socke!','Noch ein Jahr älter, haha. Alles Gute!']));
-  if(a>=8&&ch(.4)){const who=pick(['mama','papa','freund'].filter(k=>k==='freund'?a>=10:!p.parentsGone));const POOL=a<13?CHAT_KID:a<18?CHAT_TEEN:CHAT_SMALL;if(who&&POOL[who])msg(who,pick(POOL[who]))}
+  for(let ci=0;ci<(a>=16?2:1);ci++)if(a>=8&&ch(.5)){const who=pick(['mama','papa','freund'].filter(k=>k==='freund'?a>=10:!p.parentsGone));const POOL=a<13?CHAT_KID:a<18?CHAT_TEEN:CHAT_SMALL;if(who&&POOL[who]){const t=typeof chatPick==='function'?chatPick(who,POOL[who]):pick(POOL[who]);if(t)msg(who,t)}}
   p.trend=pick(TRENDS.filter(k=>k!==p.trend));
   // Körper
   if(a>45)add('ge',-R(0,2));if(a>65)add('ge',-R(1,4));if(a>30)add('au',-R(0,1));

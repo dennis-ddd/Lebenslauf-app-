@@ -23,7 +23,7 @@ for(let life=0;life<60;life++){T.newLife('Kim','Test',pick(['w','m']),12,false);
 // Gezielt: jedes Ereignis in passender Lage auslösen
 T.newLife('Kim','Test','w',40,false);T.applyCfg({act:6,clock:false,ev:'normal',big:false,wealth:'normal'});{const p=T.p;
  p.money=500000;p.home='wohnung';p.job={id:'buero',t:'Bürokaufmann/-frau',pay:36000,part:false,yrs:0,perf:50};p.partner={name:'Alex',rel:30,g:'m',mar:true};
- p.kids=[{n:'Mia',b:p.age-19,g:'w',rel:60},{n:'Ben',b:p.age-14,g:'m',rel:60},{n:'Lea',b:p.age-25,g:'w',rel:60}];p.biz={co:'Kim GmbH',hold:false,fronts:[],firm:{name:'Kim GmbH',t:'it',val:300000,emp:0,mkt:0,yrs:0,ipo:false,hist:[1],last:null},shop:null,bank:null};
+ p.kids=[{n:'Mia',b:p.age-19,g:'w',rel:60},{n:'Ben',b:p.age-14,g:'m',rel:60},{n:'Lea',b:p.age-25,g:'w',rel:60}];p.biz={co:{name:'Kim GmbH'},hold:false,fronts:[],firm:{name:'Kim GmbH',t:'it',val:300000,emp:0,mkt:0,yrs:0,ipo:false,hist:[1],last:null},shop:null,bank:null};
  p.props=[{use:'rent',val:200000}];p.rival={n:'Max',friend:0};p.st.gl=30;p.st.ge=40;
  p.ehist=[{t:'Ein Geldbeutel!',o:'Zurückbringen',a:9},{t:'Ein Geldbeutel!',o:'Das Geld behalten',a:10},{t:'Abschreiben?',o:'Heft rüberschieben',a:11},{t:'Der Rivale braucht Hilfe',o:'Helfen (5.000 €)',a:30}];
  p.skm=['nbloan','kidsupport','kidstopped','kidloan','affaere','mieterhilfe','sabbat','lebensstil','burnout_ignore'].map(k=>({k,a:30,d:{n:'Tom',c:5000,i:0}}));

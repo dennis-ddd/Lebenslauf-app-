@@ -41,7 +41,7 @@ const RPW={order:['Mein Zimmer ist kein Chaos, das ist moderne Kunst 🎨','Ich 
   meme:['Und wie nennt man einen Bumerang, der nicht zurückkommt? Stock.'],photo:['So schön, das wird mein neuer Handy-Hintergrund.'],
   _:['Ich antworte nur gegen Kekse 🍪','Moment, ich muss erst meinen Hamster fragen.','Eilmeldung: Ich hab’s gelesen!','Ich bin gerade ein Pinguin, später 🐧','*Trommelwirbel* … Ja!']};
 const SERIOUS=['sorry','comfort','petze','advice'];
-{const _ro=replyOpts;replyOpts=function(cid){const L=_ro(cid);if(!L.length)return L;const C=p.chats[cid],last=C.msgs.filter(m=>!m.me).slice(-1)[0],t=last?last.t:'',k=replyCat(cid,t),h=hsh(cid+'|'+t);
+{const _ro=replyOpts;replyOpts=function(cid){const L=_ro(cid);if(!L.length)return L;const C=p.chats[cid],last=C.msgs.filter(m=>!m.me).slice(-1)[0],t=last?last.t:'',k=replyCat(cid,t),h=hsh(cid+'|'+t+'|'+p.age+'|'+C.msgs.length);
   const out=L.map(([kind,lab,txt,d],i)=>{const X=RPX[k]&&RPX[k][kind];if(!X||(p.age<12&&KIDTONE[txt]))return [kind,lab,txt,d];const pool=[txt].concat(X);return [kind,lab,pool[(h>>>(i*4))%pool.length],d]});
   if(cid!=='chef'){const W=(RPW[k]||[]).concat(RPW._),w=W[(h>>>13)%W.length];out.push(['witz','Witzig',w,SERIOUS.includes(k)?-3:3])}
   return out}}
