@@ -92,6 +92,7 @@ function viewChats(){
 }
 const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>(clockOn()?clockTxt()+' · ':'')+(unl()&&n>0?'∞ Aktionen':n===1?'1 Aktion':n+' Aktionen');
+function badgeTxt(id,b){if(!b)return '';const n=+b;if(b==='!'||!['post','chats','kalender'].includes(id)||!n)return '<span class="badge dot" aria-label="Neu"></span>';return '<span class="badge">'+(n>9?'9+':n)+'</span>'}
 function badgeOf(id){if(id==='post')return mailOpen();if(id==='store')return p.storeY===p.age?0:recs().length;if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();if(id==='news')return p.newsUn||0;if(id==='erfolge')return p.newUL||0;if(id==='kalender')return openBd();return 0}
 function viewHome(){
   const last=p.log.filter(e=>!e.t.startsWith('Jahresbilanz')).slice(-1)[0];
@@ -101,7 +102,7 @@ function viewHome(){
     (last?'<button class="news" data-a="goto" data-g="leben"><small>Neuigkeit · Alter '+last.a+'</small>'+esc(last.t)+'</button>':'')+
     (p.prison?'<p class="pnote">Du sitzt noch '+p.prison+' Jahr(e) im Gefängnis. Einige Apps sind gesperrt.</p>':'')+
     '<div class="apps'+(editApps?' edit':'')+'">'+orderedApps().filter(a=>appVisible(a[0])).map(([id,n,c,ic,bg])=>{const lock=p.prison&&!PRISON_APPS.includes(id)&&!editApps,b=editApps?0:badgeOf(id),nw=!editApps&&p.appSeen&&p.appSeen[id]===0;
-      return '<button class="app'+(nw?' newapp':'')+(editApps&&swapSel===id?' pick':'')+'" data-a="'+(editApps?'appswap':'goto')+'" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div><div class="phb">'+(editApps?'<span class="note">'+(swapSel?'Tippe auf den neuen Platz':'App lange drücken und ziehen, oder antippen und dann den neuen Platz')+'</span>'+btn('appreset',null,'Zurücksetzen','g')+btn('appedit',null,'Fertig','o'):btn('appedit',null,'Apps anordnen','g')+'<span class="note">Tipp: App lange drücken und ziehen</span>')+'</div></section>';
+      return '<button class="app'+(nw?' newapp':'')+(editApps&&swapSel===id?' pick':'')+'" data-a="'+(editApps?'appswap':'goto')+'" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?badgeTxt(id,b):nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div><div class="phb">'+(editApps?'<span class="note">'+(swapSel?'Tippe auf den neuen Platz':'App lange drücken und ziehen, oder antippen und dann den neuen Platz')+'</span>'+btn('appreset',null,'Zurücksetzen','g')+btn('appedit',null,'Fertig','o'):btn('appedit',null,'Apps anordnen','g')+'<span class="note">Tipp: App lange drücken und ziehen</span>')+'</div></section>';
 }
 function viewApp(id){
   const V={tagebuch:viewDiary,
@@ -114,7 +115,12 @@ function viewApp(id){
     else if(p.job){const rk=p.job.rank||1;h+='<section class="card"><div class="lbl">DEIN JOB</div>'+row(esc(p.job.t),RANKN[rk-1]+' · seit '+p.job.yrs+' Jahr(en) · Leistung '+p.job.perf+' %','<span class="num" style="color:var(--blueText)">'+eur(p.job.pay)+'</span>')+
       '<div class="segs big4">'+[1,2,3,4].map(i=>'<i class="'+(i<=rk?'on':'')+'"></i>').join('')+'</div><p class="note" style="margin:6px 0">Rang '+rk+' von 4 · '+(rk<4?'Gute Leistung bringt Beförderungen mit 20 % mehr Gehalt.':'Ganz oben.')+'</p>'+'<div class="btns">'+btn('work',null,'Schicht (Minispiel)','o',p.act<=0||!!p.prison)+btn('quit',null,'Kündigen','g')+'</div></section>'}
     h+=jobExtra();
-    return h+card('Stellenangebote',JOBS.map(j=>{const r=canJob(j);return row(j.t+(j.part?' (Teilzeit)':''),r||(j.id==='influ'?'Einkommen aus Klick, 1,5× Reichweite':eur(j.pay)+' pro Jahr'),btn('apply',j.id,'Bewerben','o',!!r||p.act<=0||!!(p.job&&p.job.id===j.id)))}).join(''))},
+    const JA=JOBS.filter(j=>!canJob(j)&&!(p.job&&p.job.id===j.id)).sort((x,y)=>y.pay-x.pay),JL=JOBS.filter(j=>canJob(j)),top=JA.slice(0,3),rest=JA.slice(3);
+    const jr=(j,main)=>row(j.t+(j.part?' (Teilzeit)':''),j.id==='influ'?'Einkommen aus Klick, 1,5× Reichweite':eur(j.pay)+' pro Jahr',btn('apply',j.id,'Bewerben',main?'o':'g',p.act<=0));
+    if(!JA.length&&!JL.length)return h;
+    return h+(top.length?'<section class="card fdj"><h2 class="h">Für dich jetzt</h2>'+top.map((j,i)=>jr(j,i===0)).join('')+'</section>':'')+
+      (rest.length?'<details class="card fold2"><summary><b>Weitere Jobs</b><span class="chip">'+rest.length+'</span></summary>'+rest.map(j=>jr(j,false)).join('')+'</details>':'')+
+      (JL.length?'<details class="card fold2 lockd"><summary><b>Noch nicht möglich</b><span class="chip">'+JL.length+'</span></summary>'+JL.map(j=>row(j.t+(j.part?' (Teilzeit)':''),canJob(j),'')).join('')+'</details>':'')},
   bildung:viewBildung,
   liebe:()=>{let h='';
     if(p.partner)h=row(esc(p.partner.name),(p.partner.mar?'verheiratet':'in einer Beziehung')+' · Verbindung '+clamp(p.partner.rel,0,100)+' %')+

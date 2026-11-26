@@ -1101,6 +1101,25 @@ body.lm .av2 *{animation:none!important}
 .srow{display:flex;align-items:center;gap:10px;text-align:left;padding:10px;border-radius:12px;border:0;background:rgba(255,255,255,.04);color:inherit;font:inherit;cursor:pointer}
 .srow:hover,.srow:focus{background:rgba(255,255,255,.1)}.srow>span:last-child{display:flex;flex-direction:column;min-width:0}.srow small{opacity:.65;font-size:12px}
 .srty{flex:none;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:3px 7px;border-radius:99px;background:rgba(124,140,255,.18);color:#C3CAFF;min-width:58px;text-align:center}
+/* 5.9 Ruhiger und klarer */
+.row .btn.o,.wcard .btn.o{background:transparent!important;color:#F0CC87!important;box-shadow:inset 0 0 0 1.5px rgba(240,204,135,.55)!important;text-shadow:none}
+.row .btn.g,.wcard .btn.g{background:rgba(255,255,255,.06)!important;color:inherit!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)!important}
+.fdj .row:first-of-type .btn.o{background:var(--au-go)!important;color:#fff!important;box-shadow:none!important}
+.fdj{border:1px solid rgba(240,204,135,.35)}
+.badge.dot{min-width:10px!important;width:10px;height:10px;padding:0!important;font-size:0!important;border-radius:50%}
+.tip2{display:flex;align-items:center;gap:8px;padding:8px 10px 8px 12px;margin:0 0 10px;border-radius:12px;background:rgba(124,140,255,.12);border:1px solid rgba(124,140,255,.25);font-size:13px;line-height:1.35}
+.tip2 .i{width:16px;height:16px;flex:none;opacity:.8}.tip2 span{flex:1}
+.tip2 button{flex:none;border:0;background:none;color:inherit;opacity:.6;font-size:14px;width:32px;height:32px;border-radius:8px;cursor:pointer}
+details.fold2{padding:0}details.fold2>summary{list-style:none;display:flex;align-items:center;gap:8px;padding:14px 16px;cursor:pointer}
+details.fold2>summary::-webkit-details-marker{display:none}details.fold2>summary b{flex:1}
+details.fold2>summary::after{content:'';width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);opacity:.6;margin:-4px 4px 0}
+details.fold2[open]>summary::after{transform:rotate(-135deg);margin-top:4px}
+details.fold2>.row{padding-left:16px;padding-right:16px}details.fold2.lockd .row{opacity:.72}
+.cfold>h2.h:first-child{cursor:pointer;display:flex;align-items:center;margin-bottom:0}
+.cfold>h2.h:first-child::after{content:'';margin-left:auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-135deg);opacity:.55}
+.cfold.shut>h2.h:first-child::after{transform:rotate(45deg);margin-top:-4px}
+.cfold:not(.shut)>h2.h:first-child{margin-bottom:10px}.cfold.shut>:not(h2:first-child){display:none!important}
+.avtabs button{border-radius:12px}
 </style>
 </head>
 <body>
@@ -3328,6 +3347,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+ {v:'5.9',big:true,t:'Ruhiger und klarer',neu:['Jobs: Oben stehen die drei Jobs, die gerade am besten für dich passen. Weitere und gesperrte Jobs sind eingeklappt','Selten gebrauchte Abschnitte wie Fähigkeiten oder Kurse lassen sich einklappen; die App merkt sich, was du offen haben willst','Jedes Ereignis zeigt jetzt eine Kategorie'],mod:['Nur noch ein farbiger Hauptknopf pro Liste, alle anderen sind dezent','Tipps sind eine schmale Zeile statt eines großen Kastens','Rote Zahlen nur noch bei Post, Chats und Kalender (höchstens 9+), sonst ein kleiner Punkt','Konfetti nur noch bei großen Momenten statt an jedem Geburtstag']},
  {v:'5.8',big:false,t:'Aufgeräumt',neu:['Dein bester Freund aus der Grundschule bleibt im Freundeskreis, und beim Klassentreffen findet ihr wieder zusammen'],mod:['Doppelte Ereignisse zusammengeführt: Klassentreffen gibt es jetzt mit 30, 50 und 65, „Mobber wird Chef“ und die Midlife-Krise nur noch einmal','Ereignisse wiederholen sich seltener (ehrliche Fragen, Headhunter, Burnout, Rückblenden)','Freundschaften kühlen langsamer ab; flüchtige Bekannte verschwinden still, statt jedes Mal ein Ereignis auszulösen','Im Hintergrund werden Fehler jetzt protokolliert statt verschluckt']},
  {v:'5.7.1',big:false,t:'Update-Hinweise repariert',neu:['Unter Einstellungen → Hilfe findest du jetzt „Was ist neu?“ mit allen Updates zum Nachlesen'],mod:['Die Hinweise zu den Updates 5.2 bis 5.7 wurden wegen eines Fehlers nicht angezeigt. Sie erscheinen jetzt einmal nachträglich']},
  {v:'5.7',big:true,t:'Leichter Einstieg und Suche',neu:['Erste Schritte: Im ersten Leben führen dich fünf kleine Aufgaben durch das Wichtigste, mit Startgeschenk am Ende','Babyjahre im Zeitraffer: Wer als Baby startet, kann direkt zum Schulstart springen und bekommt eine Zusammenfassung','Dezente Suche: Die Lupe neben „Einstellungen“ findet Apps, Orte, Aktionen, Personen, Haustiere und Einstellungen']},
@@ -3442,7 +3462,7 @@ const APPTIP={leben:'Hier siehst du deine Werte, Ziele, deinen Ruf und deinen Le
  bank:'Konto, Kredite, Festgeld und Bonität. Achte auf den Leitzins.',boerse:'Aktien kaufen und verkaufen. Kurse schwanken jedes Jahr, Nachrichten helfen beim Einschätzen.',wohnen:'Mieten, kaufen, einrichten, Immobilien vermieten und renovieren.',
  garage:'Autos kaufen und pflegen. Ein Fahrer bringt dir mehr Aktionen.',shop:'Geräte, Kleidung und mehr. Manche Dinge schalten neue Möglichkeiten frei, zum Beispiel ein Smartphone für Klick.',erfolge:'Erfolge dieses Lebens und deine Sammlung, die für alle Leben gilt.',einst:'Töne, Design, Spielablauf und Tutorial kannst du hier jederzeit ändern.'};
 function tipCard(id){if(O.tut===false||!APPTIP[id])return '';O.seenTips=O.seenTips||{};if(O.seenTips[id])return '';
-  return '<section class="tip"><span class="tipic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></span><div><b>Tipp</b><p>'+esc(APPTIP[id])+'</p><div class="tipb"><button data-a="tipok" data-g="'+id+'">Verstanden</button><button data-a="tipoff">Tipps ausschalten</button></div></div></section>'}
+  return '<div class="tip2" role="note"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg><span>'+esc(APPTIP[id])+'</span><button data-a="tipok" data-g="'+id+'" aria-label="Tipp schließen">✕</button></div>'}
 
 /* ================= Spielablauf im laufenden Spiel ================= */
 function cfgCard(){const c=cfg(),ch2=(a,list,cur)=>'<div class="schips">'+list.map(([v,l])=>'<button class="sch" data-a="'+a+'" data-g="'+v+'" aria-pressed="'+(String(cur)===String(v))+'"><b>'+l+'</b></button>').join('')+'</div>';
@@ -4530,7 +4550,7 @@ function confetti(){if(lessMotion())return;const cols=['#F2994A','#E8467C','#7B4
     const x=(Math.random()-.5)*160,rot=Math.random()*720;c.animate([{transform:'translate(0,-20px) rotate(0)',opacity:1},{transform:'translate('+x+'px,'+(innerHeight*.9)+'px) rotate('+rot+'deg)',opacity:.2}],{duration:1600+Math.random()*1200,delay:Math.random()*300,easing:'cubic-bezier(.2,.6,.4,1)'}).onfinish=()=>c.remove()}}
 function yearFlash(a){if(lessMotion())return;const o=document.createElement('div');o.className='fxyear';o.innerHTML='<b>'+a+'</b><span>'+(a===18?'Volljährig!':a%10===0?'Ein runder Geburtstag!':'Happy Birthday, '+esc(p.first)+'!')+'</span>';document.body.appendChild(o);
   o.animate([{opacity:0,transform:'scale(.9)'},{opacity:1,transform:'scale(1)',offset:.2},{opacity:1,offset:.7},{opacity:0,transform:'scale(1.04)'}],{duration:1300,easing:'ease-out'}).onfinish=()=>o.remove()}
-{const _au=ageUp;ageUp=function(){const a0=p&&p.age;const r=_au.apply(this,arguments);if(p&&p.alive&&p.age>a0){yearFlash(p.age);setTimeout(confetti,150)}return r}}
+{const _au=ageUp;ageUp=function(){const a0=p&&p.age;const r=_au.apply(this,arguments);if(p&&p.alive&&p.age>a0){yearFlash(p.age);if([18,50,100].includes(p.age)||(p.ms||[]).some(m=>m.a===p.age&&m.k==='big'))setTimeout(confetti,150)}return r}}
 function postFx(){if(!p||!p.alive)return;
   // Geld: Münzen und Hochzählen
   const mb=document.querySelector('#hd .m b');if(FX.money!=null&&mb&&p.money!==FX.money){if(p.money-FX.money>=50)coinBurst(Math.min(10,3+Math.floor(Math.log10(p.money-FX.money))));countUp(mb,FX.money,p.money)}FX.money=p.money;
@@ -4989,7 +5009,7 @@ function viewKid(m){
     '<div class="rings">'+Object.keys(STAT).map(k=>'<div class="rw"><div class="ring" style="--v:'+p.st[k]+'"><b>'+p.st[k]+'</b></div><small>'+STAT[k]+'</small></div>').join('')+'</div>'+
     (last?'<button class="news" data-a="goto" data-g="leben"><small>Neuigkeit · Alter '+last.a+'</small>'+esc(last.t)+'</button>':'')+
     '<div class="kwgrid">'+T.map(([img,n,id])=>{const b=id==='spar'?0:badgeOf(id);return '<button class="kwi" data-a="goto" data-g="'+id+'">'+kimg(img)+'<span>'+n+'</span>'+(b?'<i class="kwb">'+b+'</i>':'')+'</button>'}).join('')+'</div>'+
-    (more.length?'<div class="kwmore"><small>Mehr</small><div>'+more.map(([id,n,c,ic,bg])=>{const b=badgeOf(id);return '<button class="kwm" data-a="goto" data-g="'+id+'" aria-label="'+esc(n)+'"><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b?'<span class="badge">'+b+'</span>':'')+'</span><em>'+n+'</em></button>'}).join('')+'</div></div>':'')+
+    (more.length?'<div class="kwmore"><small>Mehr</small><div>'+more.map(([id,n,c,ic,bg])=>{const b=badgeOf(id);return '<button class="kwm" data-a="goto" data-g="'+id+'" aria-label="'+esc(n)+'"><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b?badgeTxt(id,b):'')+'</span><em>'+n+'</em></button>'}).join('')+'</div></div>':'')+
     '</section>';
 }
 {const _vh=viewHome;viewHome=function(){ensSpar();const m=kidMode();return m?viewKid(m):_vh()}}
@@ -5549,7 +5569,7 @@ const inboxN=()=>feed().length;
 /* Startseite */
 function favApps(){const U=p.appUse||{},ex=['stadt','inbox','einst','store','jva'];let L=Object.keys(U).filter(id=>visA(id)&&!ex.includes(id)).sort((a,b)=>U[b]-U[a]).slice(0,4);
   ['chats','jobs','bank','freizeit','leben','bildung','familie'].forEach(id=>{if(L.length<4&&visA(id)&&!L.includes(id))L.push(id)});return L}
-function uiAppBtn(id){const A=APP[id],lock=p.prison&&!PRISON_APPS.includes(id),b=badgeOf(id);return '<button class="app" data-a="goto" data-g="'+id+'"'+(lock?' disabled':'')+'>'+uiIc(id).replace('</span>',(b&&!lock?'<span class="badge">'+b+'</span>':'')+'</span>')+A[1]+'</button>'}
+function uiAppBtn(id){const A=APP[id],lock=p.prison&&!PRISON_APPS.includes(id),b=badgeOf(id);return '<button class="app" data-a="goto" data-g="'+id+'"'+(lock?' disabled':'')+'>'+uiIc(id).replace('</span>',(b&&!lock?badgeTxt(id,b):'')+'</span>')+A[1]+'</button>'}
 function viewHome2(){
   const ring=k=>'<div class="rw"><div class="ring" style="--v:'+p.st[k]+'"><b>'+p.st[k]+'</b></div><small>'+STAT[k]+'</small></div>';
   const F=feed(),last=p.log.filter(e=>!e.t.startsWith('Jahresbilanz')).slice(-1)[0];
@@ -5560,7 +5580,7 @@ function viewHome2(){
   if(p.prison)h+='<p class="pnote">Du sitzt noch '+p.prison+' Jahr(e) im Gefängnis. Einige Apps sind gesperrt.</p>';
   const fav=favApps();if(fav.length)h+='<div class="hsec">Favoriten</div><div class="apps fav">'+fav.map(uiAppBtn).join('')+'</div>';
   h+='<div class="hsec">Alle Apps</div><div class="folds">'+FOLD.map(([fid,n,c,ids])=>{const L=ids.filter(visA);if(!L.length)return '';const b=L.reduce((s,id)=>{const x=badgeOf(id);return s+(typeof x==='number'?x:x?1:0)},0);
-    return '<button class="fold" data-a="hfold" data-g="'+fid+'" aria-label="Ordner '+n+'"><span class="fic">'+L.slice(0,4).map(id=>uiIc(id,'mini')).join('')+(b?'<span class="badge">'+b+'</span>':'')+'</span><b>'+n+'</b><small>'+L.length+' App'+(L.length>1?'s':'')+'</small></button>'}).join('')+'</div>';
+    return '<button class="fold" data-a="hfold" data-g="'+fid+'" aria-label="Ordner '+n+'"><span class="fic">'+L.slice(0,4).map(id=>uiIc(id,'mini')).join('')+(b?'<span class="badge dot"></span>':'')+'</span><b>'+n+'</b><small>'+L.length+' App'+(L.length>1?'s':'')+'</small></button>'}).join('')+'</div>';
   if(homeF){const f=FOLD.find(x=>x[0]===homeF);if(f){const L=f[3].filter(visA);h+='<div class="fsheet" role="dialog" aria-label="Ordner '+f[1]+'"><div class="fsh"><b>'+f[1]+'</b><button class="xbtn" data-a="hfold" data-g="" aria-label="Ordner schließen">×</button></div><div class="apps">'+L.map(uiAppBtn).join('')+'</div></div>'}}
   return h+'</section>'}
 {const _vh=viewHome;viewHome=function(){if(!uiNew()||(typeof kidMode==='function'&&kidMode()))return _vh();return viewHome2()}}
@@ -6340,6 +6360,18 @@ function polExtra(){const o=polS();if(!o)return '';let h='';
   if(o.dec.length)h+=card('Deine Entscheidungen',o.dec.slice(-6).reverse().map(d=>row(esc(d.t),'Mit '+d.a+' als '+POLO[Math.min(d.l,POLO.length-1)][0]+': '+esc(d.o),'')).join(''));
   return h}
 {const _vw=viewWege;viewWege=function(){const h=_vw();if(karTab!=='politik'||!p.pol)return h;return h.replace('Du bist Minister/in.',p.pol.lvl>=6?'Du bist Bundeskanzler/in. Höher geht es nicht.':'Du bist Minister/in.')+polExtra()}}
+/* ================= Ruhiger und klarer: lange Seiten einklappbar, Kategorie für jedes Ereignis ================= */
+/* Abschnitte, die selten gebraucht werden, starten eingeklappt; der Zustand wird gemerkt */
+const FOLDT={'Fähigkeiten':1,'Kampf und Schutz':1,'Bekanntheit':0,'Kurse':1,'In Erinnerung':1,'Deine Entscheidungen':1,'Rückhalt':0,'Deine Gebäude':0,'Stadtleben':0,'Viertel':1,'Wohnen im Alter':0,'Ruhestand und Alltag':0,'Sammlung':0,'Wirtschaft':0};
+function foldEnhance(){if(noDom())return;const v=document.getElementById('app');if(!v)return;O.fold=O.fold||{};
+  v.querySelectorAll('section.card > h2.h:first-child').forEach(h=>{const t=h.textContent.trim(),sec=h.parentElement;if(!(t in FOLDT)||sec.classList.contains('cfold'))return;
+    sec.classList.add('cfold');const shut=O.fold[t]!=null?O.fold[t]:FOLDT[t];if(shut)sec.classList.add('shut');h.setAttribute('role','button');h.setAttribute('tabindex','0');h.setAttribute('aria-expanded',String(!shut));
+    const tg=()=>{const s=sec.classList.toggle('shut');h.setAttribute('aria-expanded',String(!s));O.fold[t]=s?1:0;try{localStorage.setItem(OKEY,JSON.stringify(O))}catch(e){errLog(e)}};
+    h.addEventListener('click',tg);h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tg()}})})}
+{const _rn=render;render=function(){const r=_rn.apply(this,arguments);try{foldEnhance()}catch(e){errLog(e,'fold')}return r}}
+/* Ältere Ereignisse bekommen eine Kategorie nach Lebensphase, damit alle Ereigniskarten gleich aussehen */
+const phaseCat=a=>a<6?'Babyzeit':a<13?'Kindheit':a<18?'Jugend':a<30?'Junge Jahre':a<60?'Lebensmitte':'Späte Jahre';
+{const _se=showEvent0;showEvent0=function(e){if(e&&e.o&&!e.cat&&p)e=Object.assign({},e,{cat:phaseCat(p.age)});return _se(e)}}
 /* ================= Die ersten 10 Minuten: Erste Schritte, Zeitraffer für die Babyjahre, dezente Suche ================= */
 /* ---------- Erste Schritte (nur im ersten Leben) ---------- */
 const FSTEP=[['jahr','Werde ein Jahr älter','Halte unten „+1 Jahr“ gedrückt.'],['app','Öffne eine App','Tippe auf dem Handy auf eine App.'],['aktion','Mach etwas mit deiner Zeit','Lernen, Sport, Freunde treffen: Jede Aktion zählt.'],
@@ -6654,6 +6686,7 @@ function viewChats(){
 }
 const RANKN=['Einstieg','Erfahren','Leitung','Spitze'];
 const akt=n=>(clockOn()?clockTxt()+' · ':'')+(unl()&&n>0?'∞ Aktionen':n===1?'1 Aktion':n+' Aktionen');
+function badgeTxt(id,b){if(!b)return '';const n=+b;if(b==='!'||!['post','chats','kalender'].includes(id)||!n)return '<span class="badge dot" aria-label="Neu"></span>';return '<span class="badge">'+(n>9?'9+':n)+'</span>'}
 function badgeOf(id){if(id==='post')return mailOpen();if(id==='store')return p.storeY===p.age?0:recs().length;if(id==='chats')return unread();if(id==='klick')return p.sm?p.sm.deals.length+p.sm.nf:(p.age>=13?'!':0);if(id==='jobs')return newJobs();if(id==='news')return p.newsUn||0;if(id==='erfolge')return p.newUL||0;if(id==='kalender')return openBd();return 0}
 function viewHome(){
   const last=p.log.filter(e=>!e.t.startsWith('Jahresbilanz')).slice(-1)[0];
@@ -6663,7 +6696,7 @@ function viewHome(){
     (last?'<button class="news" data-a="goto" data-g="leben"><small>Neuigkeit · Alter '+last.a+'</small>'+esc(last.t)+'</button>':'')+
     (p.prison?'<p class="pnote">Du sitzt noch '+p.prison+' Jahr(e) im Gefängnis. Einige Apps sind gesperrt.</p>':'')+
     '<div class="apps'+(editApps?' edit':'')+'">'+orderedApps().filter(a=>appVisible(a[0])).map(([id,n,c,ic,bg])=>{const lock=p.prison&&!PRISON_APPS.includes(id)&&!editApps,b=editApps?0:badgeOf(id),nw=!editApps&&p.appSeen&&p.appSeen[id]===0;
-      return '<button class="app'+(nw?' newapp':'')+(editApps&&swapSel===id?' pick':'')+'" data-a="'+(editApps?'appswap':'goto')+'" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?'<span class="badge">'+b+'</span>':nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div><div class="phb">'+(editApps?'<span class="note">'+(swapSel?'Tippe auf den neuen Platz':'App lange drücken und ziehen, oder antippen und dann den neuen Platz')+'</span>'+btn('appreset',null,'Zurücksetzen','g')+btn('appedit',null,'Fertig','o'):btn('appedit',null,'Apps anordnen','g')+'<span class="note">Tipp: App lange drücken und ziehen</span>')+'</div></section>';
+      return '<button class="app'+(nw?' newapp':'')+(editApps&&swapSel===id?' pick':'')+'" data-a="'+(editApps?'appswap':'goto')+'" data-g="'+id+'"'+(lock?' disabled':'')+'><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b&&!lock?badgeTxt(id,b):nw?'<span class="badge nb">Neu</span>':'')+'</span>'+n+'</button>'}).join('')+'</div><div class="phb">'+(editApps?'<span class="note">'+(swapSel?'Tippe auf den neuen Platz':'App lange drücken und ziehen, oder antippen und dann den neuen Platz')+'</span>'+btn('appreset',null,'Zurücksetzen','g')+btn('appedit',null,'Fertig','o'):btn('appedit',null,'Apps anordnen','g')+'<span class="note">Tipp: App lange drücken und ziehen</span>')+'</div></section>';
 }
 function viewApp(id){
   const V={tagebuch:viewDiary,
@@ -6676,7 +6709,12 @@ function viewApp(id){
     else if(p.job){const rk=p.job.rank||1;h+='<section class="card"><div class="lbl">DEIN JOB</div>'+row(esc(p.job.t),RANKN[rk-1]+' · seit '+p.job.yrs+' Jahr(en) · Leistung '+p.job.perf+' %','<span class="num" style="color:var(--blueText)">'+eur(p.job.pay)+'</span>')+
       '<div class="segs big4">'+[1,2,3,4].map(i=>'<i class="'+(i<=rk?'on':'')+'"></i>').join('')+'</div><p class="note" style="margin:6px 0">Rang '+rk+' von 4 · '+(rk<4?'Gute Leistung bringt Beförderungen mit 20 % mehr Gehalt.':'Ganz oben.')+'</p>'+'<div class="btns">'+btn('work',null,'Schicht (Minispiel)','o',p.act<=0||!!p.prison)+btn('quit',null,'Kündigen','g')+'</div></section>'}
     h+=jobExtra();
-    return h+card('Stellenangebote',JOBS.map(j=>{const r=canJob(j);return row(j.t+(j.part?' (Teilzeit)':''),r||(j.id==='influ'?'Einkommen aus Klick, 1,5× Reichweite':eur(j.pay)+' pro Jahr'),btn('apply',j.id,'Bewerben','o',!!r||p.act<=0||!!(p.job&&p.job.id===j.id)))}).join(''))},
+    const JA=JOBS.filter(j=>!canJob(j)&&!(p.job&&p.job.id===j.id)).sort((x,y)=>y.pay-x.pay),JL=JOBS.filter(j=>canJob(j)),top=JA.slice(0,3),rest=JA.slice(3);
+    const jr=(j,main)=>row(j.t+(j.part?' (Teilzeit)':''),j.id==='influ'?'Einkommen aus Klick, 1,5× Reichweite':eur(j.pay)+' pro Jahr',btn('apply',j.id,'Bewerben',main?'o':'g',p.act<=0));
+    if(!JA.length&&!JL.length)return h;
+    return h+(top.length?'<section class="card fdj"><h2 class="h">Für dich jetzt</h2>'+top.map((j,i)=>jr(j,i===0)).join('')+'</section>':'')+
+      (rest.length?'<details class="card fold2"><summary><b>Weitere Jobs</b><span class="chip">'+rest.length+'</span></summary>'+rest.map(j=>jr(j,false)).join('')+'</details>':'')+
+      (JL.length?'<details class="card fold2 lockd"><summary><b>Noch nicht möglich</b><span class="chip">'+JL.length+'</span></summary>'+JL.map(j=>row(j.t+(j.part?' (Teilzeit)':''),canJob(j),'')).join('')+'</details>':'')},
   bildung:viewBildung,
   liebe:()=>{let h='';
     if(p.partner)h=row(esc(p.partner.name),(p.partner.mar?'verheiratet':'in einer Beziehung')+' · Verbindung '+clamp(p.partner.rel,0,100)+' %')+

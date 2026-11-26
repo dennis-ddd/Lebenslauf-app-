@@ -414,3 +414,22 @@ body.lm .av2 *{animation:none!important}
 .srow{display:flex;align-items:center;gap:10px;text-align:left;padding:10px;border-radius:12px;border:0;background:rgba(255,255,255,.04);color:inherit;font:inherit;cursor:pointer}
 .srow:hover,.srow:focus{background:rgba(255,255,255,.1)}.srow>span:last-child{display:flex;flex-direction:column;min-width:0}.srow small{opacity:.65;font-size:12px}
 .srty{flex:none;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:3px 7px;border-radius:99px;background:rgba(124,140,255,.18);color:#C3CAFF;min-width:58px;text-align:center}
+/* 5.9 Ruhiger und klarer */
+.row .btn.o,.wcard .btn.o{background:transparent!important;color:#F0CC87!important;box-shadow:inset 0 0 0 1.5px rgba(240,204,135,.55)!important;text-shadow:none}
+.row .btn.g,.wcard .btn.g{background:rgba(255,255,255,.06)!important;color:inherit!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)!important}
+.fdj .row:first-of-type .btn.o{background:var(--au-go)!important;color:#fff!important;box-shadow:none!important}
+.fdj{border:1px solid rgba(240,204,135,.35)}
+.badge.dot{min-width:10px!important;width:10px;height:10px;padding:0!important;font-size:0!important;border-radius:50%}
+.tip2{display:flex;align-items:center;gap:8px;padding:8px 10px 8px 12px;margin:0 0 10px;border-radius:12px;background:rgba(124,140,255,.12);border:1px solid rgba(124,140,255,.25);font-size:13px;line-height:1.35}
+.tip2 .i{width:16px;height:16px;flex:none;opacity:.8}.tip2 span{flex:1}
+.tip2 button{flex:none;border:0;background:none;color:inherit;opacity:.6;font-size:14px;width:32px;height:32px;border-radius:8px;cursor:pointer}
+details.fold2{padding:0}details.fold2>summary{list-style:none;display:flex;align-items:center;gap:8px;padding:14px 16px;cursor:pointer}
+details.fold2>summary::-webkit-details-marker{display:none}details.fold2>summary b{flex:1}
+details.fold2>summary::after{content:'';width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);opacity:.6;margin:-4px 4px 0}
+details.fold2[open]>summary::after{transform:rotate(-135deg);margin-top:4px}
+details.fold2>.row{padding-left:16px;padding-right:16px}details.fold2.lockd .row{opacity:.72}
+.cfold>h2.h:first-child{cursor:pointer;display:flex;align-items:center;margin-bottom:0}
+.cfold>h2.h:first-child::after{content:'';margin-left:auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-135deg);opacity:.55}
+.cfold.shut>h2.h:first-child::after{transform:rotate(45deg);margin-top:-4px}
+.cfold:not(.shut)>h2.h:first-child{margin-bottom:10px}.cfold.shut>:not(h2:first-child){display:none!important}
+.avtabs button{border-radius:12px}

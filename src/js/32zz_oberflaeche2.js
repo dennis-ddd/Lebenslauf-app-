@@ -20,7 +20,7 @@ const inboxN=()=>feed().length;
 /* Startseite */
 function favApps(){const U=p.appUse||{},ex=['stadt','inbox','einst','store','jva'];let L=Object.keys(U).filter(id=>visA(id)&&!ex.includes(id)).sort((a,b)=>U[b]-U[a]).slice(0,4);
   ['chats','jobs','bank','freizeit','leben','bildung','familie'].forEach(id=>{if(L.length<4&&visA(id)&&!L.includes(id))L.push(id)});return L}
-function uiAppBtn(id){const A=APP[id],lock=p.prison&&!PRISON_APPS.includes(id),b=badgeOf(id);return '<button class="app" data-a="goto" data-g="'+id+'"'+(lock?' disabled':'')+'>'+uiIc(id).replace('</span>',(b&&!lock?'<span class="badge">'+b+'</span>':'')+'</span>')+A[1]+'</button>'}
+function uiAppBtn(id){const A=APP[id],lock=p.prison&&!PRISON_APPS.includes(id),b=badgeOf(id);return '<button class="app" data-a="goto" data-g="'+id+'"'+(lock?' disabled':'')+'>'+uiIc(id).replace('</span>',(b&&!lock?badgeTxt(id,b):'')+'</span>')+A[1]+'</button>'}
 function viewHome2(){
   const ring=k=>'<div class="rw"><div class="ring" style="--v:'+p.st[k]+'"><b>'+p.st[k]+'</b></div><small>'+STAT[k]+'</small></div>';
   const F=feed(),last=p.log.filter(e=>!e.t.startsWith('Jahresbilanz')).slice(-1)[0];
@@ -31,7 +31,7 @@ function viewHome2(){
   if(p.prison)h+='<p class="pnote">Du sitzt noch '+p.prison+' Jahr(e) im Gefängnis. Einige Apps sind gesperrt.</p>';
   const fav=favApps();if(fav.length)h+='<div class="hsec">Favoriten</div><div class="apps fav">'+fav.map(uiAppBtn).join('')+'</div>';
   h+='<div class="hsec">Alle Apps</div><div class="folds">'+FOLD.map(([fid,n,c,ids])=>{const L=ids.filter(visA);if(!L.length)return '';const b=L.reduce((s,id)=>{const x=badgeOf(id);return s+(typeof x==='number'?x:x?1:0)},0);
-    return '<button class="fold" data-a="hfold" data-g="'+fid+'" aria-label="Ordner '+n+'"><span class="fic">'+L.slice(0,4).map(id=>uiIc(id,'mini')).join('')+(b?'<span class="badge">'+b+'</span>':'')+'</span><b>'+n+'</b><small>'+L.length+' App'+(L.length>1?'s':'')+'</small></button>'}).join('')+'</div>';
+    return '<button class="fold" data-a="hfold" data-g="'+fid+'" aria-label="Ordner '+n+'"><span class="fic">'+L.slice(0,4).map(id=>uiIc(id,'mini')).join('')+(b?'<span class="badge dot"></span>':'')+'</span><b>'+n+'</b><small>'+L.length+' App'+(L.length>1?'s':'')+'</small></button>'}).join('')+'</div>';
   if(homeF){const f=FOLD.find(x=>x[0]===homeF);if(f){const L=f[3].filter(visA);h+='<div class="fsheet" role="dialog" aria-label="Ordner '+f[1]+'"><div class="fsh"><b>'+f[1]+'</b><button class="xbtn" data-a="hfold" data-g="" aria-label="Ordner schließen">×</button></div><div class="apps">'+L.map(uiAppBtn).join('')+'</div></div>'}}
   return h+'</section>'}
 {const _vh=viewHome;viewHome=function(){if(!uiNew()||(typeof kidMode==='function'&&kidMode()))return _vh();return viewHome2()}}

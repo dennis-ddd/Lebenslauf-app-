@@ -18,7 +18,7 @@ function viewKid(m){
     '<div class="rings">'+Object.keys(STAT).map(k=>'<div class="rw"><div class="ring" style="--v:'+p.st[k]+'"><b>'+p.st[k]+'</b></div><small>'+STAT[k]+'</small></div>').join('')+'</div>'+
     (last?'<button class="news" data-a="goto" data-g="leben"><small>Neuigkeit · Alter '+last.a+'</small>'+esc(last.t)+'</button>':'')+
     '<div class="kwgrid">'+T.map(([img,n,id])=>{const b=id==='spar'?0:badgeOf(id);return '<button class="kwi" data-a="goto" data-g="'+id+'">'+kimg(img)+'<span>'+n+'</span>'+(b?'<i class="kwb">'+b+'</i>':'')+'</button>'}).join('')+'</div>'+
-    (more.length?'<div class="kwmore"><small>Mehr</small><div>'+more.map(([id,n,c,ic,bg])=>{const b=badgeOf(id);return '<button class="kwm" data-a="goto" data-g="'+id+'" aria-label="'+esc(n)+'"><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b?'<span class="badge">'+b+'</span>':'')+'</span><em>'+n+'</em></button>'}).join('')+'</div></div>':'')+
+    (more.length?'<div class="kwmore"><small>Mehr</small><div>'+more.map(([id,n,c,ic,bg])=>{const b=badgeOf(id);return '<button class="kwm" data-a="goto" data-g="'+id+'" aria-label="'+esc(n)+'"><span class="ic" style="background:'+(bg||hex(c))+'"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg>'+(b?badgeTxt(id,b):'')+'</span><em>'+n+'</em></button>'}).join('')+'</div></div>':'')+
     '</section>';
 }
 {const _vh=viewHome;viewHome=function(){ensSpar();const m=kidMode();return m?viewKid(m):_vh()}}

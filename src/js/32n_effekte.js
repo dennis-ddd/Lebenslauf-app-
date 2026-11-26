@@ -58,7 +58,7 @@ function confetti(){if(lessMotion())return;const cols=['#F2994A','#E8467C','#7B4
     const x=(Math.random()-.5)*160,rot=Math.random()*720;c.animate([{transform:'translate(0,-20px) rotate(0)',opacity:1},{transform:'translate('+x+'px,'+(innerHeight*.9)+'px) rotate('+rot+'deg)',opacity:.2}],{duration:1600+Math.random()*1200,delay:Math.random()*300,easing:'cubic-bezier(.2,.6,.4,1)'}).onfinish=()=>c.remove()}}
 function yearFlash(a){if(lessMotion())return;const o=document.createElement('div');o.className='fxyear';o.innerHTML='<b>'+a+'</b><span>'+(a===18?'Volljährig!':a%10===0?'Ein runder Geburtstag!':'Happy Birthday, '+esc(p.first)+'!')+'</span>';document.body.appendChild(o);
   o.animate([{opacity:0,transform:'scale(.9)'},{opacity:1,transform:'scale(1)',offset:.2},{opacity:1,offset:.7},{opacity:0,transform:'scale(1.04)'}],{duration:1300,easing:'ease-out'}).onfinish=()=>o.remove()}
-{const _au=ageUp;ageUp=function(){const a0=p&&p.age;const r=_au.apply(this,arguments);if(p&&p.alive&&p.age>a0){yearFlash(p.age);setTimeout(confetti,150)}return r}}
+{const _au=ageUp;ageUp=function(){const a0=p&&p.age;const r=_au.apply(this,arguments);if(p&&p.alive&&p.age>a0){yearFlash(p.age);if([18,50,100].includes(p.age)||(p.ms||[]).some(m=>m.a===p.age&&m.k==='big'))setTimeout(confetti,150)}return r}}
 function postFx(){if(!p||!p.alive)return;
   // Geld: Münzen und Hochzählen
   const mb=document.querySelector('#hd .m b');if(FX.money!=null&&mb&&p.money!==FX.money){if(p.money-FX.money>=50)coinBurst(Math.min(10,3+Math.floor(Math.log10(p.money-FX.money))));countUp(mb,FX.money,p.money)}FX.money=p.money;
