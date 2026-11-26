@@ -30,7 +30,7 @@ const SCNRX=[['gericht',/gericht|anzeige|polizei|anwalt|klage|erbe|testament|pfl
  ['haus',/nachbar|treppen|paket|party nebenan|grill|hausordnung|beschwerde/i],['schule',/schule|prüfung|lehrer|klasse|zeugnis|uni|studium|abschluss/i],['liebe',/liebe|date|heirat|hochzeit|partner|kuss|verliebt|antrag|affäre/i],
  ['buero',/job|chef|büro|kolleg|firma|beförder|kündig|gehalt|vorstand|bewerb/i],['geld',/geld|bank|aktie|börse|wirtschaft|steuer|miete|nebenkosten|investi|lotto|erbe|kredit|prognose/i],
  ['reise',/reise|urlaub|flug|triebwerk|auswander|ausland/i],['heim',/familie|kind|baby|mama|papa|eltern|geburtstag|oma|opa|geschwister|bruder|schwester/i]];
-const sceneOf=e=>{const s=(e.t||'')+' '+(typeof e.x==='function'?'':e.x||'');const m=SCNRX.find(x=>x[1].test(s));return m?m[0]:'stadt'};
+const sceneOf=e=>{try{const cs=typeof catScene==='function'?catScene(e):null;if(cs&&SCENES[cs])return cs}catch(_){}const s=(e.t||'')+' '+(typeof e.x==='function'?'':e.x||'');const m=SCNRX.find(x=>x[1].test(s));return m?m[0]:'stadt'};
 function optMeta(l){const ic=/⚖/.test(l)?'scale':/★/.test(l)?'star':/€/.test(l)?'coin':/helf|hilf|unterstütz|tröst|verzeih|kuchen|danke|umarm|für sie|für ihn|da sein/i.test(l)?'heart':/std|min\.|warten|später|ein andermal/i.test(l)?'clock':/riskier|ausbruch|flucht|hart|wagen|wette|klauen|bestech/i.test(l)?'bolt':'arrow';
   const hint=/⚖|★/.test(l)?'Dein Wissen hilft':/€/.test(l)?'Kostet Geld':ic==='heart'?'Gut für Beziehungen':ic==='bolt'?'Riskant':/ignorier|keine zeit|abwimmel|weitererzähl|polizei rufen|kontern|belächel|absagen/i.test(l)?'Kann jemanden kränken':'';
   return [ic,hint]}

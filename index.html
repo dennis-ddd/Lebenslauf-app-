@@ -1132,6 +1132,47 @@ details.fold2>.row{padding-left:16px;padding-right:16px}details.fold2.lockd .row
 .lls i{position:relative;width:14px;height:14px;border-radius:50%;background:#F0CC87;box-shadow:0 0 0 3px rgba(240,204,135,.25)}
 .lls.now i{background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.25)}
 .lls b{font-size:12px;margin-top:6px}.lls small{font-size:10.5px;line-height:1.2;opacity:.75;padding:0 3px;hyphens:auto;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* 6.3 Handy-Zeitalter */
+.pstat .pyear{font-variant-numeric:tabular-nums;opacity:.85}
+.lls em{font-style:normal;font-size:9.5px;opacity:.55;margin-top:1px}
+/* Tastenhandy: grünes LCD, Pixelkanten, Druckschrift */
+:root[data-theme=aurora][data-era=retro]{--bg:#0F380F;--card:#1E4A1E;--ink:#C4E36A;--muted:#8BAC0F;--line:#3E6E2E;--glass:#1E4A1E;--glass2:#2A5A26;--gline:#8BAC0F;--blue:#8BAC0F;--blueText:#C4E36A;--soft:#2A5A26;--orange:#9BBC0F;--coral:#9BBC0F;--good:#C4E36A;--bad:#E3F09B;--inkbg:#0F380F;
+ --au-go:#9BBC0F;--au-tq:#8BAC0F}
+:root[data-theme=aurora][data-era=retro] body{background:#0F380F repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)!important;color:#C4E36A;font-family:"Courier New",ui-monospace,monospace}
+:root[data-theme=aurora][data-era=retro] h1,:root[data-theme=aurora][data-era=retro] h2,:root[data-theme=aurora][data-era=retro] .h,:root[data-theme=aurora][data-era=retro] b{font-family:"Courier New",ui-monospace,monospace;letter-spacing:.02em}
+:root[data-theme=aurora][data-era=retro] h2,:root[data-theme=aurora][data-era=retro] .h{text-transform:uppercase}
+:root[data-theme=aurora][data-era=retro] .card,:root[data-theme=aurora][data-era=retro] .cont,:root[data-theme=aurora][data-era=retro] .homecard,:root[data-theme=aurora][data-era=retro] .dlg,:root[data-theme=aurora][data-era=retro] .phone{background:#1E4A1E!important;border:2px solid #8BAC0F!important;border-radius:4px!important;box-shadow:4px 4px 0 #0A260A!important;backdrop-filter:none!important}
+:root[data-theme=aurora][data-era=retro] .btn,:root[data-theme=aurora][data-era=retro] .btn.o,:root[data-theme=aurora][data-era=retro] .big,:root[data-theme=aurora][data-era=retro] .seg button[aria-pressed=true],:root[data-theme=aurora][data-era=retro] .tbup #up{background:#9BBC0F!important;color:#0F380F!important;border-radius:3px!important;box-shadow:2px 2px 0 #0A260A!important;text-shadow:none;font-family:"Courier New",ui-monospace,monospace}
+:root[data-theme=aurora][data-era=retro] .tbup #up{border-radius:8px!important}
+:root[data-theme=aurora][data-era=retro] .row .btn.o,:root[data-theme=aurora][data-era=retro] .row .btn.g{background:#0F380F!important;color:#C4E36A!important;box-shadow:inset 0 0 0 2px #8BAC0F!important}
+:root[data-theme=aurora][data-era=retro] body.tb .age.tbar,:root[data-theme=aurora][data-era=retro] .age.tbar{background:#0A260A!important;border-top:2px solid #8BAC0F}
+:root[data-theme=aurora][data-era=retro] .tbb{color:#8BAC0F}:root[data-theme=aurora][data-era=retro] .tbb[aria-current="page"]{color:#E3F09B}
+:root[data-theme=aurora][data-era=retro] .badge{background:#E3F09B!important;color:#0F380F!important;border-radius:2px!important}
+:root[data-theme=aurora][data-era=retro] .bar i,:root[data-theme=aurora][data-era=retro] .ring{filter:grayscale(1) sepia(1) hue-rotate(40deg) saturate(2.2)}
+:root[data-theme=aurora][data-era=retro] .av2,:root[data-theme=aurora][data-era=retro] .scene svg,:root[data-theme=aurora][data-era=retro] .ic,:root[data-theme=aurora][data-era=retro] .kpi{filter:grayscale(1) sepia(1) hue-rotate(40deg) saturate(2.4) contrast(1.15)}
+:root[data-theme=aurora][data-era=retro] .chip{background:#0F380F;border:1px solid #8BAC0F;color:#C4E36A;border-radius:2px}
+/* Zukunft: Glas, Licht, schwebende Flächen */
+:root[data-theme=aurora][data-era=glass]{--bg:#081221;--card:rgba(255,255,255,.07);--ink:#F2FAFF;--muted:#B9D4E6;--line:rgba(190,235,255,.22);--glass:rgba(255,255,255,.07);--glass2:rgba(255,255,255,.12);--gline:rgba(190,235,255,.3);
+ --au-go:linear-gradient(120deg,#7FE7FF 0%,#B49CFF 60%,#FF9EDB 100%);--au-tq:linear-gradient(120deg,#7FE7FF,#6E8BFF)}
+:root[data-theme=aurora][data-era=glass] body{background:radial-gradient(90% 60% at 10% 0%,rgba(127,231,255,.35),transparent 60%),radial-gradient(80% 50% at 100% 40%,rgba(180,156,255,.32),transparent 60%),radial-gradient(90% 60% at 30% 100%,rgba(255,158,219,.22),transparent 60%),#081221!important}
+:root[data-theme=aurora][data-era=glass] .card,:root[data-theme=aurora][data-era=glass] .cont,:root[data-theme=aurora][data-era=glass] .homecard,:root[data-theme=aurora][data-era=glass] .dlg{background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04))!important;border:1px solid rgba(190,235,255,.35)!important;border-radius:24px!important;backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);box-shadow:0 20px 50px -20px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.35)!important}
+:root[data-theme=aurora][data-era=glass] .phone{background:rgba(255,255,255,.05)!important;border:1px solid rgba(190,235,255,.45)!important;border-radius:34px!important;box-shadow:0 0 40px rgba(127,231,255,.25),inset 0 0 30px rgba(255,255,255,.06)!important;backdrop-filter:blur(14px)}
+:root[data-theme=aurora][data-era=glass] h2,:root[data-theme=aurora][data-era=glass] .h{font-weight:500;letter-spacing:.04em}
+:root[data-theme=aurora][data-era=glass] .btn.o,:root[data-theme=aurora][data-era=glass] .big,:root[data-theme=aurora][data-era=glass] .tbup #up{color:#081221!important;box-shadow:0 0 24px rgba(127,231,255,.45)!important}
+:root[data-theme=aurora][data-era=glass] body.tb .age.tbar,:root[data-theme=aurora][data-era=glass] .age.tbar{background:rgba(8,18,33,.55)!important;border-top:1px solid rgba(190,235,255,.3);backdrop-filter:blur(20px)}
+:root[data-theme=aurora][data-era=glass] .tbb[aria-current="page"]{color:#7FE7FF}
+:root[data-theme=aurora][data-era=glass] .ic{box-shadow:0 0 18px rgba(127,231,255,.25)}
+:root[data-theme=aurora][data-era=glass] body{background:radial-gradient(70% 45% at 15% 5%,rgba(127,231,255,.55),transparent 65%),radial-gradient(60% 45% at 95% 35%,rgba(180,156,255,.5),transparent 65%),radial-gradient(70% 50% at 20% 95%,rgba(255,158,219,.38),transparent 65%),linear-gradient(180deg,#0B2236,#120E2E)!important}
+:root[data-theme=aurora][data-era=glass] .ic{background:linear-gradient(160deg,rgba(255,255,255,.34),rgba(255,255,255,.06))!important;border:1px solid rgba(255,255,255,.45);backdrop-filter:blur(10px)}
+:root[data-theme=aurora][data-era=glass] .ic .i,:root[data-theme=aurora][data-era=glass] .ic svg{stroke:#fff;filter:drop-shadow(0 0 6px rgba(127,231,255,.8))}
+:root[data-theme=aurora][data-era=glass] .ring b{background:rgba(8,18,33,.55)!important;backdrop-filter:blur(6px)}
+/* 6.3 Schmetterlingskarte */
+.bfsvg{width:100%;height:auto;display:block;margin-top:8px}
+.bfl{display:flex;gap:12px;font-size:11.5px;margin-top:6px}.bfl span{display:flex;align-items:center;gap:5px}.bfl span::before{content:'';width:10px;height:10px;border-radius:3px;background:var(--c)}
+.bfc.lock{opacity:.8}
+/* 6.3 Die Stadt erinnert sich */
+.dkc .dkh{font-size:14px;margin:14px 0 4px;opacity:.85}.dkk{opacity:.6;font-size:16px}
+.pinm.lm .plb{background:rgba(240,204,135,.9);color:#1B1240}
 </style>
 </head>
 <body>
@@ -3359,6 +3400,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+{v:'6.3',big:true,t:'Die Welt verändert sich mit dir',neu:['Eigene Szenen pro Kategorie: Familie im Wohnzimmer, Politik im Rathaus, Jugend auf dem Schulhof, Freunde im Park und mehr','Das Handy altert mit: Tastenhandy mit Pixeloptik, später Smartphone, in der Zukunft eine gläserne Oberfläche, mit Jahreszahl oben (einstellbar unter Einstellungen → Aussehen)','Die Schmetterlingskarte: Ab 25 siehst du unter Leben → Lebenslauf, wie deine Entscheidungen zusammenhängen','Die Stadt erinnert sich: Plätze, Straßen und Bänke tragen die Namen deiner Vorfahren, dazu der Friedhof am Lindenhain']},
  {v:'6.2',big:false,t:'Lebendigere Chats',neu:['Nachrichten passen jetzt zu deinem Leben: Deine Eltern fragen nach dem neuen Job, nach deinem Partner, den Enkeln oder dem Haustier, Freunde gratulieren zu großen Momenten','Je nach Jahreszeit fragen sie nach Weihnachten, Silvester oder dem Sommerurlaub','Viele neue Nachrichten von Mama, Papa und Freunden'],mod:['Dieselbe Nachricht kommt nicht mehr Jahr für Jahr wieder','Die Antwortmöglichkeiten wechseln jetzt bei jeder Nachricht','Geburtstagsdank klingt bei Eltern, Partner und Freunden unterschiedlich','Fehler behoben: Beim Übernahmeangebot stand „[object Object]“ statt des Firmennamens']},
  {v:'6.1',big:true,t:'Jede Phase zählt',neu:['Jugend mit zehn neuen Entscheidungen: Ausgehzeit, peinliches Foto im Klassenchat, Schülersprecherwahl, Praktikum, Schulband, Liebeskummer, sturmfreie Bude, Mobbing auf dem Schulhof, Roller und die Frage nach der Zukunft','Lebensträume: Wähle unter Leben > Ziele bis zu drei Träume. Erfüllte Träume feierst du sofort und siehst sie im Lebensfilm','Deine Lebenslinie auf der Startseite zeigt die wichtigsten Stationen deines Lebens auf einen Blick','Wer als Jugendliche/r mutig war, bekommt Jahre später Dank; Schülersprecher/innen starten in der Politik mit Rückenwind']},
  {v:'6.0',big:true,t:'Die Geschichte geht weiter',neu:['Deine Freunde schreiben dir im Chat, jede/r in eigenem Ton. Deine Antworten verändern die Freundschaft','Neue Generation: Du erbst das Elternhaus, die besten Freunde deiner Eltern werden Onkel und Tante, und du bekommst ein Erbstück','Was deine Eltern getan haben, kommt zurück: Leute erkennen deinen Namen, erzählen Geschichten über deine Mutter oder deinen Vater','Unter Familie > Eltern erinnerst du dich an deinen verstorbenen Elternteil','Der Lebensfilm zeigt jetzt auch deine Menschen, deine Tiere und dein Amt','Bei wichtigen Entscheidungen steht jetzt „Das wird man sich merken“'],mod:['Ein verstorbener Elternteil schreibt dir nicht mehr im Chat']},
@@ -4537,7 +4579,7 @@ const SCNRX=[['gericht',/gericht|anzeige|polizei|anwalt|klage|erbe|testament|pfl
  ['haus',/nachbar|treppen|paket|party nebenan|grill|hausordnung|beschwerde/i],['schule',/schule|prüfung|lehrer|klasse|zeugnis|uni|studium|abschluss/i],['liebe',/liebe|date|heirat|hochzeit|partner|kuss|verliebt|antrag|affäre/i],
  ['buero',/job|chef|büro|kolleg|firma|beförder|kündig|gehalt|vorstand|bewerb/i],['geld',/geld|bank|aktie|börse|wirtschaft|steuer|miete|nebenkosten|investi|lotto|erbe|kredit|prognose/i],
  ['reise',/reise|urlaub|flug|triebwerk|auswander|ausland/i],['heim',/familie|kind|baby|mama|papa|eltern|geburtstag|oma|opa|geschwister|bruder|schwester/i]];
-const sceneOf=e=>{const s=(e.t||'')+' '+(typeof e.x==='function'?'':e.x||'');const m=SCNRX.find(x=>x[1].test(s));return m?m[0]:'stadt'};
+const sceneOf=e=>{try{const cs=typeof catScene==='function'?catScene(e):null;if(cs&&SCENES[cs])return cs}catch(_){}const s=(e.t||'')+' '+(typeof e.x==='function'?'':e.x||'');const m=SCNRX.find(x=>x[1].test(s));return m?m[0]:'stadt'};
 function optMeta(l){const ic=/⚖/.test(l)?'scale':/★/.test(l)?'star':/€/.test(l)?'coin':/helf|hilf|unterstütz|tröst|verzeih|kuchen|danke|umarm|für sie|für ihn|da sein/i.test(l)?'heart':/std|min\.|warten|später|ein andermal/i.test(l)?'clock':/riskier|ausbruch|flucht|hart|wagen|wette|klauen|bestech/i.test(l)?'bolt':'arrow';
   const hint=/⚖|★/.test(l)?'Dein Wissen hilft':/€/.test(l)?'Kostet Geld':ic==='heart'?'Gut für Beziehungen':ic==='bolt'?'Riskant':/ignorier|keine zeit|abwimmel|weitererzähl|polizei rufen|kontern|belächel|absagen/i.test(l)?'Kann jemanden kränken':'';
   return [ic,hint]}
@@ -6738,7 +6780,7 @@ function dreamCard(){if(p.age<12)return '';const D=drS();const got=Object.keys(D
 /* ---------- Lebenslinie: dein Leben auf einen Blick ---------- */
 function lifeLine(){if(!p||p.age<2)return '';const M=(p.ms||[]).filter(m=>m.k==='big'||m.k==='star').slice(-7);if(M.length<2)return '';
   const st=[{a:0,t:'Geburt'}].concat(M).concat([{a:p.age,t:'Heute',now:1}]);
-  return '<section class="card llc"><div class="listseg"><b>Deine Lebenslinie</b><button class="lnk" data-a="llopen">Lebenslauf</button></div><div class="ll" role="list">'+st.map(s=>'<div class="lls'+(s.now?' now':'')+'" role="listitem"><i></i><b>'+s.a+'</b><small>'+esc(s.t)+'</small></div>').join('')+'</div></section>'}
+  return '<section class="card llc"><div class="listseg"><b>Deine Lebenslinie</b><button class="lnk" data-a="llopen">Lebenslauf</button></div><div class="ll" role="list">'+st.map(s=>'<div class="lls'+(s.now?' now':'')+'" role="listitem"><i></i><b>'+s.a+'</b><em>'+(calEns(),p.cy0+s.a)+'</em><small>'+esc(s.t)+'</small></div>').join('')+'</div></section>'}
 {const f=act;act=function(id,arg){if(id==='llopen'){lTab='lauf';act('goto','leben');return}return f(id,arg)}}
 {const _vh=viewHome;viewHome=function(){let h=_vh();try{const L=lifeLine();if(!L)return h;const i=h.indexOf('<div class="today">');if(i>=0)return h.slice(0,i)+L.replace('<section class="card llc">','<div class="llc in">').replace(/<\/section>$/,'</div>')+h.slice(i);const j=h.indexOf('<section');return j>=0?h.slice(0,j)+L+h.slice(j):h+L}catch(e){errLog(e,'lebenslinie');return h}}}
 {const _rn=render;render=function(){const r=_rn.apply(this,arguments);try{if(!noDom())document.querySelectorAll('.ll').forEach(l=>{l.scrollLeft=l.scrollWidth})}catch(e){errLog(e,'ll')}return r}}
@@ -6810,6 +6852,143 @@ INVITES.mama.push(['Ich koche am Sonntag Rouladen. Kommst du?','essen'],['Famili
 INVITES.papa.push(['Kannst du mir helfen, das neue Regal aufzubauen?','hilfe'],['Hilfst du mir im Garten? Die Hecke wächst uns über den Kopf.','hilfe'],['Grillen am Wochenende? Ich hab neue Würstchen.','essen']);
 INVITES.partner.push(['Lass uns heute spontan ins Kino gehen!','dinner'],['Ich hab einen Tisch im neuen Italiener reserviert.','dinner']);
 [['Rouladen','invite'],['Familienessen','invite'],['Dachboden','order'],['Regal','order'],['Hecke','order'],['Würstchen','invite'],['spontan ins Kino','invite'],['Italiener','invite'],['Gestern war übrigens mein Geburtstag','sorry'],['Kein Anruf an meinem Geburtstag','sorry'],['aufs Telefon geschaut','sorry'],['Mein Geburtstag ist vorbei','sorry'],['Ohne dich','sorry'],['mit dir.','sorry'],['Inkasso','care'],['wo ist die Zeit hin','wish'],['Happy Birthday','wish'],['Geburtstag nur das Beste','wish'],['Herzlichen Glückwunsch zum','wish'],['wird ','wish']].forEach(x=>RPMAP.push(x));
+/* ================= Schmetterlingskarte: Wie deine Entscheidungen zusammenhängen ================= */
+/* Auch ältere Spätfolgen schreiben jetzt auf, woher sie kommen */
+const LATERLBL={zeuge:'Als Zeug/in ausgesagt',schweige:'Schweigegeld genommen',startup:'In ein Start-up investiert',kollege:'Kollegen ausgestochen',alibi:'Einen Freund gedeckt',boerse2:'Gefundene Börse behalten',boerse:'Gefundene Börse zurückgegeben',
+  plagiat:'Abgeschrieben',liebe:'Eine Liebe auf Distanz',fit:'Sport oder Party gewählt',nachbar:'Dem Nachbarn geholfen',kumpel:'Geld geliehen und vergessen',fkzurueck:'Einem Freund Geld geliehen',pol_skandal:'Den Umschlag angenommen'};
+Object.keys(LATER).forEach(k=>{const L=LATER[k];if(!L||typeof L.f!=='function'||L._lb)return;const f=L.f;L.f=function(d){const e=f.apply(this,arguments);if(e&&!e.back&&LATERLBL[k])return Object.assign({},e,{back:'Damals: '+LATERLBL[k]});return e};L._lb=1});
+const TBACK={'Ein bekanntes Gesicht':'Aus deiner Schulzeit','Klassentreffen':'Deine alte Klasse'};
+{const _se=showEvent0;showEvent0=function(e){if(e&&e.o&&!e.back&&TBACK[e.t])e=Object.assign({},e,{back:TBACK[e.t]});return _se(e)}}
+/* Ketten bauen: Entscheidung → was daraus wurde → was danach kam */
+const bfOpen=()=>!!p&&(p.skfl||[]).length>0&&p.age>=25;
+function bfChains(){const F=(p.skfl||[]).slice(-6),M=(p.ms||[]).filter(m=>(m.k==='big'||m.k==='star')&&!/Erste Schritte|Zeitraffer/.test(m.t));
+  return F.map(f=>{const dec=String(f.back||'').replace(/^(Mit \d+: |Damals: |Damals )/,'');const am=(String(f.back||'').match(/^Mit (\d+):/)||[])[1];const next=M.find(m=>m.a>=f.a&&m.a<=f.a+6&&m.t!==f.t);
+    return {dec:dec||'Eine Entscheidung',da:am!=null?+am:null,res:f.t,ra:f.a,nx:next?next.t:null,na:next?next.a:null}})}
+const bfWrap=(t,n)=>{const w=String(t).split(' '),L=[];let c='';w.forEach(x=>{if((c+' '+x).trim().length>n){if(c)L.push(c);c=x}else c=(c+' '+x).trim()});if(c)L.push(c);return L.slice(0,3)};
+function bfSvg(){const C=bfChains();if(!C.length)return '';const rh=92,W=340,H=C.length*rh+70;let s='<svg class="bfsvg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Schmetterlingskarte deiner Entscheidungen"><defs><marker id="bfa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F0CC87"/></marker></defs>';
+  const box=(x,y,w,t,sub,col)=>{const L=bfWrap(t,15);return '<g><rect x="'+x+'" y="'+y+'" width="'+w+'" height="66" rx="12" fill="'+col+'" fill-opacity=".18" stroke="'+col+'" stroke-opacity=".7"/>'+(sub?'<text x="'+(x+10)+'" y="'+(y+15)+'" font-size="9.5" fill="'+col+'" font-weight="700">'+esc(sub)+'</text>':'')+L.map((l,i)=>'<text x="'+(x+10)+'" y="'+(y+(sub?31:24)+i*13)+'" font-size="11" fill="#F6F2FF">'+esc(l)+'</text>').join('')+'</g>'};
+  C.forEach((c,i)=>{const y=10+i*rh;s+=box(4,y,104,c.dec,c.da!=null?'Mit '+c.da:'Damals','#B49CFF')+'<path d="M110 '+(y+33)+'H120" stroke="#F0CC87" stroke-width="2" marker-end="url(#bfa)"/>'+box(122,y,104,c.res,'Mit '+c.ra,'#F0CC87');
+    if(c.nx)s+='<path d="M228 '+(y+33)+'H238" stroke="#F0CC87" stroke-width="2" marker-end="url(#bfa)"/>'+box(240,y,96,c.nx,'Mit '+c.na,'#7BE3AE');
+    if(i<C.length-1)s+='<path d="M170 '+(y+68)+'v'+(rh-70)+'" stroke="rgba(255,255,255,.18)" stroke-dasharray="3 4"/>'});
+  const y=10+C.length*rh;const now=p.pension?'Im Ruhestand':p.job?p.job.t:(p.school?'In der Schule':'Auf der Suche');
+  s+='<path d="M170 '+(y-24)+'v14" stroke="#F0CC87" stroke-width="2" marker-end="url(#bfa)"/><rect x="95" y="'+(y-8)+'" width="150" height="44" rx="22" fill="#F0CC87"/><text x="170" y="'+(y+10)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#1B1240">Heute, mit '+p.age+'</text><text x="170" y="'+(y+25)+'" text-anchor="middle" font-size="10.5" fill="#1B1240">'+esc(now)+'</text></svg>';
+  return s}
+function bfCard(){if(!p)return '';if(!bfOpen()){const n=(p.skfl||[]).length;return '<section class="card bfc lock"><div class="listseg"><b>Warum bin ich heute hier?</b><span class="chip">Gesperrt</span></div><p class="note">Die Schmetterlingskarte öffnet sich, sobald '+(n?'du 25 bist':'die erste Entscheidung von früher zu dir zurückkommt')+'.</p></section>'}
+  if(!p.bfSeen){p.bfSeen=1;try{toast('Neu: Die Schmetterlingskarte zeigt, wie dein Leben zusammenhängt.')}catch(e){errLog(e)}}
+  return '<section class="card bfc"><h2 class="h">Warum bin ich heute hier?</h2><p class="note">Deine Schmetterlingskarte: Entscheidungen, was daraus wurde, und was danach kam.</p><div class="bfl"><span style="--c:#B49CFF">Entscheidung</span><span style="--c:#F0CC87">Folge</span><span style="--c:#7BE3AE">Danach</span></div>'+bfSvg()+'</section>'}
+{const _vl=viewLeben;viewLeben=function(){const h=_vl();if(lTab!=='lauf')return h;try{const i=h.indexOf('<section');const c=bfCard();return i>=0?h.slice(0,i)+c+h.slice(i):h+c}catch(e){errLog(e,'karte');return h}}}
+/* Freischaltung ankündigen */
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{if(p&&bfOpen()&&!p.bfAnn){p.bfAnn=1;mile('Schmetterlingskarte freigeschaltet','star');log('Unter Leben > Lebenslauf siehst du jetzt, wie deine Entscheidungen zusammenhängen.')}}catch(e){errLog(e,'bf')}}}
+/* ================= Die Stadt erinnert sich: Orte tragen die Namen deiner Familie ================= */
+function denkFor(P){const nm=P.first+' '+P.last,yr=(P.cy0!=null?P.cy0:null),R=[],msT=t=>(P.ms||[]).some(m=>t.test(m.t));
+  const add=(n,kind,why)=>{if(R.length<2&&!R.some(x=>x.n===n))R.push({n,kind,who:nm,why,y:yr!=null?yr+P.age:null,gen:P.gen||1})};
+  if(P.pol&&P.pol.lvl>=6)add(nm+'-Allee','Allee','Bundeskanzler'+(P.g==='w'?'in':''));
+  if(P.pol&&P.pol.lvl>=2)add(nm+'-Platz','Platz',(P.g==='w'?'Bürgermeisterin':'Bürgermeister')+' dieser Stadt');
+  if(P.biz&&(P.biz.firm||(P.biz.fronts||[]).length>=2))add(nm+'-Straße','Straße','Gründer'+(P.g==='w'?'in':'')+' von '+((P.biz.firm&&P.biz.firm.name)||(P.biz.co&&P.biz.co.name)||'einer Firma'));
+  if(P.job&&P.job.id==='profi'||msT(/Profivertrag/))add(nm+'-Arena','Arena','Sportidol der Stadt');
+  if(msT(/Lebensretter/)||(P.ruf||0)>=70)add(P.first+'-Brunnen','Brunnen','Ein Vorbild für alle');
+  if((P.sm&&P.sm.fol>=1e5)||(P.ach&&P.ach.star))add(nm+'-Bühne','Bühne','Star aus dieser Stadt');
+  const hero=(P.ms||[]).find(m=>/ rettet die Familie/.test(m.t));if(hero)add(hero.t.split(' rettet')[0]+'-Hundewiese','Hundewiese','Der Hund, der eine Familie rettete');
+  if(P.age>=95)add(P.first+'s Bank im Stadtpark','Bank','Wurde '+P.age+' Jahre alt');
+  return R}
+/* Beim Tod: Orte benennen, Grab auf dem Friedhof */
+{const _die=die;die=function(c){try{if(p&&!p.sb&&p.alive){p.denkNew=denkFor(p);p.denk=(p.denk||[]).concat(p.denkNew);calEns();p.ahnen=(p.ahnen||[]).concat([{n:p.first+' '+p.last,y0:p.cy0,y1:p.cy0+p.age,a:p.age,gen:p.gen||1}]);
+  if(p.denkNew.length){try{news('Die Stadt ehrt '+p.first+' '+p.last+': '+p.denkNew.map(d=>d.n).join(' und '),'lokal')}catch(e){errLog(e)}}}}catch(e){errLog(e,'denk')}
+  const r=_die.apply(this,arguments);try{if(ALB&&ALB.lives[0]&&p.denkNew&&p.denkNew.length){ALB.lives[0].denk=p.denkNew.map(d=>d.n);albSave()}}catch(e){errLog(e,'denk')}return r}}
+{const _ca=continueAs;continueAs=function(i){const prev=p;const r=_ca.apply(this,arguments);try{if(p!==prev){p.denk=(prev.denk||[]).slice();p.ahnen=(prev.ahnen||[]).slice();p.denkSeen={};(prev.denkNew||[]).forEach(d=>log('Die Stadt hat den „'+d.n+'“ nach '+d.who+' benannt.'))}}catch(e){errLog(e,'denk')}return r}}
+/* Nachfahren begegnen den Namen ihrer Familie */
+QEV.denk_walk=n=>{const d=(p.denk||[]).find(x=>x.n===n);if(!d)return null;const rel=d.gen===(p.gen||1)-1?((d.who.split(' ')[0])+', '+(p.deadParent==='mama'?'deine Mutter':'dein Vater')):d.gen<(p.gen||1)-1?d.who+', '+(d.gen===(p.gen||1)-2?'deine Großmutter oder dein Großvater':'eine/r deiner Vorfahren'):d.who;
+  return EC('Stadt','Ein vertrauter Name',(d.kind==='Bank'?'Im Stadtpark setzt du dich auf eine Bank. Ein kleines Schild: „'+d.n+'“.':'Ein Schild fällt dir ins Auge: „'+d.n+'“.')+' Darunter steht: „'+d.why+'“. Gemeint ist '+rel+'.',[
+    ['Kurz stehen bleiben',()=>{add('gl',4);return 'Du bist stolz. Und ein bisschen traurig. Und vor allem stolz.'}],
+    ['Den anderen davon erzählen',()=>{addRuf(1);add('gl',2);return 'Die Leute hören dir zu. „Ach, aus der Familie bist du!“'}]],'Erinnerung an '+d.who)};
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{if(!p||p.prison||p.age<8)return;p.denkSeen=p.denkSeen||{};const D=(p.denk||[]).filter(d=>!p.denkSeen[d.n]&&d.who!==p.first+' '+p.last);if(D.length&&ch(.3)){const d=pick(D);p.denkSeen[d.n]=p.age;p.q.push({id:'denk_walk',d:d.n})}
+  if(p.pol&&p.pol.lvl>=2&&p.age>=60&&!p.ehrenb){p.ehrenb=1;mile('Ehrenbürger'+(p.g==='w'?'in':'')+' der Stadt','big');news(p.first+' '+p.last+' wird Ehrenbürger'+(p.g==='w'?'in':''),'lokal')}}catch(e){errLog(e,'denk')}}}
+/* Stadt-App: Gedenkorte und Friedhof */
+function denkCard(){const D=p.denk||[],A=p.ahnen||[];if(!D.length&&!A.length)return '';
+  return '<section class="card dkc"><h2 class="h">Die Stadt erinnert sich</h2>'+(D.length?D.map(d=>row(esc(d.n),esc(d.why)+(d.y?' · seit '+d.y:''),'<span class="chip">'+esc(d.kind)+'</span>')).join(''):'<p class="note">Noch trägt kein Ort den Namen deiner Familie.</p>')+
+    (A.length?'<h3 class="dkh">Friedhof am Lindenhain</h3>'+A.slice().reverse().map(a=>row(esc(a.n),(a.y0!=null?a.y0+' – '+a.y1+' · ':'')+a.a+' Jahre · Generation '+a.gen,'<span class="dkk" aria-hidden="true">✝</span>')).join(''):'')+'</section>'}
+{const _vs=viewStadt;viewStadt=function(){let h=_vs();try{if(p&&!p.prison){const c=denkCard();if(c)h+=c}}catch(e){errLog(e,'denk')}return h}}
+/* Gedenkorte als Schilder in der 3D-Stadt */
+{const _pb=pinsBuild;pinsBuild=function(){try{if(typeof G!=='undefined'&&G&&G.L&&p){const D=(p.denk||[]).slice(-4);G.L.cells.forEach(c=>{if(c.dk){c.lm=null;c.dk=0}});
+  const free=G.L.cells.filter(c=>!c.place&&!c.lm&&(c.zone==='G'||c.zone==='C'||c.zone==='R'));D.forEach((d,i)=>{const pool=free.filter(c=>!c.dk);if(!pool.length)return;const c=pool[hsh(d.n)%pool.length];c.lm=d.n;c.dk=1})}}catch(e){errLog(e,'denkpin')}return _pb.apply(this,arguments)}}
+/* ================= Eigene Szenen pro Ereigniskategorie ================= */
+const TREE=(x,y,s,c)=>'<rect x="'+(x-2*s)+'" y="'+(y-6*s)+'" width="'+(4*s)+'" height="'+(10*s)+'" fill="#6B4A2E"/><circle cx="'+x+'" cy="'+(y-12*s)+'" r="'+(9*s)+'" fill="'+(c||'#3E8E5A')+'"/><circle cx="'+(x-6*s)+'" cy="'+(y-8*s)+'" r="'+(6*s)+'" fill="'+(c||'#3E8E5A')+'"/><circle cx="'+(x+6*s)+'" cy="'+(y-8*s)+'" r="'+(6*s)+'" fill="'+(c||'#3E8E5A')+'"/>';
+Object.assign(SCENES,{
+ wohnzimmer:SCN(['#3A2140','#7A3B4E'],'<rect y="96" width="360" height="34" fill="#5A3A2A"/><rect y="94" width="360" height="4" fill="#3E2619"/>'+
+  '<rect x="34" y="20" width="70" height="52" rx="3" fill="#24163F"/><rect x="38" y="24" width="62" height="44" fill="#2E2257"/><circle cx="86" cy="36" r="6" fill="#FFF3D6"/><circle cx="89" cy="34" r="5" fill="#2E2257"/><path d="M69 24v44M38 46h62" stroke="#24163F" stroke-width="3"/>'+
+  '<rect x="150" y="26" width="26" height="20" rx="2" fill="#F2C46B"/><rect x="153" y="29" width="20" height="14" fill="#E07A5F"/><rect x="186" y="22" width="20" height="26" rx="2" fill="#F2C46B"/><rect x="189" y="25" width="14" height="20" fill="#7FB3D5"/><rect x="216" y="30" width="22" height="16" rx="2" fill="#F2C46B"/><rect x="219" y="33" width="16" height="10" fill="#8BC48A"/>'+
+  '<rect x="128" y="64" width="128" height="34" rx="12" fill="#B84A62"/><rect x="120" y="58" width="22" height="40" rx="10" fill="#9E3B52"/><rect x="242" y="58" width="22" height="40" rx="10" fill="#9E3B52"/><rect x="136" y="56" width="112" height="20" rx="9" fill="#C85A72"/><rect x="146" y="60" width="24" height="16" rx="5" fill="#F2C46B"/><rect x="214" y="60" width="24" height="16" rx="5" fill="#7FB3D5"/>'+
+  '<rect x="292" y="40" width="4" height="56" fill="#C9A86A"/><path d="M280 40h28l-6-18h-16z" fill="#FFD08A"/><ellipse cx="294" cy="96" rx="12" ry="3" fill="#3E2619"/><circle cx="294" cy="50" r="40" fill="#FFD08A" opacity=".08"/>'+
+  '<rect x="318" y="76" width="18" height="20" rx="3" fill="#C26A3E"/><path d="M327 76c-10-10-14-20-6-26M327 76c8-12 14-18 6-28M327 76c0-12 2-22 0-30" stroke="#4E9A5E" stroke-width="4" fill="none" stroke-linecap="round"/>'+
+  '<ellipse cx="190" cy="114" rx="90" ry="9" fill="#7A3B4E" opacity=".7"/>'),
+ rathaus:SCN(['#3F7CC4','#BFE3F5'],'<rect y="112" width="360" height="18" fill="#B8B2A6"/>'+TREE(40,112,1.4)+TREE(320,112,1.4)+
+  '<rect x="90" y="54" width="180" height="58" fill="#EDE3CF"/><path d="M82 56L180 34l98 22z" fill="#C9B48C"/><rect x="82" y="54" width="196" height="5" fill="#B49A6E"/>'+
+  [104,132,160,188,216,244].map(x=>'<rect x="'+x+'" y="62" width="10" height="46" fill="#F7F0E2"/>').join('')+
+  '<rect x="160" y="8" width="40" height="46" fill="#EDE3CF"/><path d="M156 10l24-14 24 14z" fill="#C9B48C"/><circle cx="180" cy="28" r="10" fill="#fff" stroke="#8C7550" stroke-width="2"/><path d="M180 22v6l4 3" stroke="#333" stroke-width="1.6" fill="none"/>'+
+  '<rect x="179" y="-10" width="2" height="12" fill="#666"/><path d="M181 -9h14l-4 4 4 4h-14z" fill="#E8467C"/>'+
+  '<rect x="170" y="86" width="20" height="26" rx="2" fill="#8C5A3C"/><rect x="74" y="108" width="212" height="5" fill="#D8CCB0"/><rect x="66" y="112" width="228" height="4" fill="#C9BC9C"/>'),
+ schulhof:SCN(['#4C9BE0','#C7E9FA'],'<rect y="100" width="360" height="30" fill="#9AA3AE"/>'+
+  '<rect x="150" y="30" width="200" height="70" fill="#E07A5F"/><path d="M140 32l110-22 110 22z" fill="#B65A43"/>'+WIN(160,42,20,4).replace(/#5B4C8A/g,'#C9E4F2').replace(/#FFD08A/g,'#EAF4FA')+'<rect x="238" y="74" width="24" height="26" fill="#6B4A2E"/>'+
+  '<rect x="38" y="40" width="4" height="62" fill="#555"/><rect x="26" y="36" width="30" height="20" fill="#fff" stroke="#888"/><rect x="34" y="52" width="16" height="3" fill="#E8467C"/><path d="M36 55l4 10h6l4-10" stroke="#ddd" fill="none"/>'+
+  '<circle cx="86" cy="110" r="6" fill="#F2994A"/><path d="M80 110h12M86 104v12" stroke="#B5651D" stroke-width="1"/>'+
+  [[100,112],[118,112],[136,112],[109,121],[127,121]].map(([x,y])=>'<rect x="'+x+'" y="'+y+'" width="16" height="8" fill="none" stroke="#fff" stroke-width="1.4" opacity=".85"/>').join('')+
+  '<text x="113" y="119" font-size="6" fill="#fff" opacity=".85">1</text><text x="131" y="119" font-size="6" fill="#fff" opacity=".85">2</text>'+TREE(20,100,1.2)+
+  '<rect x="60" y="88" width="40" height="4" rx="1" fill="#8C5A3C"/><rect x="64" y="92" width="3" height="8" fill="#6B4A2E"/><rect x="93" y="92" width="3" height="8" fill="#6B4A2E"/>'),
+ kinderzimmer:SCN(['#F7D6E0','#C9E4F2'],'<rect y="100" width="360" height="30" fill="#E9C9A8"/>'+
+  '<rect x="250" y="16" width="72" height="54" rx="4" fill="#fff"/><rect x="254" y="20" width="64" height="46" fill="#2E2257"/><circle cx="300" cy="34" r="7" fill="#FFF3D6"/><circle cx="303" cy="32" r="6" fill="#2E2257"/>'+[[266,30],[280,48],[306,54],[272,58]].map(([x,y])=>'<circle cx="'+x+'" cy="'+y+'" r="1.4" fill="#FFF3D6"/>').join('')+
+  '<path d="M60 0v24M40 24h40" stroke="#B89AD8" stroke-width="2"/><path d="M40 24v10M80 24v8M60 24v14" stroke="#B89AD8" stroke-width="1.5"/><path d="M40 34l3 6h-6z" fill="#FFD166"/><circle cx="80" cy="35" r="3.5" fill="#7FB3D5"/><path d="M60 38l3.5 3-1.3 4.3h-4.4L56.5 41z" fill="#F28FB1"/>'+
+  '<rect x="30" y="72" width="110" height="30" rx="6" fill="#7FB3D5"/><rect x="24" y="60" width="12" height="42" rx="4" fill="#5A93BF"/><rect x="34" y="66" width="30" height="12" rx="5" fill="#fff"/><rect x="62" y="68" width="76" height="14" rx="4" fill="#F28FB1"/>'+
+  '<rect x="180" y="88" width="16" height="16" fill="#E8467C"/><rect x="198" y="88" width="16" height="16" fill="#13B3A6"/><rect x="189" y="72" width="16" height="16" fill="#FFD166"/><text x="184" y="100" font-size="10" fill="#fff" font-weight="700">A</text><text x="202" y="100" font-size="10" fill="#fff" font-weight="700">B</text>'+
+  '<circle cx="236" cy="96" r="10" fill="#C98B5A"/><circle cx="229" cy="86" r="5" fill="#C98B5A"/><circle cx="243" cy="86" r="5" fill="#C98B5A"/><circle cx="236" cy="82" r="8" fill="#D9A06C"/><circle cx="233" cy="81" r="1.2" fill="#333"/><circle cx="239" cy="81" r="1.2" fill="#333"/>'),
+ park:SCN(['#F29A6B','#FBD38A'],'<circle cx="290" cy="58" r="22" fill="#FFE7A8" opacity=".9"/><rect y="98" width="360" height="32" fill="#5E9C4E"/><path d="M0 98c60-10 120-10 180 0s120 10 180 0v6H0z" fill="#6DAE5A"/>'+
+  TREE(40,100,1.6)+TREE(330,100,1.3,'#4C9A52')+TREE(250,100,1,'#58A85F')+
+  '<rect x="110" y="104" width="90" height="14" rx="2" fill="#E8467C" opacity=".85"/><path d="M110 108h90M110 113h90M128 104v14M146 104v14M164 104v14M182 104v14" stroke="#fff" stroke-width="1" opacity=".6"/>'+
+  '<rect x="128" y="96" width="14" height="10" rx="2" fill="#C98B5A"/><rect x="128" y="94" width="14" height="3" fill="#8C5A3C"/><circle cx="172" cy="102" r="4" fill="#E04F4F"/><circle cx="182" cy="101" r="4" fill="#F2C46B"/>'+
+  '<rect x="76" y="62" width="3" height="38" fill="#3A3A3A"/><circle cx="77.5" cy="60" r="5" fill="#FFE7A8"/>'),
+ garten:SCN(['#58B4E8','#D8F0FA'],'<circle cx="60" cy="30" r="16" fill="#FFE27A"/><rect y="96" width="360" height="34" fill="#6DAE5A"/>'+
+  [0,24,48,72,96,120,144,168,192,216,240,264,288,312,336].map(x=>'<rect x="'+x+'" y="74" width="16" height="26" fill="#F4EAD8"/><path d="M'+x+' 74l8-8 8 8z" fill="#F4EAD8"/>').join('')+'<rect y="82" width="360" height="4" fill="#E6D8BE"/>'+
+  '<path d="M216 100v-26l20-16 20 16v26z" fill="#C0563E"/><path d="M212 76l24-20 24 20" stroke="#8C3B2A" stroke-width="5" fill="none"/><path d="M228 100v-12a8 8 0 0 1 16 0v12z" fill="#3A2419"/>'+
+  '<circle cx="140" cy="108" r="7" fill="#E8467C"/><path d="M133 108h14" stroke="#fff" stroke-width="2"/>'+
+  '<rect x="292" y="104" width="22" height="6" rx="3" fill="#F4EAD8"/><circle cx="292" cy="104" r="3.5" fill="#F4EAD8"/><circle cx="292" cy="110" r="3.5" fill="#F4EAD8"/><circle cx="314" cy="104" r="3.5" fill="#F4EAD8"/><circle cx="314" cy="110" r="3.5" fill="#F4EAD8"/>'+
+  [[40,104],[60,110],[80,104],[100,112]].map(([x,y],i)=>'<circle cx="'+x+'" cy="'+y+'" r="3.5" fill="'+['#F28FB1','#FFD166','#B89AD8','#F28FB1'][i]+'"/><rect x="'+(x-.7)+'" y="'+(y+3)+'" width="1.4" height="8" fill="#3E8E5A"/>').join('')),
+ berg:SCN(['#2B2A6B','#F2994A'],'<circle cx="180" cy="96" r="30" fill="#FFD08A"/><path d="M0 130L70 60l40 34 70-70 80 76 40-30 60 60z" fill="#3A2C5E"/><path d="M180 24l-22 22 10-2 12 8 10-10 12 6z" fill="#EDE6FA"/><path d="M0 130L90 92l60 18 70-24 80 30 60-8v22z" fill="#2A1F47"/>'+
+  '<path d="M150 130c10-14 30-20 40-30s30-14 38-26" stroke="#F4EAD8" stroke-width="2" stroke-dasharray="4 4" fill="none" opacity=".8"/><path d="M228 72v-14l10 4-10 4" fill="#E8467C"/><rect x="227" y="58" width="1.5" height="16" fill="#F4EAD8"/>'),
+ erinnerung:SCN(['#5A4632','#B8946A'],'<path d="M0 26c90 14 270 14 360 0" stroke="#3E2F20" stroke-width="1.5" fill="none"/>'+
+  [[40,30,-6],[110,36,4],[180,38,-3],[250,36,5],[320,30,-4]].map(([x,y,r],i)=>'<g transform="rotate('+r+' '+x+' '+y+')"><rect x="'+(x-26)+'" y="'+y+'" width="52" height="60" fill="#F7EFE0"/><rect x="'+(x-22)+'" y="'+(y+4)+'" width="44" height="40" fill="'+['#C9A878','#B88E6A','#D2B48C','#A88866','#C4A27A'][i]+'"/><circle cx="'+(x-6)+'" cy="'+(y+20)+'" r="6" fill="#8C6A4A" opacity=".7"/><circle cx="'+(x+8)+'" cy="'+(y+22)+'" r="5" fill="#8C6A4A" opacity=".7"/><rect x="'+(x-3)+'" y="'+(y-4)+'" width="6" height="8" fill="#C9A86A"/></g>').join('')+
+  '<rect y="112" width="360" height="18" fill="#3E2F20" opacity=".5"/>'),
+ bank:SCN(['#E07A5F','#F2C46B'],'<circle cx="80" cy="64" r="20" fill="#FFE7A8" opacity=".85"/><rect y="100" width="360" height="30" fill="#8C9A5A"/>'+TREE(250,100,2.2,'#D9822B')+
+  [[200,60],[230,40],[280,52],[300,74],[214,84]].map(([x,y])=>'<ellipse cx="'+x+'" cy="'+y+'" rx="4" ry="2.5" fill="#E8A23A" transform="rotate(30 '+x+' '+y+')"/>').join('')+
+  '<rect x="120" y="86" width="80" height="6" rx="2" fill="#7A4E2E"/><rect x="120" y="76" width="80" height="5" rx="2" fill="#7A4E2E"/><rect x="126" y="92" width="4" height="12" fill="#3A3A3A"/><rect x="190" y="92" width="4" height="12" fill="#3A3A3A"/><rect x="150" y="70" width="20" height="4" rx="1" fill="#C9A86A"/>'+
+  [[140,112],[170,116],[300,114],[40,110]].map(([x,y])=>'<ellipse cx="'+x+'" cy="'+y+'" rx="4" ry="2.5" fill="#D9822B"/>').join('')),
+ markt:SCN(['#4C9BE0','#C7E9FA'],'<rect y="104" width="360" height="26" fill="#C9BC9C"/>'+
+  [[0,40,60,'#E07A5F'],[60,30,50,'#F2C46B'],[110,46,44,'#7FB3D5'],[250,36,54,'#8BC48A'],[304,44,56,'#E07A5F']].map(([x,y,w,c])=>'<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+(104-y)+'" fill="'+c+'"/><path d="M'+x+' '+y+'l'+(w/2)+' -14l'+(w/2)+' 14z" fill="#8C3B2A"/>'+WIN(x+6,y+10,Math.floor((w-6)/9),3).replace(/#5B4C8A/g,'#fff').replace(/#FFD08A/g,'#E8F4FA')).join('')+
+  '<ellipse cx="190" cy="106" rx="40" ry="8" fill="#9AA3AE"/><rect x="186" y="70" width="8" height="34" fill="#B8B2A6"/><ellipse cx="190" cy="72" rx="18" ry="4" fill="#B8B2A6"/><path d="M190 66c-6 6-10 10-14 6M190 66c6 6 10 10 14 6" stroke="#7FD4F2" stroke-width="2" fill="none"/>'+
+  '<rect x="154" y="84" width="20" height="20" fill="#fff"/><path d="M150 86h28l-4-8h-20z" fill="#E8467C"/><rect x="208" y="84" width="20" height="20" fill="#fff"/><path d="M204 86h28l-4-8h-20z" fill="#13B3A6"/>')});
+/* Kategorie bestimmt die Szene; bei Lebensphasen zuerst die Stichworte, dann die Phase */
+const CATSC={'Familie':'wohnzimmer','Politik':'rathaus','Jugend':'schulhof','Kindheit':'kinderzimmer','Babyzeit':'kinderzimmer','Freunde':'park','Haustier':'garten','Unternehmen':'buero','Karriere':'buero','Liebe':'liebe','Gesundheit':'klinik','Im Alter':'bank','Späte Jahre':'bank','Wendepunkt':'berg','Spätfolge':'erinnerung','Nachbarschaft':'haus','Immobilien':'haus','Stadt':'markt'};
+const PHASECAT={'Babyzeit':1,'Kindheit':1,'Junge Jahre':1,'Lebensmitte':1,'Späte Jahre':1};
+function catScene(e){const c=e&&e.cat;if(!c)return null;if(PHASECAT[c]){const s=(e.t||'')+' '+(typeof e.x==='function'?'':e.x||'');const m=SCNRX.find(x=>x[1].test(s));if(m)return m[0]}return CATSC[c]||null}
+/* ================= Handy-Zeitalter: Die App altert mit, vom Tastenhandy bis zur Glas-Oberfläche ================= */
+/* Kalender: Die erste Generation kommt um 1990 zur Welt, jede weitere so viel später, wie die Eltern alt waren */
+function calEns(){if(!p)return;if(p.cy0==null)p.cy0=1990+Math.max(0,(p.gen||1)-1)*30}
+const yearNow=()=>{calEns();return p.cy0+p.age};
+const ERAS={retro:['Tastenhandy','bis 2008'],smart:['Smartphone','2009 bis 2047'],glass:['Zukunft','ab 2048']};
+function eraOf(){if(!p)return 'smart';if(O.era&&ERAS[O.era])return O.era;const y=yearNow();return y<2009?'retro':y>=2048?'glass':'smart'}
+{const _nl=newLife;newLife=function(){const r=_nl.apply(this,arguments);try{if(p){p.cy0=1990+R(0,3);p.eraSeen=eraOf()}}catch(e){errLog(e,'cal')}return r}}
+{const _ca=continueAs;continueAs=function(i){const prev=p,k=prev&&prev.kids&&prev.kids[i];let y0=null;try{if(prev){const c0=prev.cy0!=null?prev.cy0:1990+Math.max(0,(prev.gen||1)-1)*30;y0=c0+(k?k.b:30)}}catch(e){errLog(e,'cal')}
+  const r=_ca.apply(this,arguments);try{if(p!==prev&&y0!=null){p.cy0=y0;p.eraSeen=eraOf()}}catch(e){errLog(e,'cal')}return r}}
+/* Übergänge als Ereignis */
+QEV.era_smart=()=>EC('Stadt','Dein erstes Smartphone','Es ist '+yearNow()+'. Alle reden nur noch vom Touchscreen. Heute hältst du dein erstes Smartphone in der Hand: Apps, Farben, Wischen statt Tippen.',[['Ausprobieren',()=>{add('gl',3);return 'Du wischst stundenlang durch die neuen Apps. Die Tasten vermisst du keine Sekunde. Fast.'}]]);
+QEV.era_glass=()=>EC('Stadt','Die Zukunft ist da','Es ist '+yearNow()+'. Dein neues Handy ist eine hauchdünne Glasscheibe. Die Bilder schweben, die Apps leuchten wie Licht.',[['Staunen',()=>{add('gl',3);return 'Du zeigst es '+(p.kids&&p.kids.length?'deinen Kindern':'allen')+'. Sie finden es völlig normal.'}]]);
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{if(!p||O.era)return;const e=eraOf();if(p.eraSeen&&e!==p.eraSeen){p.q.push({id:e==='glass'?'era_glass':'era_smart'});mile(e==='glass'?'Die Glas-Handys kommen':'Das erste Smartphone','star')}p.eraSeen=e}catch(x){errLog(x,'era')}}}
+/* Design und Jahreszahl anwenden */
+function eraApply(){if(noDom())return;const r=document.documentElement;const e=p&&p.alive?eraOf():(O.era||'smart');if(r.dataset.era!==e)r.dataset.era=e;
+  if(!p||!p.alive)return;const y=yearNow();document.querySelectorAll('.pstat').forEach(s=>{let x=s.querySelector('.pyear');if(!x){x=document.createElement('span');x.className='pyear';s.insertBefore(x,s.children[1]||null)}x.textContent=y})}
+{const _rn=render;render=function(){const r=_rn.apply(this,arguments);try{eraApply()}catch(e){errLog(e,'era')}return r}}
+/* Einstellung unter Aussehen */
+{const f=act;act=function(id,arg){if(id==='era'){O.era=arg||null;saveO();render();return}return f(id,arg)}}
+{const _ve=viewEinst;viewEinst=function(){const h=_ve();if(typeof einTab==='undefined'||einTab!=='look')return h;const cur=O.era||'';
+  return h+'<section class="card"><h2 class="h">Handy-Zeitalter</h2><p class="note">Automatisch altert das Handy mit der Zeit: Tastenhandy bis 2008, dann Smartphone, ab 2048 die Glas-Oberfläche'+(p&&p.alive?'. Bei dir ist gerade '+yearNow()+'.':'.')+'</p><div class="seg full">'+[['','Automatisch'],['retro','Tasten'],['smart','Smartphone'],['glass','Zukunft']].map(([k,l])=>'<button data-a="era" data-g="'+k+'" aria-pressed="'+(cur===k)+'">'+l+'</button>').join('')+'</div></section>'}}
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],

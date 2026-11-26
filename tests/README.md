@@ -32,3 +32,4 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `node tests/verbindung.js`: Freunde im Chat, Lebensfilm mit Freunden, Tieren und Amt, Generationswechsel mit Elternhaus, Onkel/Tante, Erbstück und Erinnerungen der Eltern.
 - `node tests/jugend_traeume.js`: zehn Jugend-Entscheidungen (Häufigkeit und alle Antworten), Lebensträume, Lebenslinie und die späte Folge der Zivilcourage.
 - `node tests/chats_vielfalt.js`: Chat-Nachrichten passen zur Lebenslage und wiederholen sich nicht, Antworten wechseln, kein „[object Object]“ im Übernahmeangebot.
+- `node tests/welt_zeit.js`: Szenen je Kategorie, Handy-Zeitalter mit Jahreszahl, Schmetterlingskarte (erst später freigeschaltet), Denkmäler und Friedhof in der Stadt.

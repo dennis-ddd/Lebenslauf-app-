@@ -72,7 +72,7 @@ function dreamCard(){if(p.age<12)return '';const D=drS();const got=Object.keys(D
 /* ---------- Lebenslinie: dein Leben auf einen Blick ---------- */
 function lifeLine(){if(!p||p.age<2)return '';const M=(p.ms||[]).filter(m=>m.k==='big'||m.k==='star').slice(-7);if(M.length<2)return '';
   const st=[{a:0,t:'Geburt'}].concat(M).concat([{a:p.age,t:'Heute',now:1}]);
-  return '<section class="card llc"><div class="listseg"><b>Deine Lebenslinie</b><button class="lnk" data-a="llopen">Lebenslauf</button></div><div class="ll" role="list">'+st.map(s=>'<div class="lls'+(s.now?' now':'')+'" role="listitem"><i></i><b>'+s.a+'</b><small>'+esc(s.t)+'</small></div>').join('')+'</div></section>'}
+  return '<section class="card llc"><div class="listseg"><b>Deine Lebenslinie</b><button class="lnk" data-a="llopen">Lebenslauf</button></div><div class="ll" role="list">'+st.map(s=>'<div class="lls'+(s.now?' now':'')+'" role="listitem"><i></i><b>'+s.a+'</b><em>'+(calEns(),p.cy0+s.a)+'</em><small>'+esc(s.t)+'</small></div>').join('')+'</div></section>'}
 {const f=act;act=function(id,arg){if(id==='llopen'){lTab='lauf';act('goto','leben');return}return f(id,arg)}}
 {const _vh=viewHome;viewHome=function(){let h=_vh();try{const L=lifeLine();if(!L)return h;const i=h.indexOf('<div class="today">');if(i>=0)return h.slice(0,i)+L.replace('<section class="card llc">','<div class="llc in">').replace(/<\/section>$/,'</div>')+h.slice(i);const j=h.indexOf('<section');return j>=0?h.slice(0,j)+L+h.slice(j):h+L}catch(e){errLog(e,'lebenslinie');return h}}}
 {const _rn=render;render=function(){const r=_rn.apply(this,arguments);try{if(!noDom())document.querySelectorAll('.ll').forEach(l=>{l.scrollLeft=l.scrollWidth})}catch(e){errLog(e,'ll')}return r}}
