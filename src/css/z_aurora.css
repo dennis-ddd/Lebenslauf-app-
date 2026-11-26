@@ -433,3 +433,5 @@ details.fold2>.row{padding-left:16px;padding-right:16px}details.fold2.lockd .row
 .cfold.shut>h2.h:first-child::after{transform:rotate(45deg);margin-top:-4px}
 .cfold:not(.shut)>h2.h:first-child{margin-bottom:10px}.cfold.shut>:not(h2:first-child){display:none!important}
 .avtabs button{border-radius:12px}
+/* 6.0 */
+.evcat small.memo{font-style:normal;color:#F0CC87;opacity:.9}.evcat small.memo::before{content:'↺ '}

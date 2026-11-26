@@ -4,7 +4,8 @@ function skMerk(k,d){p.skm=p.skm||[];p.skm.push({k,a:p.age,d:d||null});if(p.skm.
 const skMem=(k,minAgo)=>(p.skm||[]).filter(m=>m.k===k&&p.age-m.a>=(minAgo||0));
 const histOf=(t,re,minAgo)=>(p.ehist||[]).find(h=>h.t===t&&(!re||re.test(h.o))&&p.age-h.a>=(minAgo||0));
 {const _se=showEvent0;showEvent0=function(e){if(!e||!e.o)return _se(e);const e2=Object.assign({},e,{o:e.o.map(([l,f])=>[l,()=>{try{p.ehist=p.ehist||[];p.ehist.push({t:e.t,o:l,a:p.age});if(e.back){p.skfl=p.skfl||[];p.skfl.push({t:e.t,back:e.back,a:p.age});if(p.skfl.length>12)p.skfl.shift()}if(p.ehist.length>300)p.ehist.shift()}catch(x){errLog(x)}return f()}])});
-  const r=_se(e2);try{if(e.cat||e.back){const d=document.getElementById('dlg'),h=d&&d.querySelector('h2');if(h&&!d.querySelector('.evcat'))h.insertAdjacentHTML('beforebegin','<div class="evcat">'+(e.cat?'<span>'+e.cat+'</span>':'')+(e.back?'<small>'+esc(e.back)+'</small>':'')+'</div>')}}catch(x){errLog(x)}return r}}
+  const r=_se(e2);try{if(e.cat||e.back){const d=document.getElementById('dlg'),h=d&&d.querySelector('h2');if(h&&!d.querySelector('.evcat'))h.insertAdjacentHTML('beforebegin','<div class="evcat">'+(e.cat?'<span>'+e.cat+'</span>':'')+(e.back?'<small>'+esc(e.back)+'</small>':(MEMO[e.t]?'<small class="memo">Das wird man sich merken</small>':''))+'</div>')}}catch(x){errLog(x)}return r}}
+const MEMO={'Ein Geldbeutel!':1,'Abschreiben?':1,'Der Rivale braucht Hilfe':1,'Ein Traum vom eigenen Laden':1,'Dein Kind will ausziehen':1,'Bitte um Geld':1,'Versuchung':1,'Mieter in Not':1,'Nichts geht mehr':1,'Ein großzügiges Angebot':1,'Ein Warnschuss':1,'Die Mutprobe':1,'Das kaputte Fenster':1};
 const EC=(cat,t,x,o,back)=>{const e=E(t,x,()=>true,o);e.cat=cat;if(back)e.back=back;return e};
 const kidAge=k=>p.age-k.b;
 const liveKids=()=>(p.kids||[]).filter(k=>k.alive!==false);

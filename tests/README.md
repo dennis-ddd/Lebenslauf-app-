@@ -29,3 +29,4 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `node tests/politik.js`: Politik-Karriere mit Programm, Vorlagen im Amt, Wahlkampf mit TV-Duell, Lobby und Skandal, Koalition und Kanzleramt.
 - `node tests/einstieg_suche.js`: Erste Schritte im ersten Leben, Zeitraffer der Babyjahre und die Suche (Treffer und Navigation).
 - `node tests/fehlerprotokoll.js`: zehn ganze Leben inklusive Generationswechsel; im Fehlerprotokoll darf kein Spielfehler stehen, und kein Ereignis darf öfter als 3,5-mal pro Leben vorkommen.
+- `node tests/verbindung.js`: Freunde im Chat, Lebensfilm mit Freunden, Tieren und Amt, Generationswechsel mit Elternhaus, Onkel/Tante, Erbstück und Erinnerungen der Eltern.
