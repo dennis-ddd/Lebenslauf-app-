@@ -11,7 +11,7 @@ for(let i=0;i<10;i++){T.newLife('Kim','Test','w',0,false);T.applyCfg({act:6,cloc
 // Erste Schritte
 T.O.firstDone=0;T.newLife('Kim','Test','w',14,false);T.applyCfg({act:6,clock:false,ev:'aus',big:false,wealth:'normal'});ok('Erste Schritte sichtbar',T.viewHome().includes('Erste Schritte'));
 el('modal').classList.remove('on');T.ageUp();T.act('goto','freizeit');T.act('goto','home');T.p.act=6;T.act('lernen');T.p.ehist=[{t:'x',o:'y',a:15}];T.p.chats.mama=T.p.chats.mama||{msgs:[]};T.p.chats.mama.msgs.push({t:'Hi',me:true,a:15});T.fsCheck();
-ok('alle Schritte',!!T.O.firstDone);ok('verschwindet',!T.viewHome().includes('Erste Schritte'));
+ok('alle Schritte',!!T.O.firstDone);ok('verschwindet',!T.viewHome().includes('fsc'));
 // Suche
 T.newLife('Kim','Test','m',30,false);T.applyCfg({act:6,clock:false,ev:'aus',big:false,wealth:'normal'});T.p.pets=[{t:'hund',n:'Bello',age:3}];T.p.apps=Object.assign(T.p.apps||{},{wege:1});
 const I=T.srchIndex();ok('Index groß',I.length>30);ok('ohne Fehler',I.every(r=>r.t&&!/undefined/.test(r.t+r.sub)));
