@@ -65,8 +65,8 @@ function initThree(){
     bindPointers(r.domElement);G.ro=new ResizeObserver(sizeThree);return true}catch(e){G=null;return false}
 }
 /* Qualität geändert: Renderer neu anlegen */
-function cityReinit(){if(!G)return;G.run=false;try{G.ro.disconnect();cityDispose();G.r.dispose();G.r.forceContextLoss&&G.r.forceContextLoss();G.r.domElement.remove()}catch(e){}G=null;if(p&&tab==='stadt')render()}
-function cityDispose(){G.pickGeo=G.pickMat=null;(G.disp||[]).forEach(o=>{try{o.dispose()}catch(e){}});G.disp=[];if(G.scene)G.scene.clear&&G.scene.clear()}
+function cityReinit(){if(!G)return;G.run=false;try{G.ro.disconnect();cityDispose();G.r.dispose();G.r.forceContextLoss&&G.r.forceContextLoss();G.r.domElement.remove()}catch(e){errLog(e)}G=null;if(p&&tab==='stadt')render()}
+function cityDispose(){G.pickGeo=G.pickMat=null;(G.disp||[]).forEach(o=>{try{o.dispose()}catch(e){errLog(e)}});G.disp=[];if(G.scene)G.scene.clear&&G.scene.clear()}
 function mat(col){const k='c'+col;return G.mats[k]||(G.mats[k]=keep(new THREE.MeshLambertMaterial({color:col})))}
 function winMat(col){return mat(col)}
 function keep(o){G.disp.push(o);return o}
@@ -226,7 +226,7 @@ function loop(t){
   if(!G||!G.run)return;requestAnimationFrame(loop);
   if(G.q.fps<60&&G.lf&&t-G.lf<30)return;const dt=Math.min(.06,(t-(G.lt||t))/1000);G.lt=t;G.lf=t;const half=G.L.ext/2,o=_m4.o||(_m4.o=new THREE.Object3D());
   // Leistung beobachten: bei Ruckeln automatisch eine Stufe herunter
-  if(!O.gfx||O.gfx==='auto'){const f=G.fps;if(f.n<270){f.n++;if(f.n>30)f.t+=dt;if(f.n===270&&f.t/240>(G.qn==='high'?.024:.034)&&G.qn!=='low'){O.gfxA=G.qn==='high'?'mid':'low';try{saveO&&saveO()}catch(e){}setTimeout(cityReinit,0);return}}}
+  if(!O.gfx||O.gfx==='auto'){const f=G.fps;if(f.n<270){f.n++;if(f.n>30)f.t+=dt;if(f.n===270&&f.t/240>(G.qn==='high'?.024:.034)&&G.qn!=='low'){O.gfxA=G.qn==='high'?'mid':'low';try{saveO&&saveO()}catch(e){errLog(e)}setTimeout(cityReinit,0);return}}}
   G.cars.forEach((u,i)=>{u.pos+=u.dir*u.sp*dt;if(u.pos>half)u.pos=-half;if(u.pos<-half)u.pos=half;const x=u.ax?u.line:u.pos,z=u.ax?u.pos:u.line,ry=u.ax?(u.dir>0?-Math.PI/2:Math.PI/2):(u.dir>0?0:Math.PI);
     o.rotation.set(0,ry,0);o.scale.set(1,1,1);o.position.set(x,0,z);o.updateMatrix();G.carB.setMatrixAt(i,o.matrix);o.position.y=1.15;o.translateX(-.15);o.updateMatrix();G.carC.setMatrixAt(i,o.matrix);
     const on=G.nk>.35;o.position.set(x,.6,z);o.translateX(1.17);o.scale.set(on?.08:0,on?.18:0,on?.25:0);o.translateZ(-.35);o.updateMatrix();G.carL.setMatrixAt(i*2,o.matrix);o.translateZ(.7);o.updateMatrix();G.carL.setMatrixAt(i*2+1,o.matrix)});

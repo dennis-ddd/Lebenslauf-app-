@@ -78,7 +78,7 @@ function creators(sm){if(sm.creY!==p.age){sm.creY=p.age;sm.cre=shuffle(CRN.slice
   if(p.rival&&sm.fol>=1000&&ch(.12))q.push({id:'k_beef'});
   if(sm.fol>=50000&&ch(.35))q.push({id:'k_award'});
   if(sm.fol>=25000&&!sm.agency&&(!sm.agNo||p.age-sm.agNo>=5)&&ch(.4))q.push({id:'k_agent'});
-  }catch(e){}return inc}}
+  }catch(e){errLog(e)}return inc}}
 /* --- Ansicht --- */
 {const _vk=viewKlick;viewKlick=function(){let h=_vk();const sm=p.sm;if(!sm)return h;const c=sm.ch,lock=!!p.prison;
   if(sm.ver)h=h.replace('<small>'+esc(sm.h)+'</small>','<small>'+esc(sm.h)+' <span class="kver" title="Verifiziert">✓</span></small>');

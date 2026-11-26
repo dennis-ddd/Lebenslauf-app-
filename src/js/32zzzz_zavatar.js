@@ -155,7 +155,7 @@ let avCat='oben';
 const avLook=()=>{p.look=p.look||{o:null,acc:[]};if(!p.look.acc)p.look.acc=[];return p.look};
 const avWorn=(cat,id)=>{const L=avLook();if(cat==='saison')return L.top===id&&!L.o;if(id==='smartwatch'||id==='luxusuhr')return L.wa===id;if(cat==='oben')return L.top===id&&!L.o;return L[AVSLOT[cat]]===id};
 const avStil=()=>{const L=avLook();let s=L.wa==='luxusuhr'?3:L.wa?1:0;Object.entries(AVSLOT).forEach(([c,k])=>{const it=L[k]&&avItem(c,L[k]);if(it)s+=it[3]});if(L.o&&typeof OF!=='undefined'&&OF[L.o])s=Math.max(s,OF[L.o][2]);return Math.min(8,s)};
-{const _st=stil;stil=function(){let a=0;try{a=_st()}catch(e){}return Math.max(a,avStil())}}
+{const _st=stil;stil=function(){let a=0;try{a=_st()}catch(e){errLog(e)}return Math.max(a,avStil())}}
 const avAgeOk=(cat,id)=>{if(p.age<10)return cat==='oben'?['tshirt','streifen','hoodie','sport'].includes(id):cat==='kopf'||cat==='friseur';if(p.age<14)return !(cat==='jacke'||cat==='schmuck'||['anzug','designer','abendkleid'].includes(id));return true};
 function viewAvShop(){const L=avLook(),s=stil();
   let h='<section class="card avshop"><div class="avbig">'+avatarSvg(p.age,132)+(L.wa&&ART[L.wa]?'<span class="avwa">'+ART[L.wa]().replace(/width="110" height="110"/,'width="46" height="46"')+'</span>':'')+'</div>'+
@@ -189,7 +189,7 @@ function viewAvShop(){const L=avLook(),s=stil();
 /* Wirkung der Kleidung */
 {const _py=perkYear;perkYear=function(R0){_py(R0);try{if(!p||p.prison)return;const L=avLook();if(L.wa==='smartwatch')add('ge',1);if(L.top==='designer'&&!L.o||L.o==='designer')addRuf(1);
   if(L.wa==='luxusuhr'){addRuf(1);if(ch(.06)){L.wa=null;p.ward=p.ward.filter(x=>x!=='v:luxusuhr');add('gl',-6);log('Auf offener Straße wird dir die Luxusuhr vom Handgelenk gerissen.');news('Dreister Uhrenraub in der Innenstadt','polizei')}}
-  if(L.top==='strick'&&!L.o)add('gl',1)}catch(e){}}}
+  if(L.top==='strick'&&!L.o)add('gl',1)}catch(e){errLog(e)}}}
 {const _jm=jobMkt;jobMkt=function(){const L=p&&p.look||{};return _jm()+((L.top==='anzug'&&!L.o)||L.o==='anzug'?.05:0)+(L.gl==='horn'?.03:0)}}
 {const _ve=viewEinst;viewEinst=function(){const h=_ve();if(typeof einTab==='undefined'||einTab!=='look')return h;return h+'<section class="card"><h2 class="h">Avatar</h2>'+tog('avClassic',!!O.avClassic,'Klassischer Avatar','Der alte, einfache Avatar ohne Stimmungen und Animationen')+'</section>'}}
 }

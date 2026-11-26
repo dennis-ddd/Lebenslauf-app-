@@ -38,7 +38,7 @@ function stageDialog(sc,h,t,opts,cls,help){const d=document.getElementById('dlg'
   d.innerHTML='<div class="scene">'+(SCENES[sc]||SCENES.stadt)+(help?'<button class="helpstar" type="button" aria-label="Hilfe im echten Leben">★</button>':'')+'</div>'+(help?'<div class="helpbox" hidden><b>Geht es dir selbst nicht gut?</b><span>Die TelefonSeelsorge ist rund um die Uhr erreichbar, kostenlos und anonym: <a href="tel:08001110111">0800 111 0 111</a> oder <a href="tel:08001110222">0800 111 0 222</a>. Auch per Chat auf telefonseelsorge.de.</span></div>':'')+'<div class="sbody"><h2>'+esc(h)+'</h2><p>'+esc(t)+'</p><div class="ocards">'+opts.map((o,i)=>{const m=optMeta(o[0]);
     return '<button class="ocard" data-o="'+i+'">'+SVGI[m[0]]+'<span><b>'+esc(o[0].replace(/^[⚖★]\s*/,''))+'</b>'+(m[1]?'<small>'+m[1]+'</small>':'')+'</span></button>'}).join('')+'</div></div>';
   const md=document.getElementById('modal');md.classList.add('on');const hs=d.querySelector('.helpstar');if(hs)hs.onclick=()=>{const b=d.querySelector('.helpbox');b.hidden=!b.hidden};
-  d.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{md.classList.remove('on');const f=opts[+b.dataset.o][1];if(f)f()});try{d.querySelector('button').focus()}catch(e){}}
+  d.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{md.classList.remove('on');const f=opts[+b.dataset.o][1];if(f)f()});try{d.querySelector('button').focus()}catch(e){errLog(e)}}
 showEvent0=function(e){p.evSeen=p.evSeen||{};p.evSeen[e.t]=(p.evSeen[e.t]||0)+1;const t=typeof e.x==='function'?e.x():e.x,sc=sceneOf(e);
   stageDialog(sc,e.t,t,e.o.map(([l,f])=>[l,()=>{try{valFromLabel(l)}catch(_){}const r=f();log(r);checkAch();save();render();stageDialog(sc,'Ergebnis',r,[['Weiter',()=>{try{chainEvent()}catch(_){}}]],'res',e.help)}]),null,e.help)};
 // Mehrere wartende Ereignisse pro Jahr nacheinander zeigen (höchstens drei)
@@ -78,7 +78,7 @@ function calmUI(){const v=document.getElementById('view');if(!v)return;
     n=n.replace(/·\s*(\d+(?:,\d)?\s?(?:Std\.|Min\.))/,(m,x)=>'<span class="ic-c">'+SVGI.clock+x+'</span>');if(n!==h)s.innerHTML=n});
   v.querySelectorAll('p.note:not([data-cl])').forEach(n=>{n.dataset.cl=1;if(n.textContent.length<170||n.closest('.dlg'))return;n.classList.add('clamp');const b=document.createElement('button');b.className='morebtn';b.type='button';b.textContent='Mehr anzeigen';
     b.onclick=ev=>{ev.stopPropagation();const o=n.classList.toggle('open');b.textContent=o?'Weniger':'Mehr anzeigen'};n.after(b)})}
-{const _r=render;render=function(){const r=_r.apply(this,arguments);try{postFx()}catch(e){}return r}}
+{const _r=render;render=function(){const r=_r.apply(this,arguments);try{postFx()}catch(e){errLog(e)}return r}}
 
 /* ---------- Darstellung: Schriftgröße, weniger Bewegung, Ladebildschirm ---------- */
 function applyLook(){const b=document.body;if(!b||!b.classList)return;b.classList.toggle('fs1',O.fsz===1);b.classList.toggle('fs2',O.fsz===2);b.classList.toggle('lessmotion',!!lessMotion())}
@@ -91,4 +91,4 @@ const WISE=['Das Leben ist kein Rennen. Genieße die Strecke.','Kleine Schritte 
 function splash(){if(O.noSplash||!document.body||document.getElementById('splash'))return;const s=document.createElement('div');s.id='splash';
   s.className='cov';s.innerHTML=(typeof COVER!=='undefined'?'<img class="splimg" src="'+COVER+'" alt="">':'<div class="splt">Lebenslauf</div>')+'<div class="spl spl2"><p>„'+pick(WISE)+'“</p><small>Tippen zum Starten</small></div>';document.body.appendChild(s);
   const go=()=>{if(!s.parentNode)return;s.classList.add('out');setTimeout(()=>s.remove(),lessMotion()?0:450)};s.onclick=go;setTimeout(go,lessMotion()?900:2400)}
-try{applyLook();if(typeof window!=='undefined'&&window.addEventListener&&document.readyState!=null)splash()}catch(e){}
+try{applyLook();if(typeof window!=='undefined'&&window.addEventListener&&document.readyState!=null)splash()}catch(e){errLog(e)}

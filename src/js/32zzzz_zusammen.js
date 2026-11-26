@@ -11,14 +11,16 @@ const fkAge=f=>p.age+(f.d||0);
 const fkById=id=>fkList().find(f=>f.id===id);
 const fkP=f=>{const h=hsh(f.n);return {g:f.g,st:{gl:Math.max(30,f.cl)},skin:h%5,hair:(h>>3)%6,beard:f.g==='m'&&fkAge(f)>25&&h%3===0,bald:f.g==='m'&&fkAge(f)>55&&h%2===0,glasses:h%4===0,look:{o:null,acc:[]}}};
 function fkMake(from){const g=pick(['w','m']);return {id:'f'+Date.now().toString(36)+R(10,99),n:pick(g==='w'?FN:MN),g,d:R(-3,3),tr:pick(Object.keys(FTR)),from,since:p.age,cl:R(45,60),met:p.age,st:{mar:0,kids:0,far:0},mem:[]}}
+function fkReunite(m,from){const L=fkList();if(L.some(x=>x.n===m.n&&x.km)||L.length>=7)return false;const x=fkMake(from||'der Grundschule');x.n=m.n;x.g=m.g||x.g;x.d=0;x.km=1;x.cl=clamp(m.rel||55,40,85);x.since=Math.min(p.age,8);x.met=p.age;(m.mem||[]).slice(-2).forEach(e=>fkMem(x,e.t||String(e)));L.push(x);log(m.n+' (aus der Grundschule) gehört zu deinem Freundeskreis.');return true}
 function fkAdd(f){fkList().push(f);log(f.n+' ('+f.from+') gehört jetzt zu deinem Freundeskreis.')}
 function fkMem(f,t){f.mem=f.mem||[];f.mem.push({a:p.age,t});if(f.mem.length>5)f.mem.shift()}
-const fkCl=(f,v)=>{f.cl=clamp(f.cl+v,0,100)};
+const fkCl=(f,v)=>{f.cl=clamp(f.cl+v,0,100);if(f.cl>(f.pk||0))f.pk=f.cl};
 function fkYear(){if(!p||p.age<6||p.prison)return;const L=fkList();
+  if(p.age===12&&p.km&&typeof kmates==='function'){const m=kmates()[1];if(m&&m.rel>=55)fkReunite(m,'der Grundschule')}
   const near=L.filter(f=>!f.st.far).length;
   if(L.length<6&&near<5&&ch(p.age<12?.12:p.age<30?.25:.15)&&!p.fkNew){p.fkNew=fkMake(pick(FFROM(p.age)));p.q.push({id:'fk_neu'})}
   const EV=[];L.forEach(f=>{const fa=fkAge(f);
-    if(f.met<p.age-0)fkCl(f,-(f.st.far?(f.pen?5:9):5));
+    if(f.met<p.age-1)fkCl(f,-(f.st.far?(f.pen?3:6):3));
     if(fa>=24&&fa<=38&&!f.st.mar&&ch(.12)){f.st.mar=1;EV.push({id:'fk_hochzeit',d:f.id})}
     else if(fa>=26&&fa<=42&&f.st.mar&&f.st.kids<3&&ch(.13)){f.st.kids++;if(f.st.kids===1&&f.cl>=55)EV.push({id:'fk_pate',d:f.id});else log(f.n+' hat ein Kind bekommen.')}
     else if(fa>=20&&fa<=60&&!f.st.far&&ch(.035))EV.push({id:'fk_umzug',d:f.id});
@@ -26,7 +28,8 @@ function fkYear(){if(!p||p.age<6||p.prison)return;const L=fkList();
     else if(f.cl>=70&&fa>=18&&fa<=72&&ch(.05))EV.push({id:'fk_reise',d:f.id});
     else if(f.tr==='chaot'&&f.cl>=40&&ch(.05))EV.push({id:'fk_streit',d:f.id});
     if(fa>=62&&ch((fa-58)*.006))p.q.push({id:'fk_tod',d:f.id});
-    if(f.cl<12&&!f.drift){f.drift=1;p.q.push({id:'fk_drift',d:f.id})}});
+    if(f.cl<12&&!f.drift){f.drift=1;if((f.pk||f.cl)>=62)p.q.push({id:'fk_drift',d:f.id});else{f.gone=1;log('Mit '+f.n+' hast du keinen Kontakt mehr.')}}});
+  p.fk=L.filter(f=>!f.gone);
   if(EV.length){p.q.push(EV.splice(R(0,EV.length-1),1)[0]);if(EV.length&&ch(.3))p.q.push(pick(EV))}
   const close=L.filter(f=>f.cl>=40).length+((p.rel&&p.rel.freund>=40)?1:0);
   if(p.age>=16&&!close){add('gl',-3);if(ch(.3))log('Du fühlst dich in letzter Zeit ziemlich einsam.')}
@@ -34,7 +37,7 @@ function fkYear(){if(!p||p.age<6||p.prison)return;const L=fkList();
 const FKE=(id,f)=>{const x=fkById(id);return x?f(x):null};
 const FE=(t,x,o)=>{const e=E(t,x,()=>true,o);e.cat='Freunde';return e};
 QEV.fk_neu=()=>{const f=p.fkNew;p.fkNew=null;if(!f)return null;const T=FTR[f.tr];
-  return FE('Eine neue Bekanntschaft','Bei '+(f.from==='einer Party'?'einer Party':f.from==='Arbeit'?'der Arbeit':f.from==='WG'?'der WG-Besichtigung':'„'+f.from+'“')+' lernst du '+f.n+' kennen. '+T[0]+': '+T[1]+'. Ihr versteht euch auf Anhieb.',[
+  return FE(pick(['Eine neue Bekanntschaft','Jemand Neues','Auf Anhieb sympathisch']),'Bei '+(f.from==='einer Party'?'einer Party':f.from==='Arbeit'?'der Arbeit':f.from==='WG'?'der WG-Besichtigung':'„'+f.from+'“')+' lernst du '+f.n+' kennen. '+T[0]+': '+T[1]+'. Ihr versteht euch auf Anhieb.',[
     ['Nummern austauschen',()=>{fkAdd(f);add('gl',3);fkMem(f,'Kennengelernt ('+f.from+')');return f.n+' schreibt dir noch am selben Abend.'}],
     ['Lieber nicht',()=>'Ihr seht euch nie wieder. Schade eigentlich.']])};
 QEV.fk_hochzeit=id=>FKE(id,f=>FE(f.n+' heiratet!',f.n+' ruft aufgeregt an: „Ich heirate! Und ich will, dass du '+(f.cl>=60?'mein/e Trauzeug/in bist':'dabei bist')+'.“',[
@@ -108,9 +111,9 @@ QEV.pet_abschied=s=>{(p.petSeen||[]).forEach(y=>{if(y.id===s.id)y.gone=1});retur
 /* Haustiere ziehen mit zur nächsten Generation */
 {const _ca=continueAs;continueAs=function(i){const prev=p,pets=(prev.pets||[]).slice(),fk=0;_ca.apply(this,arguments);if(p===prev)return;
   if(pets.length&&!(p.pets||[]).length){p.pets=pets;log(pets.map(x=>x.n).join(' und ')+(pets.length>1?' leben':' lebt')+' jetzt bei dir.');save()}}}
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{fkYear()}catch(e){}try{petYear()}catch(e){}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{fkYear()}catch(e){errLog(e)}try{petYear()}catch(e){errLog(e)}}}
 /* ---------- Aktionen ---------- */
-{const _ap=adoptPet;adoptPet=function(){const r=_ap.apply(this,arguments);try{petEns()}catch(e){}return r}}
+{const _ap=adoptPet;adoptPet=function(){const r=_ap.apply(this,arguments);try{petEns()}catch(e){errLog(e)}return r}}
 {const f=act;act=function(id,arg){
   if(/^(pplay|ptrick|pvet|petname)$/.test(id))petEns();
   if(id==='adopt'){const P=PETS[arg];if(!P||p.age<8||p.prison)return;if(p.money<P.pr){toast('Das kostet '+eur(P.pr)+'.');return}if(arg==='pferd'&&p.age<12){toast('Ein Pferd gibt es ab 12 Jahren.');return}adoptPet(arg);petEns();const x=p.pets[p.pets.length-1];done((PART[arg]||P.n).replace(/^e/,'E')+' namens '+x.n+' zieht bei dir ein. Charakter: '+PTR[x.tr]+'.');return}

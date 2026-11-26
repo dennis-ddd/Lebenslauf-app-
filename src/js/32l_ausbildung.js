@@ -68,7 +68,7 @@ function act15(id,arg){switch(id){
   case 'carflip':{if(!perk('mecha')||p.prison)return 1;if((p.flipY||{})[p.age]>=2){toast('Mehr als zwei Autos pro Jahr schaffst du nicht.');return 1}const c=px$(1500);if(p.money<c){toast('Ein altes Auto kostet '+eur(c)+'.');return 1}if(!spendTime(240))return 1;
     p.flipY=p.flipY||{};p.flipY[p.age]=(p.flipY[p.age]||0)+1;p.money-=c;const s=ch(.85)?px$(R(2200,4300)):px$(R(800,1400));p.money+=s;done(s>c?'Rost weg, Motor läuft. Verkauft für '+eur(s)+'. Gewinn: '+eur(s-c)+'.':'Der Motor war hinüber. Nur '+eur(s)+' bekommen.');return 1}
   case 'haircut':{if(!perk('friseur')||p.prison)return 1;if((p.cutY||{})[p.age]>=3){toast('Für dieses Jahr sind alle frisiert.');return 1}if(!spendTime(45))return 1;p.cutY=p.cutY||{};p.cutY[p.age]=(p.cutY[p.age]||0)+1;
-    const who=p.partner&&ch(.5)?'partner':'freund';relUp(who,6);try{npcMem(who,'Hat mir die Haare geschnitten',1)}catch(e){}add('au',1);done((who==='partner'?p.partner.name:p.friend)+' ist begeistert vom neuen Haarschnitt.');return 1}
+    const who=p.partner&&ch(.5)?'partner':'freund';relUp(who,6);try{npcMem(who,'Hat mir die Haare geschnitten',1)}catch(e){errLog(e)}add('au',1);done((who==='partner'?p.partner.name:p.friend)+' ist begeistert vom neuen Haarschnitt.');return 1}
 }return 0}
 
 /* ---------- Ereignisse ---------- */

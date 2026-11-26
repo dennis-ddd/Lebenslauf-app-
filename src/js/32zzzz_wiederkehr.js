@@ -4,11 +4,11 @@ const SNAPK='lebenslauf-snap';let SNAP=null;
 {const _au=ageUp;ageUp=function(){try{if(p&&p.alive&&!p.sb)SNAP=JSON.stringify(p)}catch(e){SNAP=null}return _au.apply(this,arguments)}}
 function snapGet(){if(SNAP)return SNAP;try{return localStorage.getItem(SNAPK)}catch(e){return null}}
 function canSecond(){if(!p||p.alive||p.used2c||p.age>=100||p.sb)return false;const s=snapGet();if(!s)return false;try{const o=JSON.parse(s);return o.first===p.first&&o.last===p.last&&o.age>=p.age-1&&o.age<=p.age}catch(e){return false}}
-function secondChance(){if(!canSecond())return;const o=JSON.parse(snapGet());if(ALB.lives[0]&&ALB.lives[0].n===p.first+' '+p.last&&ALB.lives[0].a===p.age){ALB.lives.shift();albSave()}p=o;p.used2c=1;p.alive=true;SNAP=null;try{localStorage.removeItem(SNAPK)}catch(e){}
+function secondChance(){if(!canSecond())return;const o=JSON.parse(snapGet());if(ALB.lives[0]&&ALB.lives[0].n===p.first+' '+p.last&&ALB.lives[0].a===p.age){ALB.lives.shift();albSave()}p=o;p.used2c=1;p.alive=true;SNAP=null;try{localStorage.removeItem(SNAPK)}catch(e){errLog(e)}
   log('Zweite Chance: Du bekommst das letzte Jahr noch einmal.');mile('Zweite Chance genutzt','big');save();render();toast('Die Uhr läuft rückwärts. Noch ein Versuch!')}
 /* ---------- Erinnerungsstücke: über alle Leben gesammelt ---------- */
-const KKEY='lebenslauf-album';let ALB={lives:[],keep:{}};try{Object.assign(ALB,JSON.parse(localStorage.getItem(KKEY)||'{}'))}catch(e){}
-const albSave=()=>{try{localStorage.setItem(KKEY,JSON.stringify(ALB))}catch(e){}};
+const KKEY='lebenslauf-album';let ALB={lives:[],keep:{}};try{Object.assign(ALB,JSON.parse(localStorage.getItem(KKEY)||'{}'))}catch(e){errLog(e)}
+const albSave=()=>{try{localStorage.setItem(KKEY,JSON.stringify(ALB))}catch(e){errLog(e)}};
 const KI={uhr:'<circle cx="12" cy="13" r="7"/><path d="M12 10v3l2 2M10 3h4M12 3v3"/>',herz:'<path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.4-7 10-7 10z"/>',stern:'<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.4 6.6 19.4l1.3-6L3.4 9.3l6-.7z"/>',
  brief:'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 7l9 6 9-6"/>',hut:'<path d="M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/>',ball:'<circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 5h-5L8 10z"/>',
  schl:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/>',kamera:'<rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 7l2-3h4l2 3"/>',
@@ -44,13 +44,13 @@ const KEEP={
  enkelbild:['Das Bild von den Enkeln','Hab 3 Enkelkinder.','herz','#F2994A',()=>(p.kids||[]).reduce((s,k)=>s+(k.kids||0),0)>=3],
  zweitechance:['Die stehengebliebene Uhr','Nutze eine zweite Chance.','uhr','#7A4BD6',()=>!!p.used2c],
  kerze:['Die Gedenkkerze','Lebe 10 Leben.','kerze','#F0CC87',()=>ALB.lives.length>=9]};
-function keepCheck(){const neu=[];Object.keys(KEEP).forEach(k=>{if(ALB.keep[k])return;let ok=false;try{ok=KEEP[k][4]()}catch(e){}if(ok){ALB.keep[k]={n:p.first+' '+p.last,a:p.age};neu.push(k)}});return neu}
+function keepCheck(){const neu=[];Object.keys(KEEP).forEach(k=>{if(ALB.keep[k])return;let ok=false;try{ok=KEEP[k][4]()}catch(e){errLog(e)}if(ok){ALB.keep[k]={n:p.first+' '+p.last,a:p.age};neu.push(k)}});return neu}
 const keepIc=(k,sz)=>{const K=KEEP[k];return '<span class="kpi" style="--kc:'+K[3]+';width:'+(sz||44)+'px;height:'+(sz||44)+'px"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+KI[K[2]]+'</svg></span>'};
 /* Beim Tod: Leben ins Album, neue Erinnerungsstücke */
-{const _die=die;die=function(c){try{if(SNAP)localStorage.setItem(SNAPK,SNAP)}catch(e){}
+{const _die=die;die=function(c){try{if(SNAP)localStorage.setItem(SNAPK,SNAP)}catch(e){errLog(e)}
   try{if(p&&!p.sb){const neu=keepCheck();p.keepNew=neu;const best=(p.ms||[]).filter(m=>m.k==='big'||m.k==='star').slice(-3).map(m=>m.t);
     ALB.lives.unshift({n:p.first+' '+p.last,g:p.g,a:p.age,c:c,gen:p.gen||1,t:p.pension?'Rentner/in':p.job?p.job.t:status(),nw:Math.round(netWorth()),ms:best,k:neu,ruf:p.ruf||0,y:Date.now()});
-    if(ALB.lives.length>60)ALB.lives.length=60;albSave()}}catch(e){}
+    if(ALB.lives.length>60)ALB.lives.length=60;albSave()}}catch(e){errLog(e)}
   return _die(c)}}
 /* ---------- Lebensfilm ---------- */
 function filmScenes(){const S=[],me=p.first+' '+p.last,ms=p.ms||[],A=a=>Math.min(a,p.age);
@@ -88,7 +88,7 @@ function playFilm(){const S=filmScenes(),d=document.getElementById('dlg'),m=docu
   const i=h.indexOf('</p>',h.indexOf('class="obit"'));if(i>0)h=h.slice(0,i+4)+top+kc+h.slice(i+4);else h=top+kc+h;
   return h}}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-lf]');if(!b||!p||p.alive)return;const k=b.dataset.lf;if(k==='film')playFilm();if(k==='second')secondChance()});
-{const _rn=render;render=function(){const r=_rn.apply(this,arguments);try{if(p&&!p.alive&&!p.filmSeen&&!noDom()&&document.getElementById('dlg'))setTimeout(()=>{if(p&&!p.alive&&!p.filmSeen)playFilm()},700)}catch(e){}return r}}
+{const _rn=render;render=function(){const r=_rn.apply(this,arguments);try{if(p&&!p.alive&&!p.filmSeen&&!noDom()&&document.getElementById('dlg'))setTimeout(()=>{if(p&&!p.alive&&!p.filmSeen)playFilm()},700)}catch(e){errLog(e)}return r}}
 /* ---------- Lebensalbum (in Erfolge und auf dem Startbildschirm) ---------- */
 function viewAlbum(){const n=Object.keys(KEEP).length,got=Object.keys(KEEP).filter(k=>ALB.keep[k]).length;
   let h='<section class="card"><div class="listseg"><h2 class="h" style="margin:0">Erinnerungsstücke</h2><span class="chip">'+got+' von '+n+'</span></div><div class="bar" style="margin:8px 0 10px"><i style="width:'+(got/n*100)+'%"></i></div><div class="kpg">'+
@@ -103,4 +103,4 @@ function viewAlbum(){const n=Object.keys(KEEP).length,got=Object.keys(KEEP).filt
   const got=Object.keys(KEEP).filter(k=>ALB.keep[k]).length,L=ALB.lives[0];
   const hero=st.querySelector('.hero');const html='<section class="card albst"><div class="lfrow"><div><b>Dein Lebensalbum</b><small>'+ALB.lives.length+' '+(ALB.lives.length===1?'Leben':'Leben')+' · '+got+' Erinnerungsstücke · zuletzt '+esc(L.n)+' ('+L.a+')</small></div><button class="btn g sm" data-alb="1">Ansehen</button></div></section>';
   if(hero)hero.insertAdjacentHTML('afterend',html);else st.insertAdjacentHTML('afterbegin',html);
-  const b=st.querySelector('[data-alb]');if(b)b.onclick=()=>htmlDialog('<h2>Lebensalbum</h2>'+viewAlbum(),'Schließen')}catch(e){}}}
+  const b=st.querySelector('[data-alb]');if(b)b.onclick=()=>htmlDialog('<h2>Lebensalbum</h2>'+viewAlbum(),'Schließen')}catch(e){errLog(e)}}}

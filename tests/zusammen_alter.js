@@ -25,5 +25,5 @@ for(let life=0;life<40;life++){T.newLife('Kim','Test',pick(['w','m']),6,false);T
   if(!T.p.alive&&T.p.kids.some(k=>k.alive!==false)&&(T.p.pets||[]).length){const n=T.p.pets.length,i=T.p.kids.findIndex(k=>k.alive!==false);try{T.continueAs(i);if((T.p.pets||[]).length===n)inherit++}catch(e){errs++;console.log('ERR cont',e.message)}}}
 function ch2(x){return Math.random()<x}
 console.log('Ereignisse',JSON.stringify(seen));console.log('max Freunde',maxF,'max Tricks',maxTricks,'max Beschwerden',conds,'Haustiere vererbt',inherit);
-['fk_neu','fk_hochzeit','fk_krise','fk_tod','pet_streich','alt_klassentreffen','alt_enkeltrick'].forEach(k=>ok('Ereignis '+k,seen[k]>0));ok('Freunde gefunden',maxF>=3);ok('Tricks gelernt',maxTricks>=1);ok('Beschwerden im Alter',conds>=1);
+['fk_neu','fk_hochzeit','fk_krise','fk_tod','pet_streich','fk_umzug','alt_enkeltrick'].forEach(k=>ok('Ereignis '+k,seen[k]>0));ok('Freunde gefunden',maxF>=3);ok('Tricks gelernt',maxTricks>=1);ok('Beschwerden im Alter',conds>=1);
 console.log('errors',errs);process.exit(errs?1:0);

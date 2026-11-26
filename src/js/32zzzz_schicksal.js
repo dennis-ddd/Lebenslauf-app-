@@ -3,8 +3,8 @@
 function skMerk(k,d){p.skm=p.skm||[];p.skm.push({k,a:p.age,d:d||null});if(p.skm.length>120)p.skm.shift()}
 const skMem=(k,minAgo)=>(p.skm||[]).filter(m=>m.k===k&&p.age-m.a>=(minAgo||0));
 const histOf=(t,re,minAgo)=>(p.ehist||[]).find(h=>h.t===t&&(!re||re.test(h.o))&&p.age-h.a>=(minAgo||0));
-{const _se=showEvent0;showEvent0=function(e){if(!e||!e.o)return _se(e);const e2=Object.assign({},e,{o:e.o.map(([l,f])=>[l,()=>{try{p.ehist=p.ehist||[];p.ehist.push({t:e.t,o:l,a:p.age});if(e.back){p.skfl=p.skfl||[];p.skfl.push({t:e.t,back:e.back,a:p.age});if(p.skfl.length>12)p.skfl.shift()}if(p.ehist.length>300)p.ehist.shift()}catch(x){}return f()}])});
-  const r=_se(e2);try{if(e.cat||e.back){const d=document.getElementById('dlg'),h=d&&d.querySelector('h2');if(h&&!d.querySelector('.evcat'))h.insertAdjacentHTML('beforebegin','<div class="evcat">'+(e.cat?'<span>'+e.cat+'</span>':'')+(e.back?'<small>'+esc(e.back)+'</small>':'')+'</div>')}}catch(x){}return r}}
+{const _se=showEvent0;showEvent0=function(e){if(!e||!e.o)return _se(e);const e2=Object.assign({},e,{o:e.o.map(([l,f])=>[l,()=>{try{p.ehist=p.ehist||[];p.ehist.push({t:e.t,o:l,a:p.age});if(e.back){p.skfl=p.skfl||[];p.skfl.push({t:e.t,back:e.back,a:p.age});if(p.skfl.length>12)p.skfl.shift()}if(p.ehist.length>300)p.ehist.shift()}catch(x){errLog(x)}return f()}])});
+  const r=_se(e2);try{if(e.cat||e.back){const d=document.getElementById('dlg'),h=d&&d.querySelector('h2');if(h&&!d.querySelector('.evcat'))h.insertAdjacentHTML('beforebegin','<div class="evcat">'+(e.cat?'<span>'+e.cat+'</span>':'')+(e.back?'<small>'+esc(e.back)+'</small>':'')+'</div>')}}catch(x){errLog(x)}return r}}
 const EC=(cat,t,x,o,back)=>{const e=E(t,x,()=>true,o);e.cat=cat;if(back)e.back=back;return e};
 const kidAge=k=>p.age-k.b;
 const liveKids=()=>(p.kids||[]).filter(k=>k.alive!==false);
@@ -57,15 +57,15 @@ const SK=[
     ['Stunden',()=>{addRuf(3);skMerk('mieterhilfe');return 'Sie bedankt sich mit Tränen in den Augen.'}],['Halbe Miete akzeptieren',()=>{p.money-=px$(1500);addRuf(1);return 'Ein Kompromiss, mit dem beide leben können.'}],
     ['Kündigen',()=>{addRuf(-3);return 'Du bekommst die Wohnung zurück. Und schlechte Bewertungen im Netz.'}]])},
  // Karriere
- {id:'headhunter',cat:'Karriere',cd:6,w:()=>p.job&&p.age>=28&&p.age<=55?1:0,ev:()=>{const pay=Math.round(p.job.pay*1.3);return EC('Karriere','Anruf vom Headhunter','Die Konkurrenz will dich als '+p.job.t+'. 30 % mehr Gehalt, aber neues Team und Probezeit.',[
+ {id:'headhunter',cat:'Karriere',cd:12,w:()=>p.job&&p.age>=28&&p.age<=55?.45:0,ev:()=>{const pay=Math.round(p.job.pay*1.3);return EC('Karriere','Anruf vom Headhunter','Die Konkurrenz will dich als '+p.job.t+'. 30 % mehr Gehalt, aber neues Team und Probezeit.',[
     ['Wechseln',()=>{p.job.pay=pay;p.job.perf=45;p.job.yrs=0;add('gl',3);return 'Neuer Schreibtisch, neues Gehalt: '+eur(pay)+' im Jahr.'}],
     ['Gehaltserhöhung beim jetzigen Chef aushandeln',()=>{if(ch(.5)){p.job.pay=Math.round(p.job.pay*1.12);return 'Dein Chef legt 12 % drauf, um dich zu halten.'}return 'Dein Chef zuckt nur mit den Schultern.'}],['Ablehnen',()=>'Du bleibst, wo du bist.']])}},
  // Wendepunkte im mittleren Alter
- {id:'burnout',cat:'Wendepunkt',cd:12,w:()=>p.job&&p.age>=32&&p.age<=58&&(p.st.gl<45||p.st.ge<50)?2:0,ev:()=>EC('Wendepunkt','Nichts geht mehr','Seit Wochen schläfst du schlecht. Heute Morgen kommst du einfach nicht aus dem Bett. Dein Arzt sagt: Burnout.',[
+ {id:'burnout',cat:'Wendepunkt',cd:25,w:()=>p.job&&p.age>=32&&p.age<=58&&p.st.gl<40&&p.st.ge<60?1.2:0,ev:()=>EC('Wendepunkt','Nichts geht mehr','Seit Wochen schläfst du schlecht. Heute Morgen kommst du einfach nicht aus dem Bett. Dein Arzt sagt: Burnout.',[
     ['Krankschreiben lassen und Therapie',()=>{add('ge',8);add('gl',6);if(typeof addLast==='function')addLast(-8);skMerk('burnout_heal');return 'Drei Monate Pause. Langsam kommt die Kraft zurück.'}],
     ['Stunden reduzieren',()=>{p.job.pay=Math.round(p.job.pay*.75);add('gl',8);p.job.part=true;return 'Weniger Geld, mehr Leben. Du fragst dich, warum du das nicht früher gemacht hast.'}],
     ['Zähne zusammenbeißen',()=>{add('ge',-10);add('gl',-6);skMerk('burnout_ignore');return 'Es geht weiter. Irgendwie. Aber nicht gut.'}]])},
- {id:'sinnkrise',cat:'Wendepunkt',cd:15,w:()=>p.age>=38&&p.age<=55?1.2:0,ev:()=>EC('Wendepunkt','War das schon alles?','Du stehst morgens vor dem Spiegel und fragst dich: Ist das wirklich das Leben, das ich wollte?',[
+ {id:'sinnkrise',cat:'Wendepunkt',cd:99,w:()=>p.age>=38&&p.age<=55&&!histOf('Midlife-Crisis')?1.2:0,ev:()=>EC('Wendepunkt','War das schon alles?','Du stehst morgens vor dem Spiegel und fragst dich: Ist das wirklich das Leben, das ich wollte?',[
     ['Sabbatjahr und Weltreise',()=>{p.money-=px$(15000);add('gl',14);mile('Sabbatjahr um die Welt','big');skMerk('sabbat');return 'Ein Jahr Rucksack, Strände und Sonnenaufgänge. Du kommst als anderer Mensch zurück.'}],
     ['Etwas völlig Neues lernen',()=>{add('in',6);add('gl',6);return 'Du lernst Töpfern, Spanisch und Klavier. Nicht alles gleichzeitig. Fast.'}],
     ['Ehrenamtlich helfen',()=>{addRuf(6);add('gl',8);if(typeof valAdd==='function')valAdd('h',5);return 'Bei der Tafel triffst du Menschen, die dich verändern.'}],
@@ -86,13 +86,8 @@ const SPAET=[
    ['Spenden, um es gutzumachen',()=>{p.money-=px$(500);addRuf(3);add('gl',4);return 'Es fühlt sich an, als würde ein kleiner Stein von dir fallen.'}],['Vergessen',()=>{add('gl',-2);return 'Ganz vergessen kannst du es nicht.'}]],'Mit '+h.a+': Geld behalten')}},
  {id:'sp_abschreiben',w:()=>p.age>=26&&p.age<=50&&histOf('Abschreiben?',/rüberschieben/,12)?1.5:0,ev:()=>{const h=histOf('Abschreiben?',/rüberschieben/);const n=(kmates()[3]||{}).n||'Jonas';return EC('Spätfolge','Ein alter Bekannter',n+' aus deiner alten Klasse ist heute Personalchef. „Du hast mich damals abschreiben lassen. Ohne dich hätte ich die Arbeit nie bestanden.“',[
    ['Lachen und anstoßen',()=>{if(p.job){p.job.pay=Math.round(p.job.pay*1.1);return n+' empfiehlt dich für eine Gehaltserhöhung.'}p.job={id:'buero',t:'Bürokaufmann/-frau',pay:px$(34000),part:false,yrs:0,perf:55};return n+' besorgt dir einen Job im Büro.'}]],'Mit '+h.a+': Heft rübergeschoben')}},
- {id:'sp_mobber',w:()=>p.age>=28&&p.age<=55&&p.job&&p.km&&!p.cs2_mob?1.3:0,ev:()=>{p.cs2_mob=1;const b=kmates()[0];const won=b.rel>=55;
-   return EC('Spätfolge','Der neue Chef','Montagmorgen. Der neue Abteilungsleiter stellt sich vor: Es ist '+b.n+'. Genau '+b.n+', der dich in der Grundschule geärgert hat.'+(won?' Ihr habt euch damals ja noch versöhnt.':''),[
-    ['Professionell bleiben',()=>{if(won){p.job.perf=Math.min(100,(p.job.perf||50)+10);return b.n+' grinst: „Du hast dich kein bisschen verändert.“ Ihr versteht euch super.'}return 'Es bleibt kühl, aber fair.'}],
-    ['Die alte Geschichte ansprechen',()=>{if(ch(.6)){add('gl',6);if(typeof addLast==='function')addLast(-4);return b.n+' wird rot: „Es tut mir ehrlich leid. Ich war ein Idiot.“ Das tut gut.'}return b.n+' kann sich angeblich an nichts erinnern.'}],
-    ['Kündigen',()=>{p.job=null;add('gl',-3);return 'Du gehst. Lieber arbeitslos als unter '+b.n+'.'}]],'Aus deiner Grundschulzeit')}},
- {id:'sp_freund',w:()=>p.age>=30&&p.km&&kmates()[1].rel>=60&&!p.cs2_fr?1.2:0,ev:()=>{p.cs2_fr=1;const f=kmates()[1];return EC('Spätfolge','Ein Brief aus der Vergangenheit',f.n+', dein bester Freund aus der Grundschule, schreibt dir nach 20 Jahren: „Ich denke oft an unsere Baumhaus-Sommer. Wollen wir uns treffen?“',[
-   ['Treffen',()=>{add('gl',8);skMerk('kindfreund',{n:f.n});return 'Ihr redet stundenlang. Es ist, als wäre keine Zeit vergangen.'}],['Keine Zeit',()=>{add('gl',-2);return 'Du antwortest nie. Später bereust du das.'}]],'Aus deiner Kindheit')}},
+ {id:'sp_freund',w:()=>p.age>=30&&p.km&&kmates()[1].rel>=60&&!kmates()[1].back&&!p.cs2_fr?1.2:0,ev:()=>{p.cs2_fr=1;const f=kmates()[1];return EC('Spätfolge','Ein Brief aus der Vergangenheit',f.n+', dein bester Freund aus der Grundschule, schreibt dir nach 20 Jahren: „Ich denke oft an unsere Baumhaus-Sommer. Wollen wir uns treffen?“',[
+   ['Treffen',()=>{add('gl',8);skMerk('kindfreund',{n:f.n});f.back=1;if(typeof fkReunite==='function')fkReunite(f);return 'Ihr redet stundenlang. Es ist, als wäre keine Zeit vergangen.'}],['Keine Zeit',()=>{add('gl',-2);return 'Du antwortest nie. Später bereust du das.'}]],'Aus deiner Kindheit')}},
  {id:'sp_rivale',w:()=>p.age>=30&&p.rival&&histOf('Der Rivale braucht Hilfe',/Helfen/,5)&&!p.cs2_rv?2:0,ev:()=>{p.cs2_rv=1;return EC('Spätfolge','Eine Hand wäscht die andere',p.rival.n+' meldet sich: „Du hast mir damals geholfen, obwohl wir uns nicht leiden konnten. Jetzt bin ich dran.“',[
    ['Annehmen',()=>{p.money+=px$(12000);p.rival.friend=1;add('gl',8);return p.rival.n+' überweist dir '+eur(px$(12000))+' und lädt dich zum Essen ein. Aus Rivalen werden Freunde.'}]],'Du hast '+p.rival.n+' einmal geholfen')}},
  {id:'sp_nbloan',w:()=>skMem('nbloan',3).length&&!p.cs2_nb?3:0,ev:()=>{p.cs2_nb=1;const m=skMem('nbloan',3)[0].d,ok=ch(.55);
@@ -121,7 +116,7 @@ function schicksalYear(){if(!p||p.age<12||p.prison)return;const c=cfg().ev;const
   for(let k=0;k<n&&C.length;k++){const tot=C.reduce((a,x)=>a+x.w,0);let r=Math.random()*tot*1.6;if(r>tot&&k>0)break;let i=0;for(;i<C.length;i++){r-=C[i].w;if(r<=0)break}const x=C.splice(Math.min(i,C.length-1),1)[0];if(!x)break;
     p.sk2[x.s.id]=p.age;p.q.push({id:'sk_'+x.s.id})}}
 SK.concat(SPAET).forEach(s=>{QEV['sk_'+s.id]=()=>{try{return s.w()>0?s.ev():null}catch(e){return null}}});
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{schicksalYear()}catch(e){}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{schicksalYear()}catch(e){errLog(e)}}}
 /* Lebenslauf: Entscheidungen, die zurückkamen */
 function memCard(){const H=(p.ehist||[]).slice(-6).reverse();if(!H.length)return '';
   return card('Deine Entscheidungen',H.map(h=>row(esc(h.t),'Mit '+h.a+': '+esc(h.o),'')).join('')+'<p class="note">Das Leben vergisst nichts. Manches davon kommt Jahre später zurück.</p>')}

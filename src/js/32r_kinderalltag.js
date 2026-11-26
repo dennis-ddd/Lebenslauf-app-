@@ -50,7 +50,7 @@ function act19(id,arg){switch(id){
   case 'kiddoc':{const D=KIDDOC.find(x=>x[0]===arg);if(!D||!D[3]()||once('kd_'+arg)||p.prison)return 1;if(!spendTime(arg==='kjp'?60:90))return 1;setOnce('kd_'+arg);p.lastArzt=p.age;p.hv=(p.hv||0)+1;
     let t=D[4]();if(arg==='kinderarzt'){const ill=Object.keys(p.ill||{});if(ill.length){delete p.ill[ill[0]];t+=' Und gegen '+ILLS[ill[0]].n+' gibt es Medizin. Bald geht es dir besser.'}}done(t);return 1}
   case 'reply':{const [cid,k]=String(arg).split(':');const C=p.chats[cid];if(!C||!C.pend)return 1;const R=replyOpts(cid).find(x=>x[0]===k);if(!R)return 1;msg(cid,R[2],true);C.pend=false;
-    const d=R[3]!=null?R[3]:(k==='lieb'?5:k==='kurz'?1:-6);if(cid==='rival'&&p.rival){if(k==='lieb'&&ch(.15)&&!p.rival.friend){p.rival.friend=1;toast(p.rival.n+' ist überrascht. Vielleicht werdet ihr doch noch Freunde.')}if(k==='frech')addRuf(-1)}else relUp(cid,d);try{if(npcOf(cid))npcMem(cid,k==='lieb'?'Hat mir lieb geantwortet':k==='frech'?'War im Chat genervt':'',k==='lieb'?1:k==='frech'?-1:0)}catch(e){}render();return 1}
+    const d=R[3]!=null?R[3]:(k==='lieb'?5:k==='kurz'?1:-6);if(cid==='rival'&&p.rival){if(k==='lieb'&&ch(.15)&&!p.rival.friend){p.rival.friend=1;toast(p.rival.n+' ist überrascht. Vielleicht werdet ihr doch noch Freunde.')}if(k==='frech')addRuf(-1)}else relUp(cid,d);try{if(npcOf(cid))npcMem(cid,k==='lieb'?'Hat mir lieb geantwortet':k==='frech'?'War im Chat genervt':'',k==='lieb'?1:k==='frech'?-1:0)}catch(e){errLog(e)}render();return 1}
 }return 0}
 
 /* ---------- Chats: Antworten, die zur Nachricht passen ---------- */
@@ -103,4 +103,4 @@ function replyOpts(cid){const C=p.chats[cid];if(!C)return [];const last=C.msgs.f
   _m(id,t,me);const C=p.chats[id];if(C&&C.msgs.length>25)C.msgs.splice(0,C.msgs.length-25)}}
 
 /* ---------- Taschengeld ---------- */
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{if(p&&!p.prison&&p.age>=6&&p.age<18&&!p.parentsGone&&!p.job){const v=p.age<10?60:p.age<14?180:360;p.money+=v;R0.inc.push(['Taschengeld',v]);if(p.age===6)log('Ab jetzt bekommst du Taschengeld.')}}catch(e){}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{if(p&&!p.prison&&p.age>=6&&p.age<18&&!p.parentsGone&&!p.job){const v=p.age<10?60:p.age<14?180:360;p.money+=v;R0.inc.push(['Taschengeld',v]);if(p.age===6)log('Ab jetzt bekommst du Taschengeld.')}}catch(e){errLog(e)}}}

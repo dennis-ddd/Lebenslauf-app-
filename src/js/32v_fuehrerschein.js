@@ -98,4 +98,4 @@ function act22(id,arg){switch(id){
   if(p.fs)licS('auto');
   if(p.job&&p.job.id==='pilot'&&!hasLic('flug')){p.lic.flug={l:6,th:1,ok:1};log('Über die Airline hast du auch die Privatpilotenlizenz bekommen.')}
   const c=p.veh.reduce((s,k)=>s+px$(VEH[k].c),0);if(c){p.money-=c;if(p.money<0&&p.veh.length&&ch(.5)){const k=p.veh.pop();log('Du musstest dein '+VEH[k].n+' verkaufen, das Geld war zu knapp.');p.money+=Math.round(px$(VEH[k].pr)*.5)}}
-  p.veh.forEach(k=>add('gl',1));}catch(e){}}}
+  p.veh.forEach(k=>add('gl',1));}catch(e){errLog(e)}}}

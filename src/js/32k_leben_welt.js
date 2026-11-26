@@ -4,7 +4,7 @@
 const memOf=o=>(o.mem=o.mem||[]);
 function remember(o,t,v){const M=memOf(o);if(M.length&&M[M.length-1].t===t&&M[M.length-1].a===p.age)return;M.push({a:p.age,t,v:v||0});if(M.length>8)M.shift()}
 const memSum=o=>memOf(o).reduce((s,m)=>s+(m.v||0),0);
-const toJail=(y,why)=>{p.prison=y;p.job=null;add('gl',-12);try{ach('knast')}catch(e){}log(why+' '+y+' Jahr(e) Gefängnis.');news(p.first+' '+p.last+' muss ins Gefängnis','lokal')};
+const toJail=(y,why)=>{p.prison=y;p.job=null;add('gl',-12);try{ach('knast')}catch(e){errLog(e)}log(why+' '+y+' Jahr(e) Gefängnis.');news(p.first+' '+p.last+' muss ins Gefängnis','lokal')};
 
 /* ---------- Nachbarn ---------- */
 const NBTR={laut:['Laut','Feiert gern, auch unter der Woche.'],hilfsb:['Hilfsbereit','Nimmt Pakete an und leiht Werkzeug.'],neugier:['Neugierig','Weiß alles über alle im Haus.'],
@@ -112,7 +112,7 @@ const ecoJob=()=>ECO[ecoPh()].j;
     else news('Entwarnung: '+WORLD[f][0]+' bleibt aus','welt','Die Experten haben sich geirrt.')}
   _wy(R0);
   if(w.ph==='normal'&&!w.fc&&ch(.22)){const f=pick(['boom','boom','rezession','rezession','krise','pandemie']);w.fc=f;news('Prognose: '+WORLD[f][0]+' im nächsten Jahr?','welt','Experten erwarten: '+ECO[f].t);
-    if(p.age>=18)try{notify('Wirtschaftsprognose: Nächstes Jahr droht '+WORLD[f][0]+'.','news')}catch(e){}}}}
+    if(p.age>=18)try{notify('Wirtschaftsprognose: Nächstes Jahr droht '+WORLD[f][0]+'.','news')}catch(e){errLog(e)}}}}
 function ecoCard(){if(!p||!p.world)return '';const ph=ecoPh(),W=WORLD[ph],fc=p.world.fc;
   const lv=(l,v)=>'<div class="row"><span class="t">'+l+'</span><b class="'+(v>0?'up':v<0?'dn':'')+'">'+(v>0?'▲ höher':v<0?'▼ niedriger':'normal')+'</b></div>';
   return '<section class="card eco eco-'+ph+'"><h2 class="h">Was das für dich bedeutet</h2><p class="note">'+ECO[ph].t+'</p>'+
@@ -140,7 +140,7 @@ function npcMem(id,t,v){const o=npcOf(id);if(!o)return;remember(o,t,v*(o.tr==='n
 // Gedächtnis: Wie sich die Beziehung durch eine Aktion verändert, merkt sich die Person
 {const _act=act;act=function(id,arg){const ids=['call','meet','love','time','grat','invyes','invno','kidtime','kidgift'];if(!ids.includes(id)||!p)return _act(id,arg);
   const who=id==='love'||id==='time'?'partner':id==='meet'?'freund':arg,before=who?relOf(who):0;const r=_act(id,arg);
-  try{if(who&&npcOf(who)){const d=relOf(who)-before;if(id==='invno')npcMem(who,'Hat meine Einladung abgesagt',-1);else if(d>0)npcMem(who,{call:'Hat angerufen',meet:'Wir haben etwas unternommen',love:'Hat mir eine liebe Nachricht geschickt',time:'Wir hatten ein schönes Date',grat:'Hat mir gratuliert',invyes:'Ist zu meiner Einladung gekommen'}[id]||'War für mich da',1)}}catch(e){}
+  try{if(who&&npcOf(who)){const d=relOf(who)-before;if(id==='invno')npcMem(who,'Hat meine Einladung abgesagt',-1);else if(d>0)npcMem(who,{call:'Hat angerufen',meet:'Wir haben etwas unternommen',love:'Hat mir eine liebe Nachricht geschickt',time:'Wir hatten ein schönes Date',grat:'Hat mir gratuliert',invyes:'Ist zu meiner Einladung gekommen'}[id]||'War für mich da',1)}}catch(e){errLog(e)}
   return r}}
 function npcYear(){if(p.prison||p.age<18)return;const cs=contacts().map(c=>c.id).filter(id=>npcOf(id));if(!cs.length)return;
   cs.forEach(id=>{const o=npcOf(id),C=p.chats[id];const talked=C&&C.msgs.some(m=>m.me&&m.a===p.age-1);if(!talked&&relOf(id)<45&&(o.tr==='nachtr'||o.tr==='eifers')&&ch(.4))npcMem(id,'Hat sich ein ganzes Jahr nicht gemeldet',-1)});
@@ -215,4 +215,4 @@ function act14(id,arg){switch(id){
 }return 0}
 
 /* ---------- Jahreswechsel ---------- */
-function leben2Year(R0){try{nbYear()}catch(e){}try{flatYear()}catch(e){}try{willYear()}catch(e){}try{npcYear()}catch(e){}}
+function leben2Year(R0){try{nbYear()}catch(e){errLog(e)}try{flatYear()}catch(e){errLog(e)}try{willYear()}catch(e){errLog(e)}try{npcYear()}catch(e){errLog(e)}}

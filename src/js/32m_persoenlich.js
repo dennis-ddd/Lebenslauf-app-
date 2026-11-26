@@ -17,7 +17,7 @@ function valAdd(k,v){p.vals=p.vals||{e:0,h:0,f:0,r:0,a:0};p.vals[k]=clamp((p.val
 function valFromLabel(l){VALRX.forEach(([k,v,rx])=>{if(rx.test(l))valAdd(k,v*2)})}
 const VALACT={klau:[['e',-2],['r',1]],tasche:[['e',-2],['r',1]],einbruch:[['e',-3],['r',2]],bankraub:[['e',-4],['r',3]],hack:[['e',-2],['r',1]],race:[['r',2]],lotto:[['r',1]],
   kidstime:[['f',2]],lernen:[['a',2]],work:[['a',1]],medi:[['a',-1]],nbkuchen:[['h',2]],nbbeschw:[['h',-1]],nachhilfe:[['h',1],['a',1]],call:[['f',1]],grat:[['f',1],['h',1]],invyes:[['f',1]],invno:[['f',-1]]};
-{const _act=act;act=function(id,arg){const r=_act(id,arg);try{if(p&&VALACT[id])VALACT[id].forEach(([k,v])=>valAdd(k,v))}catch(e){}return r}}
+{const _act=act;act=function(id,arg){const r=_act(id,arg);try{if(p&&VALACT[id])VALACT[id].forEach(([k,v])=>valAdd(k,v))}catch(e){errLog(e)}return r}}
 function valWords(){const V=p.vals||{};return VALS.map(([k,n,pos,neg])=>[k,V[k]||0,pos,neg]).filter(x=>Math.abs(x[1])>=6).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1])).slice(0,3).map(x=>x[1]>0?x[2]:x[3])}
 function valCard(title){const V=p.vals||{},w=valWords();
   return '<section class="card vals"><h2 class="h">'+(title||'Was für ein Mensch du bist')+'</h2><p class="vsum">'+(w.length?w.map(x=>'<b>'+x+'</b>').join(' · '):'Noch nicht klar. Deine Entscheidungen formen deinen Charakter.')+'</p>'+
@@ -41,9 +41,9 @@ const LQ=[
    ['Berühmt werden',()=>(p.dream='star','Bühne, Licht, Applaus!')],['Eigene Firma',()=>(p.dream='chef','Selbst der Chef sein. Warum nicht?')]]]];
 const DREAMJOB={arzt:['arzt'],it:['info'],chef:[]};
 QEV.lfrage=i=>{const q=LQ[i];if(!q||!q[0]())return null;return E('Eine ehrliche Frage',q[1],()=>true,q[2]())};
-function lqYear(){if(p.prison||p.age<10||!ch(.33))return;const L=LQ.map((q,i)=>i).filter(i=>{const y=(p.lqY||{})[i];return LQ[i][0]()&&(y==null||p.age-y>=6)});if(!L.length)return;const i=pick(L);p.lqY=p.lqY||{};p.lqY[i]=p.age;p.q.push({id:'lfrage',d:i})}
+function lqYear(){if(p.prison||p.age<10||(p.lqLast!=null&&p.age-p.lqLast<3)||!ch(.22))return;p.lqLast=p.age;const L=LQ.map((q,i)=>i).filter(i=>{const y=(p.lqY||{})[i];return LQ[i][0]()&&(y==null||p.age-y>=6)});if(!L.length)return;const i=pick(L);p.lqY=p.lqY||{};p.lqY[i]=p.age;p.q.push({id:'lfrage',d:i})}
 function dreamCheck(){if(!p.dream||p.dreamDone)return;const j=p.job&&p.job.id;const ok=p.dream==='chef'?!!(p.biz&&(p.biz.fronts||[]).length):p.dream==='star'?(p.fol||0)>=100000||(p.mus&&p.mus.fame>=60):!!j&&(DREAMJOB[p.dream]||[]).includes(j);
-  if(ok){p.dreamDone=1;add('gl',12);log('Kindheitstraum erfüllt! Schon mit '+(p.dreamA||14)+' wusstest du, was du willst.');try{mile('Kindheitstraum erfüllt','star')}catch(e){}}}
+  if(ok){p.dreamDone=1;add('gl',12);log('Kindheitstraum erfüllt! Schon mit '+(p.dreamA||14)+' wusstest du, was du willst.');try{mile('Kindheitstraum erfüllt','star')}catch(e){errLog(e)}}}
 
 /* ---------- Tagebuch ---------- */
 const fp=t=>String(t).replace(/\bDu hast\b/g,'Ich habe').replace(/\bdu hast\b/g,'ich habe').replace(/\bDu bist\b/g,'Ich bin').replace(/\bdu bist\b/g,'ich bin').replace(/\bDu\b/g,'Ich').replace(/\bdu\b/g,'ich')
@@ -53,7 +53,7 @@ function diaryWrite(a0){const L=p.log.filter(l=>l.a===a0||l.a===a0+1).map(l=>l.t
   const pickL=L.slice(-12).sort((a,b)=>b.length-a.length).slice(0,4);const m=MOOD.find(x=>p.st.gl>=x[0])[1];
   const txt=(a0<6?'':pick(m)+' ')+(pickL.length?pickL.map(fp).join(' '):'Ein ruhiges Jahr ohne große Ereignisse.');
   p.diary=p.diary||[];p.diary.push({a:a0,t:txt});if(p.diary.length>130)p.diary.shift()}
-{const _au=ageUp;ageUp=function(){const a0=p&&p.age;const r=_au.apply(this,arguments);try{if(p&&p.alive&&p.age>a0){diaryWrite(a0);dreamCheck()}}catch(e){}return r}}
+{const _au=ageUp;ageUp=function(){const a0=p&&p.age;const r=_au.apply(this,arguments);try{if(p&&p.alive&&p.age>a0){diaryWrite(a0);dreamCheck()}}catch(e){errLog(e)}return r}}
 function viewDiary(){p.dnotes=p.dnotes||{};const D=(p.diary||[]).slice().reverse();
   return valCard()+'<section class="card"><h2 class="h">Notiz für dieses Jahr</h2><textarea id="dnote" maxlength="400" rows="3" placeholder="Was beschäftigt dich gerade? Nur du siehst das.">'+esc(p.dnotes[p.age]||'')+'</textarea><div class="btns">'+btn('dnote',null,'Speichern','o')+'</div></section>'+
     '<section class="card diary"><h2 class="h">Mein Tagebuch</h2>'+(D.length?D.map(e=>'<article><h3>Mit '+e.a+'</h3><p>'+esc(e.t)+'</p>'+(p.dnotes[e.a]?'<p class="dn">„'+esc(p.dnotes[e.a])+'“</p>':'')+'</article>').join(''):'<p class="note">Am Ende jedes Jahres schreibt '+esc(p.first)+' hier einen Eintrag.</p>')+'</section>'}
@@ -61,4 +61,4 @@ function act16(id,arg){switch(id){
   case 'dnote':{const t=document.getElementById('dnote');if(!t)return 1;p.dnotes=p.dnotes||{};const v=t.value.trim();if(v)p.dnotes[p.age]=v.slice(0,400);else delete p.dnotes[p.age];save();toast('Gespeichert.');return 1}
   case 'cityren':{const t=document.getElementById('cren');if(!t)return 1;const v=t.value.trim().slice(0,22);if(v){p.cityN=v;p.cityNS=p.seed}else{p.cityN=null}save();toast('Deine Stadt heißt jetzt '+cityName(p.seed)+'.');render();return 1}
 }return 0}
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{lqYear()}catch(e){}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{lqYear()}catch(e){errLog(e)}}}

@@ -22,7 +22,7 @@ const RECOG={club:['Am Tresen wirst du erkannt. Die nächste Runde geht aufs Hau
   try{if(p&&p.alive&&PLACT.has(id)&&b!==[p.act,p.clock,p.money].join('|')){const fm=fameNow();if(fm>=35&&!p.prison){p.recog=p.recog&&p.recog.y===p.age?p.recog:{y:p.age,n:0};
     if(p.recog.n<5&&ch(fm>=60?.2:.1)){p.recog.n++;const pl=PLACES.find(x=>x.a.includes(id));
       if(p.ruf<=-30&&ch(.5)){add('gl',-3);toast('Jemand erkennt dich und pöbelt: „Du schon wieder!“')}
-      else{const R2=RECOG[pl&&pl.id]||RECOG._;add('gl',R2[1]);toast(R2[0])}}}}}catch(e){}return r}}
+      else{const R2=RECOG[pl&&pl.id]||RECOG._;add('gl',R2[1]);toast(R2[0])}}}}}catch(e){errLog(e)}return r}}
 /* Promi-Ereignisse */
 const CHAR=n=>['Tafel '+n,'Kinderhospiz Regenbogen','Tierheim '+n,'Jugendsport '+n][R(0,3)];
 QEV.f_radio=d=>E('Interview-Anfrage','Radio '+cityName(p.seed)+' lädt dich ins Morgenprogramm ein. Thema: '+(d&&d.t||'dein Leben')+'.',()=>true,[
@@ -78,7 +78,7 @@ function fameYear(){if(!p)return;p.fameB=Math.round((p.fameB||0)*.7);const t=fam
   const f=p.fame,q=p.q;let n=0;const P=fameParts(),topic=P[0]?P[0][2]:'dein Leben',push=(id,d)=>{if(n<2){q.push({id,d});n++}};
   if(f>=70&&ch(.1))push('f_fan');if(f>=50&&p.partner&&ch(.25))push('f_papa');if(f>=35&&ch(.3))push('f_radio',{t:topic});
   if(f>=35&&ch(.2))push('f_charity',{n:CHAR(cityName(p.seed))});if(f>=45&&!(p.job&&p.job.id==='influ')&&ch(.25))push('f_ad',{b:pick(['Das Autohaus','Die Hansebank','Das Einkaufszentrum','Der Energieversorger']),pay:px$(Math.round(f*120/100)*100)})}
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{fameYear();pressYear()}catch(e){}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{fameYear();pressYear()}catch(e){errLog(e)}}}
 /* Ansichten */
 function fameCard(){const f=fameNow(),L=fameLv(f),P=fameParts(),nx=FAMEL.find(x=>x[0]>f);
   const eff=f>=35?['Leute erkennen dich in der Stadt','Deine Geschäfte haben '+(p.ruf<=-30?'weniger':'mehr')+' Kunden (×'+(1+f/500*(p.ruf<=-30?-1:1)).toFixed(2).replace('.',',')+')','Bewerbungen fallen dir leichter','Radio, Werbung und Vereine fragen an'].concat(f>=50?['Paparazzi interessieren sich für dein Privatleben']:[]).concat(f>=70?['Manche Fans gehen zu weit']:[]):['Noch kennt dich kaum jemand. Firmen, Klick, Politik oder Sport machen dich bekannt.'];

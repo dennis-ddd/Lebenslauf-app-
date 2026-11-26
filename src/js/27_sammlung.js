@@ -1,6 +1,6 @@
 /* ================= Sammlung: Freischaltbares für alle Leben ================= */
 const UKEY='lebenslauf-sammlung';
-let UL={};try{UL=JSON.parse(localStorage.getItem(UKEY)||'{}')}catch(e){}
+let UL={};try{UL=JSON.parse(localStorage.getItem(UKEY)||'{}')}catch(e){errLog(e)}
 const msHas=s=>(p.ms||[]).some(m=>m.t.startsWith(s));
 const ULD={
  w_galaxie:['wall','Galaxie','Werde 80 Jahre alt.',()=>p.age>=80,'radial-gradient(circle at 30% 20%,#7A4BD6,#1B1240 45%,#05030F)'],
@@ -35,8 +35,8 @@ Object.keys(ULD).forEach(k=>{const U=ULD[k];if(U[0]==='wall')WALLS.push([U[1],U[
 Object.assign(SFX,{m_party:[[523,.08],[659,.08],[784,.08],[659,.08],[1047,.3]],m_jazz:[[392,.18],[466,.12],[523,.18],[622,.12],[587,.36]],m_8bit:[[1047,.06],[784,.06],[1047,.06],[1319,.06],[1568,.24]],m_fanfare:[[392,.14],[392,.08],[523,.14],[659,.14],[784,.4]]});
 const wallOk0=wallOk;
 function wallUsable(i){const w=WALLS[i];if(!w)return false;return w[2]?!!UL[w[2]]:wallOk0(i)}
-function checkUnlocks(){if(!p)return;Object.keys(ULD).forEach(k=>{if(UL[k])return;let ok=false;try{ok=ULD[k][3]()}catch(e){}
-  if(ok){UL[k]=1;try{localStorage.setItem(UKEY,JSON.stringify(UL))}catch(e){}p.newUL=(p.newUL||0)+1;log('Freigeschaltet für alle Leben: '+ULD[k][1]+' ('+ULT[ULD[k][0]]+').');toast('Freigeschaltet: '+ULD[k][1]);sfx('big');vib([40,30,40])}})}
+function checkUnlocks(){if(!p)return;Object.keys(ULD).forEach(k=>{if(UL[k])return;let ok=false;try{ok=ULD[k][3]()}catch(e){errLog(e)}
+  if(ok){UL[k]=1;try{localStorage.setItem(UKEY,JSON.stringify(UL))}catch(e){errLog(e)}p.newUL=(p.newUL||0)+1;log('Freigeschaltet für alle Leben: '+ULD[k][1]+' ('+ULT[ULD[k][0]]+').');toast('Freigeschaltet: '+ULD[k][1]);sfx('big');vib([40,30,40])}})}
 const curTitle=()=>O.title&&UL[O.title]&&ULD[O.title]?ULD[O.title][1]:'';
 const curFrame=()=>O.frame&&UL[O.frame]&&ULD[O.frame]?ULD[O.frame][4]:'';
 let eTab='erfolge';

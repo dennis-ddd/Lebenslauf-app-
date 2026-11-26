@@ -1,15 +1,15 @@
 /* ================= Einstellungen, Präsentation, Handy ================= */
 const OKEY='lebenslauf-opts';
-let O={snd:true,vib:true,theme:'aurora',mini:'ask',rival:true,wall:0};try{Object.assign(O,JSON.parse(localStorage.getItem(OKEY)||'{}'))}catch(e){}
-function applyTheme(){try{const r=document.documentElement;if(O.theme==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',O.theme)}catch(e){}}
-function saveO(){try{localStorage.setItem(OKEY,JSON.stringify(O))}catch(e){}applyTheme()}
-if(!O.au4){O.au4=1;O.theme='aurora';if(O.wall)O.wall++;try{localStorage.setItem(OKEY,JSON.stringify(O))}catch(e){}}
+let O={snd:true,vib:true,theme:'aurora',mini:'ask',rival:true,wall:0};try{Object.assign(O,JSON.parse(localStorage.getItem(OKEY)||'{}'))}catch(e){errLog(e)}
+function applyTheme(){try{const r=document.documentElement;if(O.theme==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',O.theme)}catch(e){errLog(e)}}
+function saveO(){try{localStorage.setItem(OKEY,JSON.stringify(O))}catch(e){errLog(e)}applyTheme()}
+if(!O.au4){O.au4=1;O.theme='aurora';if(O.wall)O.wall++;try{localStorage.setItem(OKEY,JSON.stringify(O))}catch(e){errLog(e)}}
 applyTheme();
 let AC=null;
 const SFX={coin:[[988,.06],[1319,.12]],win:[[523,.09],[659,.09],[784,.09],[1047,.22]],bday:[[523,.12],[523,.1],[587,.22],[523,.22],[698,.22],[659,.36]],msg:[[880,.06],[1175,.09]],bad:[[330,.16],[247,.34]],tap:[[700,.035]],big:[[392,.12],[523,.12],[659,.12],[784,.12],[1047,.3]]};
 function sfx(k){if(!O.snd)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();let t=AC.currentTime+.01;
-  (SFX[k]||SFX.tap).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=k==='bad'?'triangle':'sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.13,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.03);t+=d*.92})}catch(e){}}
-function vib(ms){if(!O.vib)return;try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}}
+  (SFX[k]||SFX.tap).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=k==='bad'?'triangle':'sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.13,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.03);t+=d*.92})}catch(e){errLog(e)}}
+function vib(ms){if(!O.vib)return;try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){errLog(e)}}
 const WALLS=[['Aurora','radial-gradient(120% 60% at 0% 0%,rgba(123,75,224,.55),transparent 60%),radial-gradient(90% 50% at 100% 40%,rgba(19,179,166,.4),transparent 60%),radial-gradient(90% 50% at 30% 110%,rgba(242,153,74,.4),transparent 60%),rgba(14,8,28,.72)'],['Nachtblau','linear-gradient(160deg,#1B2340,#0B1022)'],['Sonnenuntergang','linear-gradient(160deg,#F5A25D,#C2306A 60%,#3A1F5C)'],['Ozean','linear-gradient(160deg,#1E9ED8,#1B3C7A)'],
   ['Wald','linear-gradient(160deg,#3BB273,#14503A)'],['Aurora','linear-gradient(160deg,#16213E,#1B7F79 50%,#7A4BD6)'],['Gold','linear-gradient(160deg,#3A2E12,#C9A227 60%,#2A220C)'],['Neon','linear-gradient(160deg,#120C2E,#E5407A 55%,#2BD1E6)'],['Marmor','linear-gradient(160deg,#5A6275,#2A2F3A 50%,#7C8396)']];
 const PHONES=[['Kinderhandy','Tasten und ein kleines Display. Telefonieren geht.',1],['Smartphone','Das erste richtige Handy. Kamera ist okay.',3],['Smartphone Pro','Super Kamera: Posts gelingen besser.',5],['Ultra Fold','Faltbar, beste Kamera, alle Hintergründe.',8]];
@@ -60,7 +60,7 @@ const TERM={arzt:['Vorsorge beim Hausarzt','Gesundheit +3',()=>p.age>=18,()=>{ad
  eltern:['Elternabend','Deine Kinder freuen sich',()=>p.kids.some(k=>p.age-k.b>=6&&p.age-k.b<18),()=>{p.kids.forEach(k=>{if(p.age-k.b>=6&&p.age-k.b<18)k.rel=Math.min(100,k.rel+5)});return 'Die Lehrerin lobt deine Kinder.'},()=>{p.kids.forEach(k=>{if(p.age-k.b>=6&&p.age-k.b<18)k.rel-=3});return 'Elternabend verpasst. Die Kinder sind enttäuscht.'}],
  jahrestag:['Hochzeitstag','Verbindung +8 (Essen 150 €)',()=>!!(p.partner&&p.partner.mar),()=>{p.money-=150;p.partner.rel=Math.min(100,p.partner.rel+8);add('gl',3);return 'Ein romantischer Abend.'},()=>{if(!p.partner)return '';p.partner.rel-=12;msg('partner','Du hast unseren Hochzeitstag vergessen. Echt jetzt?');return 'Hochzeitstag vergessen! Verbindung −12.'}],
  tuev:['TÜV-Termin','Auto bleibt in Schuss (120 €)',()=>p.cars.length>0,()=>{p.money-=120;return 'Plakette bekommen.'},()=>{p.money-=300;return 'TÜV vergessen: 300 € Bußgeld.'}],
- treffen:['Klassentreffen','Alte Gesichter wiedersehen',()=>[20,30,40,50,60].includes(p.age),()=>{add('gl',5);let t='Viele alte Geschichten, viel Gelächter.';if(p.rival&&O.rival&&!p.rival.friend){const me=netWorth(),rv=p.rival.money;t+=me>=rv?' '+p.rival.n+' ist sichtlich neidisch auf deinen Erfolg.':' '+p.rival.n+' prahlt den ganzen Abend. Das nervt.';add('gl',me>=rv?5:-4)}return t},null],
+ treffen:['Ehemaligen-Treffen','Alte Gesichter wiedersehen',()=>[20,40,60].includes(p.age),()=>{add('gl',5);let t='Viele alte Geschichten, viel Gelächter.';if(p.rival&&O.rival&&!p.rival.friend){const me=netWorth(),rv=p.rival.money;t+=me>=rv?' '+p.rival.n+' ist sichtlich neidisch auf deinen Erfolg.':' '+p.rival.n+' prahlt den ganzen Abend. Das nervt.';add('gl',me>=rv?5:-4)}return t},null],
  wahl:['Wahltag','Deine Stimme zählt',()=>p.age>=18&&p.age%4===0,()=>{addRuf(1);return 'Du warst wählen.'},null],
  blut:['Blutspende','Glück +3, Ruf +2',()=>p.age>=18&&p.age<=68,()=>{add('gl',3);addRuf(2);return 'Du hast Leben gerettet.'},null]};
 function newTerms(){const ks=Object.keys(TERM).filter(k=>TERM[k][2]());p.terms=shuffle(ks).slice(0,4).map(k=>({k,d:R(1,28),m:R(0,11),done:false})).sort((x,y)=>x.m-y.m||x.d-y.d)}

@@ -139,7 +139,7 @@ function holdButton(b,fn){const MS=650;let t=null,st=0;
   const reset=()=>{clearTimeout(t);t=null;fill.style.transition='width .15s';fill.style.width='0%';b.classList.remove('holding')};
   b.addEventListener('pointerdown',e=>{if(e.button>0||document.getElementById('modal').classList.contains('on'))return;st=Date.now();b.classList.add('holding');
     fill.style.transition='width '+MS+'ms linear';fill.style.width='100%';
-    t=setTimeout(()=>{t=null;reset();try{navigator.vibrate&&navigator.vibrate(30)}catch(x){}fn()},MS)});
+    t=setTimeout(()=>{t=null;reset();try{navigator.vibrate&&navigator.vibrate(30)}catch(x){errLog(x)}fn()},MS)});
   ['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,()=>{if(t){const short=Date.now()-st<MS;reset();if(short&&ev==='pointerup')toast('Halte den Knopf kurz gedrückt, um ein Jahr älter zu werden.')}}));
   b.addEventListener('contextmenu',e=>e.preventDefault());
   b.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&!e.repeat){e.preventDefault();fn()}});
@@ -159,7 +159,7 @@ function render(){if(p&&p.sm)ensureSm();
   if(!p){shell=false;if(G)G.run=false;renderStart();return}
   if(!p.alive){shell=false;if(G)G.run=false;
     app.innerHTML=viewDeath();
-    document.getElementById('again').onclick=()=>{p=null;try{localStorage.removeItem(KEY)}catch(e){}render()};return}
+    document.getElementById('again').onclick=()=>{p=null;try{localStorage.removeItem(KEY)}catch(e){errLog(e)}render()};return}
   if(!APP[tab])tab='home';ensureStocks();ensureNew();
   if(!shell)buildShell();
   const map=tab==='stadt'&&cityMode!=='list'&&initThree();

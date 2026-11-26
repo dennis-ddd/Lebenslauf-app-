@@ -59,14 +59,14 @@ const PL=Object.fromEntries(PLACES.map(x=>[x.id,x]));
 const hex=c=>'#'+c.toString(16).padStart(6,'0');
 
 let p=null,tab='home',form={g:'w',a:13,sb:false},cityMode='3d',sel=null,shell=false;
-let globalAch={};try{globalAch=JSON.parse(localStorage.getItem(AKEY)||'{}')}catch(e){}
+let globalAch={};try{globalAch=JSON.parse(localStorage.getItem(AKEY)||'{}')}catch(e){errLog(e)}
 
 function add(k,n){p.st[k]=clamp(p.st[k]+n,0,100)}
 function log(t){p.log.push({a:p.age,t});if(p.log.length>300)p.log.shift()}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(p))}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(p))}catch(e){errLog(e)}}
 function load(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null}}
 function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>e.style.display='none',2600)}
-function ach(k){if(p.ach[k])return;p.ach[k]=1;if(MILE_ACH.includes(k))mile(ACH[k],'ach');sfx('win');vib(50);globalAch[k]=1;try{localStorage.setItem(AKEY,JSON.stringify(globalAch))}catch(e){}log('Erfolg freigeschaltet: '+ACH[k]+'!');toast('Erfolg: '+ACH[k])}
+function ach(k){if(p.ach[k])return;p.ach[k]=1;if(MILE_ACH.includes(k))mile(ACH[k],'ach');sfx('win');vib(50);globalAch[k]=1;try{localStorage.setItem(AKEY,JSON.stringify(globalAch))}catch(e){errLog(e)}log('Erfolg freigeschaltet: '+ACH[k]+'!');toast('Erfolg: '+ACH[k])}
 function inSchool(){return !!(p.school||p.study||p.azubi)}
 function stockVal(){return STOCKS.reduce((s,x)=>s+(p.sh[x.id]||0)*p.px[x.id],0)}
 function checkAch(){checkGoals();checkUnlocks();if(p.money>=100000)ach('reich');if(netWorth()>=1e6)ach('mio');if(stockVal()>=10000)ach('aktien');if(p.age>=80)ach('achtzig');if(p.age>=100)ach('hundert')}

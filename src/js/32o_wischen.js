@@ -26,4 +26,4 @@ function swHandles(){const ph=document.querySelector('#view .phone');if(tab==='h
   let c=document.querySelector('.cgrab');if(tab==='stadt'){if(!c){c=document.createElement('button');c.className='cgrab';c.type='button';c.setAttribute('aria-label','Zurück zum Handy');
     c.innerHTML='<svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg><span>Handy</span>';c.onclick=()=>swGo('home',document.getElementById('city'),-1);document.body.appendChild(c)}}
   else if(c)c.remove()}
-{const _r=render;render=function(){const r=_r.apply(this,arguments);try{swHandles()}catch(e){}return r}}
+{const _r=render;render=function(){const r=_r.apply(this,arguments);try{swHandles()}catch(e){errLog(e)}return r}}

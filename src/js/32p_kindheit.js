@@ -5,7 +5,7 @@ const kmem=(t)=>{p.kmem=p.kmem||[];p.kmem.push({a:p.age,t});if(p.kmem.length>14)
 const pg=(k,v)=>{p.pg=p.pg||{};p.pg[k]=(p.pg[k]||0)+(v||1)};
 
 /* ---------- Kleine Minispiele für Babys ---------- */
-function babyEnd(sc,txt){log(txt);checkAch();save();render();stageDialog(sc,'Geschafft!',txt,[['Weiter',()=>{try{chainEvent()}catch(e){}}]],'res')}
+function babyEnd(sc,txt){log(txt);checkAch();save();render();stageDialog(sc,'Geschafft!',txt,[['Weiter',()=>{try{chainEvent()}catch(e){errLog(e)}}]],'res')}
 function miniGame(kind,cb){if(noDom()){cb(kind==='wort'?pick(['Mama','Papa','Wauwau','Nein!']):R(0,kind==='bau'?8:3));return}
   const d=document.getElementById('dlg'),m=document.getElementById('modal');d.className='dlg stage mg';m.classList.add('on');let stop=false;const fin=v=>{if(stop)return;stop=true;setTimeout(()=>{m.classList.remove('on');cb(v)},kind==='wort'?900:700)};
   if(kind==='wort'){const S=['Ma','Pa','Wau','Ba','Da','Nein'];let w=[];
@@ -90,7 +90,7 @@ const pragJob=()=>(hasPr('mut')?.03:0)+(hasPr('durch')?.02:0)+((p.kmJob||0)===p.
 
 /* ---------- Kindheitsfreunde kommen zurück ---------- */
 QEV.kmback=i=>{const m=(p.km||[])[i];if(!m||m.back)return null;m.back=1;const good=m.rel>=55,bad=m.rel<40,mem=(m.mem||[]).slice(-1)[0];
-  const v=p.job?'job':!p.partner&&p.age<45&&!bad?'date':'nb';
+  const v=p.job&&!p.kmJob?'job':!p.partner&&p.age<45&&!bad?'date':'nb';if(v==='job')p.kmJob=1;
   if(v==='job')return E('Ein bekanntes Gesicht',m.n+' ist jetzt Abteilungsleiter/in in deiner Firma. '+(good?'„Du? Wir waren doch zusammen in der Grundschule!“':bad?'Ein kurzer, kühler Blick. '+(mem?'„'+mem.t+'. Weißt du noch?“':''):'Ihr erkennt euch sofort.'),()=>!!p.job,[
     [good?'Über alte Zeiten reden':'Freundlich bleiben',()=>{if(good){p.job.pay=Math.round(p.job.pay*1.08);p.job.perf=Math.min(100,(p.job.perf||50)+8);return m.n+' setzt sich für dich ein. Gehalt +8 %. Kindheitsfreunde sind Gold wert.'}if(bad){p.job.perf=Math.max(0,(p.job.perf||50)-6);add('gl',-3);return m.n+' hat nichts vergessen. Deine Projekte werden plötzlich kritischer geprüft.'}p.job.perf=Math.min(100,(p.job.perf||50)+3);return 'Ein netter Plausch in der Kantine.'}],
     ...(bad?[['Dich für damals entschuldigen',()=>ch(.6)?(m.rel=60,p.job.perf=Math.min(100,(p.job.perf||50)+4),'„Das ist lange her. Danke, dass du das sagst.“ Das Eis ist gebrochen.'):'„Schon gut.“ Klingt nicht so.']]:[])]);
@@ -98,7 +98,7 @@ QEV.kmback=i=>{const m=(p.km||[])[i];if(!m||m.back)return null;m.back=1;const go
     ['Nach einem Date fragen',()=>ch(good?.7:.4)?(p.partner={name:m.n,rel:good?72:58,mar:false},add('gl',10),kmem('Ich bin mit '+m.n+' zusammengekommen'),'Ihr seid zusammen! Wer hätte das auf dem Spielplatz gedacht.'):'„Lass uns lieber Freunde bleiben.“'],['Nummern austauschen',()=>(add('gl',3),'Ihr schreibt euch ab und zu.')]]);
   return E('Neue Nachbarn','In die Wohnung nebenan zieht '+m.n+'. Ihr kennt euch aus der Grundschule.',()=>true,[['Hallo sagen',()=>{nbSync();const o=p.nb[0];o.n=m.n;o.g=m.g;o.rel=clamp(m.rel+10,0,100);o.mem=(m.mem||[]).slice();o.b=0;return good?'Ihr umarmt euch. Was für ein Zufall!':bad?'Ihr nickt euch zu. Etwas angespannt.':'Ein nettes Wiedersehen.'}]])};
 QEV.reunion=()=>{const M=kmates();M.forEach(m=>{if(!m.fate)m.fate=pick(['ist Ärztin/Arzt geworden','hat eine eigene Firma','ist Lehrer/in an eurer alten Schule','lebt in Australien','hat vier Kinder','ist Polizist/in','sucht gerade einen Job','ist Musiker/in','arbeitet bei der Bank'])});
-  return E('Klassentreffen','Klassentreffen nach '+(p.age-10)+' Jahren! '+M.map(m=>m.n+' '+m.fate).join('. ')+'.',()=>true,[['Hingehen',()=>{add('gl',6);M.forEach(m=>m.rel=clamp(m.rel+5,0,100));const b=M[0];if(b&&b.rel<40&&ch(.5)){b.rel=55;return 'Ein lustiger Abend. Sogar '+b.n+' entschuldigt sich für damals auf dem Spielplatz.'}return 'Ein lustiger Abend voller „Weißt du noch?“.'}],['Absagen',()=>'Vielleicht beim nächsten Mal.']])};
+  return E('Klassentreffen','Klassentreffen nach '+(p.age-10)+' Jahren! '+M.map(m=>m.n+' '+m.fate).join('. ')+'.',()=>true,[['Hingehen',()=>{add('gl',6);M.forEach(m=>m.rel=clamp(m.rel+5,0,100));const fr=M[1];if(fr&&fr.rel>=50&&typeof fkReunite==='function'&&fkReunite(fr)){return 'Ein lustiger Abend. Mit '+fr.n+' tauschst du wieder Nummern aus, wie früher.'}const b=M[0];if(b&&b.rel<40&&ch(.5)){b.rel=55;return 'Ein lustiger Abend. Sogar '+b.n+' entschuldigt sich für damals auf dem Spielplatz.'}return 'Ein lustiger Abend voller „Weißt du noch?“.'}],['Absagen',()=>'Vielleicht beim nächsten Mal.']])};
 
 /* ---------- Rückblenden ---------- */
 {const _se=showEvent0;showEvent0=function(e){try{const sc=sceneOf(e),F=p.flash||{};p.flashY=p.flashY||{};let x=null;
@@ -133,7 +133,7 @@ function lastYear(){if(!heavyOn()||!p.slast)return;
   if(p.age<18)return;
   if(p.slast>=20){add('ge',-1);if(p.age%4===0)log('Du schläfst schlecht. Die Vergangenheit lässt dich nicht los.')}
   if(p.slast>=35){add('gl',-3);relUp('freund',-2)}
-  const tags=p.trig||[];if(tags.length&&ch(Math.min(.35,p.slast/120)))p.q.push({id:'ausl',d:pick(tags)});
+  const tags=p.trig||[];if(tags.length&&!(p.auslY!=null&&p.age-p.auslY<4)&&ch(Math.min(.3,p.slast/120))){p.auslY=p.age;p.q.push({id:'ausl',d:pick(tags)})}
   else if(p.slast>=55&&ch(.3))p.q.push({id:'krise'})}
 function lastCard(){if(!p.slast&&!p.ther&&!hasPr('gestaerkt'))return '';const L=p.slast||0,lock=!!p.prison,T=p.ther,open=T&&T.y<=p.age;
   return '<section class="card"><h2 class="h">Seelische Gesundheit</h2>'+(hasPr('gestaerkt')&&!L?'<p class="note">Du hast Schweres verarbeitet. Das hat dich gestärkt.</p>':
@@ -143,10 +143,10 @@ function lastCard(){if(!p.slast&&!p.ther&&!hasPr('gestaerkt'))return '';const L=
 function act18(id,arg){switch(id){
   case 'hausarzt':{if(p.ther||!spendTime(60))return 1;p.ther={s:0,y:p.age+1};done('Deine Hausärztin nimmt sich Zeit und überweist dich. Ein Therapieplatz ist ab nächstem Jahr frei.');return 1}
   case 'therapie':{const T=p.ther;if(!T||T.y>p.age||(T.s||0)>=8||!spendTime(60))return 1;T.s=(T.s||0)+1;addLast(-R(2,4));
-    if(!p.slast){p.prag=p.prag||[];if(!p.prag.includes('gestaerkt'))p.prag.push('gestaerkt');p.ther=null;p.medi=0;add('gl',10);try{mile('Seelisch gestärkt','star')}catch(e){}done('Du hast es geschafft. Was damals war, gehört zu dir, aber es bestimmt dich nicht mehr.');return 1}
+    if(!p.slast){p.prag=p.prag||[];if(!p.prag.includes('gestaerkt'))p.prag.push('gestaerkt');p.ther=null;p.medi=0;add('gl',10);try{mile('Seelisch gestärkt','star')}catch(e){errLog(e)}done('Du hast es geschafft. Was damals war, gehört zu dir, aber es bestimmt dich nicht mehr.');return 1}
     done(pick(['Eine schwere Stunde. Danach bist du erschöpft, aber leichter.','Ihr sprecht über damals. Zum ersten Mal ohne Tränen.','Du lernst eine Atemübung gegen das Herzrasen.','Deine Therapeutin sagt: „Das war ein großer Schritt.“']));return 1}
   case 'psychiater':{if(p.medi||!spendTime(90))return 1;p.medi=1;addLast(-5);done('Der Psychiater verschreibt dir ein Medikament. Es dauert ein paar Wochen, dann wird es ruhiger in dir.');return 1}
-  case 'swimfix':{if(!(p.fears&&p.fears.wasser)||!spendTime(90))return 1;p.swimN=(p.swimN||0)+1;if(p.swimN>=3){delete p.fears.wasser;add('gl',8);try{mile('Angst vor Wasser überwunden','star')}catch(e){}done('Du springst vom Beckenrand. Nach all den Jahren!');}else done('Stunde '+p.swimN+' von 3. Du traust dich schon bis zur Hüfte.');return 1}
+  case 'swimfix':{if(!(p.fears&&p.fears.wasser)||!spendTime(90))return 1;p.swimN=(p.swimN||0)+1;if(p.swimN>=3){delete p.fears.wasser;add('gl',8);try{mile('Angst vor Wasser überwunden','star')}catch(e){errLog(e)}done('Du springst vom Beckenrand. Nach all den Jahren!');}else done('Stunde '+p.swimN+' von 3. Du traust dich schon bis zur Hüfte.');return 1}
 }return 0}
 
 /* ---------- Jahreslauf der Kindheit ---------- */
@@ -160,8 +160,8 @@ function kidYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;if(p.age<16&&p.
   if(p.age>=3&&p.age<16&&heavyOn()&&(p.hvN||0)<2&&ch(.06)){const L=Object.keys(LASTT).filter(k=>!(p.trig||[]).includes(k)&&(k!=='mobbing'||kmates()[0].rel<45));if(L.length){const k=pick(L);p.hvN=(p.hvN||0)+1;(p.trig=p.trig||[]).push(k);p.q.push({id:'trauma',d:k})}}
   if(p.age>=4&&p.age<16&&heavyOn()&&avgPar()<35)addLast(3);
   if(p.age===16)pragFinal();
-  if(p.age>=20&&p.age<=60&&p.km&&ch(.08)){const i=p.km.findIndex(m=>!m.back);if(i>=0)p.q.push({id:'kmback',d:i})}
-  if([30,40,50].includes(p.age)&&p.km)p.q.push({id:'reunion'});
+  if(p.age>=20&&p.age<=60&&p.km&&ch(.05)){const i=p.km.findIndex(m=>!m.back);if(i>=0)p.q.push({id:'kmback',d:i})}
+  if([30,50,65].includes(p.age)&&p.km)p.q.push({id:'reunion'});
   // Laufende Wirkungen der Prägungen
   if(p.age>=16){if(hasPr('schlicht')&&p.partner)p.partner.rel=clamp(p.partner.rel+2,0,100);if(hasPr('herz')){relUp('freund',2);(p.nb||[]).forEach(o=>o.rel=clamp(o.rel+2,0,100))}
     if(hasPr('regel')&&p.job&&['polizei','bankkfm','buero','waerter'].includes(p.job.id))p.job.perf=Math.min(100,(p.job.perf||50)+3);

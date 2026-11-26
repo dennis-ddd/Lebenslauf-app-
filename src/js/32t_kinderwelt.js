@@ -53,5 +53,5 @@ QEV.k_handy=()=>E('Dein erstes Handy?',parentN()+' legt eine kleine Schachtel au
   if(p.age===6&&!p.kseen.ranzen&&!O.kidOff){p.kseen.ranzen=1;log('Aus der Spielzeugkiste wird ein Schulranzen. Alles Wichtige steckt jetzt darin.')}
   if(!p.kph&&phoneTier()===0&&p.age>=10&&p.age<=12&&!p.kseen['kh'+p.age]&&(p.age===12||ch(.5))){p.kseen['kh'+p.age]=1;p.q.push({id:'k_handy'})}
   if(!p.kph&&phoneTier()===0&&p.age>=13){p.kph=1;p.phoneY=p.age;log('Mit 13 bekommst du endlich ein eigenes Handy.');mile('Erstes Handy','star')}
-  }catch(e){}}}
+  }catch(e){errLog(e)}}}
 {const _ve=viewEinst;viewEinst=function(){return _ve()+'<section class="card tgs"><h2 class="h">Kindheit</h2>'+tog('kidOff',!!O.kidOff,'Normales Handy auch als Kind','Statt Spielzeugkiste und Schulranzen gleich die Apps zeigen')+'</section>'}}

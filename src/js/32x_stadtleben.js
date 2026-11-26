@@ -34,7 +34,7 @@ function cityYear(){if(!p||p.age<1)return;const s=cityS(),ph=typeof ecoPh==='fun
   if(s.bau!=null&&p.age-s.bauY>=2){s.bau=null;if(p.age>=10)news('Baustelle in der Innenstadt beendet','lokal','Endlich wieder freie Fahrt.')}
   if(s.bau==null&&s.dev>d0&&r()<.35){const L=layout(p.seed,{hz:HZ[p.home]||'R'}),C=L.cells.map((c,i)=>[c,i]).filter(([c])=>!c.place&&(c.zone==='C'||c.zone==='B'));if(C.length){s.bau=C[Math.floor(r()*C.length)][1];s.bauY=p.age;if(p.age>=10)news('Großbaustelle in der Stadt','lokal','Kräne, Lärm und Umleitungen: Hier entsteht etwas Neues.')}}
   if(r()<.35){s.fest=p.age;if(p.age>=4)news('Stadtfest im Stadtpark','lokal','Live-Musik, Essensstände und Lichterketten bis spät in die Nacht.')}}
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{cityYear()}catch(e){}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{cityYear()}catch(e){errLog(e)}}}
 /* Karten-Pins: Orte, eigene Gebäude und Wahrzeichen */
 const OWNSVG='<svg class="pinsv" viewBox="0 0 24 32" aria-hidden="true"><path d="M12 31s10-11.2 10-19A10 10 0 0 0 2 12c0 7.8 10 19 10 19z"/><path d="M8 9l4-3 4 3v6H8z" fill="#fff" stroke="none"/></svg>';
 pinsBuild=function(){const el=document.getElementById('pins');if(!el||!G||!G.L)return;const ppl=peopleAt();let h='';
@@ -62,7 +62,7 @@ function cityFullBtn(){const b=document.getElementById('cfull');if(!b)return;con
   b.innerHTML=full?FSO:FSI;b.setAttribute('aria-label',po?'Stadt wieder groß zeigen':full?'Vollbild verlassen':'Stadt im Vollbild');b.classList.toggle('hl',po)}
 {const _bs=buildShell;buildShell=function(){_bs();if(typeof document.querySelector!=='function')return;const cw=document.getElementById('city');if(cw&&!document.getElementById('cfull')){const r=document.createElement('div');r.className='rot rtop';cw.appendChild(r);const b=document.createElement('button');b.id='cfull';b.innerHTML=FSI;r.appendChild(b);
   b.onclick=()=>{const bd=document.body;if(bd.classList.contains('placeopen')){sel=null;bd.classList.add('cityfull');render()}else{bd.classList.toggle('cityfull');cityFullBtn();if(G)setTimeout(sizeThree,30)}}}}}
-{const _r=render;render=function(){_r();try{const bd=document.body;if(bd&&bd.classList){if(tab!=='stadt'||!p||!p.alive)bd.classList.remove('cityfull');if(bd.classList.contains('placeopen'))bd.classList.remove('cityfull');cityFullBtn()}}catch(e){}}}
+{const _r=render;render=function(){_r();try{const bd=document.body;if(bd&&bd.classList){if(tab!=='stadt'||!p||!p.alive)bd.classList.remove('cityfull');if(bd.classList.contains('placeopen'))bd.classList.remove('cityfull');cityFullBtn()}}catch(e){errLog(e)}}}
 /* Grafikqualität in den Einstellungen */
 {const _ve=viewEinst;viewEinst=function(){const cur=O.gfx||'auto',auto=G?G.qn:gfxQ();return _ve()+'<section class="card tgs"><h2 class="h">Grafik der Stadt</h2><div class="seg full">'+[['auto','Automatisch'],['low','Niedrig'],['mid','Mittel'],['high','Hoch']].map(([k,l])=>'<button data-a="gfx" data-g="'+k+'" aria-pressed="'+(cur===k)+'">'+l+'</button>').join('')+'</div>'+
   '<p class="note">'+(cur==='auto'?'Gerade aktiv: '+({low:'Niedrig',mid:'Mittel',high:'Hoch'}[auto]||'Mittel')+'. Ruckelt die Stadt, schaltet das Spiel selbst eine Stufe herunter.':'Niedrig spart Akku, Hoch zeigt Schatten und mehr Leben auf den Straßen.')+'</p></section>'}}

@@ -9,14 +9,14 @@ const uiIc=(id,cls)=>{const A=APP[id];if(!A)return '';return '<span class="ic'+(
 const visA=id=>APP[id]&&appVisible(id)&&!(id==='jva'&&!p.prison);
 /* Was gerade wichtig ist: Erinnerungen, Abzeichen der Apps, ungelesene Mitteilungen */
 function feed(){const L=[];if(!p)return L;
-  try{reminders().forEach(r=>L.push({app:r[2]||'kalender',t:String(r[1]).replace(/<[^>]*>/g,''),pr:3}))}catch(e){}
+  try{reminders().forEach(r=>L.push({app:r[2]||'kalender',t:String(r[1]).replace(/<[^>]*>/g,''),pr:3}))}catch(e){errLog(e)}
   const T={chats:b=>b+' ungelesene Nachricht'+(b>1?'en':''),post:b=>b+' Brief'+(b>1?'e':'')+' im Briefkasten',kalender:b=>'Geburtstage und Termine stehen an',klick:b=>b==='!'?'Leg dir ein Klick-Profil an':b+' neue Klick-Mitteilung'+(b>1?'en':''),jobs:b=>b+' neue Stelle'+(b>1?'n':''),news:b=>b+' neue Schlagzeile'+(b>1?'n':''),erfolge:b=>b+' neue'+(b>1?'':'r')+' Erfolg'+(b>1?'e':''),store:b=>b+' App-Tipp'+(b>1?'s':'')};
   const PR={post:5,chats:4,kalender:3,klick:2,jobs:2,news:1,erfolge:1,store:0};
   Object.keys(T).forEach(id=>{if(!visA(id)||(p.prison&&!PRISON_APPS.includes(id)))return;const b=badgeOf(id);if(b&&!L.some(x=>x.app===id))L.push({app:id,t:T[id](b),pr:PR[id]})});
   (p.nh||[]).filter(n=>!n.r).slice(0,5).forEach(n=>L.push({app:n.g&&APP[n.g]?n.g:'inbox',t:n.t,pr:1,nh:1}));
   return L.sort((a,b)=>b.pr-a.pr)}
 const inboxN=()=>feed().length;
-{const _nt=notify;notify=function(t,g,s){_nt(t,g,s);try{if(p){p.nh=p.nh||[];p.nh.unshift({t:String(t).replace(/<[^>]*>/g,'').slice(0,140),g:g||null,a:p.age,r:0});if(p.nh.length>30)p.nh.length=30}}catch(e){}}}
+{const _nt=notify;notify=function(t,g,s){_nt(t,g,s);try{if(p){p.nh=p.nh||[];p.nh.unshift({t:String(t).replace(/<[^>]*>/g,'').slice(0,140),g:g||null,a:p.age,r:0});if(p.nh.length>30)p.nh.length=30}}catch(e){errLog(e)}}}
 /* Startseite */
 function favApps(){const U=p.appUse||{},ex=['stadt','inbox','einst','store','jva'];let L=Object.keys(U).filter(id=>visA(id)&&!ex.includes(id)).sort((a,b)=>U[b]-U[a]).slice(0,4);
   ['chats','jobs','bank','freizeit','leben','bildung','familie'].forEach(id=>{if(L.length<4&&visA(id)&&!L.includes(id))L.push(id)});return L}
@@ -63,7 +63,7 @@ const CATP={arbeit:['jobcenter','buero','uni','bschule','schule','bank','boerse'
     if(g==='inbox'){const n=inboxN();let s=b.querySelector('.badge');if(n){if(!s){s=document.createElement('span');s.className='badge';b.appendChild(s)}s.textContent=n>9?'9+':n}else if(s)s.remove()}});
   const f=document.getElementById('cflt');if(f){const h=[['alle','Alle'],['arbeit','Arbeit'],['freizeit','Freizeit'],['meine','Meine']].map(([k,l])=>'<button data-a="cflt" data-g="'+k+'" aria-pressed="'+(cityFl===k)+'">'+l+'</button>').join('');if(f._h!==h){f.innerHTML=h;f._h=h}}
   const v2=document.getElementById('view2');if(v2&&document.body.classList.contains('placeopen')&&v2.firstElementChild){v2.firstElementChild.classList.add('pcard');if(!v2.querySelector('.shh')){const hh=document.createElement('button');hh.className='shh';hh.dataset.a='desel';hh.setAttribute('aria-label','Blatt schließen');v2.insertBefore(hh,v2.firstChild)}}
-  }catch(e){}}}
+  }catch(e){errLog(e)}}}
 /* Filter und Viertelnamen auf der Karte */
 {const _pb=pinsBuild;pinsBuild=function(){_pb();const el=document.getElementById('pins');if(!el||!G||!G.L)return;
   if(!el.querySelector('.dl')){const D={};G.L.cells.forEach(c=>{const k=c.zone==='G'?null:DIST[c.dist][0];if(!k)return;(D[k]=D[k]||[]).push(c)});
@@ -95,12 +95,12 @@ function recapStory(R0,then){const a=p.age,newLook=stageOf(a)!==stageOf(a-1),car
   sfx(O.mel&&UL[O.mel]?O.mel:'bday');vib([30,50,30])}
 {const _rc=recap;recap=function(R0,then){if(noDom()||!uiNew())return _rc(R0,then);try{recapStory(R0,then)}catch(e){_rc(R0,then)}}}
 /* Schwebende Zahlen direkt am gedrückten Knopf */
-let lastPt=null;try{document.addEventListener('pointerdown',e=>{lastPt={x:e.clientX,y:e.clientY,t:Date.now()}},true)}catch(e){}
+let lastPt=null;try{document.addEventListener('pointerdown',e=>{lastPt={x:e.clientX,y:e.clientY,t:Date.now()}},true)}catch(e){errLog(e)}
 function fxNums(d){if(lessMotion()||!lastPt||Date.now()-lastPt.t>2500||!d.length)return;d.slice(0,3).forEach((x,k)=>{const o=document.createElement('div');o.className='fxnum '+(x[1]>0?'pos':'neg');o.textContent=x[0];o.style.left=lastPt.x+'px';o.style.top=(lastPt.y-8-k*24)+'px';o.style.animationDelay=k*90+'ms';document.body.appendChild(o);setTimeout(()=>o.remove(),1500)})}
 {const f=act;act=function(id,arg){if(id==='hfold'){homeF=arg||null;render();return}if(id==='cflt'){cityFl=arg||'alle';if(G)pinsBuild();render();return}if(id==='nhread'){(p.nh||[]).forEach(n=>n.r=1);render();return}
   if(id==='goto'&&p&&APP[arg]){p.appUse=p.appUse||{};p.appUse[arg]=(p.appUse[arg]||0)+1;homeF=null;if(arg==='inbox')setTimeout(()=>{(p.nh||[]).forEach(n=>n.r=1)},0)}
   const s0=p&&p.alive?Object.assign({m:p.money},p.st):null;const r=f(id,arg);
-  try{if(s0&&p&&p.alive&&!noDom()){const D=[];Object.keys(STAT).forEach(k=>{const d=p.st[k]-s0[k];if(d)D.push([(d>0?'+':'−')+Math.abs(d)+' '+STAT[k],d])});const dm=p.money-s0.m;if(Math.abs(dm)>=1)D.unshift([(dm>0?'+':'−')+eur(Math.abs(dm)),dm]);fxNums(D)}}catch(e){}
+  try{if(s0&&p&&p.alive&&!noDom()){const D=[];Object.keys(STAT).forEach(k=>{const d=p.st[k]-s0[k];if(d)D.push([(d>0?'+':'−')+Math.abs(d)+' '+STAT[k],d])});const dm=p.money-s0.m;if(Math.abs(dm)>=1)D.unshift([(dm>0?'+':'−')+eur(Math.abs(dm)),dm]);fxNums(D)}}catch(e){errLog(e)}
   if(id==='opt'&&arg==='homeClassic'){shell=false;render()}return r}}
 {const _ve=viewEinst;viewEinst=function(){return _ve()+'<section class="card tgs"><h2 class="h">Startseite</h2>'+tog('homeClassic',!!O.homeClassic,'Klassische App-Ansicht','Alle Apps einzeln statt Heute, Ordnern und Leiste unten')+'</section>'}}
 {const _yf=yearFlash;yearFlash=function(a){if(uiNew())return;return _yf(a)}}

@@ -59,7 +59,7 @@ function act13(id,arg){switch(id){
 
 /* ---------- Zurück-Navigation (auch die Zurück-Geste des Handys) ---------- */
 let navKey='',navPop=false;
-function navSync(){const k=tab+'|'+(chatSel||'')+'|'+(tab==='stadt'?sel||'':'');if(k!==navKey){if(navKey&&!navPop)try{history.pushState({k},'')}catch(e){}navKey=k}navPop=false}
+function navSync(){const k=tab+'|'+(chatSel||'')+'|'+(tab==='stadt'?sel||'':'');if(k!==navKey){if(navKey&&!navPop)try{history.pushState({k},'')}catch(e){errLog(e)}navKey=k}navPop=false}
 if(window.addEventListener)window.addEventListener('popstate',()=>{if(!p||!p.alive)return;navPop=true;
   if(document.getElementById('modal').classList.contains('on')){document.getElementById('modal').classList.remove('on')}
   else if(tab==='chats'&&chatSel)chatSel=null;else if(tab==='stadt'&&sel)sel=null;else if(tab!=='home')tab='home';render()});
@@ -84,4 +84,4 @@ function applyNames(txt){const S={};let cur=null;txt.split(/\r?\n/).forEach(l=>{
   (S['gebäude in der stadt']||[]).forEach(l=>{const [k,v]=l.split('=').map(x=>x.trim());if(PL[k]&&v)PL[k].n=v});
   (S['läden']||[]).forEach(l=>{const [k,v]=l.split('=').map(x=>x.trim());if(FR[k]&&v)FR[k].n=v});
   (S['parteien']||[]).forEach((l,i)=>{const [n,d]=l.split('|').map(x=>x.trim());if(PARTIES[i]&&n){PARTIES[i][0]=n;if(d)PARTIES[i][2]=d}})}
-try{if(typeof fetch==='function'&&location&&location.protocol.startsWith('http'))fetch('inhalte/namen.txt',{cache:'no-cache'}).then(r=>r.ok?r.text():'').then(t=>{if(t&&!t.trimStart().startsWith('<')){applyNames(t);if(p)render();else if(typeof renderStart==='function'&&document.getElementById('app'))renderStart()}}).catch(()=>{})}catch(e){}
+try{if(typeof fetch==='function'&&location&&location.protocol.startsWith('http'))fetch('inhalte/namen.txt',{cache:'no-cache'}).then(r=>r.ok?r.text():'').then(t=>{if(t&&!t.trimStart().startsWith('<')){applyNames(t);if(p)render();else if(typeof renderStart==='function'&&document.getElementById('app'))renderStart()}}).catch(()=>{})}catch(e){errLog(e)}

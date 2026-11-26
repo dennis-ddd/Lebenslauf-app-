@@ -68,13 +68,13 @@ function polYear2(){const o=polS();if(!o||p.prison)return;
     if(p.cityS&&Object.values(cityS().dw).some(v=>v>.6)&&polHas('wohnen'))o.pop=clamp(o.pop+2,0,100)}
   if(o.lvl===5&&!o.kanzlerTry&&p.age>=40&&o.pop>=65&&ch(.25)){o.kanzlerTry=1;log('Deine Partei will dich als Kanzlerkandidat/in aufstellen.')}}
 VORL.forEach(v=>{QEV['pol_v_'+v.id]=()=>{try{return v.ev()}catch(e){return null}}});
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{polYear2()}catch(e){}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{polYear2()}catch(e){errLog(e)}}}
 /* Koalition nach gewonnener Wahl ab Landtag */
 {const _pl=polYear;polYear=function(R0){const o=p.pol,l0=o?o.lvl:0;_pl(R0);if(o&&o.lvl>l0){if(o.lvl>=3&&ch(.6))p.q.push({id:'pol_koalition'});o.gegner=null;o.rv=0;o.terms=(o.terms||0)+1}if(o&&!o.next)o.gegner=null}}
 /* Aktionen */
 {const f=act;act=function(id,arg){
   if(id==='po_th'){const o=polS();if(!o)return;const i=o.th.indexOf(arg);if(i>=0)o.th.splice(i,1);else{if(o.th.length>=3){toast('Höchstens drei Kernthemen.');return}o.th.push(arg)}save();render();return}
-  if(id==='po_cand'){const o=polS(),had=o&&o.next;f(id,arg);if(o&&o.next&&!had){if(!o.gegner)o.gegner=pick(FN.concat(MN))+' '+pick(LN);const show=k=>{const e=QEV[k]();if(e)setTimeout(()=>{try{showEvent0(e)}catch(x){}},500)};
+  if(id==='po_cand'){const o=polS(),had=o&&o.next;f(id,arg);if(o&&o.next&&!had){if(!o.gegner)o.gegner=pick(FN.concat(MN))+' '+pick(LN);const show=k=>{const e=QEV[k]();if(e)setTimeout(()=>{try{showEvent0(e)}catch(x){errLog(x)}},500)};
     if(p.rival&&!o.rv&&ch(.35)){o.rv=1;show('pol_rivale')}else if(o.lvl+1>=2&&ch(.7))show('pol_duell')}return}
   if(id==='po_quit'){const o=polS();if(!o||!(p.job&&p.job.id==='pol'))return;dialog('Rücktritt?','Willst du dein Amt als '+p.job.t+' wirklich niederlegen?',[['Zurücktreten',()=>{p.job=null;o.term=null;o.lvl=1;addRuf(1);mile('Rücktritt vom Amt','star');done('Du legst dein Amt nieder. Ein Kapitel endet.')}],['Doch nicht',null]]);return}
   if(id==='po_presse'){const o=polS();if(!o||o.pk===p.age)return;CUR='po_work';if(!useAct())return;o.pk=p.age;const ok=ch(.45+(p.sk.charme||0)/250+p.st.in/400);o.pop=clamp(o.pop+(ok?6:-3),0,100);done(ok?'Die Pressekonferenz läuft glänzend. Deine Botschaft ist in allen Nachrichten.':'Eine fiese Frage bringt dich ins Schwimmen. Der Clip geht viral, leider.');return}

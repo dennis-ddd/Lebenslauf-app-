@@ -26,7 +26,7 @@ function econYear2(R0){const e=ecoX(),ph=typeof ecoPh==='function'?ecoPh():'norm
     if(a-a0>=1)N('Arbeitslosigkeit steigt auf '+pc1(a),'Firmen stellen kaum noch ein.');else if(a0-a>=1)N('Arbeitslosigkeit sinkt auf '+pc1(a),'Viele Firmen suchen Leute.');
     if(d<=-.04)N('Immobilienpreise fallen deutlich','Ein Minus von '+pc1(-d*100)+' in einem Jahr.');else if(d>=.07)N('Immobilienpreise auf Rekordhoch','Ein Plus von '+pc1(d*100)+' in einem Jahr.')}
   if(infl>=5&&p.age>=16)add('gl',-2)}
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{if(p&&p.econ)econYear2(R0)}catch(e){}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{if(p&&p.econ)econYear2(R0)}catch(e){errLog(e)}}}
 /* Immobilien-Angebote folgen dem Markt */
 {const _li=listings;listings=function(){const L=_li();if(!p||!p.econ||!p.econ.ri)return L;return L.map(x=>Object.assign({},x,{price:Math.round(x.price*p.econ.ri/1000)*1000,val:Math.round((x.val||x.price)*p.econ.ri)}))}}
 /* Wirtschaftsseite */

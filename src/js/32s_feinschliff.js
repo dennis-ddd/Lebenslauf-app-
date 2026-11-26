@@ -11,7 +11,7 @@ QEV.k_verein=()=>E('Probetraining!','Der Fußballverein um die Ecke sucht Kinder
 // Vereinsbeitrag zahlen bei Kindern die Eltern
 {const f=act;act=function(id,arg){if(id==='club'&&p&&p.age<18&&!p.prison&&CLUBS[arg]){const i=p.clubs.indexOf(arg);if(i>=0){p.clubs.splice(i,1);done('Aus dem '+CLUBS[arg][0]+' ausgetreten.');return}
   if(p.age<6)return;p.clubs.push(arg);add('gl',3);done('Willkommen im '+CLUBS[arg][0]+'! Den Beitrag zahlen '+(p.parentsGone?'deine Betreuer':'Mama und Papa')+'.');return}return f(id,arg)}}
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{if(p.age<18&&(p.clubs||[]).length){const back=p.clubs.reduce((s,c)=>s+px$(CLUBS[c][1]),0);p.money+=back;R0.inc.push(['Vereinsbeitrag (zahlen die Eltern)',back])}if(p.age>=6&&p.age<14&&!(p.clubs||[]).length&&!(p.kseen||{}).k_verein&&ch(.35)){p.kseen=p.kseen||{};p.kseen.k_verein=1;p.q.push({id:'k_verein'})}}catch(e){}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{if(p.age<18&&(p.clubs||[]).length){const back=p.clubs.reduce((s,c)=>s+px$(CLUBS[c][1]),0);p.money+=back;R0.inc.push(['Vereinsbeitrag (zahlen die Eltern)',back])}if(p.age>=6&&p.age<14&&!(p.clubs||[]).length&&!(p.kseen||{}).k_verein&&ch(.35)){p.kseen=p.kseen||{};p.kseen.k_verein=1;p.q.push({id:'k_verein'})}}catch(e){errLog(e)}}}
 INVITES_KID.freund=[['Spielen wir nachher Fußball im Park?','fussball'],['Übernachtungsparty bei mir?','party'],['Kommst du mit auf den Spielplatz?','spiel']];
 
 /* ---------- Chats: Neuestes sofort sehen, erst antworten, dann Details ---------- */

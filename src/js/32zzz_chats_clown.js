@@ -97,7 +97,7 @@ QEV.k_clpreis=()=>E('Abschlusszeitung','In der Abschlusszeitung wirst du zum „
   if(p.q.some(x=>x.id==='k_clernst'))p.cs.ernst=1;
   if(c>=50&&p.age>=15&&!p.cs.preis&&ch(.5)){p.cs.preis=1;p.q.push({id:'k_clpreis'})}
   if(c>=40&&GROUPS.g_klasse[2]()&&ch(.4))msg('g_klasse',pick(['Lena','Jonas','Mia','Finn'])+': Erzähl mal wieder einen Witz! 😂');
-  p.clown=Math.max(0,c-3)}catch(e){}}}
+  p.clown=Math.max(0,c-3)}catch(e){errLog(e)}}}
 {const _g=gradesYear;gradesYear=function(){_g();const g=p.gr,n=p.clownY||0;if(g&&g.a===p.age&&n){const d=Math.min(1,n*.25);['ma','de','en'].forEach(k=>g[k]=clamp(Math.round((g[k]+d)*2)/2,1,6));g.avg=(g.ma+g.de+g.en+g.sp)/4;
   if(n>=2)log('Bemerkung im Zeugnis: „Stört häufig den Unterricht, ist aber bei allen beliebt.“')}p.clownY=0}}
 {const _vb=viewBildung;viewBildung=function(){let h=_vb();if(!p.school&&!(p.clown>0))return h;

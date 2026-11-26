@@ -13,17 +13,14 @@ function altYear(){if(!p||p.age<58||p.prison)return;const A=altS();
   if(A.w==='kinder'){add('gl',3);const k=(p.kids||[]).find(k=>k.alive!==false);if(k)k.rel=clamp(k.rel+(ch(.7)?2:-4),0,100)}
   if(A.w==='zuhause'&&p.age>=75&&p.st.ge<55&&ch(.08)&&!p.prison)p.q.push({id:'alt_sturz'});
   const once=(k,c)=>{A.ev=A.ev||{};if(!A.ev[k]&&c()){A.ev[k]=1;p.q.push({id:'alt_'+k});return true}return false};
-  once('klassentreffen',()=>p.age>=62&&p.age<=72&&ch(.25))||once('enkeltrick',()=>p.age>=70&&ch(.15))||once('jubilaeum',()=>p.age>=70&&p.partner&&p.partner.mar&&ch(.2))||
+  once('enkeltrick',()=>p.age>=70&&ch(.15))||once('jubilaeum',()=>p.age>=70&&p.partner&&p.partner.mar&&ch(.2))||
   once('fuehrerschein',()=>p.age>=80&&typeof hasLic==='function'&&hasLic('auto')&&ch(.3))||once('digital',()=>p.age>=68&&(p.kids||[]).some(k=>k.kids)&&ch(.2))||once('kreuzfahrt',()=>p.age>=66&&p.money>px$(8000)&&ch(.15))}
 let R0Out=null;
-{const _py=perkYear;perkYear=function(R0){R0Out=R0&&R0.out||null;_py(R0);try{altYear()}catch(e){}R0Out=null}}
+{const _py=perkYear;perkYear=function(R0){R0Out=R0&&R0.out||null;_py(R0);try{altYear()}catch(e){errLog(e)}R0Out=null}}
 const AE=(t,x,o)=>{const e=E(t,x,()=>true,o);e.cat='Im Alter';return e};
 QEV.alt_sturz=()=>AE('Gestürzt','Im Badezimmer rutschst du aus. Zum Glück hört dich '+(p.partner?p.partner.name:'die Nachbarin')+'.',[
   ['Ins betreute Wohnen ziehen',()=>{altS().w='betreut';add('ge',-4);return 'Ein Notrufknopf am Handgelenk. Es fühlt sich sicherer an.'}],
   ['Zuhause bleiben, Haltegriffe einbauen',()=>{p.money-=px$(800);add('ge',-6);return 'Ein paar Haltegriffe und eine rutschfeste Matte. Es geht weiter.'}]]);
-QEV.alt_klassentreffen=()=>{const M=(typeof kmates==='function'&&p.km)?kmates():null,f=M&&M[1],b=M&&M[0];return AE('50 Jahre Klassentreffen','Die alte Schule lädt ein. Viele Gesichter erkennst du erst auf den zweiten Blick.'+(f?' Da ist '+f.n+'! Und '+b.n+', der/die dich früher geärgert hat.':''),[
-  ['Hingehen',()=>{add('gl',8);if(f){const x=fkMake('der Grundschule');x.n=f.n;x.g=f.g;x.d=0;x.cl=55;x.since=p.age-55;fkList().push(x);fkMem(x,'Wiedersehen beim Klassentreffen');return 'Ihr redet, als wäre kein Tag vergangen. '+f.n+' gehört wieder zu deinem Freundeskreis.'}return 'Ein Abend voller alter Geschichten.'}],
-  ['Lieber nicht',()=>'Die Fotos schaust du dir später auf dem Handy an.']])};
 QEV.alt_enkeltrick=()=>{const c=px$(8000);return AE('Ein seltsamer Anruf','„Hallo Oma/Opa, ich bin’s! Ich hatte einen Unfall und brauche sofort '+eur(c)+'. Bitte sag Mama nichts!“',[
   ['Sofort das Geld überweisen',()=>{p.money-=c;add('gl',-8);mile('Opfer des Enkeltricks','bad');return 'Erst am Abend merkst du: Es war gar nicht dein Enkel. Das Geld ist weg.'}],
   ['Zurückrufen und nachfragen',()=>{add('gl',3);addRuf(2);news('Senior/in entlarvt Telefonbetrüger','lokal');return 'Dein echtes Enkelkind ist ahnungslos. Die Polizei schnappt die Betrüger dank dir.'}],
