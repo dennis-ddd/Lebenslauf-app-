@@ -33,3 +33,4 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `node tests/jugend_traeume.js`: zehn Jugend-Entscheidungen (Häufigkeit und alle Antworten), Lebensträume, Lebenslinie und die späte Folge der Zivilcourage.
 - `node tests/chats_vielfalt.js`: Chat-Nachrichten passen zur Lebenslage und wiederholen sich nicht, Antworten wechseln, kein „[object Object]“ im Übernahmeangebot.
 - `node tests/welt_zeit.js`: Szenen je Kategorie, Handy-Zeitalter mit Jahreszahl, Schmetterlingskarte (erst später freigeschaltet), Denkmäler und Friedhof in der Stadt.
+- `node tests/folgen.js`: Entscheidungen mit Folgen (Geld oder Zeit, Plan nach der Schule, Praktikum, Klassensprecher, erstes Wort, Brille, Führerschein, Träume), Hobbys mit Freunden, Auftritten und Beruf, Casino mit Spielerschutz und Börse mit Reaktionen.

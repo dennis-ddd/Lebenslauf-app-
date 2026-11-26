@@ -136,7 +136,7 @@ avatarSvg=function(age,size,P,look){P=P||p;if(!P)return '';if(O.avClassic)return
   if(st<2&&['anzug','designer','abendkleid'].includes(top))top='tshirt';o.top=top;
   if(st>=2){o.jacket=look.jk||jk||null;o.headw=look.hw||(acc.includes('hut')?'hut':null);o.glasses=look.gl||(acc.includes('brille')?'sonne':null);o.jewel=look.jw||(acc.includes('kette')?'kette':null)}
   else if(look.hw&&['cap','beanie','band'].includes(look.hw))o.headw=look.hw;
-  if(!o.glasses&&P.glasses&&st>=4)o.glasses='lese';
+  if(!o.glasses&&P.glasses&&st>=4)o.glasses='lese';if(!o.glasses&&P.kidGlasses&&st>=1)o.glasses=st>=4?'lese':'horn';
   if(P.g==='m'&&P.beard&&age>=21)o.beard=age<40?'leicht':'voll';
   // Haarfarbe: Grundfarbe aus dem alten Modell, falls keine gewählt
   return av2(o)};

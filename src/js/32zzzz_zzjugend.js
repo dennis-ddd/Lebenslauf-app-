@@ -48,7 +48,7 @@ const JSP={id:'sp_mutig',w:()=>skMem('mutig',15).length&&!p.cs2_mut&&p.age>=28?1
   ['Gerührt sein',()=>{add('gl',8);addRuf(2);const f=fkMake('der Schulzeit');f.n=n;f.d=0;f.cl=58;fkAdd(f);fkMem(f,'Du hast '+n+' auf dem Schulhof beigestanden');return n+' ist heute ein guter Freund.'}]],'Damals auf dem Schulhof')}};
 SPAET.push(JSP);QEV['sk_sp_mutig']=()=>{try{return JSP.w()>0?JSP.ev():null}catch(e){errLog(e,'sp_mutig');return null}};
 /* Praktikum und Schülersprecher wirken später */
-{const _jm=jobMkt;jobMkt=function(){let b=_jm();try{if(p.prak&&p.age<30)b+=.03}catch(e){errLog(e)}return b}}
+/* Praktikum wirkt jetzt gezielt auf passende Jobs (siehe 32zzzz_zzzzzfolgen.js) */
 /* ---------- Lebensträume ---------- */
 const DREAMS={eigenheim:['Ein eigenes Zuhause',()=>(p.props||[]).some(x=>x.use==='self')],million:['Millionär/in werden',()=>netWorth()>=1e6],familie:['Eine große Familie',()=>(p.kids||[]).length>=3],
   welt:['Die Welt bereisen',()=>(p.ms||[]).some(m=>/Weltreise|Sabbatjahr|Kreuzfahrt|Work and Travel/.test(m.t))],firma:['Eine eigene Firma',()=>!!(p.biz&&(p.biz.firm||(p.biz.fronts||[]).length))],

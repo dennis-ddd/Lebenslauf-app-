@@ -30,7 +30,7 @@ el('modal').classList.remove('on');T.ageUp();ok('Ehrenbürgerin',p.ms.some(m=>/E
 T.die('an Altersschwäche');ok('Platz benannt',(p.denk||[]).some(d=>d.n==='Kim Berger-Platz'));T.continueAs(0);p=T.p;
 ok('Erbe kennt den Platz',(p.denk||[]).length>=1&&(p.ahnen||[]).length===1);ok('Kind im Kalender richtig',p.cy0===2020);
 const S=T.viewStadt();ok('Stadt-Karte',S.includes('Die Stadt erinnert sich')&&S.includes('Friedhof')&&!bad(S));
-let walk=null;for(let i=0;i<20&&!walk;i++){el('modal').classList.remove('on');T.ageUp();const it=T.p.q.find(q=>q.id==='denk_walk');if(it)walk=T.QEV.denk_walk(it.d)}
+let walk=null;const dw=T.QEV.denk_walk;T.QEV.denk_walk=d=>{const x=dw(d);if(x&&!walk)walk=x;return x};for(let i=0;i<20&&!walk;i++){el('modal').classList.remove('on');T.ageUp();const it=T.p.q.find(q=>q.id==='denk_walk');if(it&&!walk)walk=dw(it.d)}T.QEV.denk_walk=dw;
 ok('Begegnung mit dem Namen',!!walk&&walk.x.includes('Kim Berger')&&!bad(walk.x));
 const real=T.ERRLOG.filter(x=>!/setAttribute|location|setProperty|AudioContext|getContext|vibrate|matchMedia|navigator|screen|querySelector|style|documentElement|dataset/.test(x.m));real.forEach(x=>console.log('Protokoll:',x.m,x.st));ok('Fehlerprotokoll leer',!real.length);
 console.log('errors',errs);process.exit(errs?1:0);
