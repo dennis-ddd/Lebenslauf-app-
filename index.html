@@ -1183,6 +1183,23 @@ details.fold2>.row{padding-left:16px;padding-right:16px}details.fold2.lockd .row
 .mrow.rk.me{background:rgba(242,179,61,.16);border-radius:8px;padding-left:6px;padding-right:6px}.mrow.rk small{opacity:.7}
 .note.warn{color:#F2994A}
 .mrow.rk b{font-size:inherit}
+/* Sofort-Feedback: schwebende Zahlen, Puls, Push-Nachrichten, „mehr“ */
+#fxl{position:fixed;inset:0;pointer-events:none;z-index:10000}
+.fxn{position:fixed;transform:translate(-50%,-50%);font-weight:800;font-size:14px;padding:3px 9px;border-radius:999px;white-space:nowrap;animation:fxup 1.4s cubic-bezier(.2,.8,.3,1) forwards;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.fxn.pos{background:#1F9D6B;color:#fff}.fxn.neg{background:#D64545;color:#fff}.fxn{z-index:2;border:1px solid rgba(255,255,255,.25)}.fxn.big{font-size:16px}
+@keyframes fxup{0%{opacity:0;transform:translate(-50%,-30%) scale(.7)}12%{opacity:1;transform:translate(-50%,-80%) scale(1.1)}22%{transform:translate(-50%,-90%) scale(1)}70%{opacity:1;transform:translate(-50%,-150%)}100%{opacity:0;transform:translate(-50%,-220%)}}
+.fxpu{animation:fxpu .9s ease}.fxpd{animation:fxpd .9s ease}
+@keyframes fxpu{0%,100%{filter:none}30%{filter:drop-shadow(0 0 10px rgba(47,200,140,.95)) brightness(1.3)}}
+@keyframes fxpd{0%,100%{filter:none;transform:none}20%{transform:translateX(-3px)}40%{transform:translateX(3px);filter:drop-shadow(0 0 10px rgba(230,70,70,.95))}60%{transform:translateX(-2px)}}
+.fxstack{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 10px);transform:translateX(-50%);display:flex;flex-direction:column;gap:6px;align-items:center;width:min(92vw,360px)}
+.fxpush{position:relative;width:100%;box-sizing:border-box;max-width:92vw;display:flex;flex-direction:column;gap:2px;padding:10px 14px;border-radius:16px;background:rgba(24,18,40,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 30px rgba(0,0,0,.45);animation:fxin .35s ease}
+.fxpush b{font-size:13px;opacity:.8}.fxpush span{font-size:15px;font-weight:700}
+.fxpush.pos{border-left:4px solid #1F9D6B}.fxpush.neg{border-left:4px solid #D64545}.fxpush.warn{border-left:4px solid #F2994A}.fxpush.warn b{color:#F2B33D;opacity:1}.fxpush.warn span{font-weight:500;font-size:14px}
+.fxpush.out{transition:opacity .4s,transform .4s;opacity:0;transform:translateY(-16px)}
+@keyframes fxin{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+.dlg .more{background:none;border:0;color:var(--acc,#E5407A);font:inherit;font-weight:700;padding:0;cursor:pointer;text-decoration:underline}
+@media (prefers-reduced-motion:reduce){.fxn{animation:fxfade 1.2s forwards}@keyframes fxfade{0%,70%{opacity:1}100%{opacity:0}}.fxpu,.fxpd{animation:none}}
+.fxpush span i{font-style:normal;font-weight:800;color:#F2B33D}
 </style>
 </head>
 <body>
@@ -3410,6 +3427,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+{v:'6.6',big:true,t:'Spürbar und sicher',neu:['Jede Änderung ist sofort sichtbar: +250 €, Glück −3 oder Aktion −1 schweben direkt an der Anzeige','Große Kontobewegungen kommen als Push-Nachricht, und kritische Werte erklären ihre Folgen','Ereignisse zeigen nur noch 1–2 Sätze, der Rest steht hinter „mehr“ (abschaltbar unter Einstellungen → Bedienung)','Sichereres Speichern: automatische Sicherung, Rettung bei beschädigtem Spielstand und eine Warnung, wenn der Speicher voll ist','Spielstand als Datei exportieren und importieren, unter Einstellungen → Spiel']},
 {v:'6.5',big:true,t:'Klick wird erwachsen',neu:['Deine Nische: Gaming, Fitness, Beauty, Comedy oder Food, mit eigener Challenge und passenden Werbepartnern','Saisonplan: Plane vier Saisons, halte den Plan ein und baue eine Serie auf, die der Algorithmus belohnt','Dein Team: Cutter/in, Kamera-Team, Manager/in und Moderation haben Namen und Stimmung, es gibt Streit und Abwerbeversuche. Ohne Team droht Burnout','Superfans mit Namen, Fan-Post im Chat, Fan-Treffen, Hater und im Extremfall ein Fan, der zu weit geht','Top 100 Creator im Land, mit Rivalen und Creator-Boxkampf','Risiken: gekaufte Follower, Hacks, Sperren, Algorithmus-Updates und alte Posts, die wieder auftauchen','Große Momente: Creator-Messe, eigene Single, Reality-Show, Buchvertrag und deine eigene Marke']},
 {v:'6.4',big:true,t:'Alles hat Folgen',neu:['„Geld oder Zeit?“, der Plan nach der Schule, das Praktikum und das Amt als Klassensprecher/in wirken jetzt Jahre später nach','Dein erstes Wort kehrt zurück, wenn dein eigenes Kind spricht. Die Brille vom Augenarzt sieht man am Avatar','Wer den Führerschein abgibt, verkauft sein Auto. Unerfüllte Träume melden sich im Alter und können an die Kinder weitergehen','Hobbys bringen Freunde, Auftritte und Ausstellungen, und auf Meisterniveau vielleicht einen neuen Beruf','Casino mit Spielerschutz: Sorgen von Partner und Freunden, Selbstsperre und echte Folgen bei zu viel Spielen','Börse mit Gefühl: Große Gewinne und Crashs spürt die ganze Familie, und die Schmetterlingskarte merkt sie sich']},
 {v:'6.3',big:true,t:'Die Welt verändert sich mit dir',neu:['Eigene Szenen pro Kategorie: Familie im Wohnzimmer, Politik im Rathaus, Jugend auf dem Schulhof, Freunde im Park und mehr','Das Handy altert mit: Tastenhandy mit Pixeloptik, später Smartphone, in der Zukunft eine gläserne Oberfläche, mit Jahreszahl oben (einstellbar unter Einstellungen → Aussehen)','Die Schmetterlingskarte: Ab 25 siehst du unter Leben → Lebenslauf, wie deine Entscheidungen zusammenhängen','Die Stadt erinnert sich: Plätze, Straßen und Bänke tragen die Namen deiner Vorfahren, dazu der Friedhof am Lindenhain']},
@@ -7344,6 +7362,100 @@ function crBiz(){const sm=p.sm;let h='';sm.team=sm.team||{};const tk=Object.keys
   if(id==='studio'&&sm){const had=!!sm.studio[arg],r=f(id,arg);try{sm.team=sm.team||{};if(!had&&sm.studio[arg]&&arg!=='merch'){const g=pick(['w','m']);sm.team[arg]={n:pick(g==='w'?FN:MN),g,mood:70}}if(had&&!sm.studio[arg])delete sm.team[arg]}catch(e){errLog(e,'crteam')}return r}
   if(id==='reply'&&String(arg).startsWith('g_fans:')&&sm){const k=String(arg).split(':')[1],r=f(id,arg);sm.trust=clamp(sm.trust+(k==='lieb'?2:k==='frech'?-3:0),10,100);const sf=(sm.sf||[])[0];if(sf)sf.lv=clamp(sf.lv+(k==='lieb'?6:k==='frech'?-12:0),0,100);return r}
 }catch(e){errLog(e,'crAct')}return f(id,arg)}}
+/* ================= Speichern v2: versioniert, mit Sicherung, Prüfung und Export/Import =================
+   Format im localStorage:  KEY      -> {v:3, app:APPVER, t:Zeitstempel, p:{…Spielstand…}}
+                            KEY-bak  -> der letzte gute Stand vor dem aktuellen (Rettungsanker)
+   Alte Spielstände (reines p-Objekt ohne Hülle) werden weiterhin gelesen. */
+const SAVEV=3,BAKK=KEY+'-bak';
+const SV={warn:0,bakAge:null,bakT:0,info:null,fails:0};
+/* Prüft, ob ein Objekt ein spielbarer Spielstand ist. */
+function saveValid(o){return !!(o&&typeof o==='object'&&typeof o.first==='string'&&o.st&&typeof o.st==='object'&&typeof o.age==='number'&&isFinite(o.age)&&typeof o.money==='number'&&isFinite(o.money))}
+/* Repariert alte oder beschädigte Stände, so weit es geht. */
+function saveMigrate(o){try{
+  ['log','ms','items','q','kids'].forEach(k=>{if(!Array.isArray(o[k]))o[k]=[]});
+  Object.keys(STAT).forEach(k=>{const v=+o.st[k];o.st[k]=isFinite(v)?clamp(Math.round(v),0,100):50});
+  if(!isFinite(o.act))o.act=0;if(o.ach==null||typeof o.ach!=='object')o.ach={};
+  o.saveV=SAVEV}catch(e){errLog(e,'migrate')}return o}
+function saveUnpack(raw){if(!raw)return null;let o=null;try{o=JSON.parse(raw)}catch(e){return null}if(o&&o.v&&o.p)o=o.p;return saveValid(o)?saveMigrate(o):null}
+const savePack=()=>JSON.stringify({v:SAVEV,app:APPVER,t:Date.now(),p});
+/* Kürzt die Listen, die über ein Leben am stärksten wachsen. */
+function saveTrim(){if(!p)return;const cut=(a,n)=>Array.isArray(a)&&a.length>n?a.splice(0,a.length-n):0;
+  cut(p.log,300);cut(p.diary,200);cut(p.news,40);cut(p.ehist,120);if(p.chats)Object.values(p.chats).forEach(c=>c&&cut(c.msgs,30))}
+save=function(){if(!p)return;if(!saveValid(p)){errLog(new Error('Spielstand ungültig, nicht gespeichert'),'save');return}
+  let s;try{s=savePack()}catch(e){errLog(e,'save-json');return}
+  try{const now=Date.now();if(SV.bakAge!==p.age||now-SV.bakT>90000){const cur=localStorage.getItem(KEY);if(cur&&saveUnpack(cur))localStorage.setItem(BAKK,cur);SV.bakAge=p.age;SV.bakT=now}
+    localStorage.setItem(KEY,s);SV.fails=0;return}catch(e){errLog(e,'save')}
+  /* Speicher voll: Sicherung opfern, Listen kürzen, nochmal versuchen. */
+  try{localStorage.removeItem(BAKK);saveTrim();localStorage.setItem(KEY,savePack());return}catch(e){errLog(e,'save-quota')}
+  SV.fails++;if(!SV.warn){SV.warn=1;toast('Speichern fehlgeschlagen: Der Browser-Speicher ist voll. Exportiere deinen Spielstand in den Einstellungen.')}};
+load=function(){let raw=null;try{raw=localStorage.getItem(KEY)}catch(e){errLog(e,'load');return null}
+  if(raw==null)return null;const o=saveUnpack(raw);if(o)return o;
+  /* Hauptstand kaputt: auf die Sicherung zurückfallen. */
+  let b=null;try{b=saveUnpack(localStorage.getItem(BAKK))}catch(e){errLog(e,'load-bak')}
+  if(b){if(!SV.info){SV.info=1;setTimeout(()=>toast('Dein Spielstand war beschädigt. Die letzte Sicherung wurde geladen.'),400)}return b}
+  errLog(new Error('Spielstand und Sicherung unlesbar'),'load');return null};
+/* ---------- Export und Import ---------- */
+function saveExport(){if(!p)return;try{const blob=new Blob([JSON.stringify({v:SAVEV,app:APPVER,t:Date.now(),p,album:typeof ALB!=='undefined'?ALB:null},null,1)],{type:'application/json'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='lebenslauf-'+String(p.first+'-'+p.last).toLowerCase().replace(/[^a-z0-9äöüß-]+/g,'')+'-'+p.age+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('Spielstand exportiert.')}catch(e){errLog(e,'export');toast('Export hat nicht geklappt.')}}
+function saveImport(){try{const inp=document.createElement('input');inp.type='file';inp.accept='.json,application/json';
+  inp.onchange=()=>{const f=inp.files&&inp.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{let env=null;try{env=JSON.parse(rd.result)}catch(e){toast('Die Datei ist kein Spielstand.');return}
+    const o=saveUnpack(JSON.stringify(env&&env.p?env.p:env));if(!o){toast('Die Datei ist kein gültiger Spielstand.');return}
+    dialog('Spielstand laden?',o.first+' '+o.last+', '+o.age+' Jahre, '+eur(o.money)+'. Dein aktuelles Leben wird dabei ersetzt.',[['Laden',()=>{p=o;if(env.album&&typeof ALB!=='undefined'){try{Object.assign(ALB,env.album);albSave()}catch(e){errLog(e)}}tab='home';sel='home';save();render();toast('Spielstand geladen.')}],['Abbrechen',null]])};rd.readAsText(f)};inp.click()}catch(e){errLog(e,'import')}}
+function saveBakInfo(){try{const b=saveUnpack(localStorage.getItem(BAKK));return b?b.first+', '+b.age+' Jahre':null}catch(e){return null}}
+{const _ve=viewEinst;viewEinst=function(){const h=_ve();try{if(!p||!p.alive||typeof einTab==='undefined'||einTab!=='spiel')return h;const bi=saveBakInfo();
+  return h+'<section class="card"><h2 class="h">Spielstand</h2><p class="note">Wird automatisch gespeichert. Als Datei sicherst du ihn für ein anderes Gerät.</p><div class="btns">'+btn('svexp',null,'Exportieren','o')+btn('svimp',null,'Importieren','g')+(bi&&bi!==p.first+', '+p.age+' Jahre'?btn('svbak',null,'Sicherung laden ('+esc(bi)+')','g'):'')+'</div></section>'}catch(e){errLog(e,'svcard')}return h}}
+{const f=act;act=function(id,arg){if(id==='svexp'){saveExport();return 1}if(id==='svimp'){saveImport();return 1}
+  if(id==='svbak'){const b=saveUnpack((()=>{try{return localStorage.getItem(BAKK)}catch(e){return null}})());if(!b){toast('Keine Sicherung vorhanden.');return 1}
+    dialog('Sicherung laden?',b.first+' '+b.last+', '+b.age+' Jahre. Dein aktueller Stand wird ersetzt.',[['Laden',()=>{p=b;SV.bakAge=p.age;tab='home';sel='home';try{localStorage.setItem(KEY,savePack())}catch(e){errLog(e)}render();toast('Sicherung geladen.')}],['Abbrechen',null]]);return 1}
+  return f(id,arg)}}
+/* ================= Spielgefühl: sofortiges Feedback auf jede Änderung =================
+   Nach jedem render() wird der Zustand mit dem vorherigen verglichen. Jede Änderung erscheint als
+   schwebende Zahl an der passenden Stelle, die Anzeige pulsiert, große Kontobewegungen kommen als
+   Push-Nachricht, und beim Überschreiten kritischer Schwellen erklärt ein Hinweis die Folge. */
+const FXL={money:'',gl:'Glück',ge:'Gesundheit',in:'Intelligenz',au:'Aussehen',act:'Aktion',fol:'Follower',ruf:'Ruf'};
+const FXRING={gl:0,ge:1,in:2,au:3};
+const FXS={snap:null,p:null};
+const fxOn=()=>O.fx!==false;
+function fxRead(){if(!p||!p.st)return null;return {money:Math.round(p.money||0),gl:p.st.gl,ge:p.st.ge,in:p.st.in,au:p.st.au,act:isFinite(p.act)?p.act:null,fol:p.sm?Math.round(p.sm.fol||0):null,ruf:p.ruf!=null?Math.round(p.ruf):null,age:p.age,alive:p.alive}}
+function fxLayer(){let L=document.getElementById('fxl');if(!L){L=document.createElement('div');L.id='fxl';L.setAttribute('aria-hidden','true');document.body.appendChild(L)}return L}
+function fxAnchor(k){const q=s=>{try{return document.querySelector(s)}catch(e){return null}};
+  if(k==='money')return q('#hd .m b')||q('#hd .m');
+  if(k in FXRING){const r=document.querySelectorAll('.rings .rw');if(r&&r[FXRING[k]])return r[FXRING[k]]}
+  if(k==='act')return q('.pstat span:last-child')||q('#up');
+  return q('#hd .ava')||q('#hd')}
+function fxFloat(k,d,i){const a=fxAnchor(k);if(!a||!a.getBoundingClientRect)return;const r=a.getBoundingClientRect();if(!r.width&&!r.height)return;
+  const el=document.createElement('div'),up=d>0,good=k==='act'?up:up;el.className='fxn '+(good?'pos':'neg')+(k==='money'?' big':'');
+  el.textContent=k==='money'?(up?'+':'−')+eur(Math.abs(d)):(k==='fol'?(up?'+':'−')+kfmt(Math.abs(d))+' Follower':FXL[k]+' '+(up?'+':'−')+Math.abs(d));
+  const top=k in FXRING?r.top-4-i*26:k==='act'?r.bottom+14+i*26:r.top+r.height/2+i*26;el.style.left=Math.round(r.left+r.width/2)+'px';el.style.top=Math.round(Math.max(16,top))+'px';fxLayer().appendChild(el);setTimeout(()=>el.remove(),1500);
+  try{a.classList.remove('fxpu','fxpd');void a.offsetWidth;a.classList.add(up?'fxpu':'fxpd');setTimeout(()=>a.classList.remove('fxpu','fxpd'),900)}catch(e){errLog(e)}}
+function fxPush(title,txt,kind,html){const L=fxLayer();let st=L.querySelector('.fxstack');if(!st){st=document.createElement('div');st.className='fxstack';L.appendChild(st)}if(!st||!st.children||!st.appendChild)return;
+  if(kind!=='warn'){const old=st.querySelector('.fxpush.pos,.fxpush.neg');if(old)old.remove()}while(st.children.length>=2)st.firstChild.remove();
+  const el=document.createElement('div');el.className='fxpush '+(kind||'');el.innerHTML='<b>'+esc(title)+'</b><span>'+(html||esc(txt))+'</span>';st.appendChild(el);setTimeout(()=>el.classList.add('out'),kind==='warn'?3600:2200);setTimeout(()=>el.remove(),kind==='warn'?4100:2700)}
+/* Schwellen, deren Folgen im Spiel wirklich eintreten (siehe Jahreswechsel und Schicksal-Ereignisse). */
+const FXWARN=[
+ ['money',v=>v<0,'Konto im Minus','Zum Jahresende kostet das Glück, und Kreditraten können platzen.'],
+ ['gl',v=>v<35,'Glück niedrig','Krisen wie „Nichts geht mehr“ werden wahrscheinlicher.'],
+ ['ge',v=>v<25,'Gesundheit kritisch','Das Sterberisiko steigt deutlich. Arzt, Sport oder Ruhe helfen.'],
+ ['act',v=>v===0,'Keine Aktionen mehr','Mit „+1 Jahr“ geht es weiter.']];
+function fxCheck(a,b){const W=FXWARN.filter(([k,bad])=>{const was=a[k]!=null&&bad(a[k]),is=b[k]!=null&&bad(b[k]);return is&&!was&&!(k==='act'&&unl())});if(!W.length)return;
+  if(W.length===1)fxPush(W[0][2],W[0][3],'warn');else fxPush('Achtung','',  'warn',W.map(w=>'<i>'+esc(w[2])+'</i> '+esc(w[3])).join('<br>'))}
+{const _r=render;render=function(){const r=_r.apply(this,arguments);try{const s=fxRead();
+  if(!s||p!==FXS.p||!FXS.snap||s.age!==FXS.snap.age||!s.alive||!fxOn()){FXS.p=p;FXS.snap=s;return r}
+  const a=FXS.snap;FXS.snap=s;let n=0;const used={};
+  Object.keys(FXL).forEach(k=>{if(a[k]==null||s[k]==null)return;const d=s[k]-a[k];if(!d||(k==='act'&&unl()))return;const g=k in FXRING?'st':k;fxFloat(k,d,(used[g]=(used[g]||0)+1)-1);n++});
+  const dm=s.money-a.money;if(Math.abs(dm)>=px$(500))fxPush('Konto',(dm>0?'+':'−')+eur(Math.abs(dm))+' · neuer Stand '+eur(s.money),dm>0?'pos':'neg');
+  fxCheck(a,s)}catch(e){errLog(e,'fx')}return r}}
+/* ---------- Kurze Texte: Ereignisse zeigen 1–2 Sätze, der Rest auf Wunsch ---------- */
+function fxShort(t){if(O.kurz===false||typeof t!=='string'||t.length<110||t.includes('<'))return t;const S=[];t.split(/(?<=[.!?…][“"«»]?)\s+(?=[A-ZÄÖÜ„"«])/).forEach(x=>{const l=S[S.length-1];if(l&&(l.length<8||/\b(?:z|d|u|bzw|ca|Dr|Nr|St|vgl|usw|etc)\.$/.test(l)))S[S.length-1]=l+' '+x;else S.push(x)});if(!S||S.length<=2)return t;const k=S.slice(0,2).join(' ').trim();return k.length<t.length-20?k:t}
+function fxMore(full,short){if(full===short)return;try{const d=document.getElementById('dlg'),pe=d&&(d.querySelector('.sbody > p')||d.querySelector('p'));if(!pe)return;
+  const b=document.createElement('button');b.type='button';b.className='more';b.textContent='mehr';b.onclick=ev=>{ev.stopPropagation();pe.textContent=full};pe.appendChild(document.createTextNode(' '));pe.appendChild(b)}catch(e){errLog(e,'more')}}
+{const _sd=stageDialog;stageDialog=function(sc,h,t){const s=fxShort(t),A=[...arguments];A[2]=s;const r=_sd.apply(this,A);fxMore(t,s);return r}}
+{const _dl=dialog;dialog=function(h,t){const s=fxShort(t),A=[...arguments];A[1]=s;const r=_dl.apply(this,A);fxMore(t,s);return r}}
+/* ---------- Einstellungen ---------- */
+{const _ve=viewEinst;viewEinst=function(){const h=_ve();try{if(typeof einTab==='undefined'||einTab!=='bed')return h;
+  const tg=(k,l,s)=>'<button class="tg" data-a="fxopt" data-g="'+k+'" aria-pressed="'+(O[k]!==false)+'"><span><b>'+l+'</b><small>'+s+'</small></span><i></i></button>';
+  return h+'<section class="card tgs"><h2 class="h">Rückmeldung</h2>'+tg('fx','Schwebende Zahlen','+250 € oder Glück −3 direkt an der Anzeige')+tg('kurz','Kurze Texte','Ereignisse zeigen 2 Sätze, der Rest per „mehr“')+'</section>'}catch(e){errLog(e,'fxcard')}return h}}
+{const f=act;act=function(id,arg){if(id==='fxopt'&&(arg==='fx'||arg==='kurz')){O[arg]=O[arg]===false;saveO();render();return 1}return f(id,arg)}}
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],

@@ -35,3 +35,5 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `node tests/welt_zeit.js`: Szenen je Kategorie, Handy-Zeitalter mit Jahreszahl, Schmetterlingskarte (erst später freigeschaltet), Denkmäler und Friedhof in der Stadt.
 - `node tests/folgen.js`: Entscheidungen mit Folgen (Geld oder Zeit, Plan nach der Schule, Praktikum, Klassensprecher, erstes Wort, Brille, Führerschein, Träume), Hobbys mit Freunden, Auftritten und Beruf, Casino mit Spielerschutz und Börse mit Reaktionen.
 - `node tests/creator.js`: Klick mit Nische, Saisonplan und Serie, Team mit Stimmung, Burnout, Superfans und Fan-Post, Hater, Rangliste, Fake-Follower, Hack, Sperre, Bühnen und eigener Marke.
+- `node tests/speichern_feedback.js`: Speichern mit Hülle und Version, Sicherung beim Jahreswechsel, Rettung bei kaputtem Stand, keine Wiederbelebung gelöschter Stände, volle Speicher, Reparatur alter Stände, kurze Ereignistexte.
+- `node tests/zufallsklicks.js`: 8 Leben mit je 25 zufälligen Knöpfen pro Jahr aus allen Apps; meldet jeden Absturz.
