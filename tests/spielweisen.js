@@ -1,4 +1,5 @@
 // Simuliert 5 Spielweisen mit je N Leben und schreibt eine Auswertung nach tests/spielweisen.json
+require('./lib/zufall').seed();
 const N=+process.argv[2]||50;
 const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),pick=a=>a[Math.floor(Math.random()*a.length)];
 global.setInterval=()=>({});global.clearInterval=()=>{};global.setTimeout=f=>{try{f()}catch(e){}return 0};global.clearTimeout=()=>{};

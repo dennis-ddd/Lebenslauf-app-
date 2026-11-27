@@ -1,4 +1,5 @@
 // Prüft Lebensfilm, Lebensalbum mit Erinnerungsstücken und die Zweite Chance.
+require('./lib/zufall').seed();
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 global.setInterval=()=>({});global.clearInterval=()=>{};global.setTimeout=()=>0;global.clearTimeout=()=>{};
 const store={};

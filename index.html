@@ -1200,6 +1200,11 @@ details.fold2>.row{padding-left:16px;padding-right:16px}details.fold2.lockd .row
 .dlg .more{background:none;border:0;color:var(--acc,#E5407A);font:inherit;font-weight:700;padding:0;cursor:pointer;text-decoration:underline}
 @media (prefers-reduced-motion:reduce){.fxn{animation:fxfade 1.2s forwards}@keyframes fxfade{0%,70%{opacity:1}100%{opacity:0}}.fxpu,.fxpd{animation:none}}
 .fxpush span i{font-style:normal;font-weight:800;color:#F2B33D}
+/* Bewährungsprobe und Besitz */
+.stkg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.stkb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:14px;border:1px solid rgba(242,179,61,.55);background:linear-gradient(160deg,rgba(242,179,61,.22),rgba(229,64,122,.18));color:inherit;font:inherit;cursor:pointer}
+.stkb b{font-size:15px}.stkb small{font-size:11px;opacity:.75}.stkb[disabled]{opacity:.4;cursor:default}
+.chip.ok{background:rgba(31,157,107,.25);color:#7BE0B5}
 </style>
 </head>
 <body>
@@ -1226,6 +1231,35 @@ try{document.documentElement.style.setProperty('--cover','url('+COVER+')')}catch
 const ERRLOG=[];
 function errLog(e,wo){try{const m=(e&&e.message)||String(e);const k=(wo||'')+m;const x=ERRLOG.find(y=>y.k===k);if(x){x.n++;return}if(ERRLOG.length>=60)return;
   const st=(e&&e.stack||'').split('\n').slice(1,3).map(s=>s.trim()).join(' | ');ERRLOG.push({k,m,wo:wo||'',st,n:1,a:typeof p!=='undefined'&&p?p.age:null});if(typeof console!=='undefined'&&console.warn)console.warn('[Lebenslauf]',m,st)}catch(_){}}
+/* ================= HOOK: zentraler Verteiler =================
+   Ersetzt nach und nach die Hüllen der Form {const f=act;act=function(id,arg){…return f(id,arg)}}.
+   Deren Reihenfolge hängt vom Dateinamen ab. Bei HOOK entscheidet allein prio (kleiner = früher),
+   bei Gleichstand die Reihenfolge der Anmeldung.
+
+   HOOK.on(name, fn, prio=50, id)   anmelden; gibt eine Abmeldefunktion zurück
+   HOOK.claim(name, …args)          der erste Handler, der etwas anderes als undefined liefert, gewinnt
+                                    (für 'act': „diese Aktion gehört mir“)
+   HOOK.emit(name, …args)           alle Handler laufen nacheinander (für 'year', 'life', 'acted', 'render')
+   HOOK.list(name)                  Reihenfolge ansehen, z. B. in der Konsole: __hook.list('act')
+
+   Ein Fehler in einem Handler wird protokolliert und stoppt die anderen nicht.
+
+   Bekannte Namen:
+   act(id,arg)        Aktion übernehmen (claim)
+   acted(id,arg)      nach jeder Aktion (emit)
+   year(R0)           nach dem Jahreswechsel, nach allen alten perkYear-Hüllen (emit)
+   life(p)            neues Leben oder Generationswechsel (emit)
+   render()           nach jedem Neuzeichnen (emit) */
+const HOOK=(()=>{const H={};let seq=0;
+  const off=(name,fn)=>{if(H[name])H[name]=H[name].filter(h=>h.fn!==fn)};
+  const on=(name,fn,prio,id)=>{if(typeof fn!=='function')return ()=>{};const L=H[name]=H[name]||[];
+    L.push({fn,prio:prio==null?50:prio,seq:seq++,id:id||fn.name||'anonym'});L.sort((a,b)=>a.prio-b.prio||a.seq-b.seq);return ()=>off(name,fn)};
+  const claim=(name,...a)=>{const L=H[name];if(!L)return undefined;for(const h of L.slice()){let r;try{r=h.fn(...a)}catch(e){errLog(e,'hook:'+name+':'+h.id);continue}if(r!==undefined)return r}return undefined};
+  const emit=(name,...a)=>{const L=H[name];if(!L)return;for(const h of L.slice()){try{h.fn(...a)}catch(e){errLog(e,'hook:'+name+':'+h.id)}}};
+  const list=name=>(H[name]||[]).map(h=>h.prio+' '+h.id);
+  const has=name=>!!(H[name]&&H[name].length);
+  return Object.freeze({on,off,claim,emit,list,has})})();
+try{if(typeof window!=='undefined')window.__hook=HOOK}catch(e){errLog(e)}
 /* ---------- Daten ---------- */
 const FN=['Lena','Mia','Emma','Hannah','Sophie','Lea','Anna','Marie','Lina','Clara'];
 const MN=['Jonas','Paul','Leon','Finn','Elias','Noah','Ben','Luca','Felix','Tim'];
@@ -3427,6 +3461,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+{v:'6.7',big:true,t:'Einsatz und Besitz',neu:['Bewährungsprobe im Jobs-Tab: Setz Geld, Glück oder Ruf, spiel das Minispiel deines Berufs und hol dir Empfehlungen für die Beförderung','Doppelt oder nichts: Wer sich traut, verdoppelt den Gewinn oder verliert alles','Dein Besitz in der Stadt-App: Anbau, Pool und Solardach am eigenen Haus, ein Leuchtschild für die Firma, mit Kosten und Wirkung pro Jahr','Alles davon siehst du in der 3D-Stadt, auch dein Auto vor der Tür','Ausbauten bleiben beim Umzug im alten Haus und bringen beim Verkauf mehr Geld']},
 {v:'6.6',big:true,t:'Spürbar und sicher',neu:['Jede Änderung ist sofort sichtbar: +250 €, Glück −3 oder Aktion −1 schweben direkt an der Anzeige','Große Kontobewegungen kommen als Push-Nachricht, und kritische Werte erklären ihre Folgen','Ereignisse zeigen nur noch 1–2 Sätze, der Rest steht hinter „mehr“ (abschaltbar unter Einstellungen → Bedienung)','Sichereres Speichern: automatische Sicherung, Rettung bei beschädigtem Spielstand und eine Warnung, wenn der Speicher voll ist','Spielstand als Datei exportieren und importieren, unter Einstellungen → Spiel']},
 {v:'6.5',big:true,t:'Klick wird erwachsen',neu:['Deine Nische: Gaming, Fitness, Beauty, Comedy oder Food, mit eigener Challenge und passenden Werbepartnern','Saisonplan: Plane vier Saisons, halte den Plan ein und baue eine Serie auf, die der Algorithmus belohnt','Dein Team: Cutter/in, Kamera-Team, Manager/in und Moderation haben Namen und Stimmung, es gibt Streit und Abwerbeversuche. Ohne Team droht Burnout','Superfans mit Namen, Fan-Post im Chat, Fan-Treffen, Hater und im Extremfall ein Fan, der zu weit geht','Top 100 Creator im Land, mit Rivalen und Creator-Boxkampf','Risiken: gekaufte Follower, Hacks, Sperren, Algorithmus-Updates und alte Posts, die wieder auftauchen','Große Momente: Creator-Messe, eigene Single, Reality-Show, Buchvertrag und deine eigene Marke']},
 {v:'6.4',big:true,t:'Alles hat Folgen',neu:['„Geld oder Zeit?“, der Plan nach der Schule, das Praktikum und das Amt als Klassensprecher/in wirken jetzt Jahre später nach','Dein erstes Wort kehrt zurück, wenn dein eigenes Kind spricht. Die Brille vom Augenarzt sieht man am Avatar','Wer den Führerschein abgibt, verkauft sein Auto. Unerfüllte Träume melden sich im Alter und können an die Kinder weitergehen','Hobbys bringen Freunde, Auftritte und Ausstellungen, und auf Meisterniveau vielleicht einen neuen Beruf','Casino mit Spielerschutz: Sorgen von Partner und Freunden, Selbstsperre und echte Folgen bei zu viel Spielen','Börse mit Gefühl: Große Gewinne und Crashs spürt die ganze Familie, und die Schmetterlingskarte merkt sie sich']},
@@ -7408,10 +7443,9 @@ function saveImport(){try{const inp=document.createElement('input');inp.type='fi
 function saveBakInfo(){try{const b=saveUnpack(localStorage.getItem(BAKK));return b?b.first+', '+b.age+' Jahre':null}catch(e){return null}}
 {const _ve=viewEinst;viewEinst=function(){const h=_ve();try{if(!p||!p.alive||typeof einTab==='undefined'||einTab!=='spiel')return h;const bi=saveBakInfo();
   return h+'<section class="card"><h2 class="h">Spielstand</h2><p class="note">Wird automatisch gespeichert. Als Datei sicherst du ihn für ein anderes Gerät.</p><div class="btns">'+btn('svexp',null,'Exportieren','o')+btn('svimp',null,'Importieren','g')+(bi&&bi!==p.first+', '+p.age+' Jahre'?btn('svbak',null,'Sicherung laden ('+esc(bi)+')','g'):'')+'</div></section>'}catch(e){errLog(e,'svcard')}return h}}
-{const f=act;act=function(id,arg){if(id==='svexp'){saveExport();return 1}if(id==='svimp'){saveImport();return 1}
+HOOK.on('act',(id,arg)=>{if(id==='svexp'){saveExport();return 1}if(id==='svimp'){saveImport();return 1}
   if(id==='svbak'){const b=saveUnpack((()=>{try{return localStorage.getItem(BAKK)}catch(e){return null}})());if(!b){toast('Keine Sicherung vorhanden.');return 1}
-    dialog('Sicherung laden?',b.first+' '+b.last+', '+b.age+' Jahre. Dein aktueller Stand wird ersetzt.',[['Laden',()=>{p=b;SV.bakAge=p.age;tab='home';sel='home';try{localStorage.setItem(KEY,savePack())}catch(e){errLog(e)}render();toast('Sicherung geladen.')}],['Abbrechen',null]]);return 1}
-  return f(id,arg)}}
+    dialog('Sicherung laden?',b.first+' '+b.last+', '+b.age+' Jahre. Dein aktueller Stand wird ersetzt.',[['Laden',()=>{p=b;SV.bakAge=p.age;tab='home';sel='home';try{localStorage.setItem(KEY,savePack())}catch(e){errLog(e)}render();toast('Sicherung geladen.')}],['Abbrechen',null]]);return 1}},50,'speichern');
 /* ================= Spielgefühl: sofortiges Feedback auf jede Änderung =================
    Nach jedem render() wird der Zustand mit dem vorherigen verglichen. Jede Änderung erscheint als
    schwebende Zahl an der passenden Stelle, die Anzeige pulsiert, große Kontobewegungen kommen als
@@ -7459,7 +7493,144 @@ function fxMore(full,short){if(full===short)return;try{const d=document.getEleme
 {const _ve=viewEinst;viewEinst=function(){const h=_ve();try{if(typeof einTab==='undefined'||einTab!=='bed')return h;
   const tg=(k,l,s)=>'<button class="tg" data-a="fxopt" data-g="'+k+'" aria-pressed="'+(O[k]!==false)+'"><span><b>'+l+'</b><small>'+s+'</small></span><i></i></button>';
   return h+'<section class="card tgs"><h2 class="h">Rückmeldung</h2>'+tg('fx','Schwebende Zahlen','+250 € oder Glück −3 direkt an der Anzeige')+tg('kurz','Kurze Texte','Ereignisse zeigen 2 Sätze, der Rest per „mehr“')+'</section>'}catch(e){errLog(e,'fxcard')}return h}}
-{const f=act;act=function(id,arg){if(id==='fxopt'&&(arg==='fx'||arg==='kurz')){O[arg]=O[arg]===false;saveO();render();return 1}return f(id,arg)}}
+HOOK.on('act',(id,arg)=>{if(id==='fxopt'&&(arg==='fx'||arg==='kurz')){O[arg]=O[arg]===false;saveO();render();return 1}},50,'feedback');
+/* ================= Stadtmodell: die 3D-Stadt liest nur noch ein abgeleitetes Modell =================
+   cityModel() liefert ein flaches Objekt mit allem, was die Szene zeichnen muss. Es wird neu berechnet,
+   wenn ein neues Jahr beginnt, ein anderes Leben geladen wird oder sich der Besitz ändert
+   (Wohnung, Autos, Upgrades, Firma, Handy, eigene Läden). Sonst wird das gespeicherte Modell geliefert.
+   Die Szene baut sich nur neu, wenn sich model.key ändert.
+
+   Felder: alles aus den bisherigen Stadtoptionen (hz, own, dw, closed, tram, tower, bau, fest, key)
+           home  {type, owned, up:{anbau,pool,solar}}
+           car   'sport' | 'kombi' | 'gebraucht' | null
+           firm  {name, sign}
+           phone 0–3
+           age   Alter bei der Berechnung
+   Migration: 16_stadt_3d liest schon nur cityOpts(); das zeigt jetzt auf cityModel().
+   Als Nächstes ziehen pinsBuild (32i) und die Stadtleben-Ansichten (32x) auf cityModel() um. */
+const CM={m:null,p:null,age:null,sig:null,n:0};
+const _cityLive=cityOpts;
+const houseOwned=()=>!!(p&&(p.home==='eigen'||(p.owned||[]).includes(p.home)));
+const firmName=()=>(p&&p.biz&&((p.biz.firm&&p.biz.firm.name)||(p.biz.co&&p.biz.co.name)))||null;
+function cmSig(){let own=0;try{own=typeof ownList==='function'?ownList().length:0}catch(e){errLog(e,'cmSig')}
+  return [p.home,(p.owned||[]).join(','),(p.cars||[]).join(','),Object.keys(p.upg||{}).sort().join(','),firmName()||'',phoneTier(),own].join('|')}
+function cmBuild(){const o=Object.assign({},_cityLive()),cars=p.cars||[],car=['sport','kombi','gebraucht'].find(k=>cars.includes(k))||null,own=houseOwned();
+  const up={};if(own&&p.upg)['anbau','pool','solar'].forEach(k=>{if(p.upg[k])up[k]=1});
+  const fn=firmName(),m=Object.assign(o,{home:{type:p.home,owned:own,up},car,firm:{name:fn,sign:!!(fn&&p.upg&&p.upg.schild)},phone:phoneTier(),age:p.age});
+  m.key=(o.key||'')+'|h:'+Object.keys(up).sort().join(',')+'|c:'+(car||'')+'|f:'+(m.firm.sign?fn:'');return m}
+function cityModel(){if(!p)return null;let s='';try{s=cmSig()}catch(e){errLog(e,'cm')}
+  if(!CM.m||CM.p!==p||CM.age!==p.age||CM.sig!==s){CM.m=cmBuild();CM.p=p;CM.age=p.age;CM.sig=s;CM.n++}return CM.m}
+const cityModelDirty=()=>{CM.m=null};
+cityOpts=function(){return cityModel()||{key:''}};
+HOOK.on('year',cityModelDirty,10,'stadtmodell');HOOK.on('life',cityModelDirty,10,'stadtmodell');
+
+/* ---------- 3D: Besitz sichtbar machen (liest nur das Modell) ---------- */
+const CARCOL={sport:0xD64545,kombi:0x2F6FD6,gebraucht:0x9AA3AD};
+function cmDraw(){if(!G||!G.root||!G.L||typeof THREE==='undefined')return;const m=cityModel();if(!m)return;
+  const g=new THREE.Group();g.name='besitz';const B=keep(new THREE.BoxGeometry(1,1,1));
+  const mesh=(col,x,y,z,sx,sy,sz,rx,ry)=>{const o=new THREE.Mesh(B,mat(col));o.position.set(x,y,z);o.scale.set(sx,sy,sz);if(rx)o.rotation.x=rx;if(ry)o.rotation.y=ry;g.add(o);return o};
+  const c=G.L.cells.find(x=>x.place==='home'),l=c&&c.lots&&c.lots[0];
+  if(c&&l){const top=.44+l.h,half=BS/2-.3,sx=Math.sign(l.x-c.cx)||1,sz=Math.sign(l.z-c.cz)||1;
+    /* freie Seite des Grundstücks: gegenüber der Hauslage innerhalb der Zelle */
+    const fx=c.cx-sx*Math.min(half-1.6,Math.max(1.8,half-(l.w/2))),fz=c.cz-sz*Math.min(half-1.4,Math.max(1.6,half-(l.d/2)));
+    if(m.home.up.anbau){const w=Math.max(2.2,l.w*.5),h=Math.max(2,l.h*.6);mesh(0xF0CC87,fx,.44+h/2,l.z,w,h,Math.max(2,l.d*.7));mesh(0xC9A23F,fx,.44+h+.12,l.z,w+.2,.24,Math.max(2,l.d*.7)+.2)}
+    if(m.home.up.pool){const px=m.home.up.anbau?l.x:fx,pz=m.home.up.anbau?fz:fz;mesh(0xFFFFFF,px,.5,pz,3.6,.14,2.4);mesh(0x3FB7E8,px,.56,pz,3.1,.1,1.9)}
+    if(m.home.up.solar){for(let k=-1;k<=1;k++)mesh(0x1F2D55,l.x+k*Math.min(1.2,l.w/4),top+Math.min(l.w,l.d)*.22+.25,l.z,Math.min(1.05,l.w/4.2),.08,Math.min(1.4,l.d*.35),-.35)}
+    if(m.car){const cx=l.x+sx*Math.min(1.4,l.w/3),cz=c.cz+sz*(half-.6);mesh(CARCOL[m.car],cx,.82,cz,2.3,.6,1.1);mesh(0x22303F,cx-.15,1.32,cz,1.2,.46,1);mesh(0x111111,cx-.75,.6,cz,.5,.5,1.16);mesh(0x111111,cx+.75,.6,cz,.5,.5,1.16)}}
+  if(m.firm.sign){/* am eigenen Firmengebäude, sonst über dem Büropark */
+    const fc=G.L.cells.find(x=>(x.own||[]).some(o=>o.id==='firm')),fl=fc&&fc.lots.find(l=>l.own),b=fc||G.L.cells.find(x=>x.place==='buero');
+    if(b){const X=fl?fl.x:b.cx,Z=fl?fl.z:b.cz,Y=fl?.44+fl.h:(b.top||10);const s=label(m.firm.name,0xF2B33D);s.position.set(X,Y+3.4,Z);g.add(s);mesh(0xF2B33D,X,Y+.9,Z,Math.min(4,(fl?fl.w:4)*.8),1.1,.3);mesh(0x333333,X,Y+.2,Z,.2,.5,.2)}}
+  G.root.add(g);G.besitz=g}
+{const _bs=buildScene;buildScene=function(){const r=_bs.apply(this,arguments);try{cmDraw()}catch(e){errLog(e,'cmDraw')}return r}}
+/* ================= Sichtbarer Besitz: Hausausbau, Auto, Firmenschild, Handy =================
+   Jedes Upgrade kostet Geld und 1 Aktion, hat laufende Kosten oder Ersparnis und eine Wirkung pro Jahr.
+   Sichtbar wird es über das Stadtmodell in der 3D-Stadt (siehe _a_stadtmodell). */
+const UPG={
+ anbau:{n:'Anbau mit Arbeitszimmer',pr:40000,yr:-1200,eff:'+1 Aktion pro Jahr',need:'haus'},
+ pool:{n:'Garten mit Pool',pr:25000,yr:-800,eff:'Glück +2 pro Jahr',need:'haus'},
+ solar:{n:'Solardach',pr:15000,yr:900,eff:'Strom vom eigenen Dach',need:'haus'},
+ schild:{n:'Leuchtschild für die Firma',pr:8000,yr:-300,eff:'Ruf +1 pro Jahr, Firma +2 % Wert',need:'firma'}};
+const upgOk=k=>UPG[k].need==='haus'?houseOwned():!!firmName();
+const upgHas=k=>!!(p.upg&&p.upg[k]!=null&&upgOk(k));
+function upgBuy(k){const U=UPG[k];if(!U||p.prison)return;p.upg=p.upg||{};if(p.upg[k]!=null&&upgOk(k)){toast('Hast du schon.');return}
+  if(!upgOk(k)){toast(U.need==='haus'?'Dafür brauchst du ein eigenes Haus.':'Dafür brauchst du eine Firma.');return}
+  const pr=px$(U.pr);if(p.money<pr){toast(U.n+' kostet '+eur(pr)+'.');return}if(!useAct())return;
+  p.money-=pr;p.upg[k]=p.age;if(U.need==='haus')p.upgH=p.home;
+  if(k==='anbau'&&!unl())p.act+=1;if(k==='pool')add('gl',3);if(k==='schild')addRuf(3);
+  mile(U.n,'star');done(U.n+' fertig. Schau in der Stadt vorbei!')}
+/* Jahreswirkung */
+HOOK.on('year',()=>{if(!p||!p.upg)return;let sum=0;Object.keys(UPG).forEach(k=>{if(!upgHas(k))return;const U=UPG[k];sum+=px$(U.yr);
+  if(k==='pool')add('gl',2);if(k==='anbau'&&!unl())p.act+=1;if(k==='schild'){addRuf(1);if(p.biz&&p.biz.firm&&p.biz.firm.val)p.biz.firm.val=Math.round(p.biz.firm.val*1.02)}});
+  if(sum){p.money+=sum;log('Besitz: '+(sum>0?'Ersparnis ':'laufende Kosten ')+eur(Math.abs(sum))+' im Jahr.')}},40,'besitz');
+/* Umzug: die Ausbauten bleiben im alten Haus und steigern dessen Wert beim Verkauf. */
+HOOK.on('acted',id=>{if(!p||!p.upg||!p.upgH||p.upgH===p.home)return;const val=['anbau','pool','solar'].filter(k=>p.upg[k]!=null).reduce((s,k)=>s+px$(UPG[k].pr)*.6,0);
+  if(val){p.upgV=p.upgV||{};p.upgV[p.upgH]=(p.upgV[p.upgH]||0)+Math.round(val);['anbau','pool','solar'].forEach(k=>delete p.upg[k]);log('Die Ausbauten bleiben im alten Zuhause und machen es '+eur(Math.round(val))+' wertvoller.')}p.upgH=null},30,'besitz-umzug');
+HOOK.on('acted',(id,arg)=>{if(id==='sellhome'&&p&&p.upgV&&p.upgV[arg]&&!(p.owned||[]).includes(arg)){const v=p.upgV[arg];delete p.upgV[arg];p.money+=v;log('Ausbauten beim Verkauf: +'+eur(v)+'.');save();render()}},40,'besitz-verkauf');
+/* ---------- Ansicht in der Stadt-App ---------- */
+const NEXTPHONE=['handy','handy2','handy3'];
+function besitzCard(){if(!p||!p.alive||p.age<10)return '';const lock=!!p.prison,m=cityModel();let h='<section class="card besitz"><h2 class="h">Dein Besitz</h2>';
+  const own=houseOwned();
+  if(own)['anbau','pool','solar'].forEach(k=>{const U=UPG[k],has=upgHas(k);h+=row(U.n,U.eff+' · '+(U.yr>0?'spart ':'kostet ')+eur(px$(Math.abs(U.yr)))+'/Jahr',has?'<span class="chip ok">Gebaut</span>':btn('upg',k,eur(px$(U.pr)),'o',lock||p.money<px$(U.pr)||p.act<=0))});
+  else h+=row('Eigenes Haus','Mit Haus kannst du anbauen, einen Pool und ein Solardach bauen.',btn('goto','wohnen','Wohnen','g'));
+  h+=row('Auto vor der Tür',m&&m.car?CARS[m.car].n+' · steht vor deinem Haus':'Noch kein Auto',btn('goto','garage','Garage','g'));
+  const t=phoneTier(),nx=NEXTPHONE[t],S=nx&&SHOP.find(x=>x.id===nx);
+  h+=row('Handy: '+PHONES[t][0],PHONES[t][2]+' App-Plätze'+(S?' · nächstes: '+S.n+' mit '+PHONES[t+1][2]+' Plätzen':' · bestes Modell'),S?btn('buy',nx,eur(S.pr),'o',lock||p.money<S.pr||p.age<S.min):'<span class="chip ok">Top</span>');
+  if(firmName()){const U=UPG.schild,has=upgHas('schild');h+=row(U.n,'„'+esc(firmName())+'“ leuchtet über dem Büropark · '+U.eff,has?'<span class="chip ok">Hängt</span>':btn('upg','schild',eur(px$(U.pr)),'o',lock||p.money<px$(U.pr)||p.act<=0))}
+  h+='<div class="btns">'+btn('upgshow',null,'In der 3D-Stadt ansehen','g')+'</div></section>';return h}
+{const _va=viewApp;viewApp=function(id){let h=_va.apply(this,arguments);try{if(id==='stadt')h+=besitzCard()}catch(e){errLog(e,'besitz')}return h}}
+HOOK.on('act',(id,arg)=>{if(id==='upg'){upgBuy(arg);return 1}
+  if(id==='upgshow'){try{cityMode='3d';tab='stadt';render();if(typeof selectPlace==='function')selectPlace('home')}catch(e){errLog(e,'upgshow')}return 1}},50,'besitz');
+/* ================= Bewährungsprobe: Minispiel mit Einsatz =================
+   Einmal im Jahr, 1 Aktion. Du setzt Geld, Glück oder Ruf und spielst das Minispiel deines Berufs.
+   2 von 3 richtig: Einsatz zurück plus Gewinn in gleicher Höhe, Leistung +12, eine Empfehlung.
+   Danach „Doppelt oder nichts“: 3 von 3 nötig. Gewinn verdoppelt, oder alles weg.
+   Empfehlungen erhöhen am Jahresende die Chance auf eine Beförderung (zusätzlich zur normalen). */
+const STAKE={geld:{n:'Geld',ic:'€'},gl:{n:'Glück',ic:'Glück'},ruf:{n:'Ruf',ic:'Ruf'}};
+const stkAmt=k=>k==='geld'?Math.max(px$(300),Math.round((p.job?p.job.pay:20000)*.05/50)*50):5;
+const stkTxt=(k,v)=>k==='geld'?eur(v):STAKE[k].n+' '+v;
+function stkCan(k){const v=stkAmt(k);return k==='geld'?p.money>=v:k==='gl'?p.st.gl>v:(p.ruf||0)>-90}
+function stkMove(k,v){if(k==='geld')p.money+=v;else if(k==='gl')add('gl',v);else addRuf(v)}
+function stkPlay(k,n,cb){const ty=JOBMG[p.job.id]||'rechnen';mgStart(ty,3,'Bewährungsprobe: '+MGN[ty][0],(sc,auto)=>cb(sc,auto),ty==='reakt'?p.sk.fahren/2+p.st.ge/2:p.st.in)}
+function stkStart(k){if(!p.job||p.prison||p.stkY===p.age||!STAKE[k])return;if(!stkCan(k)){toast('Dafür reicht dein '+STAKE[k].n+' gerade nicht.');return}if(!useAct())return;
+  const v=stkAmt(k);p.stkY=p.age;stkMove(k,-v);save();render();
+  stkPlay(k,1,sc=>{if(sc<2){p.job.perf=clamp(p.job.perf-6,0,100);log('Bewährungsprobe verloren: '+stkTxt(k,v)+' weg.');save();render();dialog('Daneben',sc+' von 3. Der Einsatz ist weg, und die Chefetage hat es gesehen.',[['Mist',null]]);return}
+    stkMove(k,2*v);p.job.perf=clamp(p.job.perf+12,0,100);p.job.rec=(p.job.rec||0)+1;log('Bewährungsprobe gewonnen: +'+stkTxt(k,v)+', Empfehlung für die Beförderung.');save();render();
+    dialog('Geschafft!',sc+' von 3. +'+stkTxt(k,v)+' und eine Empfehlung. Alles riskieren für das Doppelte?',[['Doppelt oder nichts',()=>stkDouble(k,v)],['Einstreichen',null]])})}
+function stkDouble(k,v){stkPlay(k,2,sc=>{if(sc<3){stkMove(k,-2*v);p.job.perf=clamp(p.job.perf-8,0,100);p.job.rec=Math.max(0,(p.job.rec||1)-1);log('Doppelt oder nichts verloren: '+stkTxt(k,2*v)+' weg.');save();render();dialog('Alles weg',sc+' von 3. Gewinn, Einsatz und die Empfehlung sind verspielt.',[['Autsch',null]]);return}
+  stkMove(k,2*v);p.job.perf=clamp(p.job.perf+8,0,100);p.job.rec=(p.job.rec||0)+1;mile('Doppelt oder nichts gewonnen','star');log('Doppelt oder nichts gewonnen: +'+stkTxt(k,2*v)+'.');save();render();
+  dialog('Volltreffer!','3 von 3. Insgesamt +'+stkTxt(k,3*v)+' und zwei Empfehlungen. Die Beförderung rückt näher.',[['Weiter',null]])})}
+/* Empfehlungen wirken am Jahresende. */
+HOOK.on('year',()=>{const j=p&&p.job;if(!j||!j.rec)return;const ch0=Math.min(.6,.25*j.rec);
+  if(j.perf>60&&(j.rank||1)<4&&j.promY!==p.age&&ch(ch0)){j.rank=(j.rank||1)+1;j.pay=Math.round(j.pay*((j.rank<4)?1.2:1.08));j.promY=p.age;add('gl',6);log('Beförderung dank deiner Bewährungsprobe! Neues Gehalt: '+eur(j.pay)+'.');try{msg('chef','Ihre Leistung in der Bewährungsprobe hat überzeugt. Herzlichen Glückwunsch zur Beförderung!')}catch(e){errLog(e)}}
+  j.rec=0},45,'einsatz');
+function stakeCard(){if(!p||!p.job||p.prison)return '';const done=p.stkY===p.age,lock=done||p.act<=0;
+  return '<section class="card stake"><h2 class="h">Bewährungsprobe</h2><p class="note">'+(done?'Für dieses Jahr erledigt.':'Setz etwas ein. Gewinnst du, gibt es das Doppelte und eine Empfehlung für die Beförderung.')+'</p>'+
+    (done?'':'<div class="stkg">'+Object.keys(STAKE).map(k=>'<button class="stkb" data-a="stake" data-g="'+k+'"'+(lock||!stkCan(k)?' disabled':'')+'><small>Einsatz</small><b>'+stkTxt(k,stkAmt(k))+'</b></button>').join('')+'</div>')+
+    (p.job.rec?'<div class="mrow"><span>Empfehlungen</span><b class="up">'+p.job.rec+' · +'+Math.round(Math.min(.6,.25*p.job.rec)*100)+' % Beförderungschance</b></div>':'')+'</section>'}
+{const _va=viewApp;viewApp=function(id){let h=_va.apply(this,arguments);try{if(id==='jobs'){const c=stakeCard();if(c){const i=h.indexOf('<section');h=i>=0?h.slice(0,i)+c+h.slice(i):h+c}}}catch(e){errLog(e,'stake')}return h}}
+HOOK.on('act',(id,arg)=>{if(id==='stake'){stkStart(arg);return 1}},50,'einsatz');
+/* ================= Brücke zwischen den alten Hüllen und HOOK =================
+   Dieses Modul ist die äußerste Hülle (Dateiname sortiert als letztes vor 33).
+   Es läuft also zuerst bzw. zuletzt und verteilt an HOOK:
+   act      -> HOOK.claim('act') vor allen alten Hüllen, danach HOOK.emit('acted')
+   perkYear -> nach allen alten Hüllen HOOK.emit('yearR0', R0) (Einnahmen/Ausgaben-Liste der Bilanz)
+   ageUp    -> nach dem ganzen Jahreswechsel HOOK.emit('year', {from,to})
+   newLife / continueAs -> HOOK.emit('life', p)
+   render   -> HOOK.emit('render')
+   Migrationsplan (pro Modul, jeweils mit Test):
+   1. Neue Funktionen nur noch über HOOK.on.
+   2. Alte Hülle {const f=act;act=function(id,arg){if(id==='x'){…;return 1}return f(id,arg)}}
+      wird zu HOOK.on('act',(id,arg)=>{if(id!=='x')return;…;return 1},50,'modulname').
+   3. Sind alle Hüllen umgezogen, schrumpft die Brücke auf: act=function(id,arg){const r=HOOK.claim('act',id,arg);…}. */
+{const _act=act;act=function(id,arg){let r=HOOK.claim('act',id,arg);if(r===undefined)r=_act.apply(this,arguments);HOOK.emit('acted',id,arg,r);return r}}
+{const _py=perkYear;perkYear=function(R0){const r=_py.apply(this,arguments);HOOK.emit('yearR0',R0);return r}}
+{const _au=ageUp;ageUp=function(){const a0=p&&p.age,q=p;const r=_au.apply(this,arguments);if(p&&p===q&&p.alive&&p.age>a0)HOOK.emit('year',{from:a0,to:p.age});return r}}
+{const _nl=newLife;newLife=function(){const r=_nl.apply(this,arguments);HOOK.emit('life',p);return r}}
+{const _ca=continueAs;continueAs=function(){const q=p,r=_ca.apply(this,arguments);if(p&&p!==q)HOOK.emit('life',p);return r}}
+{const _r=render;render=function(){const r=_r.apply(this,arguments);HOOK.emit('render');return r}}
+
+/* Erste umgezogene Module: Speichern (Export/Import/Sicherung) und Feedback-Einstellungen
+   laufen jetzt über HOOK statt über eigene act-Hüllen (siehe dort). */
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],

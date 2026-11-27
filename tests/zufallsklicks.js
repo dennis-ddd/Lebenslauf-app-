@@ -1,4 +1,5 @@
 // Zufallsklicks: 8 Leben, je Jahr 25 zufällige Knöpfe aus allen Apps. Meldet Abstürze gruppiert.
+require('./lib/zufall').seed('zufall');
 // Prüft v6.5: Klick mit Nische, Saisonplan, Team, Superfans, Rangliste, Risiken, Bühnen und eigener Marke.
 global.setInterval=()=>({});global.clearInterval=()=>{};global.setTimeout=()=>0;global.clearTimeout=()=>{};global.console.warn=()=>{};
 const store={};const els={};function el(id){return els[id]||(els[id]={id,innerHTML:'',style:{},children:[],addEventListener(){},classList:{s:new Set(),add(c){this.s.add(c)},remove(c){this.s.delete(c)},contains(c){return this.s.has(c)},toggle(){}},querySelectorAll:()=>[],querySelector:()=>({focus(){},click(){},addEventListener(){}}),insertAdjacentHTML(){},setAttribute(){},dataset:{},value:''})}

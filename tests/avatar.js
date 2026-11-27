@@ -1,4 +1,5 @@
 // Prüft den lebendigen Avatar (alle Alter, Stimmungen, Frisuren, Kleidung) und den neuen Kleiderschrank.
+require('./lib/zufall').seed();
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 global.setInterval=()=>({});global.clearInterval=()=>{};global.setTimeout=()=>0;global.clearTimeout=()=>{};
 const els={};function el(id){return els[id]||(els[id]={id,innerHTML:'',style:{},children:[],addEventListener(){},classList:{s:new Set(),add(c){this.s.add(c)},remove(c){this.s.delete(c)},contains(c){return this.s.has(c)},toggle(){}},querySelectorAll:()=>[],querySelector:()=>({focus(){},click(){},addEventListener(){}}),insertAdjacentHTML(){},setAttribute(){},dataset:{},value:''})}

@@ -513,3 +513,8 @@ details.fold2>.row{padding-left:16px;padding-right:16px}details.fold2.lockd .row
 .dlg .more{background:none;border:0;color:var(--acc,#E5407A);font:inherit;font-weight:700;padding:0;cursor:pointer;text-decoration:underline}
 @media (prefers-reduced-motion:reduce){.fxn{animation:fxfade 1.2s forwards}@keyframes fxfade{0%,70%{opacity:1}100%{opacity:0}}.fxpu,.fxpd{animation:none}}
 .fxpush span i{font-style:normal;font-weight:800;color:#F2B33D}
+/* Bewährungsprobe und Besitz */
+.stkg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.stkb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:14px;border:1px solid rgba(242,179,61,.55);background:linear-gradient(160deg,rgba(242,179,61,.22),rgba(229,64,122,.18));color:inherit;font:inherit;cursor:pointer}
+.stkb b{font-size:15px}.stkb small{font-size:11px;opacity:.75}.stkb[disabled]{opacity:.4;cursor:default}
+.chip.ok{background:rgba(31,157,107,.25);color:#7BE0B5}

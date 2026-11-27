@@ -1,4 +1,5 @@
 // Schreibt die eingebauten Namen nach inhalte/namen.txt (überschreibt die Datei!). Aufruf: node tests/namen_export.js
+require('./lib/zufall').seed();
 process.chdir(require('path').join(__dirname,'..'));
 const els={};function el(id){return els[id]||(els[id]={id,innerHTML:'',style:{},children:[],addEventListener(){},classList:{add(){},remove(){},contains(){},toggle(){}},querySelectorAll:()=>[],querySelector:()=>null,setAttribute(){},dataset:{}})}
 global.setInterval=()=>({});global.document={getElementById:el,addEventListener(){},createElement:()=>({getContext:()=>null}),querySelector:()=>null,body:el('body')};global.window={scrollTo(){}};global.localStorage={getItem:()=>null,setItem(){},removeItem(){}};

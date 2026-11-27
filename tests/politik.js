@@ -1,4 +1,5 @@
 // Prüft die Politik-Karriere: Programm, Vorlagen im Amt, Wahlkampf, Lobby, Skandale, Koalition und Kanzleramt.
+require('./lib/zufall').seed();
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 global.setInterval=()=>({});global.clearInterval=()=>{};global.setTimeout=f=>{try{f()}catch(e){}};global.clearTimeout=()=>{};
 const els={};function el(id){return els[id]||(els[id]={id,innerHTML:'',style:{},children:[],addEventListener(){},classList:{s:new Set(),add(c){this.s.add(c)},remove(c){this.s.delete(c)},contains(c){return this.s.has(c)},toggle(){}},querySelectorAll:()=>[],querySelector:()=>({focus(){},click(){},addEventListener(){}}),insertAdjacentHTML(){},setAttribute(){},dataset:{},value:''})}

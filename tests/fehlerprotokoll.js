@@ -1,4 +1,5 @@
 // Spielt 10 ganze Leben mit vielen Systemen und prüft das Fehlerprotokoll: Außer fehlenden Browser-Funktionen
+require('./lib/zufall').seed('zufall');
 // (die es in Node nicht gibt) darf kein Fehler auftreten. Prüft außerdem, dass sich Ereignisse nicht zu oft wiederholen.
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 global.setInterval=()=>({});global.clearInterval=()=>{};global.setTimeout=()=>0;global.clearTimeout=()=>{};

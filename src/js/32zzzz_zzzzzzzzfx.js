@@ -45,4 +45,4 @@ function fxMore(full,short){if(full===short)return;try{const d=document.getEleme
 {const _ve=viewEinst;viewEinst=function(){const h=_ve();try{if(typeof einTab==='undefined'||einTab!=='bed')return h;
   const tg=(k,l,s)=>'<button class="tg" data-a="fxopt" data-g="'+k+'" aria-pressed="'+(O[k]!==false)+'"><span><b>'+l+'</b><small>'+s+'</small></span><i></i></button>';
   return h+'<section class="card tgs"><h2 class="h">Rückmeldung</h2>'+tg('fx','Schwebende Zahlen','+250 € oder Glück −3 direkt an der Anzeige')+tg('kurz','Kurze Texte','Ereignisse zeigen 2 Sätze, der Rest per „mehr“')+'</section>'}catch(e){errLog(e,'fxcard')}return h}}
-{const f=act;act=function(id,arg){if(id==='fxopt'&&(arg==='fx'||arg==='kurz')){O[arg]=O[arg]===false;saveO();render();return 1}return f(id,arg)}}
+HOOK.on('act',(id,arg)=>{if(id==='fxopt'&&(arg==='fx'||arg==='kurz')){O[arg]=O[arg]===false;saveO();render();return 1}},50,'feedback');

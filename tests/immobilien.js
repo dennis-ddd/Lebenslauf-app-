@@ -1,3 +1,4 @@
+require('./lib/zufall').seed();
 global.__q=[];global.setInterval=(f)=>{const id={c:false,f};__q.push(id);return id};global.clearInterval=(id)=>{if(id)id.c=true};
 const els={};function el(id){return els[id]||(els[id]={id,innerHTML:'',style:{},classList:{s:new Set(),add(c){this.s.add(c)},remove(c){this.s.delete(c)},contains(c){return this.s.has(c)}},querySelectorAll:()=>[],querySelector:()=>({focus(){},click(){}}),setAttribute(){},addEventListener(){},onclick:null,dataset:{},value:''})}
 global.document={getElementById:el,addEventListener(){},createElement:()=>({getContext:()=>null})};global.window={scrollTo(){}};global.localStorage={getItem:()=>null,setItem(){},removeItem(){}};

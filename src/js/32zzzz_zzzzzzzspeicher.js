@@ -44,7 +44,6 @@ function saveImport(){try{const inp=document.createElement('input');inp.type='fi
 function saveBakInfo(){try{const b=saveUnpack(localStorage.getItem(BAKK));return b?b.first+', '+b.age+' Jahre':null}catch(e){return null}}
 {const _ve=viewEinst;viewEinst=function(){const h=_ve();try{if(!p||!p.alive||typeof einTab==='undefined'||einTab!=='spiel')return h;const bi=saveBakInfo();
   return h+'<section class="card"><h2 class="h">Spielstand</h2><p class="note">Wird automatisch gespeichert. Als Datei sicherst du ihn für ein anderes Gerät.</p><div class="btns">'+btn('svexp',null,'Exportieren','o')+btn('svimp',null,'Importieren','g')+(bi&&bi!==p.first+', '+p.age+' Jahre'?btn('svbak',null,'Sicherung laden ('+esc(bi)+')','g'):'')+'</div></section>'}catch(e){errLog(e,'svcard')}return h}}
-{const f=act;act=function(id,arg){if(id==='svexp'){saveExport();return 1}if(id==='svimp'){saveImport();return 1}
+HOOK.on('act',(id,arg)=>{if(id==='svexp'){saveExport();return 1}if(id==='svimp'){saveImport();return 1}
   if(id==='svbak'){const b=saveUnpack((()=>{try{return localStorage.getItem(BAKK)}catch(e){return null}})());if(!b){toast('Keine Sicherung vorhanden.');return 1}
-    dialog('Sicherung laden?',b.first+' '+b.last+', '+b.age+' Jahre. Dein aktueller Stand wird ersetzt.',[['Laden',()=>{p=b;SV.bakAge=p.age;tab='home';sel='home';try{localStorage.setItem(KEY,savePack())}catch(e){errLog(e)}render();toast('Sicherung geladen.')}],['Abbrechen',null]]);return 1}
-  return f(id,arg)}}
+    dialog('Sicherung laden?',b.first+' '+b.last+', '+b.age+' Jahre. Dein aktueller Stand wird ersetzt.',[['Laden',()=>{p=b;SV.bakAge=p.age;tab='home';sel='home';try{localStorage.setItem(KEY,savePack())}catch(e){errLog(e)}render();toast('Sicherung geladen.')}],['Abbrechen',null]]);return 1}},50,'speichern');

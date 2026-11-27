@@ -37,3 +37,12 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 - `node tests/creator.js`: Klick mit Nische, Saisonplan und Serie, Team mit Stimmung, Burnout, Superfans und Fan-Post, Hater, Rangliste, Fake-Follower, Hack, Sperre, Bühnen und eigener Marke.
 - `node tests/speichern_feedback.js`: Speichern mit Hülle und Version, Sicherung beim Jahreswechsel, Rettung bei kaputtem Stand, keine Wiederbelebung gelöschter Stände, volle Speicher, Reparatur alter Stände, kurze Ereignistexte.
 - `node tests/zufallsklicks.js`: 8 Leben mit je 25 zufälligen Knöpfen pro Jahr aus allen Apps; meldet jeden Absturz.
+- `node tests/hook_besitz_einsatz.js`: HOOK-Verteiler (Reihenfolge, Fehler-Isolation, claim/emit, Brücke), Stadtmodell (Zwischenspeicher, Neuaufbau bei Besitz und Jahr), Besitz-Upgrades mit Jahreswirkung und Umzug, Bewährungsprobe mit Einsatz, Doppelt oder nichts und Beförderung.
+
+## Alle Tests auf einmal
+`node tests/alle.js` führt alle Tests aus und zeigt eine Zusammenfassung.
+
+## Zufall in Tests
+Jeder Test ruft am Anfang `require('./lib/zufall').seed()` auf. Damit ist `Math.random` reproduzierbar (Seed 4242), und ein grüner Test bleibt grün.
+Die Erkundungstests (`zufallsklicks.js`, `fehlerprotokoll.js`) laufen mit wechselndem Seed und geben ihn aus. Schlägt einer fehl, wiederholt `SEED=<Zahl> node tests/<datei>.js` genau diesen Lauf.
+Neue Mechaniken: Minispiele im Test durch eine feste Punktzahl ersetzen (`mgStart` austauschen), Ereignisse über einen Mitschnitt von `QEV[id]` fangen statt auf die Warteschlange zu hoffen.

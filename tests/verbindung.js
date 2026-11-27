@@ -1,4 +1,5 @@
 // Prüft die Verbindungen aus v6.0: Freunde im Chat, Lebensfilm mit Freunden, Tieren und Amt,
+require('./lib/zufall').seed();
 // Generationswechsel mit Elternhaus, Onkel/Tante, Erbstück und Erinnerungen der Eltern.
 global.setInterval=()=>({});global.clearInterval=()=>{};global.setTimeout=()=>0;global.clearTimeout=()=>{};global.console.warn=()=>{};
 const store={};const els={};function el(id){return els[id]||(els[id]={id,innerHTML:'',style:{},children:[],addEventListener(){},classList:{s:new Set(),add(c){this.s.add(c)},remove(c){this.s.delete(c)},contains(c){return this.s.has(c)},toggle(){}},querySelectorAll:()=>[],querySelector:()=>({focus(){},click(){},addEventListener(){}}),insertAdjacentHTML(){},setAttribute(){},dataset:{},value:''})}

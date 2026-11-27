@@ -1,4 +1,5 @@
 // Prüft, dass Chats nicht eintönig werden: Nachrichten passen zur Lebenslage, wiederholen sich nicht
+require('./lib/zufall').seed();
 // und die Antwortmöglichkeiten wechseln. Prüft außerdem, dass kein „[object Object]“ in Ereignissen steht.
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 global.setInterval=()=>({});global.clearInterval=()=>{};global.setTimeout=()=>0;global.clearTimeout=()=>{};global.console.warn=()=>{};
