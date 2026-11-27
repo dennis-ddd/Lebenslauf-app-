@@ -31,8 +31,12 @@ load=function(){let raw=null;try{raw=localStorage.getItem(KEY)}catch(e){errLog(e
   if(b){if(!SV.info){SV.info=1;setTimeout(()=>toast('Dein Spielstand war beschädigt. Die letzte Sicherung wurde geladen.'),400)}return b}
   errLog(new Error('Spielstand und Sicherung unlesbar'),'load');return null};
 /* ---------- Export und Import ---------- */
-function saveExport(){if(!p)return;try{const blob=new Blob([JSON.stringify({v:SAVEV,app:APPVER,t:Date.now(),p,album:typeof ALB!=='undefined'?ALB:null},null,1)],{type:'application/json'}),a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);a.download='lebenslauf-'+String(p.first+'-'+p.last).toLowerCase().replace(/[^a-z0-9äöüß-]+/g,'')+'-'+p.age+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('Spielstand exportiert.')}catch(e){errLog(e,'export');toast('Export hat nicht geklappt.')}}
+function saveExport(){if(!p)return;let data,fn;try{data=JSON.stringify({v:SAVEV,app:APPVER,t:Date.now(),p,album:typeof ALB!=='undefined'?ALB:null},null,1);
+  fn='lebenslauf-'+String(p.first+'-'+p.last).toLowerCase().replace(/[^a-z0-9äöüß-]+/g,'')+'-'+p.age+'.json'}catch(e){errLog(e,'export');toast('Export hat nicht geklappt.');return}
+  const plain=()=>{try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('Spielstand exportiert.')}catch(e){errLog(e,'export');toast('Export hat nicht geklappt.')}};
+  /* In der Claude-Vorschau laufen Downloads über die Plattform, sonst über einen normalen Download-Link. */
+  const cl=typeof window!=='undefined'&&window.claude&&typeof window.claude.use==='function'?window.claude:null;if(!cl){plain();return}
+  cl.use('downloads').then(dl=>{if(!dl){plain();return}return dl.save({filename:fn,data}).then(()=>toast('Spielstand exportiert.'),e=>{if(e&&e.code==='declined')return;if(e&&e.code==='host_unavailable'){toast('Hier kann keine Datei gespeichert werden. Öffne das Spiel im Browser.');return}plain()})}).catch(e=>{errLog(e,'export');plain()})}
 function saveImport(){try{const inp=document.createElement('input');inp.type='file';inp.accept='.json,application/json';
   inp.onchange=()=>{const f=inp.files&&inp.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{let env=null;try{env=JSON.parse(rd.result)}catch(e){toast('Die Datei ist kein Spielstand.');return}
     const o=saveUnpack(JSON.stringify(env&&env.p?env.p:env));if(!o){toast('Die Datei ist kein gültiger Spielstand.');return}
