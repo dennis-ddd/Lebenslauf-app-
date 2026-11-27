@@ -15,7 +15,7 @@ const pc1=v=>v.toFixed(1).replace('.',',')+' %';
 const once=k=>p.once[k]===p.age,setOnce=k=>{p.once[k]=p.age};
 function econYear(){const e=p.econ;let r=clamp(curInfl()+(2.2-curInfl())*.3+(Math.random()*2-1)*.9,.2,7.5);if(ch(.06))r=clamp(r+R(2,4),.2,9.5);
   e.infl.push(+r.toFixed(1));e.lz.push(+clamp(r+.4+(Math.random()-.5)*1.2,0,7).toFixed(1));if(e.infl.length>40){e.infl.shift();e.lz.shift()}e.idx*=1+r/100;return r}
-function mkLoan(a,rate,n){const i=rate/100,pay=Math.round(a*i/(1-Math.pow(1+i,-n)));return {amt:a,rate,n,left:n,pay}}
+function mkLoan(a,rate,n){const i=rate/100,pay=Math.round(i>0?a*i/(1-Math.pow(1+i,-n)):a/Math.max(1,n));return {amt:a,rate,n,left:n,pay}}
 const loanSum=()=>(p.loans||[]).reduce((t,l)=>t+l.amt,0),fgSum=()=>(p.fg||[]).reduce((t,f)=>t+f.amt,0);
 function bonitaet(){const inc=(p.job?p.job.pay:0)+p.pension;return clamp(Math.round(35+Math.min(30,inc/2500)+Math.min(25,Math.max(0,netWorth())/40000)-loanSum()/Math.max(10000,inc*2)*12+(p.bon-70)),0,100)}
 const bonTxt=b=>b>=80?'Sehr gut':b>=60?'Gut':b>=40?'Mittel':b>=20?'Schwach':'Schlecht';

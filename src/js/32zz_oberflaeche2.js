@@ -65,11 +65,11 @@ const CATP={arbeit:['jobcenter','buero','uni','bschule','schule','bank','boerse'
   const v2=document.getElementById('view2');if(v2&&document.body.classList.contains('placeopen')&&v2.firstElementChild){v2.firstElementChild.classList.add('pcard');if(!v2.querySelector('.shh')){const hh=document.createElement('button');hh.className='shh';hh.dataset.a='desel';hh.setAttribute('aria-label','Blatt schließen');v2.insertBefore(hh,v2.firstChild)}}
   }catch(e){errLog(e)}}}
 /* Filter und Viertelnamen auf der Karte */
-{const _pb=pinsBuild;pinsBuild=function(){_pb();const el=document.getElementById('pins');if(!el||!G||!G.L)return;
+HOOK.on('pins',()=>{const el=document.getElementById('pins');if(!el||!G||!G.L)return;
   if(!el.querySelector('.dl')){const D={};G.L.cells.forEach(c=>{const k=c.zone==='G'?null:DIST[c.dist][0];if(!k)return;(D[k]=D[k]||[]).push(c)});
     Object.keys(D).forEach(k=>{const C=D[k],x=C.reduce((s,c)=>s+c.x,0)/C.length,z=C.reduce((s,c)=>s+c.z,0)/C.length;const s=document.createElement('span');s.className='pinm dl';s.dataset.x=x;s.dataset.z=z;s.innerHTML='<span class="plb">'+k+'</span>';el.appendChild(s)})}
   el.querySelectorAll('.pinm').forEach(b=>{if(b.classList.contains('dl'))return;const g=b.dataset.g,own=b.classList.contains('own');let ok=true;
-    if(cityFl==='arbeit')ok=CATP.arbeit.includes(g);else if(cityFl==='freizeit')ok=CATP.freizeit.includes(g);else if(cityFl==='meine')ok=own||g==='home';else ok=true;b.classList.toggle('fh',!ok)})}}
+    if(cityFl==='arbeit')ok=CATP.arbeit.includes(g);else if(cityFl==='freizeit')ok=CATP.freizeit.includes(g);else if(cityFl==='meine')ok=own||g==='home';else ok=true;b.classList.toggle('fh',!ok)})},50,'pins-viertel-filter');
 {const _pp=pinsProject;pinsProject=function(){_pp();const el=document.getElementById('pins');if(!el||!G)return;const far=G.dist>100,w=el.clientWidth,hh=el.clientHeight,v=(_pv.v2=_pv.v2||new THREE.Vector3());
   el.querySelectorAll('.pinm').forEach(b=>{if(b.classList.contains('fh'))b.style.display='none'});
   el.querySelectorAll('.dl').forEach(b=>{if(!far){b.style.display='none';return}v.set(+b.dataset.x,4,+b.dataset.z).project(G.cam);const x=(v.x+1)/2*w,y=(1-v.y)/2*hh;b.style.display=v.z<1?'':'none';b.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)'})}}

@@ -5,12 +5,14 @@
 const SAVEV=3,BAKK=KEY+'-bak';
 const SV={warn:0,bakAge:null,bakT:0,info:null,fails:0};
 /* Prüft, ob ein Objekt ein spielbarer Spielstand ist. */
-function saveValid(o){return !!(o&&typeof o==='object'&&typeof o.first==='string'&&o.st&&typeof o.st==='object'&&typeof o.age==='number'&&isFinite(o.age)&&typeof o.money==='number'&&isFinite(o.money))}
+function saveValid(o){return !!(o&&typeof o==='object'&&typeof o.first==='string'&&o.st&&typeof o.st==='object'&&typeof o.age==='number'&&isFinite(o.age)&&(typeof o.money==='number'&&isFinite(o.money)||o.money===null))}
 /* Repariert alte oder beschädigte Stände, so weit es geht. */
 function saveMigrate(o){try{
   ['log','ms','items','q','kids'].forEach(k=>{if(!Array.isArray(o[k]))o[k]=[]});
+  if(!(typeof o.money==='number'&&isFinite(o.money))){o.money=0;o.moneyFix=1}
   Object.keys(STAT).forEach(k=>{const v=+o.st[k];o.st[k]=isFinite(v)?clamp(Math.round(v),0,100):50});
-  if(!isFinite(o.act))o.act=0;if(o.ach==null||typeof o.ach!=='object')o.ach={};
+  if(!isFinite(o.act))o.act=0;
+  (o.loans||[]).forEach(l=>{if(!isFinite(l.pay)||l.pay<=0)l.pay=Math.round(isFinite(l.amt)?l.amt/Math.max(1,l.left||1):0)});if(o.ach==null||typeof o.ach!=='object')o.ach={};
   o.saveV=SAVEV}catch(e){errLog(e,'migrate')}return o}
 function saveUnpack(raw){if(!raw)return null;let o=null;try{o=JSON.parse(raw)}catch(e){return null}if(o&&o.v&&o.p)o=o.p;return saveValid(o)?saveMigrate(o):null}
 const savePack=()=>JSON.stringify({v:SAVEV,app:APPVER,t:Date.now(),p});

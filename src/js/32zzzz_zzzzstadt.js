@@ -28,5 +28,5 @@ function denkCard(){const D=p.denk||[],A=p.ahnen||[];if(!D.length&&!A.length)ret
     (A.length?'<h3 class="dkh">Friedhof am Lindenhain</h3>'+A.slice().reverse().map(a=>row(esc(a.n),(a.y0!=null?a.y0+' – '+a.y1+' · ':'')+a.a+' Jahre · Generation '+a.gen,'<span class="dkk" aria-hidden="true">✝</span>')).join(''):'')+'</section>'}
 {const _vs=viewStadt;viewStadt=function(){let h=_vs();try{if(p&&!p.prison){const c=denkCard();if(c)h+=c}}catch(e){errLog(e,'denk')}return h}}
 /* Gedenkorte als Schilder in der 3D-Stadt */
-{const _pb=pinsBuild;pinsBuild=function(){try{if(typeof G!=='undefined'&&G&&G.L&&p){const D=(p.denk||[]).slice(-4);G.L.cells.forEach(c=>{if(c.dk){c.lm=null;c.dk=0}});
-  const free=G.L.cells.filter(c=>!c.place&&!c.lm&&(c.zone==='G'||c.zone==='C'||c.zone==='R'));D.forEach((d,i)=>{const pool=free.filter(c=>!c.dk);if(!pool.length)return;const c=pool[hsh(d.n)%pool.length];c.lm=d.n;c.dk=1})}}catch(e){errLog(e,'denkpin')}return _pb.apply(this,arguments)}}
+HOOK.on('pins:before',()=>{try{if(typeof G!=='undefined'&&G&&G.L&&p){const m=typeof cityModel==='function'&&cityModel(),D=((m&&m.memorials)||p.denk||[]).slice(-4);G.L.cells.forEach(c=>{if(c.dk){c.lm=null;c.dk=0}});
+  const free=G.L.cells.filter(c=>!c.place&&!c.lm&&(c.zone==='G'||c.zone==='C'||c.zone==='R'));D.forEach((d,i)=>{const pool=free.filter(c=>!c.dk);if(!pool.length)return;const c=pool[hsh(d.n)%pool.length];c.lm=d.n;c.dk=1})}}catch(e){errLog(e,'denkpin')}},50,'denkmal-pins');

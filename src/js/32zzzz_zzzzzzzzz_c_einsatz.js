@@ -25,5 +25,5 @@ function stakeCard(){if(!p||!p.job||p.prison)return '';const done=p.stkY===p.age
   return '<section class="card stake"><h2 class="h">Bewährungsprobe</h2><p class="note">'+(done?'Für dieses Jahr erledigt.':'Setz etwas ein. Gewinnst du, gibt es das Doppelte und eine Empfehlung für die Beförderung.')+'</p>'+
     (done?'':'<div class="stkg">'+Object.keys(STAKE).map(k=>'<button class="stkb" data-a="stake" data-g="'+k+'"'+(lock||!stkCan(k)?' disabled':'')+'><small>Einsatz</small><b>'+stkTxt(k,stkAmt(k))+'</b></button>').join('')+'</div>')+
     (p.job.rec?'<div class="mrow"><span>Empfehlungen</span><b class="up">'+p.job.rec+' · +'+Math.round(Math.min(.6,.25*p.job.rec)*100)+' % Beförderungschance</b></div>':'')+'</section>'}
-{const _va=viewApp;viewApp=function(id){let h=_va.apply(this,arguments);try{if(id==='jobs'){const c=stakeCard();if(c){const i=h.indexOf('<section');h=i>=0?h.slice(0,i)+c+h.slice(i):h+c}}}catch(e){errLog(e,'stake')}return h}}
+HOOK.on('view:app',(h,id)=>{if(id!=='jobs')return;const c=stakeCard();if(!c)return;const i=h.indexOf('<section');return i>=0?h.slice(0,i)+c+h.slice(i):h+c},50,'einsatz');
 HOOK.on('act',(id,arg)=>{if(id==='stake'){stkStart(arg);return 1}},50,'einsatz');

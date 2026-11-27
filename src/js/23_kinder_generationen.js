@@ -2,11 +2,13 @@
 const TAL={sport:['Sport','sv'],musik:['Musik','mu'],kopf:['Köpfchen','nh'],kunst:['Kunst','mu']};
 const FD={nh:['Nachhilfe',1200,'Intelligenz +'],sv:['Sportverein',500,'Gesundheit +'],mu:['Musik und Kunst',800,'Kreativität +']};
 const KJOBS={sport:['Sporttrainer/in','Profisportler/in','Physiotherapeut/in'],musik:['Musiker/in','Musiklehrer/in','Tontechniker/in'],kopf:['Ingenieur/in','Ärztin/Arzt','Informatiker/in'],kunst:['Designer/in','Fotograf/in','Architekt/in']};
-function kidJob(k){if(k.edu==='keine'&&k.st.in<45)return pick(['Lagerarbeiter/in','Verkäufer/in','Paketbote/-botin']);const L=KJOBS[k.tal];return k.ts>=70||k.edu==='Abitur'?pick(L):pick(['Bürokaufmann/-frau','Mechatroniker/in','Pflegefachkraft',L[0]])}
+function kidJob(k){if(k.edu==='keine'&&k.st.in<45)return pick(['Lagerarbeiter/in','Verkäufer/in','Paketbote/-botin']);const L=KJOBS[k.tal]||KJOBS.kopf;return k.ts>=70||k.edu==='Abitur'?pick(L):pick(['Bürokaufmann/-frau','Mechatroniker/in','Pflegefachkraft',L[0]])}
 const KIDMSG=['Kannst du mich abholen?','Ich hab eine 1 in Mathe!!','Darf ich bei Lea übernachten?','Ich hab dich lieb.','Wann gibt es Essen?','Papa/Mama, kann ich mehr Taschengeld?'];
 const KIDMSG2=['Wie geht es dir?','Kommst du am Sonntag zum Essen?','Die Kleinen fragen nach dir!','Danke für alles, was du für mich getan hast.','Wir sollten mal wieder telefonieren.'];
 function kidYear(R0){let cost=0;
   p.kids.forEach((k,i)=>{if(k.alive===false)return;const ka=p.age-k.b;if(ka<0)return;
+    /* Kinder aus neueren Modulen haben nicht alle Felder (diese Funktion war lange still überschrieben) */
+    if(!k.st)k.st={in:R(40,70),ge:R(70,95)};if(!k.fd)k.fd={};if(!TAL[k.tal])k.tal=pick(Object.keys(TAL));if(k.ts==null)k.ts=R(0,20);if(!k.edu)k.edu='keine';if(k.kids==null)k.kids=0;if(k.rel==null)k.rel=60;
     k.rel=clamp(k.rel-(ka>=13&&ka<=18?3:1),0,100);
     if(ka>=6&&ka<19)Object.keys(FD).forEach(f=>{if(k.fd[f]){cost+=px$(FD[f][1]);if(f==='nh')k.st.in=Math.min(100,k.st.in+3);if(f==='sv')k.st.ge=Math.min(100,k.st.ge+2);if(TAL[k.tal][1]===f)k.ts=Math.min(100,k.ts+6);k.rel=Math.min(100,k.rel+1)}});
     if(ka>=19)k.fd={};if(ka>=4)k.ts=Math.min(100,k.ts+R(0,3));k.st.in=clamp(k.st.in+R(-1,2),0,100);

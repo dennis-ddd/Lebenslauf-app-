@@ -1205,6 +1205,18 @@ details.fold2>.row{padding-left:16px;padding-right:16px}details.fold2.lockd .row
 .stkb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:14px;border:1px solid rgba(242,179,61,.55);background:linear-gradient(160deg,rgba(242,179,61,.22),rgba(229,64,122,.18));color:inherit;font:inherit;cursor:pointer}
 .stkb b{font-size:15px}.stkb small{font-size:11px;opacity:.75}.stkb[disabled]{opacity:.4;cursor:default}
 .chip.ok{background:rgba(31,157,107,.25);color:#7BE0B5}
+.pinm .trc{position:absolute;right:-6px;top:-8px;background:#FFD166;color:#3A2A00;font-size:11px;font-weight:800;border-radius:999px;padding:1px 6px;box-shadow:0 2px 8px rgba(0,0,0,.35);pointer-events:none}
+/* Lebensphasen-Ziele */
+.pzc{padding:12px 14px}.pzh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}.pzh b{font-size:16px}.pzh span{font-size:12px;opacity:.75;font-weight:700}
+.pzl{display:flex;flex-direction:column;gap:6px}
+.pzg{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:inherit;font:inherit;cursor:pointer;position:relative;overflow:hidden}
+.pzg.nx{border-color:rgba(242,179,61,.7);background:linear-gradient(90deg,rgba(242,179,61,.16),rgba(255,255,255,.03))}
+.pzg.done{opacity:.6}.pzg.done .pzk{background:#1F9D6B;border-color:#1F9D6B;color:#fff}
+.pzk{flex:0 0 22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.35);display:grid;place-items:center;font-size:13px;font-weight:900}
+.pzt{flex:1;display:flex;flex-direction:column;font-weight:700;font-size:14px}.pzt small{font-weight:600;opacity:.7;font-size:11.5px}
+.pzb{position:absolute;left:0;bottom:0;right:0;height:3px;background:rgba(255,255,255,.08)}.pzb i{display:block;height:100%;background:#F2B33D}
+.pzend .pzgr{display:flex;gap:14px;align-items:center;margin:6px 0 10px}.pzgr>b{font-size:44px;line-height:1;width:64px;height:64px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,#F2B33D,#E5407A);color:#fff}
+.pzgr span{display:flex;flex-direction:column;font-weight:800;font-size:16px}.pzgr small{font-weight:600;opacity:.75;font-size:12px}.pzo{opacity:.3}
 </style>
 </head>
 <body>
@@ -1240,6 +1252,8 @@ function errLog(e,wo){try{const m=(e&&e.message)||String(e);const k=(wo||'')+m;c
    HOOK.claim(name, …args)          der erste Handler, der etwas anderes als undefined liefert, gewinnt
                                     (für 'act': „diese Aktion gehört mir“)
    HOOK.emit(name, …args)           alle Handler laufen nacheinander (für 'year', 'life', 'acted', 'render')
+   HOOK.pipe(name, wert, …args)     Wert läuft durch alle Handler; wer etwas zurückgibt, ersetzt ihn
+                                    (für Ansichten: 'view:app', 'view:home', 'view:death')
    HOOK.list(name)                  Reihenfolge ansehen, z. B. in der Konsole: __hook.list('act')
 
    Ein Fehler in einem Handler wird protokolliert und stoppt die anderen nicht.
@@ -1249,16 +1263,20 @@ function errLog(e,wo){try{const m=(e&&e.message)||String(e);const k=(wo||'')+m;c
    acted(id,arg)      nach jeder Aktion (emit)
    year(R0)           nach dem Jahreswechsel, nach allen alten perkYear-Hüllen (emit)
    life(p)            neues Leben oder Generationswechsel (emit)
-   render()           nach jedem Neuzeichnen (emit) */
+   prerender()        vor dem Neuzeichnen: Zustand nach Änderungen normalisieren (emit)
+   render()           nach jedem Neuzeichnen (emit)
+   pins:before/pins   vor/nach dem Aufbau der Stecknadeln in der 3D-Stadt (emit)
+   view:*             HTML einer Ansicht erweitern (pipe) */
 const HOOK=(()=>{const H={};let seq=0;
   const off=(name,fn)=>{if(H[name])H[name]=H[name].filter(h=>h.fn!==fn)};
   const on=(name,fn,prio,id)=>{if(typeof fn!=='function')return ()=>{};const L=H[name]=H[name]||[];
     L.push({fn,prio:prio==null?50:prio,seq:seq++,id:id||fn.name||'anonym'});L.sort((a,b)=>a.prio-b.prio||a.seq-b.seq);return ()=>off(name,fn)};
   const claim=(name,...a)=>{const L=H[name];if(!L)return undefined;for(const h of L.slice()){let r;try{r=h.fn(...a)}catch(e){errLog(e,'hook:'+name+':'+h.id);continue}if(r!==undefined)return r}return undefined};
   const emit=(name,...a)=>{const L=H[name];if(!L)return;for(const h of L.slice()){try{h.fn(...a)}catch(e){errLog(e,'hook:'+name+':'+h.id)}}};
+  const pipe=(name,v,...a)=>{const L=H[name];if(!L)return v;for(const h of L.slice()){try{const r=h.fn(v,...a);if(r!==undefined)v=r}catch(e){errLog(e,'hook:'+name+':'+h.id)}}return v};
   const list=name=>(H[name]||[]).map(h=>h.prio+' '+h.id);
   const has=name=>!!(H[name]&&H[name].length);
-  return Object.freeze({on,off,claim,emit,list,has})})();
+  return Object.freeze({on,off,claim,emit,pipe,list,has})})();
 try{if(typeof window!=='undefined')window.__hook=HOOK}catch(e){errLog(e)}
 /* ---------- Daten ---------- */
 const FN=['Lena','Mia','Emma','Hannah','Sophie','Lea','Anna','Marie','Lina','Clara'];
@@ -1647,7 +1665,7 @@ const pc1=v=>v.toFixed(1).replace('.',',')+' %';
 const once=k=>p.once[k]===p.age,setOnce=k=>{p.once[k]=p.age};
 function econYear(){const e=p.econ;let r=clamp(curInfl()+(2.2-curInfl())*.3+(Math.random()*2-1)*.9,.2,7.5);if(ch(.06))r=clamp(r+R(2,4),.2,9.5);
   e.infl.push(+r.toFixed(1));e.lz.push(+clamp(r+.4+(Math.random()-.5)*1.2,0,7).toFixed(1));if(e.infl.length>40){e.infl.shift();e.lz.shift()}e.idx*=1+r/100;return r}
-function mkLoan(a,rate,n){const i=rate/100,pay=Math.round(a*i/(1-Math.pow(1+i,-n)));return {amt:a,rate,n,left:n,pay}}
+function mkLoan(a,rate,n){const i=rate/100,pay=Math.round(i>0?a*i/(1-Math.pow(1+i,-n)):a/Math.max(1,n));return {amt:a,rate,n,left:n,pay}}
 const loanSum=()=>(p.loans||[]).reduce((t,l)=>t+l.amt,0),fgSum=()=>(p.fg||[]).reduce((t,f)=>t+f.amt,0);
 function bonitaet(){const inc=(p.job?p.job.pay:0)+p.pension;return clamp(Math.round(35+Math.min(30,inc/2500)+Math.min(25,Math.max(0,netWorth())/40000)-loanSum()/Math.max(10000,inc*2)*12+(p.bon-70)),0,100)}
 const bonTxt=b=>b>=80?'Sehr gut':b>=60?'Gut':b>=40?'Mittel':b>=20?'Schwach':'Schlecht';
@@ -3104,11 +3122,13 @@ function habitYear(){if(p.habit.rauchen){add('ge',-1);p.money-=px$(1200);if(p.ag
 const TAL={sport:['Sport','sv'],musik:['Musik','mu'],kopf:['Köpfchen','nh'],kunst:['Kunst','mu']};
 const FD={nh:['Nachhilfe',1200,'Intelligenz +'],sv:['Sportverein',500,'Gesundheit +'],mu:['Musik und Kunst',800,'Kreativität +']};
 const KJOBS={sport:['Sporttrainer/in','Profisportler/in','Physiotherapeut/in'],musik:['Musiker/in','Musiklehrer/in','Tontechniker/in'],kopf:['Ingenieur/in','Ärztin/Arzt','Informatiker/in'],kunst:['Designer/in','Fotograf/in','Architekt/in']};
-function kidJob(k){if(k.edu==='keine'&&k.st.in<45)return pick(['Lagerarbeiter/in','Verkäufer/in','Paketbote/-botin']);const L=KJOBS[k.tal];return k.ts>=70||k.edu==='Abitur'?pick(L):pick(['Bürokaufmann/-frau','Mechatroniker/in','Pflegefachkraft',L[0]])}
+function kidJob(k){if(k.edu==='keine'&&k.st.in<45)return pick(['Lagerarbeiter/in','Verkäufer/in','Paketbote/-botin']);const L=KJOBS[k.tal]||KJOBS.kopf;return k.ts>=70||k.edu==='Abitur'?pick(L):pick(['Bürokaufmann/-frau','Mechatroniker/in','Pflegefachkraft',L[0]])}
 const KIDMSG=['Kannst du mich abholen?','Ich hab eine 1 in Mathe!!','Darf ich bei Lea übernachten?','Ich hab dich lieb.','Wann gibt es Essen?','Papa/Mama, kann ich mehr Taschengeld?'];
 const KIDMSG2=['Wie geht es dir?','Kommst du am Sonntag zum Essen?','Die Kleinen fragen nach dir!','Danke für alles, was du für mich getan hast.','Wir sollten mal wieder telefonieren.'];
 function kidYear(R0){let cost=0;
   p.kids.forEach((k,i)=>{if(k.alive===false)return;const ka=p.age-k.b;if(ka<0)return;
+    /* Kinder aus neueren Modulen haben nicht alle Felder (diese Funktion war lange still überschrieben) */
+    if(!k.st)k.st={in:R(40,70),ge:R(70,95)};if(!k.fd)k.fd={};if(!TAL[k.tal])k.tal=pick(Object.keys(TAL));if(k.ts==null)k.ts=R(0,20);if(!k.edu)k.edu='keine';if(k.kids==null)k.kids=0;if(k.rel==null)k.rel=60;
     k.rel=clamp(k.rel-(ka>=13&&ka<=18?3:1),0,100);
     if(ka>=6&&ka<19)Object.keys(FD).forEach(f=>{if(k.fd[f]){cost+=px$(FD[f][1]);if(f==='nh')k.st.in=Math.min(100,k.st.in+3);if(f==='sv')k.st.ge=Math.min(100,k.st.ge+2);if(TAL[k.tal][1]===f)k.ts=Math.min(100,k.ts+6);k.rel=Math.min(100,k.rel+1)}});
     if(ka>=19)k.fd={};if(ka>=4)k.ts=Math.min(100,k.ts+R(0,3));k.st.in=clamp(k.st.in+R(-1,2),0,100);
@@ -3461,6 +3481,7 @@ function applyCfg(f){p.cfg={act:+f.act,clock:!!f.clock,ev:f.ev,big:!!f.big,wealt
 /* ================= Update-Hinweise ================= */
 const VKEY='lebenslauf-version';
 const CHANGES=[
+{v:'6.8',big:true,t:'Ziele, Spuren und Reparaturen',neu:['Lebensphasen-Ziele: 3 Ziele pro Phase direkt auf dem Startbildschirm, mit Belohnung und Bonus für die ganze Phase','Am Lebensende: deine Bilanz mit Note über alle Phasen','Spuren deines Lebens in der Stadt: Herz am Park, Stern am Klinikum, Zeichen an Schule, Uni, Autohaus und mehr','Das Leuchtschild deiner Firma leuchtet jetzt hell mit Lichtkreis','Repariert: Deine Kinder machen wieder Abitur, ziehen aus, heiraten und bekommen Enkel','Repariert: Zinslose Kredite wie das BAföG haben den Kontostand kaputt gemacht. Betroffene Spielstände werden beim Laden repariert']},
 {v:'6.7',big:true,t:'Einsatz und Besitz',neu:['Bewährungsprobe im Jobs-Tab: Setz Geld, Glück oder Ruf, spiel das Minispiel deines Berufs und hol dir Empfehlungen für die Beförderung','Doppelt oder nichts: Wer sich traut, verdoppelt den Gewinn oder verliert alles','Dein Besitz in der Stadt-App: Anbau, Pool und Solardach am eigenen Haus, ein Leuchtschild für die Firma, mit Kosten und Wirkung pro Jahr','Alles davon siehst du in der 3D-Stadt, auch dein Auto vor der Tür','Ausbauten bleiben beim Umzug im alten Haus und bringen beim Verkauf mehr Geld']},
 {v:'6.6',big:true,t:'Spürbar und sicher',neu:['Jede Änderung ist sofort sichtbar: +250 €, Glück −3 oder Aktion −1 schweben direkt an der Anzeige','Große Kontobewegungen kommen als Push-Nachricht, und kritische Werte erklären ihre Folgen','Ereignisse zeigen nur noch 1–2 Sätze, der Rest steht hinter „mehr“ (abschaltbar unter Einstellungen → Bedienung)','Sichereres Speichern: automatische Sicherung, Rettung bei beschädigtem Spielstand und eine Warnung, wenn der Speicher voll ist','Spielstand als Datei exportieren und importieren, unter Einstellungen → Spiel']},
 {v:'6.5',big:true,t:'Klick wird erwachsen',neu:['Deine Nische: Gaming, Fitness, Beauty, Comedy oder Food, mit eigener Challenge und passenden Werbepartnern','Saisonplan: Plane vier Saisons, halte den Plan ein und baue eine Serie auf, die der Algorithmus belohnt','Dein Team: Cutter/in, Kamera-Team, Manager/in und Moderation haben Namen und Stimmung, es gibt Streit und Abwerbeversuche. Ohne Team droht Burnout','Superfans mit Namen, Fan-Post im Chat, Fan-Treffen, Hater und im Extremfall ein Fan, der zu weit geht','Top 100 Creator im Land, mit Rivalen und Creator-Boxkampf','Risiken: gekaufte Follower, Hacks, Sperren, Algorithmus-Updates und alte Posts, die wieder auftauchen','Große Momente: Creator-Messe, eigene Single, Reality-Show, Buchvertrag und deine eigene Marke']},
@@ -4889,7 +4910,9 @@ function act18(id,arg){switch(id){
 /* ---------- Jahreslauf der Kindheit ---------- */
 const MILE={1:['m_laecheln','m_zahn'],2:['m_wort','m_krabbel'],3:['m_laufen','m_brokkoli'],4:['m_bau','m_haare','m_kita'],5:['m_warum'],6:['k_schwimm']};
 const KIDEV=['k_spielplatz','k_pause','k_test','k_fenster','k_mut','k_wallet','k_theater','k_klingel','k_taschen','k_haustier'];
-function kidYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;if(p.age<16&&p.money<0)p.money=0;p.kseen=p.kseen||{};
+/* Hieß früher kidYear und hat damit still kidYear aus 23_kinder_generationen überschrieben:
+   die eigenen Kinder haben sich deshalb nicht mehr entwickelt. */
+function childYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;if(p.age<16&&p.money<0)p.money=0;p.kseen=p.kseen||{};
   if(MILE[p.age])MILE[p.age].forEach(k=>{if(!p.kseen[k]){p.kseen[k]=1;p.q.push({id:k})}});
   if(p.age<6){p.cute=Math.max(0,100-p.age*18);relUp('mama',2);relUp('papa',2)}
   else if(!p.cuteDone){p.cuteDone=1;p.cute=0;const v=Math.round(avgPar()/5);p.sk.charme=Math.min(100,(p.sk.charme||0)+v);if(p.age<=8)log('Aus deiner Niedlichkeit wird Charme: +'+v+'.')}
@@ -4904,7 +4927,7 @@ function kidYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;if(p.age<16&&p.
     if(hasPr('regel')&&p.job&&['polizei','bankkfm','buero','waerter'].includes(p.job.id))p.job.perf=Math.min(100,(p.job.perf||50)+3);
     if(hasPr('gestaerkt')){relUp(p.partner?'partner':'freund',2);if(p.job&&['arzt','pflege','lehrer','sozial'].some(x=>p.job.id.includes(x)))p.job.perf=Math.min(100,(p.job.perf||50)+3)}}
   lastYear()}
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{kidYear()}catch(e){if(typeof console!=='undefined')console.log('kidYear',e)}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{childYear()}catch(e){errLog(e,'childYear')}}}
 {const _ca=continueAs;continueAs=function(i){const prev=p,L=prev&&prev.slast||0,G=prev&&(prev.prag||[]).includes('gestaerkt');const r=_ca(i);if(p&&p!==prev){if(L>=30&&heavyOn())p.slast=(p.slast||0)+10;if(G)p.schutzG=1}return r}}
 
 /* ---------- Anzeige im Leben-Bereich und im Tagebuch ---------- */
@@ -5736,11 +5759,11 @@ const CATP={arbeit:['jobcenter','buero','uni','bschule','schule','bank','boerse'
   const v2=document.getElementById('view2');if(v2&&document.body.classList.contains('placeopen')&&v2.firstElementChild){v2.firstElementChild.classList.add('pcard');if(!v2.querySelector('.shh')){const hh=document.createElement('button');hh.className='shh';hh.dataset.a='desel';hh.setAttribute('aria-label','Blatt schließen');v2.insertBefore(hh,v2.firstChild)}}
   }catch(e){errLog(e)}}}
 /* Filter und Viertelnamen auf der Karte */
-{const _pb=pinsBuild;pinsBuild=function(){_pb();const el=document.getElementById('pins');if(!el||!G||!G.L)return;
+HOOK.on('pins',()=>{const el=document.getElementById('pins');if(!el||!G||!G.L)return;
   if(!el.querySelector('.dl')){const D={};G.L.cells.forEach(c=>{const k=c.zone==='G'?null:DIST[c.dist][0];if(!k)return;(D[k]=D[k]||[]).push(c)});
     Object.keys(D).forEach(k=>{const C=D[k],x=C.reduce((s,c)=>s+c.x,0)/C.length,z=C.reduce((s,c)=>s+c.z,0)/C.length;const s=document.createElement('span');s.className='pinm dl';s.dataset.x=x;s.dataset.z=z;s.innerHTML='<span class="plb">'+k+'</span>';el.appendChild(s)})}
   el.querySelectorAll('.pinm').forEach(b=>{if(b.classList.contains('dl'))return;const g=b.dataset.g,own=b.classList.contains('own');let ok=true;
-    if(cityFl==='arbeit')ok=CATP.arbeit.includes(g);else if(cityFl==='freizeit')ok=CATP.freizeit.includes(g);else if(cityFl==='meine')ok=own||g==='home';else ok=true;b.classList.toggle('fh',!ok)})}}
+    if(cityFl==='arbeit')ok=CATP.arbeit.includes(g);else if(cityFl==='freizeit')ok=CATP.freizeit.includes(g);else if(cityFl==='meine')ok=own||g==='home';else ok=true;b.classList.toggle('fh',!ok)})},50,'pins-viertel-filter');
 {const _pp=pinsProject;pinsProject=function(){_pp();const el=document.getElementById('pins');if(!el||!G)return;const far=G.dist>100,w=el.clientWidth,hh=el.clientHeight,v=(_pv.v2=_pv.v2||new THREE.Vector3());
   el.querySelectorAll('.pinm').forEach(b=>{if(b.classList.contains('fh'))b.style.display='none'});
   el.querySelectorAll('.dl').forEach(b=>{if(!far){b.style.display='none';return}v.set(+b.dataset.x,4,+b.dataset.z).project(G.cam);const x=(v.x+1)/2*w,y=(1-v.y)/2*hh;b.style.display=v.z<1?'':'none';b.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)'})}}
@@ -6974,8 +6997,8 @@ function denkCard(){const D=p.denk||[],A=p.ahnen||[];if(!D.length&&!A.length)ret
     (A.length?'<h3 class="dkh">Friedhof am Lindenhain</h3>'+A.slice().reverse().map(a=>row(esc(a.n),(a.y0!=null?a.y0+' – '+a.y1+' · ':'')+a.a+' Jahre · Generation '+a.gen,'<span class="dkk" aria-hidden="true">✝</span>')).join(''):'')+'</section>'}
 {const _vs=viewStadt;viewStadt=function(){let h=_vs();try{if(p&&!p.prison){const c=denkCard();if(c)h+=c}}catch(e){errLog(e,'denk')}return h}}
 /* Gedenkorte als Schilder in der 3D-Stadt */
-{const _pb=pinsBuild;pinsBuild=function(){try{if(typeof G!=='undefined'&&G&&G.L&&p){const D=(p.denk||[]).slice(-4);G.L.cells.forEach(c=>{if(c.dk){c.lm=null;c.dk=0}});
-  const free=G.L.cells.filter(c=>!c.place&&!c.lm&&(c.zone==='G'||c.zone==='C'||c.zone==='R'));D.forEach((d,i)=>{const pool=free.filter(c=>!c.dk);if(!pool.length)return;const c=pool[hsh(d.n)%pool.length];c.lm=d.n;c.dk=1})}}catch(e){errLog(e,'denkpin')}return _pb.apply(this,arguments)}}
+HOOK.on('pins:before',()=>{try{if(typeof G!=='undefined'&&G&&G.L&&p){const m=typeof cityModel==='function'&&cityModel(),D=((m&&m.memorials)||p.denk||[]).slice(-4);G.L.cells.forEach(c=>{if(c.dk){c.lm=null;c.dk=0}});
+  const free=G.L.cells.filter(c=>!c.place&&!c.lm&&(c.zone==='G'||c.zone==='C'||c.zone==='R'));D.forEach((d,i)=>{const pool=free.filter(c=>!c.dk);if(!pool.length)return;const c=pool[hsh(d.n)%pool.length];c.lm=d.n;c.dk=1})}}catch(e){errLog(e,'denkpin')}},50,'denkmal-pins');
 /* ================= Eigene Szenen pro Ereigniskategorie ================= */
 const TREE=(x,y,s,c)=>'<rect x="'+(x-2*s)+'" y="'+(y-6*s)+'" width="'+(4*s)+'" height="'+(10*s)+'" fill="#6B4A2E"/><circle cx="'+x+'" cy="'+(y-12*s)+'" r="'+(9*s)+'" fill="'+(c||'#3E8E5A')+'"/><circle cx="'+(x-6*s)+'" cy="'+(y-8*s)+'" r="'+(6*s)+'" fill="'+(c||'#3E8E5A')+'"/><circle cx="'+(x+6*s)+'" cy="'+(y-8*s)+'" r="'+(6*s)+'" fill="'+(c||'#3E8E5A')+'"/>';
 Object.assign(SCENES,{
@@ -7404,12 +7427,14 @@ function crBiz(){const sm=p.sm;let h='';sm.team=sm.team||{};const tk=Object.keys
 const SAVEV=3,BAKK=KEY+'-bak';
 const SV={warn:0,bakAge:null,bakT:0,info:null,fails:0};
 /* Prüft, ob ein Objekt ein spielbarer Spielstand ist. */
-function saveValid(o){return !!(o&&typeof o==='object'&&typeof o.first==='string'&&o.st&&typeof o.st==='object'&&typeof o.age==='number'&&isFinite(o.age)&&typeof o.money==='number'&&isFinite(o.money))}
+function saveValid(o){return !!(o&&typeof o==='object'&&typeof o.first==='string'&&o.st&&typeof o.st==='object'&&typeof o.age==='number'&&isFinite(o.age)&&(typeof o.money==='number'&&isFinite(o.money)||o.money===null))}
 /* Repariert alte oder beschädigte Stände, so weit es geht. */
 function saveMigrate(o){try{
   ['log','ms','items','q','kids'].forEach(k=>{if(!Array.isArray(o[k]))o[k]=[]});
+  if(!(typeof o.money==='number'&&isFinite(o.money))){o.money=0;o.moneyFix=1}
   Object.keys(STAT).forEach(k=>{const v=+o.st[k];o.st[k]=isFinite(v)?clamp(Math.round(v),0,100):50});
-  if(!isFinite(o.act))o.act=0;if(o.ach==null||typeof o.ach!=='object')o.ach={};
+  if(!isFinite(o.act))o.act=0;
+  (o.loans||[]).forEach(l=>{if(!isFinite(l.pay)||l.pay<=0)l.pay=Math.round(isFinite(l.amt)?l.amt/Math.max(1,l.left||1):0)});if(o.ach==null||typeof o.ach!=='object')o.ach={};
   o.saveV=SAVEV}catch(e){errLog(e,'migrate')}return o}
 function saveUnpack(raw){if(!raw)return null;let o=null;try{o=JSON.parse(raw)}catch(e){return null}if(o&&o.v&&o.p)o=o.p;return saveValid(o)?saveMigrate(o):null}
 const savePack=()=>JSON.stringify({v:SAVEV,app:APPVER,t:Date.now(),p});
@@ -7505,19 +7530,27 @@ HOOK.on('act',(id,arg)=>{if(id==='fxopt'&&(arg==='fx'||arg==='kurz')){O[arg]=O[a
            car   'sport' | 'kombi' | 'gebraucht' | null
            firm  {name, sign}
            phone 0–3
+           traces [{place, ico, a, t}]  Spuren deines Lebens (aus den Meilensteinen)
+           memorials [{n,…}]          Gedenkorte deiner Vorfahren
            age   Alter bei der Berechnung
    Migration: 16_stadt_3d liest schon nur cityOpts(); das zeigt jetzt auf cityModel().
-   Als Nächstes ziehen pinsBuild (32i) und die Stadtleben-Ansichten (32x) auf cityModel() um. */
+   Die Denkmal-Pins lesen jetzt memorials aus dem Modell (über HOOK 'pins:before').
+   Offen: peopleAt() in pinsBuild (32i/32x) liest Menschen live aus p, weil sie sich mit jeder Aktion bewegen. */
 const CM={m:null,p:null,age:null,sig:null,n:0};
 const _cityLive=cityOpts;
 const houseOwned=()=>!!(p&&(p.home==='eigen'||(p.owned||[]).includes(p.home)));
 const firmName=()=>(p&&p.biz&&((p.biz.firm&&p.biz.firm.name)||(p.biz.co&&p.biz.co.name)))||null;
 function cmSig(){let own=0;try{own=typeof ownList==='function'?ownList().length:0}catch(e){errLog(e,'cmSig')}
-  return [p.home,(p.owned||[]).join(','),(p.cars||[]).join(','),Object.keys(p.upg||{}).sort().join(','),firmName()||'',phoneTier(),own].join('|')}
+  return [(p.ms||[]).length,(p.denk||[]).length,p.home,(p.owned||[]).join(','),(p.cars||[]).join(','),Object.keys(p.upg||{}).sort().join(','),firmName()||'',phoneTier(),own].join('|')}
+/* Spuren: welcher Meilenstein gehört an welchen Ort der Stadt */
+const TRACE=[[/ist geboren|Enkelkind/,'klinik','★'],[/Hochzeit$|Verlobt und verheiratet|Wiedersehen mit der Jugendliebe/,'park','♥'],
+ [/Hauptschulabschluss|Realschulabschluss|Abitur$|^Abitur|Schulabschluss/,'schule','✎'],[/Studium|Bachelor|Master|Doktor/,'uni','✎'],[/Führerschein/,'autohaus','◆'],
+ [/Erster Job|Beförderung|Selbstständig als|Firma gegründet|Eigene Firma/,'buero','▲'],[/Weltreise|Sabbatjahr|Ein Jahr in /,'reise','✈'],[/Haus gekauft|Neues Zuhause|Elternhaus geerbt/,'home','⌂']];
+function cmTraces(){const out=[],seen={};(p.ms||[]).forEach(m=>{const t=String(m.t||'');for(const [re,pl,ico] of TRACE){if(re.test(t)){const k=pl+'|'+t;if(!seen[k]){seen[k]=1;out.push({place:pl,ico,a:m.a,t})}break}}});return out.slice(-24)}
 function cmBuild(){const o=Object.assign({},_cityLive()),cars=p.cars||[],car=['sport','kombi','gebraucht'].find(k=>cars.includes(k))||null,own=houseOwned();
   const up={};if(own&&p.upg)['anbau','pool','solar'].forEach(k=>{if(p.upg[k])up[k]=1});
-  const fn=firmName(),m=Object.assign(o,{home:{type:p.home,owned:own,up},car,firm:{name:fn,sign:!!(fn&&p.upg&&p.upg.schild)},phone:phoneTier(),age:p.age});
-  m.key=(o.key||'')+'|h:'+Object.keys(up).sort().join(',')+'|c:'+(car||'')+'|f:'+(m.firm.sign?fn:'');return m}
+  const fn=firmName(),m=Object.assign(o,{home:{type:p.home,owned:own,up},car,firm:{name:fn,sign:!!(fn&&p.upg&&p.upg.schild)},phone:phoneTier(),age:p.age,traces:cmTraces(),memorials:(p.denk||[]).slice()});
+  m.key=(o.key||'')+'|t:'+m.traces.length+'|h:'+Object.keys(up).sort().join(',')+'|c:'+(car||'')+'|f:'+(m.firm.sign?fn:'');return m}
 function cityModel(){if(!p)return null;let s='';try{s=cmSig()}catch(e){errLog(e,'cm')}
   if(!CM.m||CM.p!==p||CM.age!==p.age||CM.sig!==s){CM.m=cmBuild();CM.p=p;CM.age=p.age;CM.sig=s;CM.n++}return CM.m}
 const cityModelDirty=()=>{CM.m=null};
@@ -7539,9 +7572,18 @@ function cmDraw(){if(!G||!G.root||!G.L||typeof THREE==='undefined')return;const 
     if(m.car){const cx=l.x+sx*Math.min(1.4,l.w/3),cz=c.cz+sz*(half-.6);mesh(CARCOL[m.car],cx,.82,cz,2.3,.6,1.1);mesh(0x22303F,cx-.15,1.32,cz,1.2,.46,1);mesh(0x111111,cx-.75,.6,cz,.5,.5,1.16);mesh(0x111111,cx+.75,.6,cz,.5,.5,1.16)}}
   if(m.firm.sign){/* am eigenen Firmengebäude, sonst über dem Büropark */
     const fc=G.L.cells.find(x=>(x.own||[]).some(o=>o.id==='firm')),fl=fc&&fc.lots.find(l=>l.own),b=fc||G.L.cells.find(x=>x.place==='buero');
-    if(b){const X=fl?fl.x:b.cx,Z=fl?fl.z:b.cz,Y=fl?.44+fl.h:(b.top||10);const s=label(m.firm.name,0xF2B33D);s.position.set(X,Y+3.4,Z);g.add(s);mesh(0xF2B33D,X,Y+.9,Z,Math.min(4,(fl?fl.w:4)*.8),1.1,.3);mesh(0x333333,X,Y+.2,Z,.2,.5,.2)}}
+    if(b){const X=fl?fl.x:b.cx,Z=fl?fl.z:b.cz,Y=fl?.44+fl.h:(b.top||10);const s=label(m.firm.name,0xF2B33D);s.position.set(X,Y+3.4,Z);g.add(s);const sg=new THREE.Mesh(B,keep(new THREE.MeshBasicMaterial({color:0xFFD166})));sg.position.set(X,Y+1.1,Z);sg.scale.set(Math.min(5,(fl?fl.w:4)*.9),1.5,.35);g.add(sg);mesh(0x333333,X,Y+.3,Z,.25,.6,.25);
+      const halo=new THREE.Mesh(keep(new THREE.RingGeometry(1.6,2.3,28)),keep(new THREE.MeshBasicMaterial({color:0xFFD166,transparent:true,opacity:.35,side:THREE.DoubleSide})));halo.rotation.x=-Math.PI/2;halo.position.set(X,.5,Z);g.add(halo);G.signAt={x:X,y:Y+1.1,z:Z}}}
+  /* Spuren deines Lebens: kleine leuchtende Zeichen über den Orten */
+  const byPl={};(m.traces||[]).forEach(t=>{(byPl[t.place]=byPl[t.place]||[]).push(t)});
+  Object.keys(byPl).forEach(pl=>{const c=G.L.cells.find(x=>x.place===pl);if(!c)return;const T=byPl[pl],top=c.top||Math.max(2,...c.lots.map(l=>l.h));
+    const s=label(T.map(t=>t.ico).slice(-3).join(' '),pl==='park'?0xFF6B8A:0xFFD166);s.position.set(c.x+2.6,top+2.2,c.z+2.6);s.scale.multiplyScalar(.7);g.add(s)});
   G.root.add(g);G.besitz=g}
 {const _bs=buildScene;buildScene=function(){const r=_bs.apply(this,arguments);try{cmDraw()}catch(e){errLog(e,'cmDraw')}return r}}
+/* Stecknadeln zeigen die Spuren: kleines Abzeichen mit Zeichen, beim Antippen stehen die Erinnerungen im Titel */
+HOOK.on('pins',()=>{const el=document.getElementById('pins'),m=cityModel();if(!el||!m||!el.querySelectorAll)return;const byPl={};(m.traces||[]).forEach(t=>{(byPl[t.place]=byPl[t.place]||[]).push(t)});
+  el.querySelectorAll('.pinm[data-g]').forEach(b=>{const T=byPl[b.dataset.g],old=b.querySelector('.trc');if(!T){if(old)old.remove();return}const txt=T.map(t=>t.ico).slice(-3).join('');
+    if(old&&old.textContent===txt)return;if(old)old.remove();const s=document.createElement('span');s.className='trc';s.textContent=txt;b.title=T.map(t=>'Mit '+t.a+': '+t.t).join('\n');b.appendChild(s)})},60,'spuren-pins');
 /* ================= Sichtbarer Besitz: Hausausbau, Auto, Firmenschild, Handy =================
    Jedes Upgrade kostet Geld und 1 Aktion, hat laufende Kosten oder Ersparnis und eine Wirkung pro Jahr.
    Sichtbar wird es über das Stadtmodell in der 3D-Stadt (siehe _a_stadtmodell). */
@@ -7577,7 +7619,7 @@ function besitzCard(){if(!p||!p.alive||p.age<10)return '';const lock=!!p.prison,
   h+=row('Handy: '+PHONES[t][0],PHONES[t][2]+' App-Plätze'+(S?' · nächstes: '+S.n+' mit '+PHONES[t+1][2]+' Plätzen':' · bestes Modell'),S?btn('buy',nx,eur(S.pr),'o',lock||p.money<S.pr||p.age<S.min):'<span class="chip ok">Top</span>');
   if(firmName()){const U=UPG.schild,has=upgHas('schild');h+=row(U.n,'„'+esc(firmName())+'“ leuchtet über dem Büropark · '+U.eff,has?'<span class="chip ok">Hängt</span>':btn('upg','schild',eur(px$(U.pr)),'o',lock||p.money<px$(U.pr)||p.act<=0))}
   h+='<div class="btns">'+btn('upgshow',null,'In der 3D-Stadt ansehen','g')+'</div></section>';return h}
-{const _va=viewApp;viewApp=function(id){let h=_va.apply(this,arguments);try{if(id==='stadt')h+=besitzCard()}catch(e){errLog(e,'besitz')}return h}}
+HOOK.on('view:app',(h,id)=>id==='stadt'?h+besitzCard():undefined,50,'besitz');
 HOOK.on('act',(id,arg)=>{if(id==='upg'){upgBuy(arg);return 1}
   if(id==='upgshow'){try{cityMode='3d';tab='stadt';render();if(typeof selectPlace==='function')selectPlace('home')}catch(e){errLog(e,'upgshow')}return 1}},50,'besitz');
 /* ================= Bewährungsprobe: Minispiel mit Einsatz =================
@@ -7607,8 +7649,59 @@ function stakeCard(){if(!p||!p.job||p.prison)return '';const done=p.stkY===p.age
   return '<section class="card stake"><h2 class="h">Bewährungsprobe</h2><p class="note">'+(done?'Für dieses Jahr erledigt.':'Setz etwas ein. Gewinnst du, gibt es das Doppelte und eine Empfehlung für die Beförderung.')+'</p>'+
     (done?'':'<div class="stkg">'+Object.keys(STAKE).map(k=>'<button class="stkb" data-a="stake" data-g="'+k+'"'+(lock||!stkCan(k)?' disabled':'')+'><small>Einsatz</small><b>'+stkTxt(k,stkAmt(k))+'</b></button>').join('')+'</div>')+
     (p.job.rec?'<div class="mrow"><span>Empfehlungen</span><b class="up">'+p.job.rec+' · +'+Math.round(Math.min(.6,.25*p.job.rec)*100)+' % Beförderungschance</b></div>':'')+'</section>'}
-{const _va=viewApp;viewApp=function(id){let h=_va.apply(this,arguments);try{if(id==='jobs'){const c=stakeCard();if(c){const i=h.indexOf('<section');h=i>=0?h.slice(0,i)+c+h.slice(i):h+c}}}catch(e){errLog(e,'stake')}return h}}
+HOOK.on('view:app',(h,id)=>{if(id!=='jobs')return;const c=stakeCard();if(!c)return;const i=h.indexOf('<section');return i>=0?h.slice(0,i)+c+h.slice(i):h+c},50,'einsatz');
 HOOK.on('act',(id,arg)=>{if(id==='stake'){stkStart(arg);return 1}},50,'einsatz');
+/* ================= Lebensphasen-Ziele: 3 Ziele pro Phase, sichtbar auf dem Startbildschirm =================
+   Geschafft wird nur in der laufenden Phase. Ein Ziel bringt sofort eine Belohnung (schwebende Zahlen),
+   alle drei einer Phase zusätzlich einen Bonus. Am Phasenende erscheint kurz die Bilanz und die neue Phase.
+   Am Lebensende steht die Gesamtbilanz mit Note in der Todesanzeige. Alles über HOOK. */
+const PHS=[['kind','Kindheit',0,12],['jugend','Jugend',13,17],['start','Durchstarten',18,29],['mitte','Mitten im Leben',30,49],['reife','Reife Jahre',50,66],['alter','Lebensabend',67,999]];
+const pzNum=(v,max)=>[Math.max(0,Math.min(max,Math.floor(v))),max];
+const PZ={
+ kind:[['k_freund','Besten Freund finden',()=>(p.fk||[]).some(f=>f.cl>=65),()=>pzNum(Math.max(0,...(p.fk||[]).map(f=>f.cl||0)),65),'familie',{g:5}],
+  ['k_schlau','Intelligenz 60',()=>p.st.in>=60,()=>pzNum(p.st.in,60),'bildung',{g:3,m:200}],
+  ['k_fit','Mit 10 topfit (Gesundheit 70)',()=>p.age>=10&&p.st.ge>=70,()=>pzNum(p.st.ge,70),'freizeit',{g:3}]],
+ jugend:[['j_geld','Erstes eigenes Geld',()=>!!p.job||!!(p.ach&&p.ach.job),null,'jobs',{m:300}],
+  ['j_abschluss','Schulabschluss',()=>(RANK[p.edu]||0)>=1,null,'bildung',{g:4,m:300}],
+  ['j_handy','Eigenes Smartphone',()=>phoneTier()>=1,null,'shop',{g:3}]],
+ start:[['s_auszug','Ausziehen',()=>!!p.home&&p.home!=='eltern',null,'wohnen',{g:4}],
+  ['s_job','Vollzeitjob',()=>!!(p.job&&!p.job.part),null,'jobs',{m:1000}],
+  ['s_liebe','Feste Beziehung',()=>!!(p.partner&&p.partner.name),null,'liebe',{g:6}]],
+ mitte:[['m_geld','50.000 € auf dem Konto',()=>p.money>=px$(50000),()=>pzNum(p.money/px$(500),100),'bank',{g:4}],
+  ['m_rang','Eine Beförderung',()=>!!(p.job&&(p.job.rank||1)>=2),null,'jobs',{m:3000}],
+  ['m_heim','Eigenes Zuhause',()=>houseOwned(),null,'wohnen',{g:6}]],
+ reife:[['r_ausbau','Zuhause ausbauen',()=>!!(p.upg&&['anbau','pool','solar'].some(k=>p.upg[k]!=null)&&houseOwned()),null,'stadt',{g:4}],
+  ['r_glueck','Glück 70',()=>p.st.gl>=70,()=>pzNum(p.st.gl,70),'freizeit',{m:2000}],
+  ['r_spur','5 Spuren in der Stadt',()=>((cityModel()||{}).traces||[]).length>=5,()=>pzNum(((cityModel()||{}).traces||[]).length,5),'stadt',{g:5}]],
+ alter:[['a_80','80 werden',()=>p.age>=80,()=>pzNum(p.age-66,14),'leben',{g:6}],
+  ['a_freunde','Drei gute Freunde',()=>(p.fk||[]).filter(f=>f.cl>=50).length>=3,()=>pzNum((p.fk||[]).filter(f=>f.cl>=50).length,3),'familie',{g:5}],
+  ['a_erbe','100.000 € hinterlassen',()=>p.money>=px$(100000),()=>pzNum(p.money/px$(1000),100),'bank',{g:3}]]};
+const phOf=a=>PHS.find(x=>a>=x[2]&&a<=x[3])||PHS[PHS.length-1];
+const pzS=()=>(p.pz=p.pz||{done:{},ph:{}});
+const pzCount=k=>PZ[k].filter(g=>pzS().done[g[0]]!=null).length;
+const pzRw=r=>[r.m?'+'+eur(px$(r.m)):'',r.g?'Glück +'+r.g:''].filter(Boolean).join(' · ');
+function pzCheck(){if(!p||!p.alive||!p.st)return;const S=pzS(),ph=phOf(p.age),G=PZ[ph[0]];let got=[];
+  G.forEach(g=>{if(S.done[g[0]]!=null)return;let ok=false;try{ok=!!g[2]()}catch(e){errLog(e,'pz:'+g[0])}if(!ok)return;S.done[g[0]]=p.age;const r=g[5]||{};if(r.m)p.money+=px$(r.m);if(r.g)add('gl',r.g);log('Ziel geschafft: '+g[1]+'.');got.push(g)});
+  if(!got.length)return false;if(pzCount(ph[0])===3&&!S.ph[ph[0]]){S.ph[ph[0]]=3;p.money+=px$(1500);add('gl',5);mile(ph[1]+' gemeistert','star')}
+  try{if(typeof fxPush==='function'&&!noDom())fxPush(got.length>1?got.length+' Ziele geschafft':'Ziel geschafft',got.map(g=>g[1]).join(' · ')+(pzCount(ph[0])===3?' · Phase gemeistert!':''),'pos')}catch(e){errLog(e,'pzpush')}return true}
+HOOK.on('acted',()=>{if(pzCheck()){save();render()}},70,'ziele');HOOK.on('life',()=>{if(p)pzS()},70,'ziele');
+/* Phasenwechsel: verpasste Ziele verfallen, kurze Bilanz und Ausblick */
+HOOK.on('year',({from,to})=>{if(!p)return;pzCheck();const a=phOf(from),b=phOf(to);if(a[0]===b[0])return;const S=pzS(),n=pzCount(a[0]);if(S.ph[a[0]]==null)S.ph[a[0]]=n;
+  const next=PZ[b[0]].map(g=>g[1]).join(' · ');log(a[1]+' vorbei: '+n+' von 3 Zielen.');
+  try{if(typeof fxPush==='function'&&!noDom())fxPush(a[1]+' vorbei: '+n+' von 3','Jetzt: '+b[1]+' · '+next,n===3?'pos':'warn')}catch(e){errLog(e,'pzph')}pzCheck()},70,'ziele');
+/* Startbildschirm: drei Ziele der Phase, das nächste mit Fortschritt und direktem Weg */
+function pzCard(){if(!p||!p.alive)return '';const S=pzS(),ph=phOf(p.age),G=PZ[ph[0]],n=pzCount(ph[0]),yl=ph[3]-p.age+1;
+  const open=G.filter(g=>S.done[g[0]]==null),nx=open[0];
+  return '<section class="card pzc"><div class="pzh"><b>'+ph[1]+'</b><span>'+n+'/3'+(ph[3]<900?' · noch '+yl+(yl===1?' Jahr':' Jahre'):'')+'</span></div><div class="pzl">'+
+    G.map(g=>{const d=S.done[g[0]]!=null;let pr='';if(!d&&g[3]){try{const [c,m]=g[3]();pr='<i style="width:'+Math.round(c/m*100)+'%"></i>'}catch(e){errLog(e)}}
+      return '<button class="pzg'+(d?' done':'')+(g===nx?' nx':'')+'" data-a="goto" data-g="'+g[4]+'"><span class="pzk">'+(d?'✓':'')+'</span><span class="pzt">'+esc(g[1])+'<small>'+(d?'mit '+S.done[g[0]]:pzRw(g[5]||{}))+'</small></span>'+(pr?'<span class="pzb">'+pr+'</span>':'')+'</button>'}).join('')+'</div></section>'}
+HOOK.on('view:home',h=>{const c=pzCard();if(!c)return;const i=h.indexOf('<section');return i>=0?h.slice(0,i)+c+h.slice(i):h+c},50,'ziele');
+/* Lebensende: Gesamtbilanz mit Note */
+function pzGrade(t){return t>=16?['S','Ein Leben wie aus dem Bilderbuch']:t>=12?['A','Ein erfülltes Leben']:t>=8?['B','Ein gutes Leben mit Ecken und Kanten']:['C','Ein Leben voller Umwege']}
+function pzBilanz(){const S=pzS(),tot=PHS.reduce((s,x)=>s+pzCount(x[0]),0),[gr,gt]=pzGrade(tot),tr=((cityModel()||{}).traces||[]).length;
+  return '<section class="card pzend"><h2 class="h">Deine Bilanz</h2><div class="pzgr"><b>'+gr+'</b><span>'+gt+'<small>'+tot+' von 18 Lebenszielen · '+tr+' Spuren in der Stadt</small></span></div>'+
+    PHS.map(x=>{const n=pzCount(x[0]);return '<div class="mrow"><span>'+x[1]+'</span><b>'+'●'.repeat(n)+'<span class="pzo">'+'○'.repeat(3-n)+'</span></b></div>'}).join('')+'</section>'}
+HOOK.on('view:death',h=>{try{const c=pzBilanz(),a=h.indexOf('id="again"'),i=a>=0?h.lastIndexOf('<button',a):-1;return i>=0?h.slice(0,i)+c+h.slice(i):h+c}catch(e){errLog(e,'pzend')}},50,'ziele');
 /* ================= Brücke zwischen den alten Hüllen und HOOK =================
    Dieses Modul ist die äußerste Hülle (Dateiname sortiert als letztes vor 33).
    Es läuft also zuerst bzw. zuletzt und verteilt an HOOK:
@@ -7622,15 +7715,34 @@ HOOK.on('act',(id,arg)=>{if(id==='stake'){stkStart(arg);return 1}},50,'einsatz')
    2. Alte Hülle {const f=act;act=function(id,arg){if(id==='x'){…;return 1}return f(id,arg)}}
       wird zu HOOK.on('act',(id,arg)=>{if(id!=='x')return;…;return 1},50,'modulname').
    3. Sind alle Hüllen umgezogen, schrumpft die Brücke auf: act=function(id,arg){const r=HOOK.claim('act',id,arg);…}. */
-{const _act=act;act=function(id,arg){let r=HOOK.claim('act',id,arg);if(r===undefined)r=_act.apply(this,arguments);HOOK.emit('acted',id,arg,r);return r}}
+{const _act=act;act=function(id,arg){try{ST.dirty=true}catch(e){}let r=HOOK.claim('act',id,arg);if(r===undefined)r=_act.apply(this,arguments);HOOK.emit('acted',id,arg,r);return r}}
 {const _py=perkYear;perkYear=function(R0){const r=_py.apply(this,arguments);HOOK.emit('yearR0',R0);return r}}
 {const _au=ageUp;ageUp=function(){const a0=p&&p.age,q=p;const r=_au.apply(this,arguments);if(p&&p===q&&p.alive&&p.age>a0)HOOK.emit('year',{from:a0,to:p.age});return r}}
 {const _nl=newLife;newLife=function(){const r=_nl.apply(this,arguments);HOOK.emit('life',p);return r}}
 {const _ca=continueAs;continueAs=function(){const q=p,r=_ca.apply(this,arguments);if(p&&p!==q)HOOK.emit('life',p);return r}}
-{const _r=render;render=function(){const r=_r.apply(this,arguments);HOOK.emit('render');return r}}
+{const _r=render;render=function(){HOOK.emit('prerender');const r=_r.apply(this,arguments);HOOK.emit('render');return r}}
+/* Zustand normalisieren: nur wenn sich etwas geändert haben kann (neues Leben, Aktion, Jahr, neues Klick-Konto),
+   nicht bei jedem Zeichnen. Früher steckte das direkt in render(). */
+const ST={p:null,dirty:true,sm:new WeakSet()};
+function stateEnsure(){if(!p||!p.alive)return;
+  /* Reparatur für Stände, die der alte BAföG-Fehler (Rate 0/0) beschädigt hat */
+  if(!(typeof p.money==='number'&&isFinite(p.money))||p.moneyFix){p.money=isFinite(p.money)?p.money:0;delete p.moneyFix;log('Dein Kontostand war durch einen Fehler beim BAföG kaputt und wurde auf 0 € gesetzt.')}
+  (p.loans||[]).forEach(l=>{if(!isFinite(l.pay)||l.pay<=0)l.pay=Math.round(isFinite(l.amt)?l.amt/Math.max(1,l.left||1):0)});if(p!==ST.p||ST.dirty){try{ensureStocks();ensureNew()}catch(e){errLog(e,'ensure')}ST.p=p;ST.dirty=false}
+  if(p.sm&&!ST.sm.has(p.sm)){try{ensureSm()}catch(e){errLog(e,'ensureSm')}ST.sm.add(p.sm)}}
+HOOK.on('prerender',stateEnsure,0,'zustand');['acted','year','life'].forEach(n=>HOOK.on(n,()=>{ST.dirty=true},0,'zustand'));
+/* Ansichten: ein einziger Erweiterungspunkt statt vieler viewApp-Hüllen */
+{const _va=viewApp;viewApp=function(id){return HOOK.pipe('view:app',_va.apply(this,arguments),id)}}
+{const _vh=viewHome;viewHome=function(){return HOOK.pipe('view:home',_vh.apply(this,arguments))}}
+{const _vd=viewDeath;viewDeath=function(){return HOOK.pipe('view:death',_vd.apply(this,arguments))}}
+/* Stadt-Stecknadeln */
+{const _pb=pinsBuild;pinsBuild=function(){HOOK.emit('pins:before');const r=_pb.apply(this,arguments);HOOK.emit('pins');return r}}
 
-/* Erste umgezogene Module: Speichern (Export/Import/Sicherung) und Feedback-Einstellungen
-   laufen jetzt über HOOK statt über eigene act-Hüllen (siehe dort). */
+/* Umgezogen auf HOOK: Speichern, Feedback, Besitz, Bewährungsprobe, Denkmal-Pins (32zzzz_zzzzstadt),
+   Viertel-Beschriftung und Filter der Pins (32zz_oberflaeche2). */
+/* Beziehungswerte bleiben zwischen 0 und 100. Viele ältere Stellen ziehen ohne Grenze ab (z. B. vergessene Termine). */
+function relClamp(){if(!p)return;const c=v=>isFinite(v)?clamp(Math.round(v),0,100):50;(p.kids||[]).forEach(k=>{k.rel=c(k.rel);if(!TAL[k.tal])k.tal='kopf';if(!k.fd)k.fd={};if(k.ts==null)k.ts=0});if(p.partner&&p.partner.rel!=null)p.partner.rel=c(p.partner.rel);(p.fk||[]).forEach(f=>{if(f.cl!=null)f.cl=c(f.cl)});
+  if(p.rel&&typeof p.rel==='object')Object.keys(p.rel).forEach(k=>{if(typeof p.rel[k]==='number')p.rel[k]=c(p.rel[k])})}
+HOOK.on('year',relClamp,5,'beziehung-grenzen');HOOK.on('acted',relClamp,5,'beziehung-grenzen');
 const APPS=[
 ['leben','Leben',0xF2B33D,'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'],
 ['chats','Chats',0x2FB86E,'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'],
@@ -7793,13 +7905,13 @@ function buildShell(){
   document.getElementById('ctr').onclick=()=>{if(G&&G.L){const c=G.L.cells.find(x=>x.place==='home');G.goal=new THREE.Vector3(c.x,0,c.z);G.dist=80}};
   shell=true;
 }
-function render(){if(p&&p.sm)ensureSm();
+function render(){/* Zustand wird nicht mehr hier repariert, sondern über HOOK 'prerender' (Brücke) */
   const app=document.getElementById('app');
   if(!p){shell=false;if(G)G.run=false;renderStart();return}
   if(!p.alive){shell=false;if(G)G.run=false;
     app.innerHTML=viewDeath();
     document.getElementById('again').onclick=()=>{p=null;try{localStorage.removeItem(KEY)}catch(e){errLog(e)}render()};return}
-  if(!APP[tab])tab='home';ensureStocks();ensureNew();
+  if(!APP[tab])tab='home';
   if(!shell)buildShell();
   const map=tab==='stadt'&&cityMode!=='list'&&initThree();
   if(tab==='stadt'&&!map)cityMode='list';

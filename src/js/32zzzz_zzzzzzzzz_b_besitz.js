@@ -33,6 +33,6 @@ function besitzCard(){if(!p||!p.alive||p.age<10)return '';const lock=!!p.prison,
   h+=row('Handy: '+PHONES[t][0],PHONES[t][2]+' App-Plätze'+(S?' · nächstes: '+S.n+' mit '+PHONES[t+1][2]+' Plätzen':' · bestes Modell'),S?btn('buy',nx,eur(S.pr),'o',lock||p.money<S.pr||p.age<S.min):'<span class="chip ok">Top</span>');
   if(firmName()){const U=UPG.schild,has=upgHas('schild');h+=row(U.n,'„'+esc(firmName())+'“ leuchtet über dem Büropark · '+U.eff,has?'<span class="chip ok">Hängt</span>':btn('upg','schild',eur(px$(U.pr)),'o',lock||p.money<px$(U.pr)||p.act<=0))}
   h+='<div class="btns">'+btn('upgshow',null,'In der 3D-Stadt ansehen','g')+'</div></section>';return h}
-{const _va=viewApp;viewApp=function(id){let h=_va.apply(this,arguments);try{if(id==='stadt')h+=besitzCard()}catch(e){errLog(e,'besitz')}return h}}
+HOOK.on('view:app',(h,id)=>id==='stadt'?h+besitzCard():undefined,50,'besitz');
 HOOK.on('act',(id,arg)=>{if(id==='upg'){upgBuy(arg);return 1}
   if(id==='upgshow'){try{cityMode='3d';tab='stadt';render();if(typeof selectPlace==='function')selectPlace('home')}catch(e){errLog(e,'upgshow')}return 1}},50,'besitz');

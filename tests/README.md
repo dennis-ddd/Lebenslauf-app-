@@ -46,3 +46,5 @@ Jeder Test endet mit `errors 0`, wenn alles in Ordnung ist.
 Jeder Test ruft am Anfang `require('./lib/zufall').seed()` auf. Damit ist `Math.random` reproduzierbar (Seed 4242), und ein grüner Test bleibt grün.
 Die Erkundungstests (`zufallsklicks.js`, `fehlerprotokoll.js`) laufen mit wechselndem Seed und geben ihn aus. Schlägt einer fehl, wiederholt `SEED=<Zahl> node tests/<datei>.js` genau diesen Lauf.
 Neue Mechaniken: Minispiele im Test durch eine feste Punktzahl ersetzen (`mgStart` austauschen), Ereignisse über einen Mitschnitt von `QEV[id]` fangen statt auf die Warteschlange zu hoffen.
+- `node tests/ziele_spuren_architektur.js`: render() ohne Nebenwirkung, HOOK.pipe, Stadt-Pins über HOOK, BAföG-Rate bei 0 % Zins und Reparatur alter Stände, Kinder-Entwicklung (Regression kidYear), Beziehungsgrenzen, Lebensspuren im Stadtmodell, Lebensphasen-Ziele, Phasenwechsel und Bilanz am Lebensende.
+- `node tests/kollisionen.js`: doppelte Deklarationen, still überschriebene Funktionen und doppelte Ereignis-IDs zwischen Modulen, inklusive Selbsttest. Läuft auch automatisch vor `node tests/alle.js`.

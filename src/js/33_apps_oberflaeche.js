@@ -160,13 +160,13 @@ function buildShell(){
   document.getElementById('ctr').onclick=()=>{if(G&&G.L){const c=G.L.cells.find(x=>x.place==='home');G.goal=new THREE.Vector3(c.x,0,c.z);G.dist=80}};
   shell=true;
 }
-function render(){if(p&&p.sm)ensureSm();
+function render(){/* Zustand wird nicht mehr hier repariert, sondern über HOOK 'prerender' (Brücke) */
   const app=document.getElementById('app');
   if(!p){shell=false;if(G)G.run=false;renderStart();return}
   if(!p.alive){shell=false;if(G)G.run=false;
     app.innerHTML=viewDeath();
     document.getElementById('again').onclick=()=>{p=null;try{localStorage.removeItem(KEY)}catch(e){errLog(e)}render()};return}
-  if(!APP[tab])tab='home';ensureStocks();ensureNew();
+  if(!APP[tab])tab='home';
   if(!shell)buildShell();
   const map=tab==='stadt'&&cityMode!=='list'&&initThree();
   if(tab==='stadt'&&!map)cityMode='list';

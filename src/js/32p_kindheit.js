@@ -152,7 +152,9 @@ function act18(id,arg){switch(id){
 /* ---------- Jahreslauf der Kindheit ---------- */
 const MILE={1:['m_laecheln','m_zahn'],2:['m_wort','m_krabbel'],3:['m_laufen','m_brokkoli'],4:['m_bau','m_haare','m_kita'],5:['m_warum'],6:['k_schwimm']};
 const KIDEV=['k_spielplatz','k_pause','k_test','k_fenster','k_mut','k_wallet','k_theater','k_klingel','k_taschen','k_haustier'];
-function kidYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;if(p.age<16&&p.money<0)p.money=0;p.kseen=p.kseen||{};
+/* Hieß früher kidYear und hat damit still kidYear aus 23_kinder_generationen überschrieben:
+   die eigenen Kinder haben sich deshalb nicht mehr entwickelt. */
+function childYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;if(p.age<16&&p.money<0)p.money=0;p.kseen=p.kseen||{};
   if(MILE[p.age])MILE[p.age].forEach(k=>{if(!p.kseen[k]){p.kseen[k]=1;p.q.push({id:k})}});
   if(p.age<6){p.cute=Math.max(0,100-p.age*18);relUp('mama',2);relUp('papa',2)}
   else if(!p.cuteDone){p.cuteDone=1;p.cute=0;const v=Math.round(avgPar()/5);p.sk.charme=Math.min(100,(p.sk.charme||0)+v);if(p.age<=8)log('Aus deiner Niedlichkeit wird Charme: +'+v+'.')}
@@ -167,7 +169,7 @@ function kidYear(){if(p.prison||p.kyA===p.age)return;p.kyA=p.age;if(p.age<16&&p.
     if(hasPr('regel')&&p.job&&['polizei','bankkfm','buero','waerter'].includes(p.job.id))p.job.perf=Math.min(100,(p.job.perf||50)+3);
     if(hasPr('gestaerkt')){relUp(p.partner?'partner':'freund',2);if(p.job&&['arzt','pflege','lehrer','sozial'].some(x=>p.job.id.includes(x)))p.job.perf=Math.min(100,(p.job.perf||50)+3)}}
   lastYear()}
-{const _py=perkYear;perkYear=function(R0){_py(R0);try{kidYear()}catch(e){if(typeof console!=='undefined')console.log('kidYear',e)}}}
+{const _py=perkYear;perkYear=function(R0){_py(R0);try{childYear()}catch(e){errLog(e,'childYear')}}}
 {const _ca=continueAs;continueAs=function(i){const prev=p,L=prev&&prev.slast||0,G=prev&&(prev.prag||[]).includes('gestaerkt');const r=_ca(i);if(p&&p!==prev){if(L>=30&&heavyOn())p.slast=(p.slast||0)+10;if(G)p.schutzG=1}return r}}
 
 /* ---------- Anzeige im Leben-Bereich und im Tagebuch ---------- */
